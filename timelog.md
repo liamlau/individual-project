@@ -12,7 +12,8 @@
 
 ## Week 1 (21 Sep 2020 - 25 Sep 2020)
 ### 23 Sep 2020 (Wed)
-* *3 hours* Read the project guidance notes + picked project
+* *2 hours* Read the project guidance notes
+* *2 hours* Read all projects, picked 8
 
 
 ## Week 2 (28 Sep 2020 - 2 Oct 2020)
