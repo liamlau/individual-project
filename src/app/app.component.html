@@ -137,10 +137,6 @@
     position: relative;
   }
 
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
   svg#rocket {
     width: 80px;
     position: absolute;
@@ -305,14 +301,7 @@
     alt="Angular Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
   />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
+  <span>Liam's Individual Project</span>
 </div>
 
 <div class="content" role="main">
@@ -330,35 +319,37 @@
       </g>
     </svg>
 
-    <span>{{ title }} app is running!</span>
+    <span style="width: 500px; text-align: center">{{ this.returnText }}</span>
 
-    <svg id="rocket-smoke" alt="Rocket Ship Smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
 
   </div>
 
-  <p>Time in-between steps: {{ this.timeInBetween }}ms</p>
-
-  <p>{{ this.commandMap[this.currentStep] }}</p>
+  <br>
 
   <div class="terminal">
     <pre>
-      <code id="line1">for (let i=0; i&lt;2 i++) &#123;</code>
-      <code id="line2">   console.log(1)</code>
-      <code id="line3">   console.log(2)</code>
-      <code id="line4">   console.log(3)</code>
-      <code id="line5">   console.log(4)</code>
-      <code id="line6">   console.log(5)</code>
-      <code id="line7">   console.log(6)</code>
-      <code id="line8">&#125;</code>
+      <code id="line1">for (let i=1; i&lt;8 i++) &#123;</code>
+      <code id="line2">   console.log(i)</code>
+      <code id="line3">&#125;</code>
     </pre>
   </div>
 
-  <button style="margin-top: 20px" class="github-star-badge" (click)=test()>
+
+  <!-- 
+
+        for (let i=1; i<7; i++) {
+      console.log(i);
+      this.commandList.push({2: {"i": i}});
+    }
+   -->
+
+  <button style="margin-top: 20px" class="github-star-badge" (click)=executeFunction()>
     <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
     Start
   </button>
+
+  <br>
+  <p>Time in-between steps: {{ this.timeInBetween }}ms</p>
 
   <!-- <button class="github-star-badge" (click)=slow()>
     Slow
