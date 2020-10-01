@@ -13,7 +13,6 @@ export class AppComponent {
   commandList = [];
 
   commandMap = {
-    0: "",
     1: "Start a loop for 7 times and increment i on each loop",
     2: "Print i (%i%) to console.",
     3: "Done!"
@@ -30,43 +29,31 @@ export class AppComponent {
     }
     this.commandList.push(3);
     this.play();
-    console.log(this.commandList);
   }
 
   async play() {
     for (let command of this.commandList) {
+      var commandNum: number;
+
       if (command instanceof Object) {
-        let commandNum = Number(Object.keys(command)[0]);
-
+        commandNum = Number(Object.keys(command)[0]);
         this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
-
-        let a = document.getElementById("line" + commandNum);
-        a.style.color = "#37FF00";
-        this.currentStep = commandNum;
-        await this.sleep(this.timeInBetween);
-        a.style.color = "";
-
-        this.returnText = this.commandMap[commandNum];
-
       } else {
-        console.log("here");
-        let a = document.getElementById("line" + command);
-        a.style.color = "#37FF00";
-        this.currentStep = command;
-        this.returnText = this.commandMap[command];
-        await this.sleep(this.timeInBetween);
-        a.style.color = "";
+        commandNum = command;
+        this.returnText = this.commandMap[commandNum];
       }
+
+      let a = document.getElementById("line" + commandNum);
+      a.style.color = "#37FF00";
+      this.currentStep = commandNum;
+
+      await this.sleep(this.timeInBetween);
+      a.style.color = "";
+
     }
   }
 
-  async sleep(msec: number) {
-    return new Promise(resolve => setTimeout(resolve, msec));
-  }
-
   generateMessage(commandNum: number, replacements: Object): string {
-    console.log(commandNum);
-    console.log(replacements);
 
     var str = this.commandMap[commandNum];
 
@@ -75,9 +62,11 @@ export class AppComponent {
       return replacements[all] || all;
     });
 
-    console.log(str);
-
     return str;
+  }
+
+  async sleep(msec: number) {
+    return new Promise(resolve => setTimeout(resolve, msec));
   }
 
   // slow() {
