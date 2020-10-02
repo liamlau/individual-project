@@ -8,9 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   title = 'individual-project';
-  currentStep = 0;
+  currentLine = 0;
   timeInBetween: number = 500;
   commandList = [];
+  pause: Boolean = false;
+  commandListCounter: number = 0;
 
   commandMap = {
     1: "Start a loop for 7 times and increment i on each loop",
@@ -24,26 +26,41 @@ export class AppComponent {
   returnText = "Click start to run the program below!";
 
   executeFunction(): void {
-    this.commandList = [];
-    this.commandList.push(1);
-    for (let i=1; i<8; i++) {
-      console.log(i);
-      this.commandList.push({2: {"%i%": i}});
-      this.commandList.push({3: {"%i%": i}});
-      if (i == 5) {
-        console.log("this is now 5!");
-        this.commandList.push(4);
-      } else {
-        this.commandList.push({5: {"%i%": i}});
+    if (!this.pause) {
+      this.commandList = [];
+      this.commandList.push(1);
+      for (let i=1; i<8; i++) {
+        console.log(i);
+        this.commandList.push({2: {"%i%": i}});
+        this.commandList.push({3: {"%i%": i}});
+        if (i == 5) {
+          console.log("this is now 5!");
+          this.commandList.push(4);
+        } else {
+          this.commandList.push({5: {"%i%": i}});
+        }
       }
+      this.commandList.push(6);
+    } else {
+      this.pause = false;
     }
-    this.commandList.push(6);
+
     this.play();
   }
 
   async play(): Promise<void> {
-    for (let command of this.commandList) {
+    // for (let command of this.commandList) {
+    
+    while (this.commandListCounter < this.commandList.length) {
+
+      if (this.pause) {
+        console.log("Paused at step " + (this.commandListCounter+1) + "!");
+        console.log("Current Line: " + this.currentLine);
+        break;
+      }
+
       var commandNum: number;
+      var command = this.commandList[this.commandListCounter];
 
       if (command instanceof Object) {
         commandNum = Number(Object.keys(command)[0]);
@@ -55,12 +72,17 @@ export class AppComponent {
 
       let a = document.getElementById("line" + commandNum);
       a.style.color = "#37FF00";
-      this.currentStep = commandNum;
+      this.currentLine = commandNum;
 
       await this.sleep(this.timeInBetween);
-      a.style.color = "";
+
+      if (!this.pause) {
+        a.style.color = "";
+        this.commandListCounter++;
+      }
 
     }
+
   }
 
   generateMessage(commandNum: number, replacements: Object): string {
@@ -91,8 +113,8 @@ export class AppComponent {
   //   this.timeInBetween = 200;
   // }
 
-  // pause() {
-  //   this.timeInBetween = Number.MAX_SAFE_INTEGER;
-  // }
+  pauseExecution() {
+    this.pause = true;
+  }
 
 }
