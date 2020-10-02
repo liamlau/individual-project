@@ -347,16 +347,25 @@
    -->
 
   <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=executeFunction()>
-    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-    Start
+    Play
   </button>
 
-  <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=pauseExecution()>
+  <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=pauseExecution() *ngIf="this.currentLine != 0">
     Pause
+  </button>
+
+  <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=backStep() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
+    Step Back
+  </button>
+
+  <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=forwardStep() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
+    Step Forward
   </button>
 
   <br>
   <p>Time in-between steps: {{ this.timeInBetween }}ms</p>
+  <p>Step Number: {{ this.commandListCounter }}</p>
+  <p>Line Number: {{ this.currentLine }}</p>
 
   <!-- <button class="github-star-badge" (click)=slow()>
     Slow

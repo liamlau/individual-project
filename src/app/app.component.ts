@@ -9,7 +9,7 @@ export class AppComponent {
 
   title = 'individual-project';
   currentLine = 0;
-  timeInBetween: number = 500;
+  timeInBetween: number = 50;
   commandList = [];
   pause: Boolean = false;
   commandListCounter: number = 0;
@@ -77,8 +77,12 @@ export class AppComponent {
       await this.sleep(this.timeInBetween);
 
       if (!this.pause) {
-        a.style.color = "";
-        this.commandListCounter++;
+        if (!(this.commandListCounter >= this.commandList.length - 1)) {
+          a.style.color = "";
+          this.commandListCounter++;
+        } else {
+          this.pause = true;
+        }
       }
 
     }
@@ -114,7 +118,59 @@ export class AppComponent {
   // }
 
   pauseExecution() {
-    this.pause = true;
+    if (this.commandListCounter < this.commandList.length-1) {
+      this.pause = true;
+    }
+  }
+
+  backStep() {
+    let a = document.getElementById("line" + this.currentLine);
+    a.style.color = "";
+    if (this.commandListCounter > 0) {
+      this.commandListCounter--;
+    }
+
+    var commandNum: number;
+    var command = this.commandList[this.commandListCounter];
+
+    if (command instanceof Object) {
+      commandNum = Number(Object.keys(command)[0]);
+      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+    } else {
+      commandNum = command;
+      this.returnText = this.commandMap[commandNum];
+    }
+
+    a = document.getElementById("line" + commandNum);
+    a.style.color = "#37FF00";
+    this.currentLine = commandNum;
+
+  }
+
+  forwardStep() {
+
+    let a = document.getElementById("line" + this.currentLine);
+    a.style.color = "";
+
+    if (this.commandListCounter < this.commandList.length-1) {
+      this.commandListCounter++;
+    }
+
+    var commandNum: number;
+    var command = this.commandList[this.commandListCounter];
+
+    if (command instanceof Object) {
+      commandNum = Number(Object.keys(command)[0]);
+      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+    } else {
+      commandNum = command;
+      this.returnText = this.commandMap[commandNum];
+    }
+
+    a = document.getElementById("line" + commandNum);
+    a.style.color = "#37FF00";
+    this.currentLine = commandNum;
+
   }
 
 }
