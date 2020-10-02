@@ -319,7 +319,7 @@
       </g>
     </svg>
 
-    <span style="width: 500px; text-align: center">{{ this.returnText }}</span>
+    <span style="width: 600px; text-align: center">{{ this.returnText }}</span>
 
 
   </div>
@@ -328,9 +328,12 @@
 
   <div class="terminal">
     <pre>
-      <code id="line1">for (let i=1; i&lt;8 i++) &#123;</code>
+      <code id="line1">for (let i=1; i&lt;8; i++) &#123;</code>
       <code id="line2">   console.log(i)</code>
-      <code id="line3">&#125;</code>
+      <code id="line3">   if (i == 5) &#123;</code>
+      <code id="line4">      console.log("this is now 5!");</code>
+      <code id="line5">   &#125;</code>
+      <code id="line6">&#125;</code>
     </pre>
   </div>
 

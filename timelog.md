@@ -23,5 +23,9 @@
 * *2.5 hours* Prototyped initial ideas on Angular app (basic code replay system) and documented ideas
 * *0.5 hours* Wrote up progress in logbook
 
-### 1 Oct 2020 (Thu) - 4 hours
+### 1 Oct 2020 (Thu) - 6 hours
 * *4 hours* Added more functionality to prototype: parameterising logic to be more generic + cleaning up code
+* *1.5 hours* Came up with a broad plan for the project, and planned the first meeting with supervisor
+* *0.5 hours* Went through similar website (visualgo.net) and came up with plan to implement features from there
+
+### 2 Oct 2020 (Fri)
