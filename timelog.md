@@ -29,3 +29,6 @@
 * *0.5 hours* Went through similar website (visualgo.net) and came up with plan to implement features from there
 
 ### 2 Oct 2020 (Fri)
+* *1 hour* Supervisor meeting
+* *3 hours* Implementing pausing/stepping through execution
+* *1 hour* Added continuous integration to GitHub project

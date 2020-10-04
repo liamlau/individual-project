@@ -59,6 +59,8 @@ export class AppComponent {
         break;
       }
 
+      // --------------------------------------------------------------- | THIS CODE IS REPEATED
+
       var commandNum: number;
       var command = this.commandList[this.commandListCounter];
 
@@ -73,6 +75,8 @@ export class AppComponent {
       let a = document.getElementById("line" + commandNum);
       a.style.color = "#37FF00";
       this.currentLine = commandNum;
+
+      // --------------------------------------------------------------- |
 
       await this.sleep(this.timeInBetween);
 
@@ -126,9 +130,12 @@ export class AppComponent {
   backStep() {
     let a = document.getElementById("line" + this.currentLine);
     a.style.color = "";
+
     if (this.commandListCounter > 0) {
       this.commandListCounter--;
     }
+
+    // --------------------------------------------------------------- | THIS CODE IS REPEATED
 
     var commandNum: number;
     var command = this.commandList[this.commandListCounter];
@@ -144,6 +151,8 @@ export class AppComponent {
     a = document.getElementById("line" + commandNum);
     a.style.color = "#37FF00";
     this.currentLine = commandNum;
+
+    // --------------------------------------------------------------- |
 
   }
 
@@ -156,6 +165,8 @@ export class AppComponent {
       this.commandListCounter++;
     }
 
+    // --------------------------------------------------------------- | THIS CODE IS REPEATED
+
     var commandNum: number;
     var command = this.commandList[this.commandListCounter];
 
@@ -170,6 +181,8 @@ export class AppComponent {
     a = document.getElementById("line" + commandNum);
     a.style.color = "#37FF00";
     this.currentLine = commandNum;
+
+    // --------------------------------------------------------------- |
 
   }
 
