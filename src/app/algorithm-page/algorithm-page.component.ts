@@ -27,6 +27,17 @@ export class AlgorithmPageComponent implements OnInit {
 
   returnText = "Click start to run the program below!";
 
+  formatLabel(value: number) {
+
+    this.timeInBetween = value;
+
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 's';
+    }
+
+    return value;
+  }
+
   executeFunction(): void {
     console.log(this.algorithm.value);
     if (!this.pause) {

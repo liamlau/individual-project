@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSliderModule,
     FormsModule,
     ReactiveFormsModule
   ],

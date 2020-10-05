@@ -322,6 +322,18 @@
           <mat-option value="complex">Complex</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <p>Speed</p>
+
+      <mat-slider
+      thumbLabel
+      [displayWith]="formatLabel"
+      [(ngModel)]="this.timeInBetween"
+      tickInterval="1000"
+      min="50"
+      max="3000"></mat-slider>
+      
+      <p *ngIf="!(this.algorithm.value == '')">Time in-between steps: {{ this.timeInBetween }}ms</p>
   
     <div class="terminal">
         <pre *ngIf="this.algorithm.value == ''">
@@ -336,7 +348,7 @@
             <code id="line6">&#125;</code>
         </pre>
     </div>
-  
+
   
     <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=executeFunction() *ngIf="!(this.algorithm.value == '')">
       Play
@@ -353,10 +365,9 @@
     <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=forwardStep() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
       Step Forward
     </button>
-  
+
     <br>
-    
-    <p *ngIf="!(this.algorithm.value == '')">Time in-between steps: {{ this.timeInBetween }}ms</p>
+
     <p *ngIf="!(this.algorithm.value == '')">Step Number: {{ this.commandListCounter }}</p>
     <p *ngIf="!(this.algorithm.value == '')">Line Number: {{ this.currentLine }}</p>
   
