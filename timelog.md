@@ -35,3 +35,9 @@
 
 ### 4 Oct 2020 (Sun) - 3 hours
 * *3 hour* Overhauled structure of playback app to allow easier addition of new algorithms
+
+
+## Week 2 (5 Oct 2020 - 9 Oct 2020)
+### 5 Oct 2020 (Mon) - 1.5 hours
+* *1 hour* Added time slider to prototype to adjust speed of execution
+* *0.5 hours* Wrote up report since last meeting for Sofiat in advance of tomorrow's meeting
