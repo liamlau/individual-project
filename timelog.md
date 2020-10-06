@@ -16,7 +16,7 @@
 * *2 hours* Read all projects, picked 8
 
 
-## Week 2 (28 Sep 2020 - 2 Oct 2020)
+## Week 2 (28 Sep 2020 - 2 Oct 2020) - 18.5 hours
 ### 29 Sep 2020 (Tue) - 4.5 hours
 * *0.5 hours* Created GitHub repository for Angular project, did initial setup and set up meeting with supervisor
 * *1 hour* Researched similar projects (websites provided in description)
@@ -28,7 +28,16 @@
 * *1.5 hours* Came up with a broad plan for the project, and planned the first meeting with supervisor
 * *0.5 hours* Went through similar website (visualgo.net) and came up with plan to implement features from there
 
-### 2 Oct 2020 (Fri)
+### 2 Oct 2020 (Fri) - 5 hours
 * *1 hour* Supervisor meeting
 * *3 hours* Implementing pausing/stepping through execution
 * *1 hour* Added continuous integration to GitHub project
+
+### 4 Oct 2020 (Sun) - 3 hours
+* *3 hour* Overhauled structure of playback app to allow easier addition of new algorithms
+
+
+## Week 2 (5 Oct 2020 - 9 Oct 2020)
+### 5 Oct 2020 (Mon) - 1.5 hours
+* *1 hour* Added time slider to prototype to adjust speed of execution
+* *0.5 hours* Wrote up report since last meeting for Sofiat in advance of tomorrow's meeting
