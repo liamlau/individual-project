@@ -5,6 +5,7 @@ import { AlgorithmPageComponent } from './algorithm-page/algorithm-page.componen
 
 const routes: Routes = [
   { path: '', component: AlgorithmPageComponent },
+  { path: '**', component: AlgorithmPageComponent },  // Wildcard route
 ];
 
 @NgModule({
