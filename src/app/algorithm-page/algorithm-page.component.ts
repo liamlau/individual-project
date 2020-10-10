@@ -29,7 +29,9 @@ export class AlgorithmPageComponent implements OnInit {
 
   formatLabel(value: number) {
 
+    // pause
     this.timeInBetween = value;
+    // play? (maybe not cause so many changes to this.timeInBetween value)
 
     if (value >= 1000) {
       return Math.round(value / 1000) + 's';
@@ -145,3 +147,20 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+// PSEUDOCODE:
+    // 1: set each person to be free;
+    // 2: while some man m is free do
+    // 3:   w = most preferred woman on m’s list to which he has not yet proposed;
+    // 4:   if w is free then
+    // 5:       assign m to w;
+    // 6:   else
+    // 7:       if w prefers m to her current partner m' then
+    // 8:           assign m to w to be engaged and set m' to be free;
+    // 9:       else
+    // 10:          w rejects m’s proposal and remains with m' ; {m remains free}
+    // 11: the stable matching consists of all n engagements;
