@@ -53,70 +53,134 @@
 //     }
 // }
 
-let men: Object = {
-    "Jeremy": {
-        "name": "Jeremy",
-        "match": null,     
-    },
-    "Jacob": {
-        "name": "Jacob",
-        "match": null,
-    },
-    "Jerry": {
-        "name": "Jerry",
-        "match": null,
-    },
-    "Jack": {
-        "name": "Jack",
-        "match": null,
+let men: Object = {}
+    // "Jeremy": {
+    //     "name": "Jeremy",
+    //     "match": null,     
+    // },
+    // "Jacob": {
+    //     "name": "Jacob",
+    //     "match": null,
+    // },
+    // "Jerry": {
+    //     "name": "Jerry",
+    //     "match": null,
+    // },
+    // "Jack": {
+    //     "name": "Jack",
+    //     "match": null,
+    // }
+// }
+
+let women: Object = {}
+    // "Jess": {
+    //     "name": "Jess",
+    //     "match": null,      
+    // },
+    // "Lisa": {
+    //     "name": "Lisa",
+    //     "match": null,
+    // },
+    // "Sarah": {
+    //     "name": "Sarah",
+    //     "match": null,
+    // },
+    // "Linda": {
+    //     "name": "Linda",
+    //     "match": null,
+    // }
+// }
+
+// women["Jess"]["ranking"] = [men["Jack"], men["Jerry"], men["Jacob"], men["Jeremy"]];
+// women["Lisa"]["ranking"] = [men["Jerry"], men["Jacob"], men["Jeremy"], men["Jack"]];
+// women["Sarah"]["ranking"] = [men["Jack"], men["Jacob"], men["Jerry"], men["Jeremy"]];
+// women["Linda"]["ranking"] = [men["Jacob"], men["Jeremy"], men["Jerry"], men["Jack"]];
+
+// men["Jeremy"]["ranking"] = [women["Jess"], women["Sarah"], women["Lisa"], women["Linda"]];
+// men["Jacob"]["ranking"] = [women["Linda"], women["Sarah"], women["Lisa"], women["Jess"]];
+// men["Jerry"]["ranking"] = [women["Sarah"], women["Linda"], women["Lisa"], women["Jess"]];
+// men["Jack"]["ranking"] = [women["Jess"], women["Sarah"], women["Linda"], women["Lisa"]];
+
+
+let freeMen: Array<string> = [];
+let freeWomen: Array<string> = [];
+
+
+function createPeople(numPeople: number): void {
+    for (let i=1; i<numPeople+1; i++) {
+        let manName = "man" + i;
+        let womanName = "woman" + i;
+
+        men[manName] = {
+            name: manName,
+            "match": null
+        }
+
+        women[womanName] = {
+            name: womanName,
+            "match": null
+        }
+
+        freeMen.push(manName);
+        freeWomen.push(womanName);
     }
 }
 
-let women: Object = {
-    "Jess": {
-        "name": "Jess",
-        "match": null,      
-    },
-    "Lisa": {
-        "name": "Lisa",
-        "match": null,
-    },
-    "Sarah": {
-        "name": "Sarah",
-        "match": null,
-    },
-    "Linda": {
-        "name": "Linda",
-        "match": null,
+
+function createRandomRankings(): void {
+    // create rankings for men
+    let womanObjectList = freeWomen.map(woman => women[woman]);
+    for (let man in men) {
+        shuffle(womanObjectList);
+        let rankings = Object.assign([], womanObjectList);
+        men[man]["ranking"] = rankings;
+    }
+    
+    // create rankings for women
+    let manObjectList = freeMen.map(man => men[man]);
+    for (let woman in women) {
+        shuffle(manObjectList);
+        let rankings = Object.assign([], manObjectList);
+        women[woman]["ranking"] = rankings;
     }
 }
 
-women["Jess"]["ranking"] = [men["Jack"], men["Jerry"], men["Jacob"], men["Jeremy"]];
-women["Lisa"]["ranking"] = [men["Jerry"], men["Jacob"], men["Jeremy"], men["Jack"]];
-women["Sarah"]["ranking"] = [men["Jack"], men["Jacob"], men["Jerry"], men["Jeremy"]];
-women["Linda"]["ranking"] = [men["Jacob"], men["Jeremy"], men["Jerry"], men["Jack"]];
+// FROM: https://javascript.info/task/shuffle
+function shuffle(array: Array<Object>) {
+    array.sort(() => Math.random() - 0.5);
+}
 
-men["Jeremy"]["ranking"] = [women["Jess"], women["Sarah"], women["Lisa"], women["Linda"]];
-men["Jacob"]["ranking"] = [women["Linda"], women["Sarah"], women["Lisa"], women["Jess"]];
-men["Jerry"]["ranking"] = [women["Sarah"], women["Linda"], women["Lisa"], women["Jess"]];
-men["Jack"]["ranking"] = [women["Jess"], women["Sarah"], women["Linda"], women["Lisa"]];
+createPeople(5);
+createRandomRankings();
 
-// console.log(women["Jess"]["ranking"]);
+console.log("---- MEN'S RANKINGS");
+
+for (let man in men) {
+    process.stdout.write(man + "'s rankings: ");
+    for (let woman in men[man]["ranking"]) {
+        process.stdout.write(men[man]["ranking"][woman]["name"].slice(-1) + " ");
+    }
+    console.log("\n");
+}
+
+console.log("---- WOMEN'S RANKINGS");
+
+for (let woman in women) {
+    process.stdout.write(woman + "'s rankings: ");
+    for (let man in women[woman]["ranking"]) {
+        process.stdout.write(women[woman]["ranking"][man]["name"].slice(-1) + " ");
+    }
+    console.log("\n");
+}
+
+console.log("----");
+
+// for (let man in women) {
+//     console.log(women[man]["ranking"]);
+// }
 
 
-// "ranking": women["Jess"], women["Sarah"], women["Lisa"], women["Linda"]]   
-// "ranking": women["Linda"], women["Sarah"], women["Lisa"], women["Jess"]]
-// "ranking": women["Sarah"], women["Linda"], women["Lisa"], women["Jess"]]
-// "ranking": women["Jess"], women["Sarah"], women["Linda"], women["Lisa"]]
-
-// "ranking": ["Jack", "Jerry", "Jacob", "Jeremy"]  
-// "ranking": ["Jerry", "Jacob", "Jeremy", "Jack"]
-// "ranking": ["Jack", "Jacob", "Jerry", "Jeremy"]
-// "ranking": ["Jacob", "Jeremy", "Jerry", "Jack"]
-
-
-
-let freeMen: Array<string> = ["Jeremy", "Jacob", "Jerry", "Jack"]
+// let freeMen: Array<string> = ["Jeremy", "Jacob", "Jerry", "Jack"]
 // let testArray = [];
 
 // 1: set each person to be free;
@@ -144,12 +208,12 @@ let freeMen: Array<string> = ["Jeremy", "Jacob", "Jerry", "Jack"]
 // console.log(women["Jess"]["ranking"].findIndex((man: { name: string; }) => man.name == men["Jeremy"]["name"]));
 // console.log(men["Jack"])
 
+
+
 // 2: while some man m is free do
 while (freeMen.length > 0) {
     // 3: w = most preferred woman on m’s list to which he has not yet proposed;
     let man: Object = men[freeMen[0]];
-
-    // console.log(freeMen);
     console.log("-------");
 
     let woman: Object = man["ranking"][0];
@@ -175,11 +239,6 @@ while (freeMen.length > 0) {
             console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
         }
     }
-
-    // women["Jess"]["ranking"].findIndex();
-
-    // console.log(woman["ranking"].findIndex(woman["match"]));
-
 }
 
 let matches: Object = {}
@@ -194,3 +253,22 @@ for (let woman in women) {
 }
 
 console.log(matches);
+
+console.log(men);
+
+
+function isStable(matches: Object) {
+
+}
+
+/*
+
+{
+  woman1: 'man2',
+  woman2: 'man4',
+  woman3: 'man3',
+  woman4: 'man5',
+  woman5: 'man1'
+}
+
+*/
