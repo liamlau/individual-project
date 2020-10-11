@@ -257,10 +257,6 @@ console.log(matches);
 console.log(men);
 
 
-function isStable(matches: Object) {
-
-}
-
 /*
 
 {

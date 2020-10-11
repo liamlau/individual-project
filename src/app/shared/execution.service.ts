@@ -46,4 +46,10 @@ export class ExecutionService {
     return this.commandList;
   }
 
+
+  gsStableMarriage(): any[] {
+    this.commandList = [];
+    return this.commandList;
+  }
+
 }
