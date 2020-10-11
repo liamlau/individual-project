@@ -41,3 +41,6 @@
 ### 5 Oct 2020 (Mon) - 1.5 hours
 * *1 hour* Added time slider to prototype to adjust speed of execution
 * *0.5 hours* Wrote up report since last meeting for Sofiat in advance of tomorrow's meeting
+
+### 6 Oct 2020 (Tue) -
+* *1.5 hours* Publishing Angular Github project to Github Pages
