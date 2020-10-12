@@ -351,9 +351,9 @@
       // 11: the stable matching consists of all n engagements; -->
   
     <div class="terminal">
-        <!-- <pre *ngIf="this.algorithm.value == ''">
+        <pre *ngIf="this.algorithm.value == ''">
             <code id="line1">Select an algorithm in the dropdown menu to start!</code>
-        </pre> -->
+        </pre>
         <pre *ngIf="this.algorithm.value == 'simple'">
           <code id="line1">for (let i=1; i&lt;8; i++) &#123;</code>
           <code id="line2">   console.log(i)</code>
@@ -362,7 +362,7 @@
           <code id="line5">   &#125;</code>
           <code id="line6">&#125;</code>
         </pre>
-        <pre *ngIf="this.algorithm.value == '' || this.algorithm.value == 'gale-shapley'">
+        <pre *ngIf="this.algorithm.value == 'gale-shapley'">
           <code id="line1"> 1:     set each person to be free;</code>
           <code id="line2"> 2:     while some man m is free do</code>
           <code id="line3"> 3:           w = most preferred woman on m’s list to which he has not yet proposed;</code>
@@ -375,6 +375,29 @@
           <code id="line10">10:                        w rejects m’s proposal and remains with m' ; &#123;m remains free&#125;</code>
           <code id="line11">11:      the stable matching consists of all n engagements</code>
         </pre>
+    </div>
+
+    <div class="terminal" style="width: 450px">
+      <pre style="text-align: center;">
+        <table style="width:40%; margin-left: 150px">
+          <tr>
+            <td>Smith:</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>Jackson:</td>
+            <td>94</td>
+          </tr>
+          <tr>
+            <td>Harry:</td>
+            <td>27</td>
+          </tr>
+          <tr>
+            <td>Graham:</td>
+            <td>44</td>
+          </tr>
+        </table>
+      </pre>
     </div>
 
   

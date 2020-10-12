@@ -60,9 +60,10 @@ export class GaleShapleyService {
 
   galeShapley(numPeople: number): any[] {
     let commandList = [];
-    // commandList.push(1);
+    
     this.createPeople(numPeople);
     this.createRandomRankings();
+    commandList.push(1);
 
     console.log("---- MEN'S RANKINGS");
 
@@ -89,32 +90,41 @@ export class GaleShapleyService {
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
+      commandList.push(2);
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
       let man: Object = this.men[this.freeMen[0]];
       console.log("-------");
 
       let woman: Object = man["ranking"][0];
+      commandList.push(3);
 
       console.log("Man: " + man["name"]);
       console.log("Woman: " + woman["name"]);
 
       man["ranking"].shift();
       if (!woman["match"]) {
+          commandList.push(4);
           console.log(woman["name"] + " was free, so matching her with " + man["name"]);
           woman["match"] = man;
           this.freeMen.shift();
+          commandList.push(5);
       } else {
-          let manName = man["name"];
-          console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
-          console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
-          if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
-              console.log(woman["name"] + " prefers " + man["name"] + " to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
-              this.freeMen.push(woman["match"]["name"]);
-              woman["match"] = man;
-              this.freeMen.shift();
-          } else {
-              console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
-          }
+        commandList.push(6);
+        let manName = man["name"];
+        console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
+        console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
+        if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
+          commandList.push(7);
+          console.log(woman["name"] + " prefers " + man["name"] + " to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
+          this.freeMen.push(woman["match"]["name"]);
+          woman["match"] = man;
+          this.freeMen.shift();
+          commandList.push(8);
+        } else {
+          commandList.push(9);
+          console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
+          commandList.push(10);
+        }
       }
     }
 
@@ -131,7 +141,9 @@ export class GaleShapleyService {
 
     console.log(matches);
 
-    console.log(this.men);
+    commandList.push(11);
+
+    // console.log(this.men);
 
     return commandList;
   }
