@@ -404,6 +404,10 @@
     <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=executeFunction() *ngIf="!(this.algorithm.value == '')">
       Play
     </button>
+
+    <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=restart() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
+      Restart
+    </button>
   
     <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=pauseExecution() *ngIf="this.currentLine != 0">
       Pause

@@ -83,6 +83,17 @@ export class AlgorithmPageComponent implements OnInit {
 
   }
 
+  restart() {
+    this.pause = true;
+    let a = document.getElementById("line" + this.currentLine);
+    a.style.color = "";
+    this.commandListCounter = 0;
+    this.currentLine = 1;
+    this.returnText = this.commandMap["1"];
+    a = document.getElementById("line" + this.currentLine);
+    a.style.color = "#37FF00";
+  }
+
   pauseExecution() {
     if (this.commandListCounter < this.commandList.length-1) {
       this.pause = true;
