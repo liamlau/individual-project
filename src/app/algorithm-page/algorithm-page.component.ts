@@ -25,6 +25,8 @@ export class AlgorithmPageComponent implements OnInit {
 
   algorithm = new FormControl('');
 
+  numPeople = 5;
+
   returnText = "Click start to run the program below!";
 
   formatLabel(value: number) {
@@ -43,7 +45,7 @@ export class AlgorithmPageComponent implements OnInit {
   executeFunction(): void {
     console.log(this.algorithm.value);
     if (!this.pause) {
-      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value);
+      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
       this.commandList = algorithmData[0];
       this.commandMap = algorithmData[1];
     } else {
@@ -147,20 +149,3 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 }
-
-
-
-
-
-// PSEUDOCODE:
-    // 1: set each person to be free;
-    // 2: while some man m is free do
-    // 3:   w = most preferred woman on m’s list to which he has not yet proposed;
-    // 4:   if w is free then
-    // 5:       assign m to w;
-    // 6:   else
-    // 7:       if w prefers m to her current partner m' then
-    // 8:           assign m to w to be engaged and set m' to be free;
-    // 9:       else
-    // 10:          w rejects m’s proposal and remains with m' ; {m remains free}
-    // 11: the stable matching consists of all n engagements;
