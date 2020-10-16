@@ -222,20 +222,30 @@ while (freeMen.length > 0) {
     console.log("Woman: " + woman["name"]);
 
     man["ranking"].shift();
+
+    // 4: if w is free then
     if (!woman["match"]) {
+        // 5: assign m to w
         console.log(woman["name"] + " was free, so matching her with " + man["name"]);
         woman["match"] = man;
         freeMen.shift();
+    // 6: else
     } else {
+        
         let manName = man["name"];
         console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
         console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
+
+        // 7: if w prefers m to her current partner m' then
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
+            // 8: assign m to w to be engaged and set m' to be free
             console.log(woman["name"] + " prefers " + man["name"] + " to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
             freeMen.push(woman["match"]["name"]);
             woman["match"] = man;
             freeMen.shift();
+        // 9: else
         } else {
+            // 10: w rejects m's proposal and remains with m' ; {m remains free}
             console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
         }
     }
@@ -252,9 +262,10 @@ for (let woman in women) {
     matches[woman] = women[woman]["match"]["name"];
 }
 
+// 11: the stable matching consists of all n engagements
 console.log(matches);
 
-console.log(men);
+// console.log(men);
 
 
 /*
