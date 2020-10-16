@@ -318,7 +318,7 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Choose an Algorithm</mat-label>
-        <mat-select [formControl]="algorithm">
+        <mat-select [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
           <mat-option value="simple">Simple</mat-option>
           <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
         </mat-select>
@@ -377,7 +377,7 @@
         </pre>
     </div>
 
-    <div class="terminal" style="width: 450px">
+    <!-- <div class="terminal" style="width: 450px">
       <pre style="text-align: center;">
         <table style="width:40%; margin-left: 150px">
           <tr>
@@ -398,7 +398,7 @@
           </tr>
         </table>
       </pre>
-    </div>
+    </div> -->
 
   
     <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=executeFunction() *ngIf="!(this.algorithm.value == '')">

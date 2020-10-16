@@ -42,8 +42,21 @@ export class AlgorithmPageComponent implements OnInit {
     return value;
   }
 
+  changeAlgorithm() {
+    this.commandList = [];
+    this.commandMap = new Map<number, string>();
+    this.commandListCounter = 0;
+  
+    this.currentLine = 0;
+    this.timeInBetween = 50;
+    this.pause = false;
+  
+    this.numPeople = 5;
+  
+    this.returnText = "Click start to run the program below!";
+  }
+
   executeFunction(): void {
-    console.log(this.algorithm.value);
     if (!this.pause) {
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
       this.commandList = algorithmData[0];

@@ -68,25 +68,24 @@ export class GaleShapleyService {
     console.log("---- MEN'S RANKINGS");
 
     for (let man in this.men) {
-        console.log(man + "'s rankings: ");
+        let menRankings = [];
         for (let woman in this.men[man]["ranking"]) {
-            console.log(this.men[man]["ranking"][woman]["name"].slice(-1) + " ");
+            menRankings.push(this.men[man]["ranking"][woman]["name"].slice(-1));
         }
-        console.log("\n");
+        console.log(man + "'s rankings: [" + menRankings + "]");
     }
     
-    console.log("---- WOMEN'S RANKINGS");
+    console.log("\n---- WOMEN'S RANKINGS");
     
     for (let woman in this.women) {
-        console.log(woman + "'s rankings: ");
+        let womenRankings = [];
         for (let man in this.women[woman]["ranking"]) {
-            console.log(this.women[woman]["ranking"][man]["name"].slice(-1) + " ");
+          womenRankings.push(this.women[woman]["ranking"][man]["name"].slice(-1));
         }
-        console.log("\n");
+        console.log(woman + "'s rankings: [" + womenRankings + "]");
     }
-    
-    console.log("----");
 
+    console.log("\n\nAlgorithm Steps:");
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
@@ -115,7 +114,7 @@ export class GaleShapleyService {
         console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
           commandList.push(7);
-          console.log(woman["name"] + " prefers " + man["name"] + " to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
+          console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
           this.freeMen.push(woman["match"]["name"]);
           woman["match"] = man;
           this.freeMen.shift();

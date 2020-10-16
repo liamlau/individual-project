@@ -42,7 +42,6 @@ export class ExecutionService {
   }
 
   simpleFunction(): any[] {
-    console.log(this);
     this.commandList = [];
     this.commandList.push(1);
     for (let i=1; i<8; i++) {
@@ -62,9 +61,7 @@ export class ExecutionService {
 
 
   public gsStableMarriage(numPeople: number): any[] {
-    console.log(this);
-    console.log(this.commandList);
-    this.commandList = this.gsService.galeShapley(5);
+    this.commandList = this.gsService.galeShapley(numPeople);
     return this.commandList;
   }
 
