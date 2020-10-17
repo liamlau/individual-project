@@ -15,19 +15,51 @@ export class AlgorithmPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  firstRun: boolean = true;
+
   commandList: any[] = [];
   commandMap: Map<number, string>;
   commandListCounter: number = 0;
+  numCommands: number = 0;
 
   currentLine: number = 0;
-  timeInBetween: number = 50;
+  timeInBetween: number = 500;
   pause: Boolean = false;
+  prevStep: number = 0;
 
   algorithm = new FormControl('');
 
   numPeople = 5;
 
   returnText = "Click start to run the program below!";
+
+  animate = false;
+
+  toggleAnimateStop(){
+    this.animate = true;
+  }
+
+  toggleAnimatePlay(){
+    this.animate = false;
+  }
+
+  toggle() {
+    if (this.firstRun) {
+      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
+      this.commandList = algorithmData[0];
+      this.commandMap = algorithmData[1];
+      this.numCommands = this.commandList.length - 1;
+      this.firstRun = false;
+      this.play()
+    } else {
+      if (this.pause) {
+        this.pause = false;
+        this.play()
+      } else {
+        this.pauseExecution();
+      }
+    }
+  }
 
   formatLabel(value: number) {
 
@@ -42,16 +74,45 @@ export class AlgorithmPageComponent implements OnInit {
     return value;
   }
 
+  formatSteps() {
+    if (this.prevStep != this.commandListCounter) {
+      this.prevStep = this.commandListCounter;
+      this.pause = true;
+    }
+  }
+
+  updateWithSlider() {
+    var commandNum: number;
+    var command = this.commandList[this.prevStep];
+
+    if (command instanceof Object) {
+      commandNum = Number(Object.keys(command)[0]);
+      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+    } else {
+      commandNum = command;
+      this.returnText = this.commandMap[commandNum];
+    }
+
+    let a = document.getElementById("line" + commandNum);
+    a.style.color = "";
+    
+    this.colorLine();
+
+  }
+
   changeAlgorithm() {
     this.commandList = [];
     this.commandMap = new Map<number, string>();
     this.commandListCounter = 0;
   
     this.currentLine = 0;
-    this.timeInBetween = 50;
+    this.timeInBetween = 500;
     this.pause = false;
   
     this.numPeople = 5;
+
+    this.firstRun = true;
+    this.toggleAnimatePlay();
   
     this.returnText = "Click start to run the program below!";
   }
@@ -75,8 +136,11 @@ export class AlgorithmPageComponent implements OnInit {
       if (this.pause) {
         console.log("Paused at step " + (this.commandListCounter+1) + "!");
         console.log("Current Line: " + this.currentLine);
+        this.toggleAnimatePlay();
         break;
       }
+
+      this.toggleAnimateStop();
 
       this.colorLine();
 
@@ -88,6 +152,8 @@ export class AlgorithmPageComponent implements OnInit {
           a.style.color = "";
           this.commandListCounter++;
         } else {
+          // this.toggleAnimateStop();
+          console.log(this.animate);
           this.pause = true;
         }
       }
@@ -105,11 +171,37 @@ export class AlgorithmPageComponent implements OnInit {
     this.returnText = this.commandMap["1"];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
+    this.toggleAnimatePlay();
+  }
+
+  goToEnd() {
+    this.pause = true;
+    let a = document.getElementById("line" + this.currentLine);
+    a.style.color = "";
+    this.commandListCounter = this.numCommands;
+
+    var commandNum: number;
+    var command = this.commandList[this.numCommands];
+
+    if (command instanceof Object) {
+      commandNum = Number(Object.keys(command)[0]);
+      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+    } else {
+      commandNum = command;
+      this.returnText = this.commandMap[commandNum];
+    }
+
+    this.currentLine = commandNum;
+    this.returnText = this.commandMap[commandNum];
+    a = document.getElementById("line" + this.currentLine);
+    a.style.color = "#37FF00";
+    this.toggleAnimatePlay();
   }
 
   pauseExecution() {
     if (this.commandListCounter < this.commandList.length-1) {
       this.pause = true;
+      // this.toggleAnimatePlay();
     }
   }
 

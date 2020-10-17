@@ -299,7 +299,7 @@
   <div class="content" role="main">
   
     <!-- Highlight Card -->
-    <div class="card highlight-card card-small">
+    <div class="card highlight-card card-small" style="height: 50px;">
   
       <svg id="rocket" alt="Rocket Ship" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
         <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
@@ -323,18 +323,8 @@
           <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
         </mat-select>
       </mat-form-field>
-
-      <p>Speed</p>
-
-      <mat-slider
-      thumbLabel
-      [displayWith]="formatLabel"
-      [(ngModel)]="this.timeInBetween"
-      tickInterval="1000"
-      min="50"
-      max="3000"></mat-slider>
       
-      <p *ngIf="!(this.algorithm.value == '')">Time in-between steps: {{ this.timeInBetween }}ms</p>
+      <!-- <p *ngIf="!(this.algorithm.value == '')">Time in-between steps: {{ this.timeInBetween }}ms</p> -->
 
 
       <!-- // PSEUDOCODE:
@@ -349,6 +339,10 @@
       // 9:       else
       // 10:          w rejects m’s proposal and remains with m' ; {m remains free}
       // 11: the stable matching consists of all n engagements; -->
+
+    <p class="mt-2" *ngIf="!(this.algorithm.value == '')">Step Number: {{ this.commandListCounter }}</p>
+    <p class="mb-2" *ngIf="!(this.algorithm.value == '')">Line Number: {{ this.currentLine }}</p>
+
   
     <div class="terminal">
         <pre *ngIf="this.algorithm.value == ''">
@@ -400,36 +394,60 @@
       </pre>
     </div> -->
 
-    <div class="container">
-      <div class="row justify-content-center">
-        <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=executeFunction() *ngIf="!(this.algorithm.value == '')">
-          Play
-        </button>
-    
-        <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=restart() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
-          Restart
-        </button>
-      
-        <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=pauseExecution() *ngIf="this.currentLine != 0">
-          Pause
-        </button>
-      
-        <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=backStep() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
-          Step Back
-        </button>
-      
-        <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=forwardStep() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
-          Step Forward
-        </button>
+    <div>
+
+      <div class="container" *ngIf="!(this.algorithm.value == '')">
+        <div class="row justify-content-center">
+          <span style="padding-top: 4px" class="mt-2 mr-2">Fast</span>
+            <mat-slider
+            thumbLabel
+            [displayWith]="formatLabel"
+            [(ngModel)]="this.timeInBetween"
+            tickInterval="1000"
+            min="50"
+            max="3000"></mat-slider>
+            <span style="padding-top: 4px" class="mt-2 ml-2">Slow</span>
+        </div>
       </div>
+
+      <div class="container" *ngIf="!(this.algorithm.value == '')">
+        <div class="row justify-content-center">
+      
+          <!-- <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=restart() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
+            Restart
+          </button> -->
+  
+          <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart()>skip_previous</mat-icon>
+  
+          <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep()>fast_rewind</mat-icon>
+        
+          <mat-animated-icon class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="animate" (click)="this.toggle()"></mat-animated-icon>
+  
+          <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)=forwardStep()>fast_forward</mat-icon>
+  
+          <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="goToEnd()">skip_next</mat-icon>
+        
+        </div>
+      </div>
+
+      <div *ngIf="!(this.firstRun)">
+        <mat-slider style="width: 600px"
+        thumbLabel
+        [displayWith]="formatLabel"
+        [(ngModel)]="this.commandListCounter"
+        (input)="this.formatSteps()"
+        (change)="this.updateWithSlider()"
+        tickInterval="1"
+        min="0"
+        max={{this.numCommands}}></mat-slider>
+      </div>
+      
+
+
+
+
     </div>
 
-
-    <br>
-
-    <p *ngIf="!(this.algorithm.value == '')">Step Number: {{ this.commandListCounter }}</p>
-    <p *ngIf="!(this.algorithm.value == '')">Line Number: {{ this.currentLine }}</p>
-  
   
     <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
       <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
