@@ -59,11 +59,11 @@
 
 
 ## Week 4 (12 Oct 2020 - 18 Oct 2020) -  hours
-### 12 Oct 2020 (Mon) - 
-* *1 hour*:
+### 12 Oct 2020 (Mon) - 1 hour
+* *1 hours*: Added restart button to algorithm page, merged Gale-Shapley into master
 
 ### 13 Oct 2020 (Tue) - 1 hour
 * *1 hour*: Supervisor meeting
 
-### 16 Oct 2020 (Tue) - 1 hour
+### 16 Oct 2020 (Tue) - 5 hour
 * *5 hour*: Installing Bootstrap, working on look and feel of the app
