@@ -74,14 +74,15 @@ export class AlgorithmPageComponent implements OnInit {
     return value;
   }
 
-  formatSteps() {
+  formatSteps(val: number) {
+    
     if (this.prevStep != this.commandListCounter) {
       this.prevStep = this.commandListCounter;
       this.pause = true;
     }
-  }
 
-  updateWithSlider() {
+    this.commandListCounter = val;
+
     var commandNum: number;
     var command = this.commandList[this.prevStep];
 
@@ -97,7 +98,6 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.color = "";
     
     this.colorLine();
-
   }
 
   changeAlgorithm() {
