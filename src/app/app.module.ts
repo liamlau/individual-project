@@ -10,11 +10,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
+import { MatAnimatedIconComponent } from './mat-animated-icon/mat-animated-icon.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AlgorithmPageComponent
+    AlgorithmPageComponent,
+    MatAnimatedIconComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +27,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatFormFieldModule,
     MatSelectModule,
     MatSliderModule,
+    MatIconModule,
+    MatButtonModule,
     FormsModule,
     ReactiveFormsModule
   ],
