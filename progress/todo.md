@@ -1,6 +1,7 @@
 # To-Do
 
 - make the slider smoother
+- going past 9 on the slider makes it shift a bit
 - clean up the code
 
 # Done

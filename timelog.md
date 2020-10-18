@@ -68,7 +68,7 @@
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 4 -->
 
-## Week 4 (12 Oct 2020 - 18 Oct 2020) - **8 hours**
+## Week 4 (12 Oct 2020 - 18 Oct 2020) - **10.5 hours**
 ### 12 Oct 2020 (Mon) - 2 hours
 * *0.5 hours*: Added restart button to algorithm page
 * *1.5 hours*: Integrated Gale-Shapley algorithm into main page
@@ -76,8 +76,13 @@
 ### 13 Oct 2020 (Tue) - 1 hour
 * *1 hour*: Supervisor meeting
 
-### 16 Oct 2020 (Fri) - 5 hour
+### 16 Oct 2020 (Fri) - 5 hours
 * *5 hours*: Installing Bootstrap, working on look, feel and design of the app
+
+### 17 Oct 2020 (Sat) - 2.5 hours
+* *1.5 hours*: Implemented slider to control stepping through an algorithm
+* *0.5 hours*: Disabled clicking of buttons when they shouldn't be clicked
+* *0.5 hours*: Removed prebuilt Angular CSS classes and styles and made preliminary layout
 
 <hr>
 
