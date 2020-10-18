@@ -64,7 +64,7 @@ export class AlgorithmPageComponent implements OnInit {
   formatLabel(value: number) {
 
     // pause
-    this.timeInBetween = value;
+    value = 3050 - value;
     // play? (maybe not cause so many changes to this.timeInBetween value)
 
     if (value >= 1000) {
@@ -74,8 +74,12 @@ export class AlgorithmPageComponent implements OnInit {
     return value;
   }
 
+  updateSpeed(val: number): void {
+    this.timeInBetween = 3050 - val;
+  }
+
   formatSteps(val: number) {
-    
+
     if (this.prevStep != this.commandListCounter) {
       this.prevStep = this.commandListCounter;
       this.pause = true;

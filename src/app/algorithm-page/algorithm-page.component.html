@@ -323,26 +323,6 @@
           <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
         </mat-select>
       </mat-form-field>
-      
-      <!-- <p *ngIf="!(this.algorithm.value == '')">Time in-between steps: {{ this.timeInBetween }}ms</p> -->
-
-
-      <!-- // PSEUDOCODE:
-      // 1: set each person to be free;
-      // 2: while some man m is free do
-      // 3:   w = most preferred woman on m’s list to which he has not yet proposed;
-      // 4:   if w is free then
-      // 5:       assign m to w;
-      // 6:   else
-      // 7:       if w prefers m to her current partner m' then
-      // 8:           assign m to w to be engaged and set m' to be free;
-      // 9:       else
-      // 10:          w rejects m’s proposal and remains with m' ; {m remains free}
-      // 11: the stable matching consists of all n engagements; -->
-
-    <p class="mt-2" *ngIf="!(this.algorithm.value == '')">Step Number: {{ this.commandListCounter }}</p>
-    <p class="mb-2" *ngIf="!(this.algorithm.value == '')">Line Number: {{ this.currentLine }}</p>
-
   
     <div class="terminal">
         <pre *ngIf="this.algorithm.value == ''">
@@ -398,15 +378,17 @@
 
       <div class="container" *ngIf="!(this.algorithm.value == '')">
         <div class="row justify-content-center">
-          <span style="padding-top: 4px" class="mt-2 mr-2">Fast</span>
+          <span style="padding-top: 4px" class="mt-2 mr-2">Slow</span>
             <mat-slider
+            #timeSlider
             thumbLabel
             [displayWith]="formatLabel"
-            [(ngModel)]="this.timeInBetween"
             tickInterval="1000"
             min="50"
-            max="3000"></mat-slider>
-            <span style="padding-top: 4px" class="mt-2 ml-2">Slow</span>
+            max="3000"
+            value="2500"
+            (input)="this.updateSpeed(timeSlider.value)"></mat-slider>
+            <span style="padding-top: 4px" class="mt-2 ml-2">Fast</span>
         </div>
       </div>
 
@@ -442,9 +424,6 @@
         min="0"
         max={{this.numCommands}}></mat-slider>
         <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.numCommands }}</span>
-        <!-- <p style="text-align: center;">
-          {{ this.commandListCounter }} / {{ this.numCommands }}
-        </p> -->
       </div>
       
 
