@@ -29,7 +29,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   algorithm = new FormControl('');
 
-  numPeople = 5;
+  numPeople: number;
 
   returnText = "Click play to run the program below!";
 
@@ -41,6 +41,23 @@ export class AlgorithmPageComponent implements OnInit {
 
   toggleAnimatePlay(){
     this.animate = false;
+  }
+
+  changeAlgorithm() {
+    this.commandList = [];
+    this.commandMap = new Map<number, string>();
+    this.commandListCounter = 0;
+  
+    this.currentLine = 0;
+    this.timeInBetween = 500;
+    this.pause = false;
+  
+    this.numPeople = 5;
+
+    this.firstRun = true;
+    this.toggleAnimatePlay();
+  
+    this.returnText = "Click play to run the program below!";
   }
 
   toggle() {
@@ -102,23 +119,6 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.color = "";
     
     this.colorLine();
-  }
-
-  changeAlgorithm() {
-    this.commandList = [];
-    this.commandMap = new Map<number, string>();
-    this.commandListCounter = 0;
-  
-    this.currentLine = 0;
-    this.timeInBetween = 500;
-    this.pause = false;
-  
-    this.numPeople = 5;
-
-    this.firstRun = true;
-    this.toggleAnimatePlay();
-  
-    this.returnText = "Click play to run the program below!";
   }
 
   executeFunction(): void {

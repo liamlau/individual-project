@@ -16,17 +16,17 @@ export class ExecutionService {
       6: "Done!"
     },
     "gale-shapley": {
-      1: "line 1",
-      2: "line 2",
-      3: "line 3",
-      4: "line 4",
-      5: "line 5",
-      6: "line 6",
-      7: "line 7",
-      8: "line 8",
-      9: "line 9",
-      10: "line 10",
-      11: "line 11"
+      1: "Set the 'match' attribute of men and women to null",
+      2: "While freeMen still has men in it, select the first one as m (%man%)",
+      3: "%woman% is selected as %man%'s most preferred woman who he has not yet proposed to",
+      4: "Checking to see if %woman% has a match",
+      5: "%woman% was free, so matching her with %man%",
+      6: "%woman% is currently matched to %match%, so can't instantly engage %woman% and %man%",
+      7: "Checking if %woman% likes %match% more than %man%",
+      8: "%woman% likes %man% (current proposer) more than %match% (current match) so free %match% and engage %woman% and %man%",
+      9: "%woman% likes %match% more than %man%",
+      10: "No change to anyone's matches",
+      11: "A stable matching has been generated"
     }
   }
 
