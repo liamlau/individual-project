@@ -84,6 +84,10 @@
 * *0.5 hours*: Disabled clicking of buttons when they shouldn't be clicked
 * *0.5 hours*: Removed prebuilt Angular CSS classes and styles and made preliminary layout
 
+### 18 Oct 2020 (Sun) - 2 hours
+* *1.5 hours*: Added descriptions for Gale-Shapley
+* *0.5 hours*: Fixed miscellaneous bugs
+
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 5 -->
