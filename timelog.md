@@ -10,14 +10,20 @@
 * This timelog should be filled out honestly, regularly (daily) and accurately. It is for *your* benefit.
 * Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
 
-## Week 1 (21 Sep 2020 - 27 Sep 2020) - 4 hours
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 1 -->
+
+## **Week 1** (21 Sep 2020 - 27 Sep 2020) - **4 hours**
 ### 23 Sep 2020 (Wed) - 4 hours
 * *2 hours*: Read the project guidance notes
 * *2 hours*: Read all projects, picked 8
 
+<hr>
 
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 2 -->
 
-## Week 2 (28 Sep 2020 - 4 Oct 2020) - 18.5 hours
+## **Week 2** (28 Sep 2020 - 4 Oct 2020) - **18.5 hours**
 ### 29 Sep 2020 (Tue) - 4.5 hours
 * *0.5 hours*: Created GitHub repository for Angular project, did initial setup and set up meeting with supervisor
 * *1 hour*: Researched similar projects (websites provided in description)
@@ -37,9 +43,11 @@
 ### 4 Oct 2020 (Sun) - 3 hours
 * *3 hour*: Overhauled structure of playback app to allow easier addition of new algorithms
 
+<hr>
 
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 3 -->
 
-## Week 3 (5 Oct 2020 - 11 Oct 2020) - 11 hours
+## Week 3 (5 Oct 2020 - 11 Oct 2020) - **11 hours**
 ### 5 Oct 2020 (Mon) - 1.5 hours
 * *1 hour*: Added time slider to prototype to adjust speed of execution
 * *0.5 hours*: Wrote up report since last meeting for Sofiat in advance of tomorrow's meeting
@@ -56,14 +64,22 @@
 * *2.5 hours*: Refactored Gale-Shapley algorithm to allow random matches and people
 * *0.5 hours*: Started refactoring Angular code to allow implementation of Gale-Shapley algorithm
 
+<hr>
 
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 4 -->
 
-## Week 4 (12 Oct 2020 - 18 Oct 2020) -  hours
-### 12 Oct 2020 (Mon) - 1 hour
-* *1 hours*: Added restart button to algorithm page, merged Gale-Shapley into master
+## Week 4 (12 Oct 2020 - 18 Oct 2020) - **8 hours**
+### 12 Oct 2020 (Mon) - 2 hours
+* *0.5 hours*: Added restart button to algorithm page
+* *1.5 hours*: Integrated Gale-Shapley algorithm into main page
 
 ### 13 Oct 2020 (Tue) - 1 hour
 * *1 hour*: Supervisor meeting
 
-### 16 Oct 2020 (Tue) - 5 hour
-* *5 hour*: Installing Bootstrap, working on look and feel of the app
+### 16 Oct 2020 (Fri) - 5 hour
+* *5 hours*: Installing Bootstrap, working on look, feel and design of the app
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 5 -->
+
