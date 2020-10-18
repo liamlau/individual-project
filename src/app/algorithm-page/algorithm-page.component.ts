@@ -31,7 +31,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   numPeople = 5;
 
-  returnText = "Click start to run the program below!";
+  returnText = "Click play to run the program below!";
 
   animate = false;
 
@@ -118,7 +118,7 @@ export class AlgorithmPageComponent implements OnInit {
     this.firstRun = true;
     this.toggleAnimatePlay();
   
-    this.returnText = "Click start to run the program below!";
+    this.returnText = "Click play to run the program below!";
   }
 
   executeFunction(): void {
