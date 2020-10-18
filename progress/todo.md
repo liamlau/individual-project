@@ -1,7 +1,6 @@
 # To-Do
 
 - make the slider smoother
-- change the pink colour in the scss files
 - clean up the code
 
 # Done
