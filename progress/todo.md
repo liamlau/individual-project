@@ -2,6 +2,7 @@
 
 - make the slider smoother
 - going past 9 on the slider makes it shift a bit
+- spamming play makes it go faster
 - clean up the code
 
 # Done

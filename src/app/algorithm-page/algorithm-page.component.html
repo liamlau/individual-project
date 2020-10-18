@@ -101,7 +101,6 @@
             <mat-slider style="width: 600px"
             #slider
             thumbLabel
-            [displayWith]="formatLabel"
             [(ngModel)]="this.commandListCounter"
             (input)="this.formatSteps(slider.value)"
             tickInterval="1"
