@@ -136,13 +136,16 @@ export class GaleShapleyService {
 
     console.log("-----");
 
+    let matchString: string = "| ";
+
     for (let woman in this.women) {
       matches[woman] = this.women[woman]["match"]["name"];
+      matchString += woman + ": " + this.women[woman]["match"]["name"] + " | ";
     }
 
     console.log(matches);
 
-    commandList.push(11);
+    commandList.push({11: {"%matches%": matchString}});
 
     // console.log(this.men);
 

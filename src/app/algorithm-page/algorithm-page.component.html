@@ -83,7 +83,7 @@
                 Restart
               </button> -->
 
-              <mat-icon style="cursor: pointer;" class="playbackButton disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
+              <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
 
               <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_rewind</mat-icon>
             

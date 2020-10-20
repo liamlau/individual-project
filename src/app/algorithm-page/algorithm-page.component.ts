@@ -196,7 +196,6 @@ export class AlgorithmPageComponent implements OnInit {
     }
 
     this.currentLine = commandNum;
-    this.returnText = this.commandMap[commandNum];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
     this.toggleAnimatePlay();

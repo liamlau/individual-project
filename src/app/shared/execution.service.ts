@@ -26,7 +26,7 @@ export class ExecutionService {
       8: "%woman% likes %man% (current proposer) more than %match% (current match) so free %match% and engage %woman% and %man%",
       9: "%woman% likes %match% more than %man%",
       10: "No change to anyone's matches",
-      11: "A stable matching has been generated"
+      11: "A stable matching has been generated: %matches%"
     }
   }
 

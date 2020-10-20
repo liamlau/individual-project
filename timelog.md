@@ -68,7 +68,7 @@
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 4 -->
 
-## Week 4 (12 Oct 2020 - 18 Oct 2020) - **10.5 hours**
+## Week 4 (12 Oct 2020 - 18 Oct 2020) - **12.5 hours**
 ### 12 Oct 2020 (Mon) - 2 hours
 * *0.5 hours*: Added restart button to algorithm page
 * *1.5 hours*: Integrated Gale-Shapley algorithm into main page
