@@ -30,39 +30,77 @@ export class ExecutionService {
     }
   }
 
-  commandList = [];
+  algorithm: string;
+  commandList = {};
 
   constructor(public gsService: GaleShapleyService) { }
 
   getExecutionFlow(algorithm: string, numPeople: number): any[] {
+    this.algorithm = algorithm;
     if (algorithm == "gale-shapley") {
       return [this.gsStableMarriage(numPeople), this.commandMap[algorithm]];
     }
     return [this.simpleFunction(), this.commandMap[algorithm]];
   }
 
-  simpleFunction(): any[] {
-    this.commandList = [];
-    this.commandList.push(1);
+  simpleFunction(): Object {
+    let commandList = [];
+    commandList.push(1);
     for (let i=1; i<8; i++) {
       console.log(i);
-      this.commandList.push({2: {"%i%": i}});
-      this.commandList.push({3: {"%i%": i}});
+      commandList.push({2: {"%i%": i}});
+      commandList.push({3: {"%i%": i}});
       if (i == 5) {
         console.log("this is now 5!");
-        this.commandList.push(4);
+        commandList.push(4);
       } else {
-        this.commandList.push({5: {"%i%": i}});
+        commandList.push({5: {"%i%": i}});
       }
     }
-    this.commandList.push(6);
+    commandList.push(6);
+    this.commandList["commands"] = commandList;
     return this.commandList;
   }
 
 
-  public gsStableMarriage(numPeople: number): any[] {
+  public gsStableMarriage(numPeople: number): Object {
     this.commandList = this.gsService.galeShapley(numPeople);
+    this.commandList["descriptions"] = this.generateDescriptions();
     return this.commandList;
+  }
+
+
+  generateDescriptions(): Object {
+    let descriptions = [];
+
+    for (let step of this.commandList["commands"]) {
+
+      let lineNumber = Number(Object.keys(step)[0]);
+      let stepVariables = step[lineNumber]["stepVariables"];
+
+      if (stepVariables) {
+        descriptions.push(this.generateMessage(lineNumber, stepVariables));
+      } else {
+        descriptions.push(this.commandMap[this.algorithm][lineNumber]);
+      }
+    }
+
+    console.log(descriptions[15]);
+
+    return descriptions;
+  }
+
+
+  generateMessage(commandNum: number, replacements: Object): string {
+
+    var str = this.commandMap[this.algorithm][commandNum];
+
+    // FROM: https://stackoverflow.com/questions/7975005/format-a-javascript-string-using-placeholders-and-an-object-of-substitutions
+    str = str.replace(/%\w+%/g, function(all: string | number) {
+      return replacements[all] || all;
+    });
+
+    return str;
   }
 
 }

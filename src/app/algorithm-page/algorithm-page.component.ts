@@ -63,7 +63,8 @@ export class AlgorithmPageComponent implements OnInit {
   toggle() {
     if (this.firstRun) {
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
-      this.commandList = algorithmData[0];
+      this.commandList = algorithmData[0]["commands"];
+      // this.commandList = algorithmData[0]
       this.commandMap = algorithmData[1];
       this.numCommands = this.commandList.length - 1;
       this.firstRun = false;
@@ -109,7 +110,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     if (command instanceof Object) {
       commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
     } else {
       commandNum = command;
       this.returnText = this.commandMap[commandNum];
@@ -121,17 +122,6 @@ export class AlgorithmPageComponent implements OnInit {
     this.colorLine();
   }
 
-  executeFunction(): void {
-    if (!this.pause) {
-      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
-      this.commandList = algorithmData[0];
-      this.commandMap = algorithmData[1];
-    } else {
-      this.pause = false;
-    }
-
-    this.play();
-  }
 
   async play(): Promise<void> {
     
@@ -189,7 +179,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     if (command instanceof Object) {
       commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
     } else {
       commandNum = command;
       this.returnText = this.commandMap[commandNum];
@@ -239,7 +229,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     if (command instanceof Object) {
       commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[Object.keys(command)[0]]);
+      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
     } else {
       commandNum = command;
       this.returnText = this.commandMap[commandNum];
