@@ -18,7 +18,6 @@ export class AlgorithmPageComponent implements OnInit {
   firstRun: boolean = true;
 
   commandList: any[] = [];
-  commandMap: Map<number, string>;
   commandListCounter: number = 0;
   numCommands: number = 0;
 
@@ -30,6 +29,8 @@ export class AlgorithmPageComponent implements OnInit {
   algorithm = new FormControl('');
 
   numPeople: number;
+
+  descriptions = [];
 
   returnText = "Click play to run the program below!";
 
@@ -45,7 +46,6 @@ export class AlgorithmPageComponent implements OnInit {
 
   changeAlgorithm() {
     this.commandList = [];
-    this.commandMap = new Map<number, string>();
     this.commandListCounter = 0;
   
     this.currentLine = 0;
@@ -63,9 +63,9 @@ export class AlgorithmPageComponent implements OnInit {
   toggle() {
     if (this.firstRun) {
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
-      this.commandList = algorithmData[0]["commands"];
+      this.commandList = algorithmData["commands"];
       // this.commandList = algorithmData[0]
-      this.commandMap = algorithmData[1];
+      this.descriptions = algorithmData["descriptions"];
       this.numCommands = this.commandList.length - 1;
       this.firstRun = false;
       this.play()
@@ -105,18 +105,11 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.commandListCounter = val;
 
-    var commandNum: number;
     var command = this.commandList[this.prevStep];
 
-    if (command instanceof Object) {
-      commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
-    } else {
-      commandNum = command;
-      this.returnText = this.commandMap[commandNum];
-    }
+    this.returnText = this.descriptions[this.commandListCounter];
 
-    let a = document.getElementById("line" + commandNum);
+    let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "";
     
     this.colorLine();
@@ -162,7 +155,7 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.color = "";
     this.commandListCounter = 0;
     this.currentLine = 1;
-    this.returnText = this.commandMap["1"];
+    this.returnText = this.descriptions[0];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
     this.toggleAnimatePlay();
@@ -174,18 +167,11 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.color = "";
     this.commandListCounter = this.numCommands;
 
-    var commandNum: number;
     var command = this.commandList[this.numCommands];
 
-    if (command instanceof Object) {
-      commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
-    } else {
-      commandNum = command;
-      this.returnText = this.commandMap[commandNum];
-    }
+    this.returnText = this.descriptions[this.commandListCounter];
 
-    this.currentLine = commandNum;
+    this.currentLine = command["lineNumber"];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
     this.toggleAnimatePlay();
@@ -224,34 +210,15 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   colorLine(): void {
-    var commandNum: number;
     var command = this.commandList[this.commandListCounter];
 
-    if (command instanceof Object) {
-      commandNum = Number(Object.keys(command)[0]);
-      this.returnText = this.generateMessage(commandNum, command[commandNum]["stepVariables"]);
-    } else {
-      commandNum = command;
-      this.returnText = this.commandMap[commandNum];
-    }
+    this.returnText = this.descriptions[this.commandListCounter];
 
-    let a = document.getElementById("line" + commandNum);
+    let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "#37FF00";
-    this.currentLine = commandNum;
+    this.currentLine = command["lineNumber"];
   }
 
-
-  generateMessage(commandNum: number, replacements: Object): string {
-
-    var str = this.commandMap[commandNum];
-
-    // FROM: https://stackoverflow.com/questions/7975005/format-a-javascript-string-using-placeholders-and-an-object-of-substitutions
-    str = str.replace(/%\w+%/g, function(all: string | number) {
-      return replacements[all] || all;
-    });
-
-    return str;
-  }
 
   async sleep(msec: number) {
     return new Promise(resolve => setTimeout(resolve, msec));

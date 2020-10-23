@@ -20,6 +20,20 @@ export class GaleShapleyService {
     commands: []
   };
 
+  commandMap = {
+    1: "Set the 'match' attribute of men and women to null",
+    2: "While freeMen still has men in it, select the first one as m (%man%)",
+    3: "%woman% is selected as %man%'s most preferred woman who he has not yet proposed to",
+    4: "Checking to see if %woman% has a match",
+    5: "%woman% was free, so matching her with %man%",
+    6: "%woman% is currently matched to %match%, so can't instantly engage %woman% and %man%",
+    7: "Checking if %woman% likes %match% more than %man%",
+    8: "%woman% likes %man% (current proposer) more than %match% (current match) so free %match% and engage %woman% and %man%",
+    9: "%woman% likes %match% more than %man%",
+    10: "No change to anyone's matches",
+    11: "A stable matching has been generated: %matches%"
+  };
+
   constructor() { }
 
   createPeople(numPeople: number): void {
@@ -97,18 +111,22 @@ export class GaleShapleyService {
 
   update(step: number, stepVariables?: Object): void {
     let galeShapley: GaleShapley = {
+      lineNumber: step,
       freeMen: Object.assign([], this.freeMen),
       matches: Object.assign([], this.matches),
       stepVariables: stepVariables
     }
-    console.log(galeShapley);
-    this.commandList.commands.push({[step]: galeShapley});
+    this.commandList.commands.push(galeShapley);
   }
 
 
-  galeShapley(numPeople: number): Object {
+  run(numPeople: number): Object {
 
-    let commandList = [];
+    this.commandList = {
+      men: null,
+      women: null,
+      commands: []
+    };
     
     this.createPeople(numPeople);
     this.createRandomRankings();
@@ -116,8 +134,6 @@ export class GaleShapleyService {
     this.commandList["men"] = this.getMenRankings();
     this.commandList["women"] = this.getWomenRankings();
     this.commandList["commands"] = [];
-
-    commandList.push(1);
 
     this.update(1);
 
@@ -148,12 +164,10 @@ export class GaleShapleyService {
       
       let man: Object = this.men[this.freeMen[0]];
       this.update(2, {"%freeMen%": this.freeMen.toString(), "%man%": man["name"]});
-      commandList.push({2: {"%freeMen%": this.freeMen.toString(), "%man%": man["name"]}});
       console.log("-------");
 
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
       let woman: Object = man["ranking"][man["lastProposed"]];
-      commandList.push({3: {"%woman%": woman["name"], "%man%": man["name"]}});
       this.update(3, {"%woman%": woman["name"], "%man%": man["name"]});
 
       console.log("Man: " + man["name"]);
@@ -161,38 +175,31 @@ export class GaleShapleyService {
 
       man["lastProposed"] += 1;
       // man["ranking"].shift();
-      commandList.push({4: {"%woman%": woman["name"]}});
       this.update(4, {"%woman%": woman["name"]});
 
       if (!woman["match"]) {
           console.log(woman["name"] + " was free, so matching her with " + man["name"]);
           woman["match"] = man;
           this.freeMen.shift();
-          commandList.push({5: {"%woman%": woman["name"], "%man%": man["name"]}});
           this.update(5, {"%woman%": woman["name"], "%man%": man["name"]});
       } else {
-        commandList.push({6: {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]}});
         this.update(6, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
         let manName = man["name"];
         console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
         console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
-        commandList.push({7: {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]}});
         this.update(7, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
           console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
-          commandList.push({8: {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]}});
           this.update(8, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
           this.freeMen.push(woman["match"]["name"]);
           woman["match"] = man;
           this.freeMen.shift();
         } else {
-          commandList.push({9: {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]}});
           this.update(9, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
           console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
-          commandList.push(10);
           this.update(10);
 
         }
@@ -215,16 +222,12 @@ export class GaleShapleyService {
 
     console.log(matches);
 
-    commandList.push({11: {"%matches%": matchString}});
     this.update(11, {"%matches%": matchString});
 
     // console.log(this.men);
 
     console.log("------- COMMAND LIST")
     console.log(this.commandList);
-
-    console.log("------- OTHER COMMAND LIST")
-    console.log(commandList);
 
     return this.commandList;
   }
