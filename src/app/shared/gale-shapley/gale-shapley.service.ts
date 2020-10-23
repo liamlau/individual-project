@@ -31,10 +31,20 @@ export class GaleShapleyService {
     8: "%woman% likes %man% (current proposer) more than %match% (current match) so free %match% and engage %woman% and %man%",
     9: "%woman% likes %match% more than %man%",
     10: "No change to anyone's matches",
-    11: "A stable matching has been generated: %matches%"
+    11: "A stable matching has been generated."
   };
 
   constructor() { }
+
+  initialise(): void {
+    this.freeMen = [];
+    this.freeWomen = [];
+    this.commandList = {
+      men: null,
+      women: null,
+      commands: []
+    };
+  }
 
   createPeople(numPeople: number): void {
     for (let i=1; i<numPeople+1; i++) {
@@ -82,9 +92,9 @@ export class GaleShapleyService {
       let rankingsList = [];
       // matches[woman] = this.women[woman]["ranking"];
       for (let woman of this.men[man]["ranking"]) {
-        rankingsList.push(woman["name"]);
+        rankingsList.push(woman["name"].slice(5));
       }
-      matches[man] = rankingsList;
+      matches[man.slice(3)] = rankingsList;
     }
     return matches;
   }
@@ -96,10 +106,31 @@ export class GaleShapleyService {
       let rankingsList = [];
       // matches[woman] = this.women[woman]["ranking"];
       for (let man of this.women[woman]["ranking"]) {
-        rankingsList.push(man["name"]);
+        rankingsList.push(man["name"].slice(3));
       }
-      matches[woman] = rankingsList;
+      matches[woman.slice(5)] = rankingsList;
     }
+    return matches;
+  }
+
+
+  generateMatches(): Object {
+    let matches: Object = {}
+
+    // console.log(men);
+    // console.log(women);
+
+    // matches["matchString"] = "| ";
+
+    for (let woman in this.women) {
+      if (this.women[woman]["match"]) {
+        matches[woman] = this.women[woman]["match"]["name"];
+      } else {
+        matches[woman] = "";
+      }
+      // matches["matchString"] += woman + ": " + this.women[woman]["match"]["name"] + " | ";
+    }
+
     return matches;
   }
 
@@ -113,7 +144,7 @@ export class GaleShapleyService {
     let galeShapley: GaleShapley = {
       lineNumber: step,
       freeMen: Object.assign([], this.freeMen),
-      matches: Object.assign([], this.matches),
+      matches: this.generateMatches(),
       stepVariables: stepVariables
     }
     this.commandList.commands.push(galeShapley);
@@ -122,11 +153,7 @@ export class GaleShapleyService {
 
   run(numPeople: number): Object {
 
-    this.commandList = {
-      men: null,
-      women: null,
-      commands: []
-    };
+    this.initialise();
     
     this.createPeople(numPeople);
     this.createRandomRankings();
@@ -137,33 +164,13 @@ export class GaleShapleyService {
 
     this.update(1);
 
-    console.log("---- MEN'S RANKINGS");
-
-    for (let man in this.men) {
-        let menRankings = [];
-        for (let woman in this.men[man]["ranking"]) {
-            menRankings.push(this.men[man]["ranking"][woman]["name"].slice(5));
-        }
-        console.log(man + "'s rankings: [" + menRankings + "]");
-    }
-    
-    console.log("\n---- WOMEN'S RANKINGS");
-    
-    for (let woman in this.women) {
-        let womenRankings = [];
-        for (let man in this.women[woman]["ranking"]) {
-          womenRankings.push(this.women[woman]["ranking"][man]["name"].slice(3));
-        }
-        console.log(woman + "'s rankings: [" + womenRankings + "]");
-    }
-
     console.log("\n\nAlgorithm Steps:");
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
       
       let man: Object = this.men[this.freeMen[0]];
-      this.update(2, {"%freeMen%": this.freeMen.toString(), "%man%": man["name"]});
+      this.update(2, {"%man%": man["name"]});
       console.log("-------");
 
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
@@ -206,23 +213,9 @@ export class GaleShapleyService {
       }
     }
 
-    let matches: Object = {}
+    let matches = this.generateMatches();
 
-    // console.log(men);
-    // console.log(women);
-
-    console.log("-----");
-
-    let matchString: string = "| ";
-
-    for (let woman in this.women) {
-      matches[woman] = this.women[woman]["match"]["name"];
-      matchString += woman + ": " + this.women[woman]["match"]["name"] + " | ";
-    }
-
-    console.log(matches);
-
-    this.update(11, {"%matches%": matchString});
+    this.update(11);
 
     // console.log(this.men);
 
@@ -235,3 +228,22 @@ export class GaleShapleyService {
 }
 
 
+// console.log("---- MEN'S RANKINGS");
+
+// for (let man in this.men) {
+//     let menRankings = [];
+//     for (let woman in this.men[man]["ranking"]) {
+//         menRankings.push(this.men[man]["ranking"][woman]["name"].slice(5));
+//     }
+//     console.log(man + "'s rankings: [" + menRankings + "]");
+// }
+
+// console.log("\n---- WOMEN'S RANKINGS");
+
+// for (let woman in this.women) {
+//     let womenRankings = [];
+//     for (let man in this.women[woman]["ranking"]) {
+//       womenRankings.push(this.women[woman]["ranking"][man]["name"].slice(3));
+//     }
+//     console.log(woman + "'s rankings: [" + womenRankings + "]");
+// }

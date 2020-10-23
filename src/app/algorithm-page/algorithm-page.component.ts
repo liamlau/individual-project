@@ -15,6 +15,8 @@ export class AlgorithmPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  algorithmData;
+
   firstRun: boolean = true;
 
   commandList: any[] = [];
@@ -36,6 +38,16 @@ export class AlgorithmPageComponent implements OnInit {
 
   animate = false;
 
+  men;
+  women;
+  freeMen;
+
+  matches = {};
+
+  mySortingFunction(a, b) {
+    return a;
+  }
+
   toggleAnimateStop(){
     this.animate = true;
   }
@@ -49,7 +61,6 @@ export class AlgorithmPageComponent implements OnInit {
     this.commandListCounter = 0;
   
     this.currentLine = 0;
-    this.timeInBetween = 500;
     this.pause = false;
   
     this.numPeople = 5;
@@ -58,12 +69,19 @@ export class AlgorithmPageComponent implements OnInit {
     this.toggleAnimatePlay();
   
     this.returnText = "Click play to run the program below!";
+    this.matches = {};
+    this.freeMen = [];
   }
 
   toggle() {
     if (this.firstRun) {
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
+      this.algorithmData = algorithmData;
+      this.freeMen = algorithmData["commands"]["freeMen"];
+      this.men = algorithmData["men"];
+      this.women = algorithmData["women"];
       this.commandList = algorithmData["commands"];
+      this.matches = this.commandList["matches"];
       // this.commandList = algorithmData[0]
       this.descriptions = algorithmData["descriptions"];
       this.numCommands = this.commandList.length - 1;
@@ -108,6 +126,8 @@ export class AlgorithmPageComponent implements OnInit {
     var command = this.commandList[this.prevStep];
 
     this.returnText = this.descriptions[this.commandListCounter];
+    this.matches = this.commandList[this.commandListCounter]["matches"];
+    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
 
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "";
@@ -156,6 +176,8 @@ export class AlgorithmPageComponent implements OnInit {
     this.commandListCounter = 0;
     this.currentLine = 1;
     this.returnText = this.descriptions[0];
+    this.matches = this.commandList[this.commandListCounter]["matches"];
+    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
     this.toggleAnimatePlay();
@@ -170,6 +192,8 @@ export class AlgorithmPageComponent implements OnInit {
     var command = this.commandList[this.numCommands];
 
     this.returnText = this.descriptions[this.commandListCounter];
+    this.matches = this.commandList[this.commandListCounter]["matches"];
+    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
 
     this.currentLine = command["lineNumber"];
     a = document.getElementById("line" + this.currentLine);
@@ -213,6 +237,9 @@ export class AlgorithmPageComponent implements OnInit {
     var command = this.commandList[this.commandListCounter];
 
     this.returnText = this.descriptions[this.commandListCounter];
+
+    this.matches = command["matches"];
+    this.freeMen = command["freeMen"];
 
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "#37FF00";

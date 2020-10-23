@@ -8,23 +8,21 @@ import { SimpleService } from './simple/simple.service';
 export class ExecutionService {
 
   commandMap = {}
-
   commandList = {};
-
   serviceMap = {
     "simple": this.simpleService,
     "gale-shapley": this.gsService
   }
 
+  // add the services for any new algorithms here
   constructor(
     public simpleService: SimpleService,
     public gsService: GaleShapleyService
   ) { }
 
+
   getExecutionFlow(algorithm: string, numPeople: number): Object {
-
     let algorithmService = this.serviceMap[algorithm];
-
     this.commandMap = algorithmService.commandMap;
 
     let commandList = algorithmService.run(numPeople);
@@ -33,6 +31,9 @@ export class ExecutionService {
     return commandList;
   }
 
+
+
+  // --------------------------------------------------------- FUNCTIONS TO GENERATE LINE DESCRIPTIONS
 
   generateDescriptions(commandList: Object): Object {
     let descriptions = [];
@@ -64,5 +65,6 @@ export class ExecutionService {
 
     return str;
   }
+  
 
 }

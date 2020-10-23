@@ -58,6 +58,48 @@
             </mat-select>
           </mat-form-field>
 
+          <!-- <p *ngIf="this.men">
+            what
+            {{ this.men | json }}
+          </p> -->
+          
+          <div class="row mb-4" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+            <div class="col-12" >
+              Free Men: [
+              <span *ngFor="let item of this.freeMen; let lastItem = last;">
+                {{ item }}<span *ngIf="!lastItem">,</span>
+              </span>
+              ]
+            </div>
+          </div>
+          
+          <div class="row" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+            <div class="col-4" >
+              <p>Men</p>
+              <li *ngFor="let item of this.men | keyvalue:mySortingFunction">
+                <b>{{item.key}}</b>: {{item.value}}
+              </li>
+            </div>
+
+            <div class="col-4" >
+              <p>Matches</p>
+              <li *ngFor="let item of this.matches | keyvalue:mySortingFunction">
+                {{item.key}}: {{item.value}}
+              </li>
+            </div>
+
+            <div class="col-4" >
+              <p>Women</p>
+              <li *ngFor="let item2 of this.women | keyvalue:mySortingFunction">
+                <b>{{item2.key}}</b>: {{item2.value}}
+              </li>
+            </div>
+            <!-- <div class="col-6" *ngFor="let item2 of this.men | keyvalue:mySortingFunction">
+              <b>{{item2.key}}</b>: {{item2.value}}
+            </div> -->
+          </div>
+
+
         <div>
 
           <div class="container" *ngIf="!(this.algorithm.value == '')">
