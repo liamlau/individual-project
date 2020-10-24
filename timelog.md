@@ -92,3 +92,9 @@
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 5 -->
 
+## Week 5 (19 Oct 2020 - 25 Oct 2020) - ** hours**
+### 20 Oct 2020 (Tue) - 0.5 hours
+* *0.5 hours*: Supervisor meeting
+
+### 23 Oct 2020 (Fri) - 5 hours
+* *5 hours*: Refactored all code to be more generic and implemented display for important variables in real time
