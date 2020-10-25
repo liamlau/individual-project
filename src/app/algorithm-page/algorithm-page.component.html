@@ -67,7 +67,7 @@
             <div class="col-12" >
               Free Men: [
               <span *ngFor="let item of this.freeMen; let lastItem = last;">
-                {{ item }}<span *ngIf="!lastItem">,</span>
+                <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
               </span>
               ]
             </div>
@@ -77,21 +77,27 @@
             <div class="col-4" >
               <p>Men</p>
               <li *ngFor="let item of this.men | keyvalue:mySortingFunction">
-                <b>{{item.key}}</b>: {{item.value}}
+                <span class="man{{ item.key }}">{{item.key}}</span>:
+                <span *ngFor="let woman of item.value; let lastItem = last;">
+                  <span class="man{{ item.key }}woman{{ woman }}">{{ woman }}</span><span *ngIf="!lastItem">,</span>
+                </span>
               </li>
             </div>
 
             <div class="col-4" >
               <p>Matches</p>
               <li *ngFor="let item of this.matches | keyvalue:mySortingFunction">
-                {{item.key}}: {{item.value}}
+                <span class="{{ item.key }}">{{item.key}}</span>: {{item.value}}
               </li>
             </div>
 
             <div class="col-4" >
               <p>Women</p>
-              <li *ngFor="let item2 of this.women | keyvalue:mySortingFunction">
-                <b>{{item2.key}}</b>: {{item2.value}}
+              <li *ngFor="let item of this.women | keyvalue:mySortingFunction">
+                <span class="woman{{ item.key }}">{{item.key}}</span>: 
+                <span *ngFor="let man of item.value; let lastItem = last;">
+                  <span class="woman{{ item.key }}man{{ man }}">{{ man }}</span><span *ngIf="!lastItem">,</span>
+                </span>
               </li>
             </div>
             <!-- <div class="col-6" *ngFor="let item2 of this.men | keyvalue:mySortingFunction">
