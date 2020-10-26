@@ -149,6 +149,11 @@ export class AlgorithmPageComponent implements OnInit {
 
       this.toggleAnimateStop();
 
+      if (this.algorithm.value == "gale-shapley") {
+        this.unboldenVariables();
+        this.emboldenVariables();
+      }
+
       this.colorLine();
 
       await this.sleep(this.timeInBetween);
@@ -173,6 +178,7 @@ export class AlgorithmPageComponent implements OnInit {
     this.pause = true;
     let a = document.getElementById("line" + this.currentLine);
     a.style.color = "";
+    this.unboldenVariables();
     this.commandListCounter = 0;
     this.currentLine = 1;
     this.returnText = this.descriptions[0];
@@ -185,6 +191,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   goToEnd() {
     this.pause = true;
+    this.unboldenVariables();
     let a = document.getElementById("line" + this.currentLine);
     a.style.color = "";
     this.commandListCounter = this.numCommands;
@@ -198,6 +205,7 @@ export class AlgorithmPageComponent implements OnInit {
     this.currentLine = command["lineNumber"];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
+    this.emboldenVariables();
     this.toggleAnimatePlay();
   }
 
@@ -232,6 +240,37 @@ export class AlgorithmPageComponent implements OnInit {
     this.colorLine();
 
   }
+
+
+  unboldenVariables(): void {
+
+    var command = this.commandList[this.commandListCounter];
+    let changeTrace = command["changeTrace"]["reset"];
+
+    console.log(changeTrace);
+
+    for (let className of changeTrace) {
+      let a = document.getElementsByClassName(className);
+      for (let i = 0; i < a.length; i++) {
+        a[i].setAttribute("style", "font-weight: normal;");
+      }
+    }
+  }
+
+
+  emboldenVariables(): void {
+
+    var command = this.commandList[this.commandListCounter];
+    let changeTrace = command["changeTrace"]["embolden"];
+
+    for (let className of changeTrace) {
+      let a = document.getElementsByClassName(className);
+      for (let i = 0; i < a.length; i++) {
+        a[i].setAttribute("style", "font-weight: bold;");
+      }
+    }
+  }
+
 
   colorLine(): void {
     var command = this.commandList[this.commandListCounter];

@@ -135,6 +135,51 @@ export class GaleShapleyService {
   }
 
 
+  // TODO: make it so that at every step, we know what is emboldened
+    // this way, we can reset by using the playback tools
+
+  generateChanges(): void {
+
+    let currentSelected = new Set();
+    
+    for (let step of this.commandList["commands"]) {
+
+      let changeTrace = {};
+
+      changeTrace["embolden"] = [];
+      changeTrace["reset"] = [];
+
+      if (step["lineNumber"] == 2) {
+        changeTrace["reset"] = Array.from(currentSelected);
+        currentSelected = new Set();
+      }
+
+      if (step["stepVariables"]) {
+        for (let key in step["stepVariables"]) {
+          changeTrace["embolden"].push(step["stepVariables"][key]);
+          currentSelected.add(step["stepVariables"][key]);
+        }
+        if (step["lineNumber"] == 3) {
+          currentSelected.add(changeTrace["embolden"][1] + changeTrace["embolden"][0]);
+          currentSelected.delete(changeTrace["embolden"][0]);
+          currentSelected.delete(changeTrace["embolden"][1]);
+          changeTrace["embolden"] = [changeTrace["embolden"][1] + changeTrace["embolden"][0]];
+        } else if (step["lineNumber"] == 7) {
+          currentSelected.add(changeTrace["embolden"][0] + changeTrace["embolden"][1]);
+          currentSelected.add(changeTrace["embolden"][0] + changeTrace["embolden"][2]);
+          currentSelected.delete(changeTrace["embolden"][1]);
+          currentSelected.delete(changeTrace["embolden"][2]);
+          changeTrace["embolden"] = [changeTrace["embolden"][0] + changeTrace["embolden"][1], changeTrace["embolden"][0] + changeTrace["embolden"][2]];
+        }
+      }
+
+      step["changeTrace"] = changeTrace;
+      // this.commandList["commands"]["changeTrace"] = changeTrace;
+
+    }
+  }
+
+
   // FROM: https://javascript.info/task/shuffle
   shuffle(array: Array<Object>) {
     array.sort(() => Math.random() - 0.5);
@@ -145,7 +190,8 @@ export class GaleShapleyService {
       lineNumber: step,
       freeMen: Object.assign([], this.freeMen),
       matches: this.generateMatches(),
-      stepVariables: stepVariables
+      stepVariables: stepVariables,
+      changeTrace: {}
     }
     this.commandList.commands.push(galeShapley);
   }
@@ -198,11 +244,12 @@ export class GaleShapleyService {
 
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
           console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
-          this.update(8, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
+          let match: string = woman["match"]["name"];
 
           this.freeMen.push(woman["match"]["name"]);
           woman["match"] = man;
           this.freeMen.shift();
+          this.update(8, {"%woman%": woman["name"], "%man%": man["name"], "%match%": match})
         } else {
           this.update(9, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
@@ -213,11 +260,13 @@ export class GaleShapleyService {
       }
     }
 
-    let matches = this.generateMatches();
+    // let matches = this.generateMatches();
 
     this.update(11);
 
     // console.log(this.men);
+
+    this.generateChanges();
 
     console.log("------- COMMAND LIST")
     console.log(this.commandList);
