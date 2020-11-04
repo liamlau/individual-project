@@ -16,7 +16,7 @@ describe('GaleShapleyService', () => {
 
   it('generates stable matching', () => {
     let allStable = false;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 100; i++) {
       let commandList = service.run(50);
       allStable = !(checkStability(commandList["men"], commandList["women"], commandList["commands"][commandList["commands"].length-1]["matches"]));
     }
@@ -26,8 +26,6 @@ describe('GaleShapleyService', () => {
 
 
 function checkStability(menRankings: Object, womenRankings: Object, matches: Object): boolean {
-
-  let stable = true;
 
   let menMatchList = generateInverseMapping(matches);
   // console.log(menMatchList);

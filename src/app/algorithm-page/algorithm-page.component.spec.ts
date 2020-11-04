@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AlgorithmPageComponent } from './algorithm-page.component';
 
@@ -8,6 +11,12 @@ describe('AlgorithmPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        BrowserAnimationsModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule
+      ],
       declarations: [ AlgorithmPageComponent ]
     })
     .compileComponents();
