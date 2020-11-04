@@ -4,10 +4,12 @@ import { GaleShapleyService } from './gale-shapley.service';
 
 describe('GaleShapleyService', () => {
   let service: GaleShapleyService;
+  let commandStructure: Object;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(GaleShapleyService);
+    commandStructure = service.run(10);
   });
 
   it('should be created', () => {
@@ -17,11 +19,16 @@ describe('GaleShapleyService', () => {
   it('generates stable matching', () => {
     let allStable = false;
     for (let i = 0; i < 100; i++) {
-      let commandList = service.run(50);
+      let commandList = service.run(10);
       allStable = !(checkStability(commandList["men"], commandList["women"], commandList["commands"][commandList["commands"].length-1]["matches"]));
     }
     expect(allStable).toBeFalsy();
   });
+
+  it('generates some commands', () => {
+    expect(commandStructure["commands"].length).toBeGreaterThan(0, "there is nothing in commandStructure[commands]");
+  });
+
 });
 
 

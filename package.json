@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "full-test": "npm run test -- --no-watch --browsers=ChromeHeadlessCI & npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js"
+    "full-test": "npm run test -- --no-watch --browsers=ChromeHeadlessCI & npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --port 4201"
   },
   "private": true,
   "dependencies": {

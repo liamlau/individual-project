@@ -52,7 +52,7 @@
     
           <mat-form-field style="width: 250px" appearance="fill">
             <mat-label>Choose an Algorithm</mat-label>
-            <mat-select [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+            <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
               <mat-option value="simple">Simple</mat-option>
               <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
             </mat-select>
