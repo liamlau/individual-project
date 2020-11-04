@@ -12,6 +12,11 @@
 
 <hr>
 
+## Total Time Spent (so far): 4 + 18.5 + 11 + 12.5 + 10 = **56 hours**
+Current expected time spent (using 15 hours a week estimation - excluding week before being allocated project): 4 * 15 = **60 hours**
+
+<hr>
+
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 1 -->
 
 ## **Week 1** (21 Sep 2020 - 27 Sep 2020) - **4 hours**
@@ -92,9 +97,31 @@
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 5 -->
 
-## Week 5 (19 Oct 2020 - 25 Oct 2020) - ** hours**
-### 20 Oct 2020 (Tue) - 0.5 hours
+## Week 5 (19 Oct 2020 - 25 Oct 2020) - **10 hours**
+### 20 Oct 2020 (Tue) - 1 hour
 * *0.5 hours*: Supervisor meeting
+* *0.5 hours*: Looked at similar provided Java program (previous student's project) and made notes to try implement in my own app
 
 ### 23 Oct 2020 (Fri) - 5 hours
 * *5 hours*: Refactored all code to be more generic and implemented display for important variables in real time
+
+### 25 Oct 2020 (Sun) - 4 hours
+* *1.5 hour*: Gave dynamic classes to all variables (in order to select them to "animate" them)
+* *2.5 hours*: Attempted to implement system to highlight relevant variables during execution - tried lots of stuff, but didn't manage to quite get it yet
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 6 -->
+
+## Week 6 (26 Oct 2020 - 1 Nov 2020) - **0.5 hours**
+### 27 Oct 2020 (Tue) - 0.5 hours
+* *0.5 hours*: Supervisor meeting
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
+
+## Week 5 (2 Nov 2020 - 8 Nov 2020) - ** hours**
+### 3 Nov 2020 (Tue) - 2.5 hours
+* *0.5 hours*: Supervisor meeting
+* *2 hours*: Implemented tests to check for stability for stable matchings

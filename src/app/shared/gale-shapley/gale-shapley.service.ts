@@ -117,8 +117,8 @@ export class GaleShapleyService {
   generateMatches(): Object {
     let matches: Object = {}
 
-    // console.log(men);
-    // console.log(women);
+    // // console.log(men);
+    // // console.log(women);
 
     // matches["matchString"] = "| ";
 
@@ -210,40 +210,40 @@ export class GaleShapleyService {
 
     this.update(1);
 
-    console.log("\n\nAlgorithm Steps:");
+    // console.log("\n\nAlgorithm Steps:");
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
       
       let man: Object = this.men[this.freeMen[0]];
       this.update(2, {"%man%": man["name"]});
-      console.log("-------");
+      // console.log("-------");
 
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
       let woman: Object = man["ranking"][man["lastProposed"]];
       this.update(3, {"%woman%": woman["name"], "%man%": man["name"]});
 
-      console.log("Man: " + man["name"]);
-      console.log("Woman: " + woman["name"]);
+      // console.log("Man: " + man["name"]);
+      // console.log("Woman: " + woman["name"]);
 
       man["lastProposed"] += 1;
       // man["ranking"].shift();
       this.update(4, {"%woman%": woman["name"]});
 
       if (!woman["match"]) {
-          console.log(woman["name"] + " was free, so matching her with " + man["name"]);
+          // console.log(woman["name"] + " was free, so matching her with " + man["name"]);
           woman["match"] = man;
           this.freeMen.shift();
           this.update(5, {"%woman%": woman["name"], "%man%": man["name"]});
       } else {
         this.update(6, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
         let manName = man["name"];
-        console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
-        console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
+        // console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
+        // console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
         this.update(7, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
-          console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
+          // console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
           let match: string = woman["match"]["name"];
 
           this.freeMen.push(woman["match"]["name"]);
@@ -253,7 +253,7 @@ export class GaleShapleyService {
         } else {
           this.update(9, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
-          console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
+          // console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
           this.update(10);
 
         }
@@ -264,12 +264,15 @@ export class GaleShapleyService {
 
     this.update(11);
 
-    // console.log(this.men);
+    // // console.log(this.men);
 
     this.generateChanges();
 
-    console.log("------- COMMAND LIST")
-    console.log(this.commandList);
+    // console.log("------- COMMAND LIST")
+    // console.log(this.commandList);
+
+    // console.log("------- MATCHES")
+    // console.log(this.generateMatches());
 
     return this.commandList;
   }
@@ -277,22 +280,22 @@ export class GaleShapleyService {
 }
 
 
-// console.log("---- MEN'S RANKINGS");
+// // console.log("---- MEN'S RANKINGS");
 
 // for (let man in this.men) {
 //     let menRankings = [];
 //     for (let woman in this.men[man]["ranking"]) {
 //         menRankings.push(this.men[man]["ranking"][woman]["name"].slice(5));
 //     }
-//     console.log(man + "'s rankings: [" + menRankings + "]");
+//     // console.log(man + "'s rankings: [" + menRankings + "]");
 // }
 
-// console.log("\n---- WOMEN'S RANKINGS");
+// // console.log("\n---- WOMEN'S RANKINGS");
 
 // for (let woman in this.women) {
 //     let womenRankings = [];
 //     for (let man in this.women[woman]["ranking"]) {
 //       womenRankings.push(this.women[woman]["ranking"][man]["name"].slice(3));
 //     }
-//     console.log(woman + "'s rankings: [" + womenRankings + "]");
+//     // console.log(woman + "'s rankings: [" + womenRankings + "]");
 // }
