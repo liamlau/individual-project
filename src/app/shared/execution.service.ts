@@ -1,68 +1,70 @@
 import { Injectable } from '@angular/core';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
+import { SimpleService } from './simple/simple.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExecutionService {
 
-  commandMap = {
-    "simple": {
-      1: "Start a loop for 7 times and increment i on each loop",
-      2: "Print i (%i%) to console.",
-      3: "Checking if i (%i%) is equal to 5.",
-      4: "i was equal to 5, so the program entered this block of code.",
-      5: "i (%i%) wasn't equal to 5, so the program skipped the if block of code.",
-      6: "Done!"
-    },
-    "gale-shapley": {
-      1: "line 1",
-      2: "line 2",
-      3: "line 3",
-      4: "line 4",
-      5: "line 5",
-      6: "line 6",
-      7: "line 7",
-      8: "line 8",
-      9: "line 9",
-      10: "line 10",
-      11: "line 11"
-    }
+  commandMap = {}
+  commandList = {};
+  serviceMap = {
+    "simple": this.simpleService,
+    "gale-shapley": this.gsService
   }
 
-  commandList = [];
+  // add the services for any new algorithms here
+  constructor(
+    public simpleService: SimpleService,
+    public gsService: GaleShapleyService
+  ) { }
 
-  constructor(public gsService: GaleShapleyService) { }
 
-  getExecutionFlow(algorithm: string, numPeople: number): any[] {
-    if (algorithm == "gale-shapley") {
-      return [this.gsStableMarriage(numPeople), this.commandMap[algorithm]];
-    }
-    return [this.simpleFunction(), this.commandMap[algorithm]];
+  getExecutionFlow(algorithm: string, numPeople: number): Object {
+    let algorithmService = this.serviceMap[algorithm];
+    this.commandMap = algorithmService.commandMap;
+
+    let commandList = algorithmService.run(numPeople);
+    commandList["descriptions"] = this.generateDescriptions(commandList);
+
+    return commandList;
   }
 
-  simpleFunction(): any[] {
-    this.commandList = [];
-    this.commandList.push(1);
-    for (let i=1; i<8; i++) {
-      console.log(i);
-      this.commandList.push({2: {"%i%": i}});
-      this.commandList.push({3: {"%i%": i}});
-      if (i == 5) {
-        console.log("this is now 5!");
-        this.commandList.push(4);
+
+
+  // --------------------------------------------------------- FUNCTIONS TO GENERATE LINE DESCRIPTIONS
+
+  generateDescriptions(commandList: Object): Object {
+    let descriptions = [];
+
+    for (let step of commandList["commands"]) {
+
+      let lineNumber = step["lineNumber"];
+      let stepVariables = step["stepVariables"];
+
+      if (stepVariables) {
+        descriptions.push(this.generateMessage(lineNumber, stepVariables));
       } else {
-        this.commandList.push({5: {"%i%": i}});
+        descriptions.push(this.commandMap[lineNumber]);
       }
     }
-    this.commandList.push(6);
-    return this.commandList;
+
+    return descriptions;
   }
 
 
-  public gsStableMarriage(numPeople: number): any[] {
-    this.commandList = this.gsService.galeShapley(numPeople);
-    return this.commandList;
+  generateMessage(commandNum: number, replacements: Object): string {
+
+    var str = this.commandMap[commandNum];
+
+    // FROM: https://stackoverflow.com/questions/7975005/format-a-javascript-string-using-placeholders-and-an-object-of-substitutions
+    str = str.replace(/%\w+%/g, function(all: string | number) {
+      return replacements[all] || all;
+    });
+
+    return str;
   }
+  
 
 }

@@ -52,11 +52,59 @@
     
           <mat-form-field style="width: 250px" appearance="fill">
             <mat-label>Choose an Algorithm</mat-label>
-            <mat-select [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+            <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
               <mat-option value="simple">Simple</mat-option>
               <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <!-- <p *ngIf="this.men">
+            what
+            {{ this.men | json }}
+          </p> -->
+          
+          <div class="row mb-4" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+            <div class="col-12" >
+              Free Men: [
+              <span *ngFor="let item of this.freeMen; let lastItem = last;">
+                <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
+              </span>
+              ]
+            </div>
+          </div>
+          
+          <div class="row" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+            <div class="col-4" >
+              <p>Men</p>
+              <li *ngFor="let item of this.men | keyvalue:mySortingFunction">
+                <span class="man{{ item.key }}">{{item.key}}</span>:
+                <span *ngFor="let woman of item.value; let lastItem = last;">
+                  <span class="man{{ item.key }}woman{{ woman }}">{{ woman }}</span><span *ngIf="!lastItem">,</span>
+                </span>
+              </li>
+            </div>
+
+            <div class="col-4" >
+              <p>Matches</p>
+              <li *ngFor="let item of this.matches | keyvalue:mySortingFunction">
+                <span class="{{ item.key }}">{{item.key}}</span>: {{item.value}}
+              </li>
+            </div>
+
+            <div class="col-4" >
+              <p>Women</p>
+              <li *ngFor="let item of this.women | keyvalue:mySortingFunction">
+                <span class="woman{{ item.key }}">{{item.key}}</span>: 
+                <span *ngFor="let man of item.value; let lastItem = last;">
+                  <span class="woman{{ item.key }}man{{ man }}">{{ man }}</span><span *ngIf="!lastItem">,</span>
+                </span>
+              </li>
+            </div>
+            <!-- <div class="col-6" *ngFor="let item2 of this.men | keyvalue:mySortingFunction">
+              <b>{{item2.key}}</b>: {{item2.value}}
+            </div> -->
+          </div>
+
 
         <div>
 
@@ -83,7 +131,7 @@
                 Restart
               </button> -->
 
-              <mat-icon style="cursor: pointer;" class="playbackButton disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
+              <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
 
               <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_rewind</mat-icon>
             
@@ -111,7 +159,7 @@
           </div>
         </div>
 
-        <p class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.returnText }}</p>
+        <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.returnText }}</p>
 
         <div class="terminal" *ngIf="!(this.algorithm.value == '')">
           <pre *ngIf="this.algorithm.value == ''">
