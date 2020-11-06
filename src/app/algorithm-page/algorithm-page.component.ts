@@ -1,7 +1,7 @@
 import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ExecutionService } from '../shared/execution.service';
+import { ExecutionService } from './algorithms/execution.service';
 
 @Component({
   selector: 'app-algorithm-page',
