@@ -1,6 +1,6 @@
 <div class="container h-100">
   <div class="row h-100 justify-content-center align-items-center">
-    <div class="col-8 text-center">
+    <div class="col-lg-10 text-center">
     
 
   
@@ -57,9 +57,9 @@
 
 
       <!-- PLAYBACK CONTROLS -->
-      <div>
+      <div *ngIf="!(this.algorithm.value == '')">
         <!-- SPEED CONTROL SLIDER -->
-        <div class="container" *ngIf="!(this.algorithm.value == '')">
+        <div>
           <div class="row justify-content-center">
             <span style="padding-top: 4px" class="mt-2 mr-2">Slow</span>
               <mat-slider
@@ -76,7 +76,7 @@
         </div>
 
         <!-- PLAYBACK ICONS -->
-        <div class="container" *ngIf="!(this.algorithm.value == '')">
+        <div>
           <div class="row justify-content-center">
             <!-- GO TO START -->
             <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
@@ -96,20 +96,21 @@
         </div>
 
         <!-- STEP SLIDER -->
-        <div *ngIf="!(this.algorithm.value == '')">
-          <span style="padding-top: 4px" class="mt-2 mr-2">{{ this.commandListCounter }}</span>
-          <mat-slider style="width: 600px"
-          #slider
-          thumbLabel
-          [(ngModel)]="this.commandListCounter"
-          (input)="this.formatSteps(slider.value)"
-          tickInterval="1"
-          min="0"
-          max={{this.numCommands}}
-          disabled="{{this.firstRun}}"></mat-slider>
-          <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.numCommands }}</span>
+        <div>
+            <span style="padding-top: 4px" class="mt-2 mr-2">{{ this.commandListCounter }}</span>
+            <mat-slider style="width:80%; max-width: 700px;"
+            #slider
+            thumbLabel
+            [(ngModel)]="this.commandListCounter"
+            (input)="this.formatSteps(slider.value)"
+            tickInterval="1"
+            min="0"
+            max={{this.numCommands}}
+            disabled="{{this.firstRun}}"></mat-slider>
+            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.numCommands }}</span>
         </div>
       </div>
+
 
       <!-- DESCRIPTION TEXT -->
       <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.returnText }}</p>
