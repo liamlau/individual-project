@@ -121,7 +121,7 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
 
-## Week 5 (2 Nov 2020 - 8 Nov 2020) - ** hours**
+## Week 7 (2 Nov 2020 - 8 Nov 2020) - ** hours**
 ### 3 Nov 2020 (Tue) - 2.5 hours
 * *0.5 hours*: Supervisor meeting
 * *2 hours*: Implemented tests to check for stability for stable matchings
