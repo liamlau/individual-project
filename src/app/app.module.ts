@@ -13,12 +13,16 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
+import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
+import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlgorithmPageComponent,
-    MatAnimatedIconComponent
+    MatAnimatedIconComponent,
+    GsCodeComponent,
+    SimpleCodeComponent,
   ],
   imports: [
     BrowserModule,
