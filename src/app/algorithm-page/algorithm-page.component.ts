@@ -234,14 +234,16 @@ export class AlgorithmPageComponent implements OnInit {
 
   forwardStep() {
 
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
+    this.playback.forwardStep();
 
-    if (this.commandListCounter < this.commandList.length-1) {
-      this.commandListCounter++;
-    }
+    // let a = document.getElementById("line" + this.currentLine);
+    // a.style.color = "";
 
-    this.colorLine();
+    // if (this.commandListCounter < this.commandList.length-1) {
+    //   this.commandListCounter++;
+    // }
+
+    // this.colorLine();
 
   }
 
