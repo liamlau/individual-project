@@ -58,23 +58,28 @@ export class PlaybackService {
   }
 
 
-  forwardStep(): void {
-    this.colourLine(document.getElementById("line" + this.currentLine), "");
-
-    if (this.stepCounter < this.numCommands) {
-      this.stepCounter++;
-    }
-
+  backStep(): void {
+    this.uncolourCurrentLine();
+    if (this.stepCounter > 0) { this.stepCounter--; }
     this.updateCurrentCommand();
-
-    this.colourLine(document.getElementById("line" + this.currentLine), "green");
+    this.colourCurrentLine(); 
   }
 
-  colourLine(codeLine: HTMLElement, color: string): void {
-    if (color == "green") {
-      color = "#37FF00";
-    }
-    codeLine.style.color = color;
+  forwardStep(): void {
+    this.uncolourCurrentLine();
+    if (this.stepCounter < this.numCommands) { this.stepCounter++; }
+    this.updateCurrentCommand();
+    this.colourCurrentLine();
+  }
+
+  uncolourCurrentLine(): void {
+    let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.color = "";
+  }
+
+  colourCurrentLine(): void {
+    let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.color = "#37FF00";
   }
 
 }

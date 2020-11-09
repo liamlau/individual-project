@@ -221,14 +221,7 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   backStep() {
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-
-    if (this.commandListCounter > 0) {
-      this.commandListCounter--;
-    }
-
-    this.colorLine();
+    this.playback.backStep();
 
   }
 
