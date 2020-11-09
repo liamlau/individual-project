@@ -2,6 +2,7 @@ import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ExecutionService } from './algorithms/execution.service';
+import { PlaybackService } from './playback.service';
 
 @Component({
   selector: 'app-algorithm-page',
@@ -10,7 +11,7 @@ import { ExecutionService } from './algorithms/execution.service';
 })
 export class AlgorithmPageComponent implements OnInit {
 
-  constructor(public exeService: ExecutionService) { }
+  constructor(public exeService: ExecutionService, public playback: PlaybackService) { }
 
   ngOnInit(): void {
   }
@@ -74,6 +75,9 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   toggle() {
+
+    this.playback.setAlgorithm("gale-shapley", 5);
+    
     if (this.firstRun) {
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
       this.algorithmData = algorithmData;
