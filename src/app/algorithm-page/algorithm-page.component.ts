@@ -75,10 +75,10 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   toggle() {
-
-    this.playback.setAlgorithm("gale-shapley", 5);
     
     if (this.firstRun) {
+      this.playback.setAlgorithm(this.algorithm.value, this.numPeople);
+
       var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
       this.algorithmData = algorithmData;
       this.freeMen = algorithmData["commands"]["freeMen"];
@@ -90,11 +90,11 @@ export class AlgorithmPageComponent implements OnInit {
       this.descriptions = algorithmData["descriptions"];
       this.numCommands = this.commandList.length - 1;
       this.firstRun = false;
-      this.play()
+      this.playback.play();
     } else {
-      if (this.pause) {
-        this.pause = false;
-        this.play()
+      if (this.playback.pause) {
+        this.playback.pause = false;
+        this.playback.play();
       } else {
         this.pauseExecution();
       }
@@ -139,44 +139,77 @@ export class AlgorithmPageComponent implements OnInit {
     this.colorLine();
   }
 
-
   async play(): Promise<void> {
     
-    while (this.commandListCounter < this.commandList.length) {
+    // while (this.playback.stepCounter < this.playback.numCommands) {
 
-      if (this.pause) {
-        console.log("Paused at step " + (this.commandListCounter+1) + "!");
-        console.log("Current Line: " + this.currentLine);
-        this.toggleAnimatePlay();
-        break;
-      }
+    //   if (this.playback.pause) {
+    //     console.log("Paused at step " + (this.playback.stepCounter) + "!");
+    //     console.log("Current Line: " + this.playback.currentLine);
+    //     break;
+    //   }
 
-      this.toggleAnimateStop();
+    //   // if (this.algorithm.value == "gale-shapley") {
+    //   //   this.unboldenVariables();
+    //   //   this.emboldenVariables();
+    //   // }
 
-      if (this.algorithm.value == "gale-shapley") {
-        this.unboldenVariables();
-        this.emboldenVariables();
-      }
+    //   this.playback.colourCurrentLine();
 
-      this.colorLine();
+    //   await this.sleep(this.timeInBetween);
 
-      await this.sleep(this.timeInBetween);
+    //   if (!this.playback.pause) {
+    //     if (!(this.playback.stepCounter >= this.playback.numCommands)) {
+    //       this.playback.uncolourCurrentLine();
+    //       this.playback.stepCounter++;
+    //       this.playback.updateCurrentCommand();
+    //     } else {
+    //       this.playback.pause = true;
+    //     }
+    //   }
 
-      if (!this.pause) {
-        if (!(this.commandListCounter >= this.commandList.length - 1)) {
-          let a = document.getElementById("line" + this.currentLine);
-          a.style.color = "";
-          this.commandListCounter++;
-        } else {
-          // this.toggleAnimateStop();
-          console.log(this.animate);
-          this.pause = true;
-        }
-      }
-
-    }
+    // }
 
   }
+
+
+  // async play(): Promise<void> {
+    
+  //   while (this.commandListCounter < this.commandList.length) {
+
+  //     if (this.pause) {
+  //       console.log("Paused at step " + (this.commandListCounter+1) + "!");
+  //       console.log("Current Line: " + this.currentLine);
+  //       this.toggleAnimatePlay();
+  //       break;
+  //     }
+
+  //     this.toggleAnimateStop();
+
+  //     if (this.algorithm.value == "gale-shapley") {
+  //       this.unboldenVariables();
+  //       this.emboldenVariables();
+  //     }
+
+  //     this.colorLine();
+
+  //     await this.sleep(this.timeInBetween);
+
+  //     if (!this.pause) {
+  //       if (!(this.commandListCounter >= this.commandList.length - 1)) {
+  //         let a = document.getElementById("line" + this.currentLine);
+  //         a.style.color = "";
+  //         this.commandListCounter++;
+  //       } else {
+  //         // this.toggleAnimateStop();
+  //         console.log(this.animate);
+  //         this.pause = true;
+  //       }
+  //     }
+
+  //   }
+
+  // }
 
   restart() {
     this.pause = true;
@@ -214,8 +247,8 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   pauseExecution() {
-    if (this.commandListCounter < this.commandList.length-1) {
-      this.pause = true;
+    if (this.playback.stepCounter < this.playback.numCommands) {
+      this.playback.pause = true;
       // this.toggleAnimatePlay();
     }
   }

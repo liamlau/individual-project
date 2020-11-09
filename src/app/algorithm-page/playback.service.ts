@@ -17,6 +17,7 @@ export class PlaybackService {
   previousStepCounter: number;
   currentLine: number;
   numCommands: number;
+  pause: boolean;
   speed: number;
 
   description: string;
@@ -29,6 +30,7 @@ export class PlaybackService {
     this.previousStepCounter = 0;
     this.currentLine = 0;
     this.numCommands = this.commandList.length-1;
+    this.pause = false;
     this.speed = 500;
   }
 
@@ -80,6 +82,41 @@ export class PlaybackService {
   colourCurrentLine(): void {
     let codeLineHTML = document.getElementById("line" + this.currentLine);
     codeLineHTML.style.color = "#37FF00";
+  }
+
+  async play(): Promise<void> {
+    while (this.stepCounter < this.numCommands) {
+
+      if (this.pause) {
+        console.log("Paused at step " + (this.stepCounter) + "!");
+        console.log("Current Line: " + this.currentLine);
+        break;
+      }
+
+      // if (this.algorithm.value == "gale-shapley") {
+      //   this.unboldenVariables();
+      //   this.emboldenVariables();
+      // }
+
+      this.colourCurrentLine();
+
+      await this.sleep(this.speed);
+
+      if (!this.pause) {
+        if (!(this.stepCounter >= this.numCommands)) {
+          this.uncolourCurrentLine();
+          this.stepCounter++;
+          this.updateCurrentCommand();
+        } else {
+          this.pause = true;
+        }
+      }
+
+    }
+  }
+
+  async sleep(msec: number) {
+    return new Promise(resolve => setTimeout(resolve, msec));
   }
 
 }

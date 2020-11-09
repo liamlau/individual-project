@@ -105,15 +105,15 @@
             (input)="this.formatSteps(slider.value)"
             tickInterval="1"
             min="0"
-            max={{this.numCommands}}
+            max={{this.playback.numCommands}}
             disabled="{{this.firstRun}}"></mat-slider>
-            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.numCommands }}</span>
+            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
         </div>
       </div>
 
 
       <!-- DESCRIPTION TEXT -->
-      <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.returnText }}</p>
+      <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.playback.description }}</p>
 
       <!-- CODE TERMINAL -->
       <div class="terminal" *ngIf="!(this.algorithm.value == '')">
