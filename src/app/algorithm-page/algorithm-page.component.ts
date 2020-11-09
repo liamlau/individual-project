@@ -115,28 +115,25 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   updateSpeed(val: number): void {
-    this.timeInBetween = 3050 - val;
+    this.playback.speed = 3050 - val;
   }
 
   formatSteps(val: number) {
 
-    if (this.prevStep != this.commandListCounter) {
-      this.prevStep = this.commandListCounter;
-      this.pause = true;
+    if (this.playback.previousStepCounter != this.playback.stepCounter) {
+      this.playback.previousStepCounter = this.playback.stepCounter;
+      this.playback.pause = true;
     }
 
-    this.commandListCounter = val;
+    this.playback.stepCounter = val;
 
-    var command = this.commandList[this.prevStep];
-
-    this.returnText = this.descriptions[this.commandListCounter];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
-
+    var command = this.playback.commandList[this.playback.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "";
+
+    this.playback.updateCurrentCommand();
     
-    this.colorLine();
+    this.playback.colourCurrentLine();
   }
 
   async play(): Promise<void> {
