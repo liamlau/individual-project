@@ -13,7 +13,7 @@
         </mat-form-field>
 
         
-        <div class="row mb-4" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+        <div class="row mb-4" *ngIf="!this.playback.firstRun && (this.algorithm.value == 'gale-shapley')">
           <div class="col-12" >
             Free Men: [
             <span *ngFor="let item of this.freeMen; let lastItem = last;">
@@ -23,7 +23,7 @@
           </div>
         </div>
         
-        <div class="row" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
+        <div class="row" *ngIf="!this.playback.firstRun && (this.algorithm.value == 'gale-shapley')">
           <div class="col-4" >
             <p>Men</p>
             <li *ngFor="let item of this.men | keyvalue:mySortingFunction">
@@ -79,19 +79,19 @@
         <div>
           <div class="row justify-content-center">
             <!-- GO TO START -->
-            <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
+            <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.playback.firstRun}">skip_previous</mat-icon>
 
             <!-- BACK ONE STEP -->
-            <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_rewind</mat-icon>
+            <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep() [ngClass]="{'disabled': this.playback.firstRun || !this.playback.pause}">fast_rewind</mat-icon>
           
             <!-- PLAY -->
-            <mat-animated-icon class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="animate" (click)="this.toggle()"></mat-animated-icon>
+            <mat-animated-icon class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
 
             <!-- FORWARD ONE STEP -->
-            <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)=forwardStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_forward</mat-icon>
+            <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)=forwardStep() [ngClass]="{'disabled': this.playback.firstRun || !this.playback.pause}">fast_forward</mat-icon>
 
             <!-- GO TO END -->
-            <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="goToEnd()" [ngClass]="{'disabled': this.firstRun}">skip_next</mat-icon>
+            <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="goToEnd()" [ngClass]="{'disabled': this.playback.firstRun}">skip_next</mat-icon>
           </div>
         </div>
 
@@ -106,7 +106,7 @@
             tickInterval="1"
             min="0"
             max={{this.playback.numCommands}}
-            disabled="{{this.firstRun}}"></mat-slider>
+            disabled="{{this.playback.firstRun}}"></mat-slider>
             <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
         </div>
       </div>

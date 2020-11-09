@@ -49,56 +49,49 @@ export class AlgorithmPageComponent implements OnInit {
     return a;
   }
 
-  toggleAnimateStop(){
-    this.animate = true;
-  }
-
-  toggleAnimatePlay(){
-    this.animate = false;
-  }
-
   changeAlgorithm() {
-    this.commandList = [];
-    this.commandListCounter = 0;
+    console.log("here");
+    console.log(this.playback.pause);
+    this.playback.firstRun = true;
+    this.playback.resetPlaybackData();
+    // this.commandList = [];
+    // this.commandListCounter = 0;
   
-    this.currentLine = 0;
-    this.pause = false;
+    // this.currentLine = 0;
+    // this.pause = false;
   
     this.numPeople = 5;
 
-    this.firstRun = true;
-    this.toggleAnimatePlay();
+    // this.firstRun = true;
+    // this.animate = true;
   
-    this.returnText = "Click play to run the program below!";
-    this.matches = {};
-    this.freeMen = [];
+    // this.returnText = "Click play to run the program below!";
+    // this.matches = {};
+    // this.freeMen = [];
   }
 
   toggle() {
-    
-    if (this.firstRun) {
-      this.playback.setAlgorithm(this.algorithm.value, this.numPeople);
 
-      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
-      this.algorithmData = algorithmData;
-      this.freeMen = algorithmData["commands"]["freeMen"];
-      this.men = algorithmData["men"];
-      this.women = algorithmData["women"];
-      this.commandList = algorithmData["commands"];
-      this.matches = this.commandList["matches"];
-      // this.commandList = algorithmData[0]
-      this.descriptions = algorithmData["descriptions"];
-      this.numCommands = this.commandList.length - 1;
-      this.firstRun = false;
-      this.playback.play();
+    console.log(this.playback.stepCounter + " | " + this.playback.numCommands);
+    if (this.playback.stepCounter >= this.playback.numCommands) {
+      this.playback.pause = false;
+      this.playback.pause = true;
     } else {
-      if (this.playback.pause) {
+      if (this.playback.firstRun) {
+        this.playback.setAlgorithm(this.algorithm.value, 5);
+        this.playback.firstRun = false;
         this.playback.pause = false;
         this.playback.play();
       } else {
-        this.pauseExecution();
+        if (this.playback.pause) {
+          this.playback.pause = false;
+          this.playback.play();
+        } else {
+          this.pauseExecution();
+        }
       }
     }
+
   }
 
   formatLabel(value: number) {
@@ -122,15 +115,16 @@ export class AlgorithmPageComponent implements OnInit {
 
     if (this.playback.previousStepCounter != this.playback.stepCounter) {
       this.playback.previousStepCounter = this.playback.stepCounter;
-      this.playback.pause = true;
     }
+
+    this.playback.pause = true;
 
     this.playback.stepCounter = val;
 
     var command = this.playback.commandList[this.playback.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "";
-
+    
     this.playback.updateCurrentCommand();
     
     this.playback.colourCurrentLine();
@@ -220,7 +214,6 @@ export class AlgorithmPageComponent implements OnInit {
     this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
-    this.toggleAnimatePlay();
   }
 
   goToEnd() {
@@ -240,13 +233,11 @@ export class AlgorithmPageComponent implements OnInit {
     a = document.getElementById("line" + this.currentLine);
     a.style.color = "#37FF00";
     this.emboldenVariables();
-    this.toggleAnimatePlay();
   }
 
   pauseExecution() {
     if (this.playback.stepCounter < this.playback.numCommands) {
       this.playback.pause = true;
-      // this.toggleAnimatePlay();
     }
   }
 
@@ -301,22 +292,22 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  colorLine(): void {
-    var command = this.commandList[this.commandListCounter];
+  // colorLine(): void {
+  //   var command = this.commandList[this.commandListCounter];
 
-    this.returnText = this.descriptions[this.commandListCounter];
+  //   this.returnText = this.descriptions[this.commandListCounter];
 
-    this.matches = command["matches"];
-    this.freeMen = command["freeMen"];
+  //   this.matches = command["matches"];
+  //   this.freeMen = command["freeMen"];
 
-    let a = document.getElementById("line" + command["lineNumber"]);
-    a.style.color = "#37FF00";
-    this.currentLine = command["lineNumber"];
-  }
+  //   let a = document.getElementById("line" + command["lineNumber"]);
+  //   a.style.color = "#37FF00";
+  //   this.currentLine = command["lineNumber"];
+  // }
 
 
-  async sleep(msec: number) {
-    return new Promise(resolve => setTimeout(resolve, msec));
-  }
+  // async sleep(msec: number) {
+  //   return new Promise(resolve => setTimeout(resolve, msec));
+  // }
 
 }

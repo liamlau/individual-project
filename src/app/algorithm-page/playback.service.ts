@@ -12,15 +12,15 @@ export class PlaybackService {
   currentCommand: Object;
 
   // playback variables
-  firstRun: boolean;
+  firstRun: boolean = true;
   stepCounter: number;
   previousStepCounter: number;
   currentLine: number;
   numCommands: number;
-  pause: boolean;
-  speed: number;
+  pause: boolean = true;
+  speed: number = 500;
 
-  description: string;
+  description: string = "Click play to run the program below!";
 
   constructor(public exeService: ExecutionService) { }
 
@@ -29,15 +29,16 @@ export class PlaybackService {
     this.stepCounter = 0;
     this.previousStepCounter = 0;
     this.currentLine = 0;
-    this.numCommands = this.commandList.length-1;
-    this.pause = false;
-    this.speed = 500;
+    this.pause = true;
+
+    this.description = "Click play to run the program below!";
   }
 
   setAlgorithm(algorithm: string, numPeople: number): void { 
     this.algorithmData = this.exeService.getExecutionFlow(algorithm, numPeople);
     this.commandList = this.algorithmData["commands"];
     this.resetPlaybackData();
+    this.numCommands = this.commandList.length-1;
 
     console.log(this.algorithmData);
     this.updateCurrentCommand();
@@ -103,11 +104,11 @@ export class PlaybackService {
       await this.sleep(this.speed);
 
       if (!this.pause) {
-        if (!(this.stepCounter >= this.numCommands)) {
-          this.uncolourCurrentLine();
-          this.stepCounter++;
-          this.updateCurrentCommand();
-        } else {
+        // console.log(this.stepCounter + " | " + this.numCommands);
+        this.uncolourCurrentLine();
+        this.stepCounter++;
+        this.updateCurrentCommand();
+        if (this.stepCounter >= this.numCommands) {
           this.pause = true;
         }
       }
