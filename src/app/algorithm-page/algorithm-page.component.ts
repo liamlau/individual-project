@@ -87,7 +87,7 @@ export class AlgorithmPageComponent implements OnInit {
           this.playback.pause = false;
           this.playback.play();
         } else {
-          this.pauseExecution();
+          this.playback.pause = true;
         }
       }
     }
@@ -130,115 +130,39 @@ export class AlgorithmPageComponent implements OnInit {
     this.playback.colourCurrentLine();
   }
 
-  async play(): Promise<void> {
-    
-    // while (this.playback.stepCounter < this.playback.numCommands) {
-
-    //   if (this.playback.pause) {
-    //     console.log("Paused at step " + (this.playback.stepCounter) + "!");
-    //     console.log("Current Line: " + this.playback.currentLine);
-    //     break;
-    //   }
-
-    //   // if (this.algorithm.value == "gale-shapley") {
-    //   //   this.unboldenVariables();
-    //   //   this.emboldenVariables();
-    //   // }
-
-    //   this.playback.colourCurrentLine();
-
-    //   await this.sleep(this.timeInBetween);
-
-    //   if (!this.playback.pause) {
-    //     if (!(this.playback.stepCounter >= this.playback.numCommands)) {
-    //       this.playback.uncolourCurrentLine();
-    //       this.playback.stepCounter++;
-    //       this.playback.updateCurrentCommand();
-    //     } else {
-    //       this.playback.pause = true;
-    //     }
-    //   }
-
-    // }
-
-  }
-
-
-  // async play(): Promise<void> {
-    
-  //   while (this.commandListCounter < this.commandList.length) {
-
-  //     if (this.pause) {
-  //       console.log("Paused at step " + (this.commandListCounter+1) + "!");
-  //       console.log("Current Line: " + this.currentLine);
-  //       this.toggleAnimatePlay();
-  //       break;
-  //     }
-
-  //     this.toggleAnimateStop();
-
-  //     if (this.algorithm.value == "gale-shapley") {
-  //       this.unboldenVariables();
-  //       this.emboldenVariables();
-  //     }
-
-  //     this.colorLine();
-
-  //     await this.sleep(this.timeInBetween);
-
-  //     if (!this.pause) {
-  //       if (!(this.commandListCounter >= this.commandList.length - 1)) {
-  //         let a = document.getElementById("line" + this.currentLine);
-  //         a.style.color = "";
-  //         this.commandListCounter++;
-  //       } else {
-  //         // this.toggleAnimateStop();
-  //         console.log(this.animate);
-  //         this.pause = true;
-  //       }
-  //     }
-
-  //   }
-
-  // }
-
   restart() {
-    this.pause = true;
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-    this.unboldenVariables();
-    this.commandListCounter = 0;
-    this.currentLine = 1;
-    this.returnText = this.descriptions[0];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
-    a = document.getElementById("line" + this.currentLine);
-    a.style.color = "#37FF00";
+    this.playback.restart();
+    // this.pause = true;
+    // let a = document.getElementById("line" + this.currentLine);
+    // a.style.color = "";
+    // this.unboldenVariables();
+    // this.commandListCounter = 0;
+    // this.currentLine = 1;
+    // this.returnText = this.descriptions[0];
+    // this.matches = this.commandList[this.commandListCounter]["matches"];
+    // this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
+    // a = document.getElementById("line" + this.currentLine);
+    // a.style.color = "#37FF00";
   }
 
   goToEnd() {
-    this.pause = true;
-    this.unboldenVariables();
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-    this.commandListCounter = this.numCommands;
+    this.playback.goToEnd();
+    // this.pause = true;
+    // this.unboldenVariables();
+    // let a = document.getElementById("line" + this.currentLine);
+    // a.style.color = "";
+    // this.commandListCounter = this.numCommands;
 
-    var command = this.commandList[this.numCommands];
+    // var command = this.commandList[this.numCommands];
 
-    this.returnText = this.descriptions[this.commandListCounter];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
+    // this.returnText = this.descriptions[this.commandListCounter];
+    // this.matches = this.commandList[this.commandListCounter]["matches"];
+    // this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
 
-    this.currentLine = command["lineNumber"];
-    a = document.getElementById("line" + this.currentLine);
-    a.style.color = "#37FF00";
-    this.emboldenVariables();
-  }
-
-  pauseExecution() {
-    if (this.playback.stepCounter < this.playback.numCommands) {
-      this.playback.pause = true;
-    }
+    // this.currentLine = command["lineNumber"];
+    // a = document.getElementById("line" + this.currentLine);
+    // a.style.color = "#37FF00";
+    // this.emboldenVariables();
   }
 
   backStep() {
@@ -262,52 +186,33 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  unboldenVariables(): void {
+  // unboldenVariables(): void {
 
-    var command = this.commandList[this.commandListCounter];
-    let changeTrace = command["changeTrace"]["reset"];
-
-    console.log(changeTrace);
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: normal;");
-      }
-    }
-  }
-
-
-  emboldenVariables(): void {
-
-    var command = this.commandList[this.commandListCounter];
-    let changeTrace = command["changeTrace"]["embolden"];
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: bold;");
-      }
-    }
-  }
-
-
-  // colorLine(): void {
   //   var command = this.commandList[this.commandListCounter];
+  //   let changeTrace = command["changeTrace"]["reset"];
 
-  //   this.returnText = this.descriptions[this.commandListCounter];
+  //   console.log(changeTrace);
 
-  //   this.matches = command["matches"];
-  //   this.freeMen = command["freeMen"];
-
-  //   let a = document.getElementById("line" + command["lineNumber"]);
-  //   a.style.color = "#37FF00";
-  //   this.currentLine = command["lineNumber"];
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
   // }
 
 
-  // async sleep(msec: number) {
-  //   return new Promise(resolve => setTimeout(resolve, msec));
+  // emboldenVariables(): void {
+
+  //   var command = this.commandList[this.commandListCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: bold;");
+  //     }
+  //   }
   // }
 
 }

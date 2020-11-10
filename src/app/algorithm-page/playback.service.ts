@@ -61,6 +61,24 @@ export class PlaybackService {
   }
 
 
+  restart(): void {
+    this.pause = true;
+    this.uncolourCurrentLine();
+    // unbolden
+    this.stepCounter = 0;
+    this.updateCurrentCommand();
+    this.colourCurrentLine();
+  }
+
+  goToEnd(): void {
+    this.pause = true;
+    this.uncolourCurrentLine();
+    // unbolden
+    this.stepCounter = this.numCommands;
+    this.updateCurrentCommand();
+    this.colourCurrentLine();
+  }
+
   backStep(): void {
     this.uncolourCurrentLine();
     if (this.stepCounter > 0) { this.stepCounter--; }
