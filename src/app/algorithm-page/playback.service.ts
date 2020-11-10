@@ -93,15 +93,6 @@ export class PlaybackService {
     this.colourCurrentLine();
   }
 
-  uncolourCurrentLine(): void {
-    let codeLineHTML = document.getElementById("line" + this.currentLine);
-    codeLineHTML.style.color = "";
-  }
-
-  colourCurrentLine(): void {
-    let codeLineHTML = document.getElementById("line" + this.currentLine);
-    codeLineHTML.style.color = "#37FF00";
-  }
 
   async play(): Promise<void> {
     while (this.stepCounter < this.numCommands) {
@@ -136,6 +127,17 @@ export class PlaybackService {
 
   async sleep(msec: number) {
     return new Promise(resolve => setTimeout(resolve, msec));
+  }
+
+
+  uncolourCurrentLine(): void {
+    let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.color = "";
+  }
+
+  colourCurrentLine(): void {
+    let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.color = "#37FF00";
   }
 
 }
