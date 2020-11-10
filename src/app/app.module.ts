@@ -15,6 +15,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
 import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
 import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
+import { PlaybackControlsComponent } from './algorithm-page/playback-controls/playback-controls.component';
+import { CodeDisplayComponent } from './algorithm-page/code-display/code-display.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-c
     MatAnimatedIconComponent,
     GsCodeComponent,
     SimpleCodeComponent,
+    PlaybackControlsComponent,
+    CodeDisplayComponent,
   ],
   imports: [
     BrowserModule,
