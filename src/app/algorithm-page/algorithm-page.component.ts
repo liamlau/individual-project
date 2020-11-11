@@ -24,10 +24,6 @@ export class AlgorithmPageComponent implements OnInit {
 
   matches = {};
 
-  mySortingFunction(a, b) {
-    return a;
-  }
-
   changeAlgorithm() {
     this.playback.firstRun = true;
     this.playback.resetPlaybackData();
