@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ExecutionService } from './algorithms/execution.service';
 import { PlaybackService } from './playback.service';
+declare var anime: any;
 
 @Component({
   selector: 'app-algorithm-page',
@@ -10,24 +10,35 @@ import { PlaybackService } from './playback.service';
 })
 export class AlgorithmPageComponent implements OnInit {
 
-  constructor(public exeService: ExecutionService, public playback: PlaybackService) { }
+  constructor(public playback: PlaybackService) { }
 
   ngOnInit(): void { }
 
-  algorithm = new FormControl('');
+  ngAfterViewInit(): void {
+    anime({
+      targets: '.title, mat-form-field',
+      easing: 'easeInOutQuint',
+      translateY: [-150, 0],
+      opacity: [0, 1],
+      duration: 1200
+    })
+  }
 
+  algorithm = new FormControl('');
   numPeople: number;
 
-  men;
-  women;
-  freeMen;
-
-  matches = {};
-
   changeAlgorithm() {
+    console.log("here");
     this.playback.firstRun = true;
     this.playback.resetPlaybackData();
     this.numPeople = 5;
+    anime({
+      targets: '.playback-block, .code-block',
+      easing: 'easeInOutQuint',
+      translateY: [150, 0],
+      opacity: [0, 1],
+      duration: 800
+    })
   }
 
 }

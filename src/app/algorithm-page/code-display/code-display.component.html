@@ -1,8 +1,8 @@
 <!-- DESCRIPTION TEXT -->
-<p style="height:50px" class="mt-2">{{ this.playback.description }}</p>
+<p style="height:50px" class="mt-2" *ngIf="!(this.algorithm == '')">{{ this.playback.description }}</p>
 
 <!-- CODE TERMINAL -->
-<div class="terminal row justify-content-center align-items-center">
+<div class="terminal row justify-content-center align-items-center" *ngIf="!(this.algorithm == '')">
     <simple-code *ngIf="this.algorithm == 'simple'"></simple-code>
     <gs-code *ngIf="this.algorithm == 'gale-shapley'"></gs-code>
 </div>

@@ -13,7 +13,7 @@ export class GsVariablesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  mySortingFunction(a, b) {
+  sortAscending(a: any) {
     return a;
   }
 

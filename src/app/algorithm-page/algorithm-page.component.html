@@ -2,6 +2,8 @@
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-lg-10 text-center">
     
+      <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+
       <mat-form-field style="width: 250px" appearance="fill">
         <mat-label>Choose an Algorithm</mat-label>
         <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
@@ -10,11 +12,17 @@
         </mat-select>
       </mat-form-field>
 
-      <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
+      <div class="variable-block">
+        <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
+      </div>
 
-      <playback-controls [algorithm]="this.algorithm.value" [numPeople]="5" *ngIf="!(this.algorithm.value == '')"></playback-controls>
+      <div class="playback-block">
+        <playback-controls [algorithm]="this.algorithm.value" [numPeople]="5" *ngIf="!(this.algorithm.value == '')"></playback-controls>
+      </div>
 
-      <code-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '')"></code-display>
+      <div class="code-block">
+        <code-display [algorithm]="this.algorithm.value"></code-display>
+      </div>
 
     </div>
   </div>
