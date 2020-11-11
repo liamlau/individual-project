@@ -4,6 +4,8 @@
     
       <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
 
+      <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+
       <mat-form-field style="width: 250px" appearance="fill">
         <mat-label>Choose an Algorithm</mat-label>
         <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
