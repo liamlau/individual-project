@@ -1,0 +1,54 @@
+<!-- PLAYBACK CONTROLS -->
+<div>
+    <!-- SPEED CONTROL SLIDER -->
+    <div>
+        <div class="row justify-content-center">
+        <span style="padding-top: 4px" class="mt-2 mr-2">Slow</span>
+            <mat-slider
+            #timeSlider
+            thumbLabel
+            [displayWith]="formatLabel"
+            tickInterval="1000"
+            min="50"
+            max="3000"
+            value="2500"
+            (input)="this.updateSpeed(timeSlider.value)"></mat-slider>
+            <span style="padding-top: 4px" class="mt-2 ml-2">Fast</span>
+        </div>
+    </div>
+
+    <!-- PLAYBACK ICONS -->
+    <div>
+        <div class="row justify-content-center">
+        <!-- GO TO START -->
+        <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.restart()" [ngClass]="{'disabled': this.playback.firstRun || this.playback.stepCounter == 0}">skip_previous</mat-icon>
+
+        <!-- BACK ONE STEP -->
+        <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.backStep()" [ngClass]="{'disabled': this.playback.firstRun || !this.playback.pause || this.playback.stepCounter == 0}">fast_rewind</mat-icon>
+        
+        <!-- PLAY -->
+        <mat-animated-icon class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
+
+        <!-- FORWARD ONE STEP -->
+        <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.forwardStep()" [ngClass]="{'disabled': this.playback.firstRun || !this.playback.pause || this.playback.stepCounter >= this.playback.numCommands}">fast_forward</mat-icon>
+
+        <!-- GO TO END -->
+        <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.goToEnd()" [ngClass]="{'disabled': this.playback.firstRun || this.playback.stepCounter >= this.playback.numCommands}">skip_next</mat-icon>
+        </div>
+    </div>
+
+    <!-- STEP SLIDER -->
+    <div>
+        <span style="padding-top: 4px" class="mt-2 mr-2">{{ this.playback.stepCounter }}</span>
+        <mat-slider style="width:80%; max-width: 600px;"
+        #slider
+        thumbLabel
+        [(ngModel)]="this.playback.stepCounter"
+        (input)="this.formatSteps(slider.value)"
+        tickInterval="1"
+        min="0"
+        max={{this.playback.numCommands}}
+        disabled="{{this.playback.firstRun}}"></mat-slider>
+        <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
+    </div>
+</div>

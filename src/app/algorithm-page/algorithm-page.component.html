@@ -1,218 +1,33 @@
-<style>
-    :host {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 14px;
-      color: #333;
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-  
-    .terminal {
-      position: relative;
-      /* width: 45%; */
-      /* max-width: 800px; */
-      border-radius: 6px;
-      padding-top: 55px;
-      margin-top: 8px;
-      overflow: hidden;
-      background-color: rgb(15, 15, 16);
-      text-align: left;
-    }
-  
-    /* .terminal::before {
-      content: "\2022 \2022 \2022";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 4px;
-      background: rgb(58, 58, 58);
-      color: #c2c3c4;
-      width: 100%;
-      font-size: 2rem;
-      line-height: 0;
-      padding: 14px 0;
-      text-indent: 4px;
-    } */
-  
-    .terminal pre {
-      font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-      color: white;
-      padding: 0 1rem 1rem;
-      margin-left: -40px;
-    }
-  </style>
-
-
-  <div class="container h-100">
-    <div class="row h-100 justify-content-center align-items-center">
-      <div class="col-8 text-center">
-      
-
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-lg-10 text-center">
     
-          <mat-form-field style="width: 250px" appearance="fill">
-            <mat-label>Choose an Algorithm</mat-label>
-            <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
-              <mat-option value="simple">Simple</mat-option>
-              <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div class="option-box">
+        <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
 
-          <!-- <p *ngIf="this.men">
-            what
-            {{ this.men | json }}
-          </p> -->
-          
-          <div class="row mb-4" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
-            <div class="col-12" >
-              Free Men: [
-              <span *ngFor="let item of this.freeMen; let lastItem = last;">
-                <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
-              </span>
-              ]
-            </div>
-          </div>
-          
-          <div class="row" *ngIf="!this.firstRun && (this.algorithm.value == 'gale-shapley')">
-            <div class="col-4" >
-              <p>Men</p>
-              <li *ngFor="let item of this.men | keyvalue:mySortingFunction">
-                <span class="man{{ item.key }}">{{item.key}}</span>:
-                <span *ngFor="let woman of item.value; let lastItem = last;">
-                  <span class="man{{ item.key }}woman{{ woman }}">{{ woman }}</span><span *ngIf="!lastItem">,</span>
-                </span>
-              </li>
-            </div>
+        <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
 
-            <div class="col-4" >
-              <p>Matches</p>
-              <li *ngFor="let item of this.matches | keyvalue:mySortingFunction">
-                <span class="{{ item.key }}">{{item.key}}</span>: {{item.value}}
-              </li>
-            </div>
-
-            <div class="col-4" >
-              <p>Women</p>
-              <li *ngFor="let item of this.women | keyvalue:mySortingFunction">
-                <span class="woman{{ item.key }}">{{item.key}}</span>: 
-                <span *ngFor="let man of item.value; let lastItem = last;">
-                  <span class="woman{{ item.key }}man{{ man }}">{{ man }}</span><span *ngIf="!lastItem">,</span>
-                </span>
-              </li>
-            </div>
-            <!-- <div class="col-6" *ngFor="let item2 of this.men | keyvalue:mySortingFunction">
-              <b>{{item2.key}}</b>: {{item2.value}}
-            </div> -->
-          </div>
-
-
-        <div>
-
-          <div class="container" *ngIf="!(this.algorithm.value == '')">
-            <div class="row justify-content-center">
-              <span style="padding-top: 4px" class="mt-2 mr-2">Slow</span>
-                <mat-slider
-                #timeSlider
-                thumbLabel
-                [displayWith]="formatLabel"
-                tickInterval="1000"
-                min="50"
-                max="3000"
-                value="2500"
-                (input)="this.updateSpeed(timeSlider.value)"></mat-slider>
-                <span style="padding-top: 4px" class="mt-2 ml-2">Fast</span>
-            </div>
-          </div>
-
-          <div class="container" *ngIf="!(this.algorithm.value == '')">
-            <div class="row justify-content-center">
-          
-              <!-- <button style="margin-top: 20px; cursor: pointer" class="github-star-badge" (click)=restart() [disabled]="!this.pause" *ngIf="this.currentLine != 0">
-                Restart
-              </button> -->
-
-              <mat-icon style="cursor: pointer;" class="playbackButton unselectable disabled mr-2" aria-hidden="false" aria-label="Example home icon" (click)=restart() [ngClass]="{'disabled': this.firstRun}">skip_previous</mat-icon>
-
-              <mat-icon style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)=backStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_rewind</mat-icon>
-            
-              <mat-animated-icon class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="animate" (click)="this.toggle()"></mat-animated-icon>
-
-              <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)=forwardStep() [ngClass]="{'disabled': this.firstRun || !this.pause}">fast_forward</mat-icon>
-
-              <mat-icon style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="goToEnd()" [ngClass]="{'disabled': this.firstRun}">skip_next</mat-icon>
-            
-            </div>
-          </div>
-
-          <div *ngIf="!(this.algorithm.value == '')">
-            <span style="padding-top: 4px" class="mt-2 mr-2">{{ this.commandListCounter }}</span>
-            <mat-slider style="width: 600px"
-            #slider
-            thumbLabel
-            [(ngModel)]="this.commandListCounter"
-            (input)="this.formatSteps(slider.value)"
-            tickInterval="1"
-            min="0"
-            max={{this.numCommands}}
-            disabled="{{this.firstRun}}"></mat-slider>
-            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.numCommands }}</span>
-          </div>
-        </div>
-
-        <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm.value == '')">{{ this.returnText }}</p>
-
-        <div class="terminal" *ngIf="!(this.algorithm.value == '')">
-          <pre *ngIf="this.algorithm.value == ''">
-              <code id="line1">Select an algorithm in the dropdown menu to start!</code>
-          </pre>
-          <pre *ngIf="this.algorithm.value == 'simple'">
-            <code id="line1">for (let i=1; i&lt;8; i++) &#123;</code>
-            <code id="line2">   console.log(i)</code>
-            <code id="line3">   if (i == 5) &#123;</code>
-            <code id="line4">      console.log("this is now 5!");</code>
-            <code id="line5">   &#125;</code>
-            <code id="line6">&#125;</code>
-          </pre>
-          <pre *ngIf="this.algorithm.value == 'gale-shapley'">
-            <code id="line1"> 1:     set each person to be free;</code>
-            <code id="line2"> 2:     while some man m is free do</code>
-            <code id="line3"> 3:           w = most preferred woman on m’s list to which he has not yet proposed;</code>
-            <code id="line4"> 4:           if w is free then</code>
-            <code id="line5"> 5:                 assign m to w;</code>
-            <code id="line6"> 6:           else</code>
-            <code id="line7"> 7:                 if w prefers m to her current partner m' then</code>
-            <code id="line8"> 8:                       assign m to w to be engaged and set m' to be free;</code>
-            <code id="line9"> 9:                 else</code>
-            <code id="line10">10:                        w rejects m’s proposal and remains with m' ; &#123;m remains free&#125;</code>
-            <code id="line11">11:      the stable matching consists of all n engagements</code>
-          </pre>
+        <mat-form-field style="width: 250px" appearance="fill">
+          <mat-label>Choose an Algorithm</mat-label>
+          <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+            <mat-option value="simple">Simple</mat-option>
+            <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
+      <div class="variable-block">
+        <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
       </div>
+
+      <div class="playback-block">
+        <playback-controls [algorithm]="this.algorithm.value" [numPeople]="5" *ngIf="!(this.algorithm.value == '')"></playback-controls>
+      </div>
+
+      <div class="code-block">
+        <code-display [algorithm]="this.algorithm.value"></code-display>
+      </div>
+
     </div>
   </div>
-
-
-
-    <!-- <div class="terminal" style="width: 450px">
-      <pre style="text-align: center;">
-        <table style="width:40%; margin-left: 150px">
-          <tr>
-            <td>Smith:</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Jackson:</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>Harry:</td>
-            <td>27</td>
-          </tr>
-          <tr>
-            <td>Graham:</td>
-            <td>44</td>
-          </tr>
-        </table>
-      </pre>
-    </div> -->
+</div>

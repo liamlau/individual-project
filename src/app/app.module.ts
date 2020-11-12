@@ -10,15 +10,29 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
-import { MatAnimatedIconComponent } from './mat-animated-icon/mat-animated-icon.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
+import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
+import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
+import { PlaybackControlsComponent } from './algorithm-page/playback-controls/playback-controls.component';
+import { CodeDisplayComponent } from './algorithm-page/code-display/code-display.component';
+import { VariableDisplayComponent } from './algorithm-page/variable-display/variable-display.component';
+import { GsVariablesComponent } from './algorithm-page/algorithms/gale-shapley/gs-variables/gs-variables.component';
+import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlgorithmPageComponent,
-    MatAnimatedIconComponent
+    MatAnimatedIconComponent,
+    GsCodeComponent,
+    SimpleCodeComponent,
+    PlaybackControlsComponent,
+    CodeDisplayComponent,
+    VariableDisplayComponent,
+    GsVariablesComponent,
+    SimpleVariablesComponent,
   ],
   imports: [
     BrowserModule,

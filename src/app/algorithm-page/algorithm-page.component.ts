@@ -1,7 +1,7 @@
-import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ExecutionService } from '../shared/execution.service';
+import { PlaybackService } from './playback.service';
+declare var anime: any;
 
 @Component({
   selector: 'app-algorithm-page',
@@ -10,284 +10,45 @@ import { ExecutionService } from '../shared/execution.service';
 })
 export class AlgorithmPageComponent implements OnInit {
 
-  constructor(public exeService: ExecutionService) { }
+  constructor(public playback: PlaybackService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    anime({
+      targets: '.option-box',
+      easing: 'easeInOutQuint',
+      translateY: [-150, 0],
+      opacity: [0, 1],
+      duration: 1200
+    })
   }
 
-  algorithmData;
-
-  firstRun: boolean = true;
-
-  commandList: any[] = [];
-  commandListCounter: number = 0;
-  numCommands: number = 0;
-
-  currentLine: number = 0;
-  timeInBetween: number = 500;
-  pause: Boolean = false;
-  prevStep: number = 0;
-
+  firstSelection: boolean = true
   algorithm = new FormControl('');
-
   numPeople: number;
 
-  descriptions = [];
-
-  returnText = "Click play to run the program below!";
-
-  animate = false;
-
-  men;
-  women;
-  freeMen;
-
-  matches = {};
-
-  mySortingFunction(a, b) {
-    return a;
-  }
-
-  toggleAnimateStop(){
-    this.animate = true;
-  }
-
-  toggleAnimatePlay(){
-    this.animate = false;
-  }
-
   changeAlgorithm() {
-    this.commandList = [];
-    this.commandListCounter = 0;
-  
-    this.currentLine = 0;
-    this.pause = false;
-  
+    console.log("here");
+    this.playback.firstRun = true;
+    this.playback.resetPlaybackData();
     this.numPeople = 5;
-
-    this.firstRun = true;
-    this.toggleAnimatePlay();
-  
-    this.returnText = "Click play to run the program below!";
-    this.matches = {};
-    this.freeMen = [];
-  }
-
-  toggle() {
-    if (this.firstRun) {
-      var algorithmData = this.exeService.getExecutionFlow(this.algorithm.value, this.numPeople);
-      this.algorithmData = algorithmData;
-      this.freeMen = algorithmData["commands"]["freeMen"];
-      this.men = algorithmData["men"];
-      this.women = algorithmData["women"];
-      this.commandList = algorithmData["commands"];
-      this.matches = this.commandList["matches"];
-      // this.commandList = algorithmData[0]
-      this.descriptions = algorithmData["descriptions"];
-      this.numCommands = this.commandList.length - 1;
-      this.firstRun = false;
-      this.play()
-    } else {
-      if (this.pause) {
-        this.pause = false;
-        this.play()
-      } else {
-        this.pauseExecution();
-      }
-    }
-  }
-
-  formatLabel(value: number) {
-
-    // pause
-    value = 3050 - value;
-    // play? (maybe not cause so many changes to this.timeInBetween value)
-
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 's';
-    }
-
-    return value;
-  }
-
-  updateSpeed(val: number): void {
-    this.timeInBetween = 3050 - val;
-  }
-
-  formatSteps(val: number) {
-
-    if (this.prevStep != this.commandListCounter) {
-      this.prevStep = this.commandListCounter;
-      this.pause = true;
-    }
-
-    this.commandListCounter = val;
-
-    var command = this.commandList[this.prevStep];
-
-    this.returnText = this.descriptions[this.commandListCounter];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
-
-    let a = document.getElementById("line" + command["lineNumber"]);
-    a.style.color = "";
-    
-    this.colorLine();
-  }
-
-
-  async play(): Promise<void> {
-    
-    while (this.commandListCounter < this.commandList.length) {
-
-      if (this.pause) {
-        console.log("Paused at step " + (this.commandListCounter+1) + "!");
-        console.log("Current Line: " + this.currentLine);
-        this.toggleAnimatePlay();
-        break;
-      }
-
-      this.toggleAnimateStop();
-
-      if (this.algorithm.value == "gale-shapley") {
-        this.unboldenVariables();
-        this.emboldenVariables();
-      }
-
-      this.colorLine();
-
-      await this.sleep(this.timeInBetween);
-
-      if (!this.pause) {
-        if (!(this.commandListCounter >= this.commandList.length - 1)) {
-          let a = document.getElementById("line" + this.currentLine);
-          a.style.color = "";
-          this.commandListCounter++;
-        } else {
-          // this.toggleAnimateStop();
-          console.log(this.animate);
-          this.pause = true;
-        }
-      }
-
-    }
-
-  }
-
-  restart() {
-    this.pause = true;
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-    this.unboldenVariables();
-    this.commandListCounter = 0;
-    this.currentLine = 1;
-    this.returnText = this.descriptions[0];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
-    a = document.getElementById("line" + this.currentLine);
-    a.style.color = "#37FF00";
-    this.toggleAnimatePlay();
-  }
-
-  goToEnd() {
-    this.pause = true;
-    this.unboldenVariables();
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-    this.commandListCounter = this.numCommands;
-
-    var command = this.commandList[this.numCommands];
-
-    this.returnText = this.descriptions[this.commandListCounter];
-    this.matches = this.commandList[this.commandListCounter]["matches"];
-    this.freeMen = this.commandList[this.commandListCounter]["freeMen"];
-
-    this.currentLine = command["lineNumber"];
-    a = document.getElementById("line" + this.currentLine);
-    a.style.color = "#37FF00";
-    this.emboldenVariables();
-    this.toggleAnimatePlay();
-  }
-
-  pauseExecution() {
-    if (this.commandListCounter < this.commandList.length-1) {
-      this.pause = true;
-      // this.toggleAnimatePlay();
-    }
-  }
-
-  backStep() {
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-
-    if (this.commandListCounter > 0) {
-      this.commandListCounter--;
-    }
-
-    this.colorLine();
-
-  }
-
-  forwardStep() {
-
-    let a = document.getElementById("line" + this.currentLine);
-    a.style.color = "";
-
-    if (this.commandListCounter < this.commandList.length-1) {
-      this.commandListCounter++;
-    }
-
-    this.colorLine();
-
-  }
-
-
-  unboldenVariables(): void {
-
-    var command = this.commandList[this.commandListCounter];
-    let changeTrace = command["changeTrace"]["reset"];
-
-    console.log(changeTrace);
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: normal;");
-      }
-    }
-  }
-
-
-  emboldenVariables(): void {
-
-    var command = this.commandList[this.commandListCounter];
-    let changeTrace = command["changeTrace"]["embolden"];
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: bold;");
-      }
-    }
-  }
-
-
-  colorLine(): void {
-    var command = this.commandList[this.commandListCounter];
-
-    this.returnText = this.descriptions[this.commandListCounter];
-
-    this.matches = command["matches"];
-    this.freeMen = command["freeMen"];
-
-    let a = document.getElementById("line" + command["lineNumber"]);
-    a.style.color = "#37FF00";
-    this.currentLine = command["lineNumber"];
-  }
-
-
-  async sleep(msec: number) {
-    return new Promise(resolve => setTimeout(resolve, msec));
+    // if (this.firstSelection) {
+    //   this.firstSelection = false;
+    //   anime({
+    //     targets: '.option-box',
+    //     easing: 'easeInOutQuint',
+    //     translateY: [0, -300],
+    //     duration: 400
+    //   })
+    // }
+    anime({
+      targets: '.playback-block, .code-block',
+      easing: 'easeInOutQuint',
+      translateY: [150, 0],
+      opacity: [0, 1],
+      duration: 800
+    })
   }
 
 }
