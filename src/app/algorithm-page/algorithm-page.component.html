@@ -2,17 +2,19 @@
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-lg-10 text-center">
     
-      <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+      <div class="option-box">
+        <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
 
-      <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+        <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
 
-      <mat-form-field style="width: 250px" appearance="fill">
-        <mat-label>Choose an Algorithm</mat-label>
-        <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
-          <mat-option value="simple">Simple</mat-option>
-          <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field style="width: 250px" appearance="fill">
+          <mat-label>Choose an Algorithm</mat-label>
+          <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+            <mat-option value="simple">Simple</mat-option>
+            <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <div class="variable-block">
         <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>

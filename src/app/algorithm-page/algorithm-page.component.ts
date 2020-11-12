@@ -16,7 +16,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   ngAfterViewInit(): void {
     anime({
-      targets: '.title, mat-form-field',
+      targets: '.option-box',
       easing: 'easeInOutQuint',
       translateY: [-150, 0],
       opacity: [0, 1],
@@ -24,6 +24,7 @@ export class AlgorithmPageComponent implements OnInit {
     })
   }
 
+  firstSelection: boolean = true
   algorithm = new FormControl('');
   numPeople: number;
 
@@ -32,6 +33,15 @@ export class AlgorithmPageComponent implements OnInit {
     this.playback.firstRun = true;
     this.playback.resetPlaybackData();
     this.numPeople = 5;
+    // if (this.firstSelection) {
+    //   this.firstSelection = false;
+    //   anime({
+    //     targets: '.option-box',
+    //     easing: 'easeInOutQuint',
+    //     translateY: [0, -300],
+    //     duration: 400
+    //   })
+    // }
     anime({
       targets: '.playback-block, .code-block',
       easing: 'easeInOutQuint',
