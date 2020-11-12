@@ -12,8 +12,8 @@
 
 <hr>
 
-## Total Time Spent (so far): 4 + 18.5 + 11 + 12.5 + 10 = **56 hours**
-Current expected time spent (using 15 hours a week estimation - excluding week before being allocated project): 4 * 15 = **60 hours**
+## Total Time Spent (so far): 4 + 18.5 + 11 + 12.5 + 10 + 0.5 + 5.5 + 12 = **74 hours**
+Current expected time spent (using 15 hours a week estimation - excluding week before being allocated project): 7 * 15 = **105 hours**
 
 <hr>
 
@@ -114,6 +114,7 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 6 -->
 
 ## Week 6 (26 Oct 2020 - 1 Nov 2020) - **0.5 hours**
+### (This was a coursework heavy week, so didn't manage to get much done)
 ### 27 Oct 2020 (Tue) - 0.5 hours
 * *0.5 hours*: Supervisor meeting
 
@@ -121,7 +122,58 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
 
-## Week 7 (2 Nov 2020 - 8 Nov 2020) - ** hours**
-### 3 Nov 2020 (Tue) - 2.5 hours
+## Week 7 (2 Nov 2020 - 8 Nov 2020) - **5.5 hours**
+### 4 Nov 2020 (Wed) - 3 hours
+* *3 hours*: Implemented tests (unit and e2e) to check for stability for stable matchings
+
+### 6 Nov 2020 (Thu) - 2.5 hours
+* *0.5 hours*: Merged testing branch into master
+* *0.5 hours*: Reorganised file structure for easier future programming
+* *0.5 hours*: Created different components for the algorithm code to make it more modular
+* *1 hour*: Made the algorithm page semi-responsive (now doesn't break completely on different screen sizes)
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
+
+## Week 8 (9 Nov 2020 - 15 Nov 2020) - **12 hours**
+### 9 Nov 2020 (Mon) - 5.5 hours
+* *0.5 hours*: Created initial playback service to refactor algorithm page
+* *4.5 hours*: Extracted and implemented most of the functionality again from the algorith page into the playback service (play, stepping, slider)
+* *0.5 hours*: Fixed icon to animate properly based on state of system
+
+### 10 Nov 2020 (Tue) - 3.5 hours
 * *0.5 hours*: Supervisor meeting
-* *2 hours*: Implemented tests to check for stability for stable matchings
+* *3 hours*: Finished refactoring of the algorithm-page into a service (now can share state between all components)
+
+### 11 Nov 2020 (Wed) - 3 hours
+* *1 hour*: Abstracted out algorithm variables and playback sections into their separate components to allow modularity
+* *1 hour*: Installed and experimented with anime.js (animation library)
+* *1 hour*: Learned how to use anime.js, and made initial animations for the app
+
+### 12 Nov 2020 (Thu) - x hours
+* *0.5 hours*: Merged refactoring branch into master
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 8 -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 9 -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 10 -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 11 -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 12 -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 13 -->
+
+
