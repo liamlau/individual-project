@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { PlaybackControlsComponent } from './playback-controls.component';
 
@@ -8,6 +10,10 @@ describe('PlaybackControlsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        MatSliderModule,
+      ],
       declarations: [ PlaybackControlsComponent ]
     })
     .compileComponents();
