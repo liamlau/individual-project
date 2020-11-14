@@ -136,7 +136,7 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
 
-## Week 8 (9 Nov 2020 - 15 Nov 2020) - **12 hours**
+## Week 8 (9 Nov 2020 - 15 Nov 2020) - **18.5 hours**
 ### 9 Nov 2020 (Mon) - 5.5 hours
 * *0.5 hours*: Created initial playback service to refactor algorithm page
 * *4.5 hours*: Extracted and implemented most of the functionality again from the algorith page into the playback service (play, stepping, slider)
@@ -151,8 +151,14 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 * *1 hour*: Installed and experimented with anime.js (animation library)
 * *1 hour*: Learned how to use anime.js, and made initial animations for the app
 
-### 12 Nov 2020 (Thu) - x hours
+### 12 Nov 2020 (Thu) - 3.5 hours
 * *0.5 hours*: Merged refactoring branch into master
+* *2 hours*: Researched alternative animation technique - came across some problems with responsiveness
+* *1 hour*: Researched alternative layout technique - Bootstrap wasn't working properly with animations
+
+### 13 Nov 2020 (Fri) - 3 hours
+* *1.5 hours*: Learned about CSS Grid and experimented with it
+* *1.5 hours*: Made responsive animations within grid layout
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 8 -->
 
