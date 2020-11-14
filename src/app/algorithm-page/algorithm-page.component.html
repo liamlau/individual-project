@@ -1,33 +1,37 @@
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="col-lg-10 text-center">
-    
-      <div class="option-box">
-        <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+<div [class.single-center-item]="this.firstSelection" [class.grid-container]="!this.firstSelection" >
 
-        <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+  <div class="title-container text-center my-3" [class.hidden]="!this.firstSelection">
+    <div class="">
+      <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+  
+      <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+  
+      <mat-form-field style="width: 250px" appearance="fill">
+        <mat-label>Choose an Algorithm</mat-label>
+        <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+          <mat-option value="simple">Simple</mat-option>
+          <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
 
-        <mat-form-field style="width: 250px" appearance="fill">
-          <mat-label>Choose an Algorithm</mat-label>
-          <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
-            <mat-option value="simple">Simple</mat-option>
-            <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="variable-block col-10 col-lg-8 text-center">
+    <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
+  </div>
 
-      <div class="variable-block">
-        <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
-      </div>
+  <div class="algorithm-container col-lg-8 col-10 text-center">
+    <div class="">
 
       <div class="playback-block">
         <playback-controls [algorithm]="this.algorithm.value" [numPeople]="5" *ngIf="!(this.algorithm.value == '')"></playback-controls>
       </div>
 
-      <div class="code-block">
+      <div class="code-block" [class.mb-4]="!this.firstSelection">
         <code-display [algorithm]="this.algorithm.value"></code-display>
       </div>
 
     </div>
   </div>
+
 </div>

@@ -6,3 +6,36 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.single-center-item {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.grid-container {
+    overflow: auto;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.title-container {
+    min-height: 100px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+// .test {
+//     position: absolute;
+//     transform: translate(-50%, -50%);
+// }
