@@ -16,11 +16,11 @@
     </div>
   </div>
 
-  <div class="variable-block col-10 col-lg-8 text-center">
+  <div class="variable-block col-10 col-lg-7 text-center" *ngIf="!this.playback.firstRun" style="opacity: 0;">
     <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
   </div>
 
-  <div class="algorithm-container col-lg-8 col-10 text-center">
+  <div class="algorithm-container col-lg-6 col-md-8 col-10 text-center">
     <div class="">
 
       <div class="playback-block">

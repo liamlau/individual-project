@@ -22,13 +22,13 @@ export class AlgorithmPageComponent implements OnInit {
     // var yPos = document.querySelector('.option-box').getBoundingClientRect().y;
     // console.log(yPos)
 
-    // anime({
-    //   targets: '.title-container',
-    //   easing: 'easeInOutQuint',
-    //   translateY: [-150, 0],
-    //   opacity: [0, 1],
-    //   duration: 1200
-    // })
+    anime({
+      targets: '.title-container',
+      easing: 'easeInOutQuint',
+      translateY: [-150, 0],
+      opacity: [0, 1],
+      duration: 1200
+    })
   }
 
   firstSelection: boolean = true
@@ -45,7 +45,7 @@ export class AlgorithmPageComponent implements OnInit {
       anime({
         targets: '.title-container',
         easing: 'easeInOutQuint',
-        translateY: [400, 10],
+        translateY: [400, 20],
         opacity: [0, 1],
         duration: 400
       })

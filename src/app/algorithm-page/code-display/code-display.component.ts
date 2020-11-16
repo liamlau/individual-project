@@ -9,10 +9,15 @@ import { PlaybackService } from '../playback.service';
 export class CodeDisplayComponent implements OnInit {
 
   @Input() algorithm: string;
+  animate: boolean = true;
 
   constructor(public playback: PlaybackService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleExpansion() {
+    this.animate = !this.animate;
   }
 
 }
