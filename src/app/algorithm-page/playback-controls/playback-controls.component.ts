@@ -92,8 +92,11 @@ export class PlaybackControlsComponent implements OnInit {
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.color = "";
     
+    this.playback.unboldenPreviousVariables();
+
     this.playback.updateCurrentCommand();
     
+    this.playback.emboldenVariables();
     this.playback.colourCurrentLine();
   }
 

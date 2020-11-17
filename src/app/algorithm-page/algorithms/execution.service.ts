@@ -7,6 +7,7 @@ import { SimpleService } from './simple/simple.service';
 })
 export class ExecutionService {
 
+  algorithm: string = "";
   commandMap = {}
   commandList = {};
   serviceMap = {
@@ -22,6 +23,7 @@ export class ExecutionService {
 
 
   getExecutionFlow(algorithm: string, numPeople: number): Object {
+    this.algorithm = algorithm;
     let algorithmService = this.serviceMap[algorithm];
     this.commandMap = algorithmService.commandMap;
 

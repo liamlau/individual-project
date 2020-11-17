@@ -142,37 +142,51 @@ export class GaleShapleyService {
 
     let currentSelected = new Set();
     
-    for (let step of this.commandList["commands"]) {
+    for (let stepNumber in this.commandList["commands"]) {
+
+      let step = this.commandList["commands"][stepNumber];
 
       let changeTrace = {};
+      let embolden = [];
 
-      changeTrace["embolden"] = [];
-      changeTrace["reset"] = [];
-
-      if (step["lineNumber"] == 2) {
+      if (step["lineNumber"] == 2 || step["lineNumber"] == 1) {
         changeTrace["reset"] = Array.from(currentSelected);
         currentSelected = new Set();
+      } else {
+        changeTrace["reset"] = [];
       }
 
       if (step["stepVariables"]) {
         for (let key in step["stepVariables"]) {
-          changeTrace["embolden"].push(step["stepVariables"][key]);
+          embolden.push(step["stepVariables"][key]);
           currentSelected.add(step["stepVariables"][key]);
         }
         if (step["lineNumber"] == 3) {
-          currentSelected.add(changeTrace["embolden"][1] + changeTrace["embolden"][0]);
-          currentSelected.delete(changeTrace["embolden"][0]);
-          currentSelected.delete(changeTrace["embolden"][1]);
-          changeTrace["embolden"] = [changeTrace["embolden"][1] + changeTrace["embolden"][0]];
+          currentSelected.add(embolden[1] + embolden[0]);
+          currentSelected.delete(embolden[0]);
+          currentSelected.delete(embolden[1]);
+          embolden = [embolden[1] + embolden[0]];
         } else if (step["lineNumber"] == 7) {
-          currentSelected.add(changeTrace["embolden"][0] + changeTrace["embolden"][1]);
-          currentSelected.add(changeTrace["embolden"][0] + changeTrace["embolden"][2]);
-          currentSelected.delete(changeTrace["embolden"][1]);
-          currentSelected.delete(changeTrace["embolden"][2]);
-          changeTrace["embolden"] = [changeTrace["embolden"][0] + changeTrace["embolden"][1], changeTrace["embolden"][0] + changeTrace["embolden"][2]];
+          currentSelected.add(embolden[0] + embolden[1]);
+          currentSelected.add(embolden[0] + embolden[2]);
+          currentSelected.delete(embolden[1]);
+          currentSelected.delete(embolden[2]);
+          embolden = [embolden[0] + embolden[1], embolden[0] + embolden[2]];
         }
       }
 
+      if (Number(stepNumber) > 0) {
+        if (step["lineNumber"] != 2) {
+          for (let item of this.commandList["commands"][Number(stepNumber)-1]["changeTrace"]["embolden"]) {
+            embolden.push(item);
+          }
+        }
+      }
+
+      console.log(stepNumber + ": " + embolden);
+
+      changeTrace["embolden"] = embolden;
+      
       step["changeTrace"] = changeTrace;
       // this.commandList["commands"]["changeTrace"] = changeTrace;
 
