@@ -2,11 +2,13 @@
 <p style="height:50px" class="mt-2" *ngIf="!(this.algorithm == '')">{{ this.playback.description }}</p>
 
 <!-- CODE TERMINAL -->
-<div class="terminal-header row justify-content-center text-center" (click)="toggleExpansion()" *ngIf="!(this.algorithm == '')">
+<div class="terminal-header row justify-content-center text-center mb-0" (click)="toggleExpansion()" *ngIf="!(this.algorithm == '')">
     <!-- <mat-animated-icon id="toggleCodeButton" class="playbackButton" start="keyboard_arrow_down" end="keyboard_arrow_up" colorStart="none" colorEnd="none" [animate]="!this.playback.pause"></mat-animated-icon> -->
     <mat-animated-icon id="playButton" class="playbackButton unselectable" start="expand_less" end="keyboard_arrow_up" colorStart="none" colorEnd="none" [animate]="this.animate"></mat-animated-icon>
 </div>
-<div class="terminal row justify-content-center align-items-center mt-0" *ngIf="!(this.algorithm == '')">
+<div id="terminal" class="terminal row justify-content-center align-items-center mt-0" *ngIf="!(this.algorithm == '')">
     <simple-code *ngIf="this.algorithm == 'simple'"></simple-code>
     <gs-code *ngIf="this.algorithm == 'gale-shapley'"></gs-code>
 </div>
+
+<!-- <div style="position: absolute; opacity: 0;"><gs-code *ngIf="this.algorithm == 'gale-shapley'"></gs-code></div> -->
