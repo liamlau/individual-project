@@ -17,6 +17,8 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 
 <hr>
 
+# Semester 1
+
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 1 -->
 
 ## **Week 1** (21 Sep 2020 - 27 Sep 2020) - **4 hours**
@@ -134,7 +136,7 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 
 <hr>
 
-<!-- ------------------------------------------------------------------------------------------------------- WEEK 7 -->
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 8 -->
 
 ## Week 8 (9 Nov 2020 - 15 Nov 2020) - **18.5 hours**
 ### 9 Nov 2020 (Mon) - 5.5 hours
@@ -160,26 +162,68 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 * *1.5 hours*: Learned about CSS Grid and experimented with it
 * *1.5 hours*: Made responsive animations within grid layout
 
-<!-- ------------------------------------------------------------------------------------------------------- WEEK 8 -->
-
-
-
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 9 -->
 
-
+## Week 9 (16 Nov 2020 - 22 Nov 2020)
+Time was spent on other subjects and coursework.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 10 -->
 
+## Week 10 (23 Nov 2020 - 29 Nov 2020) - **0.5 hours**
+Time was spent on other subjects and coursework.
+
+### 24 Nov 2020 (Tue) - 0.5 hours
+* *0.5 hours*: Supervisor meeting
 
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 11 -->
 
+## Week 11 (30 Nov 2020 - 6 Dec 2020) - **0.5 hours**
+Break was taken due to personal issues.
+
+### 1 Dec 2020 (Tue) - 0.5 hours
+* *0.5 hours*: Supervisor meeting
 
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 12 -->
+
+## Week 12 (7 Dec 2020 - 13 Dec 2020) - **2.5 hours**
+### 10 Dec 2020 (Thu) - 2.5 hours
+* *2.5 hours*: Wrote status report
 
 
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 13 -->
 
+## Week 13 (14 Dec 2020 - 20 Dec 2020) - **2.5 hours**
+### 16 Dec 2020 (Tue) - 2.5 hours
+* *2.5 hours*: Organised all wiki pages and created some issues for the rest of the project
 
+
+<!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 1) -->
+
+## WINTER BREAK (week 1) (21 Dec 2020 - 27 Dec 2020)
+Holiday taken for Christmas.
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 2) -->
+
+## WINTER BREAK (week 2) (28 Dec 2020 - 3 Jan 2021) - **5 hours**
+### 30 Dec 2020 (Wed) - 3 hours
+* *3 hours*: Fleshed out lots of pages on the wiki (documentation)
+
+### 2 Jan 2020 (Fri) - 2 hours
+* *1.5 hour*: Wrote up meeting notes (converted from local machine to GitHub) and worked on wiki
+* *0.5 hours*: Created more in-depth plan for the next few weeks
+
+
+<!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 3) -->
+
+## WINTER BREAK (week 3) (4 Jan 2020 - 10 Jan 2021) - **5 hours**
+
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- SEMESTER 2 -->
+
+# Semester 2
