@@ -208,22 +208,42 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 2) -->
 
-## WINTER BREAK (week 2) (28 Dec 2020 - 3 Jan 2021) - **5 hours**
+## WINTER BREAK (week 2) (28 Dec 2020 - 3 Jan 2021) - **7 hours**
 ### 30 Dec 2020 (Wed) - 3 hours
 * *3 hours*: Fleshed out lots of pages on the wiki (documentation)
 
 ### 2 Jan 2020 (Fri) - 2 hours
-* *1.5 hour*: Wrote up meeting notes (converted from local machine to GitHub) and worked on wiki
+* *1.5 hours*: Wrote up meeting notes (converted from local machine to GitHub) and worked on wiki
 * *0.5 hours*: Created more in-depth plan for the next few weeks
 
+### 3 Jan 2020 (Sat) - 2 hours
+* *2 hours*: Learned how the Hospital/Residents problem works, and wrote up documentation on how I am to implement it into the application
 
 <!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 3) -->
 
-## WINTER BREAK (week 3) (4 Jan 2020 - 10 Jan 2021) - **5 hours**
+## WINTER BREAK (week 3) (4 Jan 2021 - 10 Jan 2021) - **8.5 hours**
+08/01/21:
+- 3 hours class plan/learning egs
 
+09/01/21:
+- 4.5 hours implementing class, working through dry run
+
+10/01/21:
+- 1 hour rewrote existing GS stable marriage algorithm in class form
 
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- SEMESTER 2 -->
 
 # Semester 2
+
+13/01/21:
+- 3 hours designing revised wireframes for app
+
+14/01/21:
+- 0.5 hours planning tomorrow's meeting
+- 0.5 hours refining plan
+- 4.5 hours designing
+
+19/01/21:
+- 4 hours refinement of design (specifically hospital/residents problem)
