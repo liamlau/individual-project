@@ -20,6 +20,7 @@ import { CodeDisplayComponent } from './algorithm-page/code-display/code-display
 import { VariableDisplayComponent } from './algorithm-page/variable-display/variable-display.component';
 import { GsVariablesComponent } from './algorithm-page/algorithms/gale-shapley/gs-variables/gs-variables.component';
 import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/sim
     VariableDisplayComponent,
     GsVariablesComponent,
     SimpleVariablesComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
