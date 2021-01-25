@@ -27,6 +27,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { HomeTabContentComponent } from './home-page/home-tab-content/home-tab-content.component';
 import { AlgorithmTabContentComponent } from './home-page/algorithm-tab-content/algorithm-tab-content.component';
 import { AboutMeTabContentComponent } from './home-page/about-me-tab-content/about-me-tab-content.component';
+import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AboutMeTabContentComponent } from './home-page/about-me-tab-content/abo
     HomeTabContentComponent,
     AlgorithmTabContentComponent,
     AboutMeTabContentComponent,
+    AlgorithmSelectionDialogComponent,
   ],
   imports: [
     BrowserModule,
