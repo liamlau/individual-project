@@ -6,6 +6,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
+  { path: 'algorithm', component: AlgorithmPageComponent },
   { path: '**', component: HomePageComponent },  // Wildcard route
 ];
 

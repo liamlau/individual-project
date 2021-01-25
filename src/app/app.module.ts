@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
 import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
 import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
@@ -59,6 +60,7 @@ import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-con
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
+    MatInputModule,
     FormsModule,
     ReactiveFormsModule
   ],

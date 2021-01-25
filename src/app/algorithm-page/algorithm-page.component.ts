@@ -5,7 +5,7 @@ import { PlaybackService } from './playback.service';
 declare var anime: any;
 
 @Component({
-  selector: 'app-algorithm-page',
+  selector: 'algorithm-page',
   templateUrl: './algorithm-page.component.html',
   styleUrls: ['./algorithm-page.component.scss']
 })
