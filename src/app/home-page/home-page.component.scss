@@ -1,8 +1,16 @@
-.algorithm-card {
-    transition: background-color 0.2s ease;
-    cursor: pointer;
+.divider {
+    background-color: #D7D7D7;
+    height: 1px;
 }
 
-.algorithm-card:hover {
-    background-color: #ebebeb;
+.title {
+    font-size: 20px;
+}
+
+.subtitle {
+    font-size: 17px;
+}
+
+.body-text {
+    font-size: 15px;
 }

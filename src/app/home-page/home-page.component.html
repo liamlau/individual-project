@@ -13,89 +13,16 @@
 
     <div class="row justify-content-center flex-fill">
         <div class="col-8 flex-fill mb-3">
-            <mat-tab-group mat-align-tabs="center" animationDuration="300ms" dynamicHeight>
+            <mat-tab-group mat-align-tabs="center" animationDuration="250ms" dynamicHeight>
                 <mat-tab label="Home">
-                    <div class="text-center mt-5">
-                        <p class="lead" style="font-size: 20px">Hi there!</p>
-
-                        <p class="lead mt-2 mb-4" style="font-size: 18px">Welcome to the <b>Matching Algorithm Animator App!</b></p>
-                    
-                        <div class="col-8" style="background-color: #D7D7D7; height: 1px; margin:auto;"></div>
-                        
-                        <p class="col-9 mt-4" style="font-size: 15px; margin:auto;">
-                            This app was developed as part of my 4th year University of Glasgow Computer Science Individual Project.
-                            The aim of the project was to develop an app for the teaching of matching algorithms.
-                        </p>
-    
-                        <p class="col-9 mt-4" style="font-size: 15px; margin:auto;">
-                            If you don't know what a matching algorithm is, check out a description here!
-                        </p>
-    
-                        <p class="col-9 mt-4" style="font-size: 15px; margin:auto;">
-                            Right now, we have 3 matching algorithms you can learn! To do so, head on over to the <b>Algorithms</b> page! Once you click on a problem, a popup will appear asking you how many agents on each side of the matching algorithm you would like. After that, you'll be able to play and walk through the algorithm using the playback controls!
-                        </p>
-    
-                        <p class="col-9 mt-4" style="font-size: 15px; margin:auto;">
-                            You can also head over to the <b>About Me</b> page to hopefully answer any questions you have about me!
-                        </p>
-    
-                        <p class="col-9 mt-4" style="font-size: 15px; margin:auto;">
-                            If you enjoy using this app, let me know at my email address below!
-                        </p>
-                    </div>
-
+                    <home-tab-content></home-tab-content>
                 </mat-tab>
                 <mat-tab label="Algorithms">
-                    <div class="algorithm-card text-center mt-5" style="max-width: 300px; margin:auto; border: solid #9B9B9B 1px; border-radius: 10px;">
-                        <div class="my-4">
-                            <span class="lead">Stable Marriage Problem</span>
-                        </div>
-                        <div class="row justify-content-center" style="height: 1px;">
-                            <div class="col-7 text-center" style="background-color: #D7D7D7; height: 1px;"></div>
-                        </div>
-                        <div class="my-4">
-                            <span>Gale-Shapley Stable Matching</span>
-                        </div>
-                    </div>
-
-                    <div class="algorithm-card text-center mt-5" style="max-width: 300px; margin:auto; border: solid #9B9B9B 1px; border-radius: 10px;">
-                        <div class="my-4">
-                            <span class="lead">Stable Marriage Problem</span>
-                        </div>
-                        <div class="row justify-content-center" style="height: 1px;">
-                            <div class="col-7 text-center" style="background-color: #D7D7D7; height: 1px;"></div>
-                        </div>
-                        <div class="my-4">
-                            <span>Extended Gale-Shapley Stable Matching</span>
-                        </div>
-                    </div>
-
-                    <div class="algorithm-card text-center mt-5" style="max-width: 300px; margin:auto; border: solid #9B9B9B 1px; border-radius: 10px;">
-                        <div class="my-4">
-                            <span class="lead">Hospital/Residents Problem</span>
-                        </div>
-                        <div class="row justify-content-center" style="height: 1px;">
-                            <div class="col-7 text-center" style="background-color: #D7D7D7; height: 1px;"></div>
-                        </div>
-                        <div class="my-4">
-                            <span>Extended Gale-Shapley Stable Matching</span>
-                        </div>
-                    </div>
-
-                    <div class="algorithm-card text-center mt-5" style="max-width: 300px; margin:auto; border: solid #9B9B9B 1px; border-radius: 10px;">
-                        <div class="my-4">
-                            <span class="lead">Hospital/Residents Problem</span>
-                        </div>
-                        <div class="row justify-content-center" style="height: 1px;">
-                            <div class="col-7 text-center" style="background-color: #D7D7D7; height: 1px;"></div>
-                        </div>
-                        <div class="my-4">
-                            <span>Extended Gale-Shapley Stable Matching</span>
-                        </div>
-                    </div>
-
+                    <algorithm-tab-content></algorithm-tab-content>
                 </mat-tab>
-                <mat-tab label="About Me"> Content 3 </mat-tab>
+                <mat-tab label="About Me">
+                    <about-me-tab-content></about-me-tab-content>
+                </mat-tab>
             </mat-tab-group>
         </div>
     </div>
