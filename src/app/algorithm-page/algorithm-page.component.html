@@ -36,7 +36,52 @@
 
 </div> -->
 
-<p>{{ this.algorithmService.currentAlgorithm.id }}</p>
+<!-- <p>{{ this.algorithmService.currentAlgorithm.id }}</p>
 <p>{{ this.algorithmService.currentAlgorithm.name }}</p>
 <p>{{ this.algorithmService.currentAlgorithm.algorithm }}</p>
-<p>{{ this.algorithmService.currentAlgorithm.orientation }}</p>
+<p>{{ this.algorithmService.currentAlgorithm.orientation }}</p> -->
+
+<div class="container-fluid d-flex flex-column" style="min-height: 100vh; padding-right: 50px; padding-left: 50px">
+  <div class="row pt-4">
+    <div class="logo col-1">
+      <img src="assets/images/projectLogo.png" style="max-width: 40%; min-width: 50px;">
+    </div>
+    <div class="title col-10 text-center">
+      <p>{{ algorithmService.currentAlgorithm.name }}: {{ algorithmService.currentAlgorithm.orientation }}-Oriented</p>
+      <p>{{ algorithmService.currentAlgorithm.algorithm }}: {{ algorithmService.numberOfGroup1Agents }} | {{ algorithmService.numberOfGroup2Agents }}</p>
+    </div>
+    <div class="infoLogo col-1 flex-fill d-flex align-items-center text-center">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon>
+    </div>
+  </div>
+
+  <div class="row mt-3 justify-content-center">
+    <div class="col-11 d-flex align-items-center justify-content-center" style="border: solid black 1px; border-radius: 15px; height: 30px">
+      description
+    </div>
+  </div>
+
+  <div class="row mt-3 flex-fill">
+    <div class="col-1 flex-fill d-flex align-items-center text-center">
+      <button mat-raised-button color="primary">Hide Code</button>
+    </div>
+    <!-- <div class="col-5 flex-fill mr-4" style="border: solid black 1px; border-radius: 20px;">
+      code
+    </div>
+    <div class="col-5 flex-fill" style="border: solid black 1px; border-radius: 20px;">
+      animation
+    </div> -->
+    <div class="col-10 flex-fill" style="border: solid black 1px; border-radius: 20px;">
+      animation
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <div class="col-12" >
+      <div class="playback-block">
+        <playback-controls [numPeople]="5"></playback-controls>
+      </div>
+    </div>
+  </div>
+
+</div>

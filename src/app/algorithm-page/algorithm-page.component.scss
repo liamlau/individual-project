@@ -39,3 +39,10 @@
 //     position: absolute;
 //     transform: translate(-50%, -50%);
 // }
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  
+    display: flex;
+    align-items: center;
+  }

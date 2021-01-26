@@ -39,16 +39,18 @@
 
     <!-- STEP SLIDER -->
     <div>
-        <span style="padding-top: 4px;" class="mt-2 mr-2">{{ this.playback.stepCounter }}</span>
-        <mat-slider style="width:80%; max-width: 600px;"
-        #slider
-        thumbLabel
-        [(ngModel)]="this.playback.stepCounter"
-        (input)="this.formatSteps(slider.value)"
-        tickInterval="1"
-        min="0"
-        max={{this.playback.numCommands}}
-        disabled="{{this.playback.firstRun}}"></mat-slider>
-        <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
+        <div class="row justify-content-center">
+            <span style="padding-top: 4px;" class="mt-2 mr-2">{{ this.playback.stepCounter }}</span>
+            <mat-slider style="width:80%; max-width: 600px;"
+            #slider
+            thumbLabel
+            [(ngModel)]="this.playback.stepCounter"
+            (input)="this.formatSteps(slider.value)"
+            tickInterval="1"
+            min="0"
+            max={{this.playback.numCommands}}
+            disabled="{{this.playback.firstRun}}"></mat-slider>
+            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
+        </div>
     </div>
 </div>

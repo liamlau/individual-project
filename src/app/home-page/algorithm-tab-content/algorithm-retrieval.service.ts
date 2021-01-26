@@ -8,6 +8,9 @@ export class AlgorithmRetrievalService {
 
   currentAlgorithm: Algorithm;
 
+  numberOfGroup1Agents: number = 5;
+  numberOfGroup2Agents: number = 5;
+
   listOfAvailableAlgorithms: Array<Algorithm> = [
     {
       id: "smp-man-gs",

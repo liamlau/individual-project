@@ -46,6 +46,12 @@ export class AlgorithmSelectionDialogComponent implements OnInit {
   // on clicking "Generate Preferences" change the global algorithm to the one passed into this dialog
   onGeneratePreferences(): void {
     this.algorithmService.currentAlgorithm = this.algorithm;
+    this.algorithmService.numberOfGroup1Agents = this.numberOfGroup1Agents.value;
+    if (this.numberOfGroup2Agents.value == '') {
+      this.algorithmService.numberOfGroup2Agents = this.numberOfGroup1Agents.value;
+    } else {
+      this.algorithmService.numberOfGroup2Agents = this.numberOfGroup2Agents.value;
+    }
   }
 
 }
