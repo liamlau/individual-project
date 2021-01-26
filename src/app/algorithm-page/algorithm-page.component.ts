@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { element } from 'protractor';
+import { AlgorithmRetrievalService } from '../home-page/algorithm-tab-content/algorithm-retrieval.service';
 import { PlaybackService } from './playback.service';
 declare var anime: any;
 
@@ -11,7 +12,7 @@ declare var anime: any;
 })
 export class AlgorithmPageComponent implements OnInit {
 
-  constructor(public playback: PlaybackService) { }
+  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void { }
 

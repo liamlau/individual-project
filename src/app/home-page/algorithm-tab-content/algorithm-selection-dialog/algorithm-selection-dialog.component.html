@@ -9,7 +9,7 @@
 
   <div class="divider col-4 mb-2"></div>
 
-  <h3>Input number of agents:</h3>
+  <h3>Input number of agents</h3>
   <p>For the algorithm to work, you need to input the number of agents you want on each side of the
     matching.
   </p>
@@ -57,5 +57,9 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')">Generate Preferences!</button>
+  <button *ngIf="algorithm.name == 'Stable Marriage Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')" (click)="this.onGeneratePreferences()">Generate Preferences!</button>
+  <button *ngIf="algorithm.name == 'Hospital/Residents Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')" (click)="this.onGeneratePreferences()">Generate Preferences!</button>
 </mat-dialog-actions>
+
+
+<!-- FIX IT SO IT DOESN'T TAKE DECIMALS (and e) -->

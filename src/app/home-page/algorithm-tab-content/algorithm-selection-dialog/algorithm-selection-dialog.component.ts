@@ -3,6 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Algorithm } from '../Algorithm';
+import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -35,11 +36,16 @@ export class AlgorithmSelectionDialogComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogData) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public dialogData, public algorithmService: AlgorithmRetrievalService) { 
     this.algorithm = dialogData.algorithm;
   }
 
   ngOnInit(): void {
+  }
+
+  // on clicking "Generate Preferences" change the global algorithm to the one passed into this dialog
+  onGeneratePreferences(): void {
+    this.algorithmService.currentAlgorithm = this.algorithm;
   }
 
 }
