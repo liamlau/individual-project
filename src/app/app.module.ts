@@ -47,7 +47,7 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     HomeTabContentComponent,
     AlgorithmTabContentComponent,
     AboutMeTabContentComponent,
-    AlgorithmSelectionDialogComponent,
+    AlgorithmSelectionDialogComponent
   ],
   imports: [
     BrowserModule,

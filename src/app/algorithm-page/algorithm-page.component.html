@@ -62,8 +62,8 @@
   </div>
 
   <div class="row mt-3 flex-fill">
-    <div class="col-1 flex-fill d-flex align-items-center text-center" (resized)="onResized()">
-      <button mat-raised-button color="primary" (click)="this.drawCircle()">Show Code</button>
+    <div class="col-1 flex-fill d-flex align-items-center text-center">
+      <!-- <button mat-raised-button color="primary">Show Code</button> -->
     </div>
     <!-- <div class="col-5 flex-fill mr-4" style="border: solid black 1px; border-radius: 20px;">
       code
@@ -71,7 +71,9 @@
     <div class="col-5 flex-fill" style="border: solid black 1px; border-radius: 20px;">
       animation
     </div> -->
-    <div id="parent" class="col-10 flex-fill text-center" style="border: solid black 1px; border-radius: 20px;">
+
+
+    <div id="parent" class="col-10 flex-fill text-center" style="border: solid black 1px; border-radius: 20px;" (resized)="this.drawService.redrawCanvas()">
       <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
  
       </canvas>

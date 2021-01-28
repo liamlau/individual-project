@@ -11,8 +11,6 @@
 - invert the slider (slow on left, fast on right)
 
 # To-Do (28/01/21)
-- Change the colour of the right hand side circles to purple (look on Figma for the hex)
-- Make functions for drawing circles and lines between circles
 - Make what I currently have as responsive as possible
     - Need to think about the max size of the canvas
     - Also think about the size of circles, and updating the position of everything in an object in the service
@@ -28,5 +26,10 @@
 - Make clicking the logo go back home
     - Make hovering over the logo darken it slightly
 
+- Fix tests
+    - Do more unit tests
+    - Do more e2e tests
+
 # Done (28/01/21)
-- 
+- Change the colour of the right hand side circles to purple (look on Figma for the hex)
+- Make functions for drawing circles and lines between circles
