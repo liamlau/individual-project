@@ -253,3 +253,9 @@ Holiday taken for Christmas.
 
 25/01/21:
 - 7 hours: working on redesign of app (implementation)
+
+26/01/21:
+- 2 hours: learning canvas
+
+27/01/21:
+- 1 hour: drawing circles on canvas and testing things
