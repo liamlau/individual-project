@@ -33,3 +33,4 @@
 # Done (28/01/21)
 - Change the colour of the right hand side circles to purple (look on Figma for the hex)
 - Make functions for drawing circles and lines between circles
+- Made positions of circles more responsive

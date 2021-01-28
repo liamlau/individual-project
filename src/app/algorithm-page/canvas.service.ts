@@ -33,18 +33,31 @@ export class CanvasService {
     let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
     // console.log(effectiveHeight);
 
-    let spaceBetweenCircles: number = effectiveHeight / 5;
+    let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
     let currentCirclePosition = (canvas.height * this.yMargin);
-    let lastLetter = 'A';
+    
 
     this.positions = {}
 
-    for (let i = 1; i < 6; i++) {
+    // LHS Positions
+
+    for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.positions["circle" + i] = {
         positionX: canvas.width * this.xMargin,
         positionY: currentCirclePosition
       }
 
+      currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+    }
+
+
+    // RHS Circle positions
+
+    let lastLetter = 'A';
+    spaceBetweenCircles = effectiveHeight / this.algService.numberOfGroup2Agents;
+    currentCirclePosition = (canvas.height * this.yMargin);
+
+    for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
       this.positions["circle" + lastLetter ] = {
         positionX: canvas.width - (canvas.width * this.xMargin),
         positionY: currentCirclePosition
@@ -126,7 +139,7 @@ export class CanvasService {
     currentLetter = 'A';
 
     // Draw text (numbers)
-    for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+    for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
       let posX: number = this.positions["circle" + currentLetter].positionX;
       let posY: number = this.positions["circle" + currentLetter].positionY;
 
@@ -157,7 +170,7 @@ export class CanvasService {
     this.calculateEqualDistance();
 
     // draw lines between circles (matches and relations)
-    this.drawLineBetween("circle1", "circleB");
+    // this.drawLineBetween("circle1", "circleB");
 
     // draw circles
     this.drawLHSCircles();
