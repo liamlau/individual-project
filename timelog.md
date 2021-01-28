@@ -248,5 +248,8 @@ Holiday taken for Christmas.
 19/01/21:
 - 4 hours refinement of design (specifically hospital/residents problem)
 
+24/01/21:
+- 7 hours: working on redesign of app (implementation)
+
 25/01/21:
 - 7 hours: working on redesign of app (implementation)

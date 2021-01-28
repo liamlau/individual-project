@@ -29,6 +29,7 @@ import { HomeTabContentComponent } from './home-page/home-tab-content/home-tab-c
 import { AlgorithmTabContentComponent } from './home-page/algorithm-tab-content/algorithm-tab-content.component';
 import { AboutMeTabContentComponent } from './home-page/about-me-tab-content/about-me-tab-content.component';
 import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-con
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularResizedEventModule
   ],
   providers: [],
   bootstrap: [AppComponent]
