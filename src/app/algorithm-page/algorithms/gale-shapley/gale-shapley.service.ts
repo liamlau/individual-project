@@ -47,9 +47,12 @@ export class GaleShapleyService {
   }
 
   createPeople(numPeople: number): void {
+
+    let currentLetter = 'A';
+
     for (let i=1; i<numPeople+1; i++) {
       let manName = "man" + i;
-      let womanName = "woman" + i;
+      let womanName = "woman" + currentLetter;
 
       this.men[manName] = {
           name: manName,
@@ -64,6 +67,9 @@ export class GaleShapleyService {
 
       this.freeMen.push(manName);
       this.freeWomen.push(womanName);
+
+      currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
+
     }
   }
 

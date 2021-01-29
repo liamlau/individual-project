@@ -12,7 +12,7 @@ export class ExecutionService {
   commandList = {};
   serviceMap = {
     "simple": this.simpleService,
-    "gale-shapley": this.gsService
+    "smp-man-gs": this.gsService
   }
 
   // add the services for any new algorithms here

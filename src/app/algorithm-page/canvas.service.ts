@@ -1,6 +1,7 @@
 import { ElementRef, ViewChild } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { AlgorithmRetrievalService } from '../home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { PlaybackService } from './playback.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,16 @@ export class CanvasService {
   xMargin: number = 0.3;
 
 
+  // font properties
+  fontSize: number = 20;
+
   canvas: ElementRef<HTMLCanvasElement>;
 
   positions;
 
   public ctx: CanvasRenderingContext2D;
 
-  constructor(public algService: AlgorithmRetrievalService) { }
+  constructor(public algService: AlgorithmRetrievalService, public playback: PlaybackService) { }
 
   ngOnInit(): void {
     
@@ -160,6 +164,31 @@ export class CanvasService {
   }
 
 
+  drawAllPreferences() {
+
+    this.ctx.font = this.fontSize + 'px Arial';
+
+    let preferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["men"]);
+    // console.log(preferenceList[0].join(", "));
+    console.log(preferenceList);
+    // console.log(preferenceList.join(", "));
+
+    // this.ctx.fillText("C, B, E, A, D", 235, 88);
+
+    for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+      this.ctx.fillText(preferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7);
+    }
+
+    // for (let [currentAgent, preferences] of Object.entries(this.playback.algorithmData["men"])) {
+    //   console.log(currentAgent);
+    //   let preferenceString: string = Object.values(preferences).join(", ");
+    //   console.log(preferenceString);
+    //   console.log("----------");
+      
+    // }
+  }
+
+
   redrawCanvas(): void {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     var parent = document.getElementById("parent");
@@ -175,6 +204,8 @@ export class CanvasService {
     // draw circles
     this.drawLHSCircles();
     this.drawRHSCircles();
+
+    this.drawAllPreferences();
 
   }
 

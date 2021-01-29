@@ -18,6 +18,8 @@ export class AlgorithmPageComponent implements OnInit {
 
   private ctx: CanvasRenderingContext2D;
 
+  showCode: boolean = false;
+
   constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService) { }
 
   ngOnInit(): void {
@@ -27,6 +29,8 @@ export class AlgorithmPageComponent implements OnInit {
 
     // this.ctx = this.canvas.nativeElement.getContext('2d');
 
+    this.algorithm.setValue("Gale-Shapley Stable Marriage");
+
     this.algorithmService.currentAlgorithm = {
       id: "smp-man-gs",
       name: "Stable Marriage Problem",
@@ -34,6 +38,9 @@ export class AlgorithmPageComponent implements OnInit {
       algorithm: "Gale-Shapley Stable Matching",
       description: "The stable marriage problem is the problem of finding a stable matching between two equally sized sets of elements. In this case: <b>men and women</b>.<br><br>To do this, the Gale-Shapley Stable Marriage algorithm is used."
     };
+
+    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, 5);
+
   }
 
   ngAfterViewInit(): void {
@@ -90,6 +97,41 @@ export class AlgorithmPageComponent implements OnInit {
         duration: 400,
       });
     }
+  }
+
+  toggleExpansion() {
+    var terminalElement = document.getElementById("terminal");
+    if (this.showCode) {
+      console.log(terminalElement.style.display);
+      terminalElement.style.display = "none";
+      terminalElement.style.visibility = "none";
+      // anime({
+      //   targets: '.terminal-header',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [0, 200],
+      //   duration: 400
+      // })
+      // anime({
+      //   targets: '.terminal',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [0, -50],
+      //   opacity: [1, 0],
+      //   duration: 400
+      // })
+    } else {
+      // maybe try animating the height?
+      terminalElement.style.display = "";
+      terminalElement.style.visibility = "visible";
+      // anime({
+      //   targets: '.terminal-header',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [200, 0],
+      //   duration: 400
+      // })
+    }
+
+    this.showCode = !this.showCode;
+
   }
 
 }

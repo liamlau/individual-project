@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/home-page/algorithm-tab-content/algorithm-retrieval.service';
 import { PlaybackService } from '../playback.service';
 
 declare var anime: any;
@@ -13,43 +14,44 @@ export class PlaybackControlsComponent implements OnInit {
   @Input() algorithm: string;
   @Input() numPeople: number;
 
-  constructor(public playback: PlaybackService) { }
+  constructor(public playback: PlaybackService, public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
   }
 
   async toggle() {
     if (this.playback.firstRun) {
-      var yMid = ((window.innerHeight / 2) / 2) - 20;
-      // console.log(yMid);
+      // var yMid = ((window.innerHeight / 2) / 2) - 20;
+      // // console.log(yMid);
 
-      anime({
-        targets: '.algorithm-container',
-        easing: 'easeInOutQuint',
-        translateY: [-yMid, 0],
-        // opacity: [0, 1],
-        duration: 400
-      })
-      anime({
-        targets: '.title-container',
-        easing: 'easeInOutQuint',
-        translateY: [40, 20],
-        // opacity: [0, 1],
-        duration: 400
-      })
-      this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      // anime({
+      //   targets: '.algorithm-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [-yMid, 0],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // anime({
+      //   targets: '.title-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [40, 20],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
       // this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      console.log("here");
+      // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
       this.playback.firstRun = false;
       this.playback.pause = false;
 
 
-      await this.delay(400);
-      anime({
-        targets: '.variable-block',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 300
-      })
+      // await this.delay(400);
+      // anime({
+      //   targets: '.variable-block',
+      //   easing: 'easeInOutQuint',
+      //   opacity: [0, 1],
+      //   duration: 300
+      // })
       this.playback.play();
     } else {
       if (this.playback.pause) {
