@@ -92,6 +92,7 @@ export class PlaybackControlsComponent implements OnInit {
 
     var command = this.playback.commandList[this.playback.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
     a.style.color = "";
     
     this.playback.unboldenPreviousVariables();

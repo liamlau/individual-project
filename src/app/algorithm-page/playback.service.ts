@@ -143,11 +143,13 @@ export class PlaybackService {
 
   uncolourCurrentLine(): void {
     let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.backgroundColor = "";
     codeLineHTML.style.color = "";
   }
 
   colourCurrentLine(): void {
     let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.backgroundColor = "black";
     codeLineHTML.style.color = "#37FF00";
   }
 

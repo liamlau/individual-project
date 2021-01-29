@@ -17,6 +17,9 @@ export class CanvasService {
   // font properties
   fontSize: number = 20;
 
+
+  drawPreferences: boolean = true;
+
   canvas: ElementRef<HTMLCanvasElement>;
 
   positions;
@@ -168,16 +171,25 @@ export class CanvasService {
 
     this.ctx.font = this.fontSize + 'px Arial';
 
-    let preferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["men"]);
+    let group1PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["men"]);
     // console.log(preferenceList[0].join(", "));
-    console.log(preferenceList);
+    console.log(group1PreferenceList);
     // console.log(preferenceList.join(", "));
 
     // this.ctx.fillText("C, B, E, A, D", 235, 88);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.ctx.fillText(preferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7);
+      this.ctx.fillText(group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7);
     }
+
+    let group2PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["women"]);
+    let currentLetter = 'A';
+
+    for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
+      this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
+      currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
+    }
+
 
     // for (let [currentAgent, preferences] of Object.entries(this.playback.algorithmData["men"])) {
     //   console.log(currentAgent);
@@ -205,8 +217,9 @@ export class CanvasService {
     this.drawLHSCircles();
     this.drawRHSCircles();
 
-    this.drawAllPreferences();
-
+    if (this.drawPreferences) {
+      this.drawAllPreferences();
+    }
   }
 
 }
