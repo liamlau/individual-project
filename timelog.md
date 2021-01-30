@@ -264,9 +264,4 @@ Holiday taken for Christmas.
 - 4 hours: positioning circles correctly, linking up all previously developed features
 
 29/01/21:
-- 11 - 12 play games
-- 12 - 12 do work
-    - 12 - 13: design how drawing system will work
-    - 14 - 17: implement drawing system
-    - 18 - 20: responsiveness
-    - 20 - 21: organisation (issues and stuff)
+- 5 hours: figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)

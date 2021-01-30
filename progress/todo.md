@@ -30,6 +30,10 @@
     - Do more unit tests
     - Do more e2e tests
 
+- Some functionality to export the preferences to a file?
+    - Then some functionality to import those preferences back in (probably just a text file)
+    - Either text file or just a text box that allows editing (maybe more secure, don't need to do any file handling)
+
 # Done (28/01/21)
 - Change the colour of the right hand side circles to purple (look on Figma for the hex)
 - Make functions for drawing circles and lines between circles

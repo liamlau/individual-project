@@ -8,6 +8,16 @@ import { PlaybackService } from './playback.service';
 })
 export class CanvasService {
 
+  // HTML drawing properties
+  sizes = [];
+  baseSize = undefined;
+  font = undefined;
+  controlChars = "{}\n\t";
+  spaceSize = 0;
+  tabSize = 8; // in spaceSize units
+  tabs = (function(){var t = [];for(var i=0; i < 100; i += 8){t.push(i);}; return t;})();
+
+
   // circle properties
   radiusOfCircles: number = 30;
   yMargin: number = 0.15;
@@ -179,14 +189,15 @@ export class CanvasService {
     // this.ctx.fillText("C, B, E, A, D", 235, 88);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.ctx.fillText(group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["women"]);
     let currentLetter = 'A';
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
-      this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
+      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + i].positionY + 7, this.fontSize);
+      // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
 
@@ -200,12 +211,138 @@ export class CanvasService {
     // }
   }
 
+  getNextTab(x) {
+    let i = 0;
+    while(i < this.tabs.length){
+        if(x < this.tabs[i] * this.tabSize * this.spaceSize){
+            return this.tabs[i] * this.tabSize * this.spaceSize;
+        }
+        i++;
+    }
+    return this.tabs[i-1] * this.tabSize * this.spaceSize;
+  }
+
+  getFontSize(font) {
+    var numFind = /[0-9]+/;
+    var number: number = Number(numFind.exec(font)[0]);
+    if(isNaN(number)){
+        throw Error("SimpleTextStyler Cant find font size");
+    }
+    return Number(number);
+    
+  }
+
+  setFont(font = this.ctx.font) {
+    this.font = this.ctx.font = font;
+    this.baseSize = this.getFontSize(font);
+    for(var i = 32; i < 256; i ++){
+        this.sizes[i-32] = this.ctx.measureText(String.fromCharCode(i)).width/this.baseSize;
+    }
+    this.spaceSize = this.sizes[0];
+
+}
+
+
+// FROM: https://stackoverflow.com/questions/43904201/how-can-i-colour-different-words-in-the-same-line-with-html5-canvas
+  drawText(context,text,x,y,size){
+    var i,len,subText;
+    var w,scale;
+    var xx,yy,ctx;
+    var state = [];
+    if(text === undefined){ return }
+    xx = x;
+    yy = y;
+    if(!context.setTransform){ // simple test if this is a 2D context
+        if(context.ctx){ ctx = context.ctx } // may be a image with attached ctx?
+        else{ return }
+    }else { ctx = context }
+
+    function renderText(text){
+    
+        ctx.save();
+        ctx.fillStyle = colour;
+        ctx.translate(x,y)
+        ctx.scale(scale,scale)
+        ctx.fillText(text,0,0);
+        ctx.restore();
+    }
+    var colour = ctx.fillStyle;
+    ctx.font = this.font;
+    len = text.length;
+    subText = "";
+    w = 0;
+    i = 0;
+    scale = size / this.baseSize;
+    while(i < len){
+        var c = text[i];
+        var cc = text.charCodeAt(i);
+        if(cc < 256){ // only ascii
+            if(this.controlChars.indexOf(c) > -1){
+                if(subText !== ""){
+                    scale = size / this.baseSize;
+                    renderText(subText);
+                    x += w;
+                    w = 0;
+                    subText = "";                        
+                }
+                if(c === "\n"){  // return move to new line
+                    x = xx;
+                    y += size;
+                }else
+                if(c === "\t"){ // tab move to next tab
+                    x = this.getNextTab(x-xx)+xx;
+                }else
+                if(c === "{"){   // Text format delimiter                       
+                    state.push({
+                        size : size,
+                        colour : colour,
+                        x:x,
+                        y:y,
+                    })
+                    i += 1;
+                    var t = text[i];
+                    if(t === "+"){  // Increase size
+                        size *= 1/(3/4);
+                    }else if(t === "-"){  // decrease size
+                        size *= 3/4;
+                    }else if(t === "s"){ // sub script
+                        y += size * (1/3);
+                        size  *= (2/3);
+                    }else if(t === "S"){ // super script
+                        y -= size * (1/3);
+                        size  *= (2/3);
+                    }else if(t === "#"){
+                        colour = text.substr(i,7);
+                        i+= 6;
+                    }
+                }else if(c  === "}"){
+                    var s = state.pop();
+                    y = s.y;
+                    size = s.size;
+                    colour = s.colour;
+                    scale = size / this.baseSize;
+                }
+            }else{
+                subText += c;
+                w += this.sizes[cc-32] * (size ) ;
+            }
+        }
+        i += 1;
+    }
+    if(subText !== ""){
+        renderText(subText);
+    }
+  
+  }
+
+
 
   redrawCanvas(): void {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     var parent = document.getElementById("parent");
     canvas.width = parent.offsetWidth - 20;
     canvas.height = parent.offsetHeight - 20;
+    this.setFont();
 
     // update positions of all canvas elements
     this.calculateEqualDistance();
@@ -220,6 +357,6 @@ export class CanvasService {
     if (this.drawPreferences) {
       this.drawAllPreferences();
     }
-  }
 
+  }
 }
