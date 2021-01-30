@@ -19,13 +19,13 @@ export class CanvasService {
 
 
   // circle properties
-  radiusOfCircles: number = 30;
-  yMargin: number = 0.15;
-  xMargin: number = 0.3;
+  radiusOfCircles: number = 15;
+  yMargin: number = 0.075;
+  xMargin: number = 0.15;
 
 
   // font properties
-  fontSize: number = 20;
+  fontSize: number = 10;
 
 
   drawPreferences: boolean = true;
@@ -47,7 +47,7 @@ export class CanvasService {
     // console.log(canvas.width);
     // console.log(canvas.height);
 
-    let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
+    let effectiveHeight: number = (canvas.height)/2 - (canvas.height * this.yMargin);
     // console.log(effectiveHeight);
 
     let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
@@ -60,7 +60,7 @@ export class CanvasService {
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.positions["circle" + i] = {
-        positionX: canvas.width * this.xMargin,
+        positionX: (canvas.width * this.xMargin),
         positionY: currentCirclePosition
       }
 
@@ -76,7 +76,7 @@ export class CanvasService {
 
     for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
       this.positions["circle" + lastLetter ] = {
-        positionX: canvas.width - (canvas.width * this.xMargin),
+        positionX: ((canvas.width)/2 - (canvas.width * this.xMargin)),
         positionY: currentCirclePosition
       }
 
@@ -85,7 +85,7 @@ export class CanvasService {
       currentCirclePosition = currentCirclePosition + spaceBetweenCircles
     }
 
-    // console.log(this.positions);
+    console.log(this.positions);
 
   }
 
@@ -116,7 +116,7 @@ export class CanvasService {
       this.ctx.fillStyle = "black";
       this.ctx.font = this.radiusOfCircles + 'px Arial';
 
-      this.ctx.fillText(String(i), posX - 8, posY + 10, 20);
+      this.ctx.fillText(String(i), posX - 4.3, posY + 5.4, 20);
 
     }
 
@@ -163,17 +163,30 @@ export class CanvasService {
       this.ctx.fillStyle = "black";
       this.ctx.font = this.radiusOfCircles + 'px Arial';
 
-      this.ctx.fillText(currentLetter, posX - 9, posY + 11, 20);
+      this.ctx.fillText(currentLetter, posX - 4.5, posY + 5.5, 20);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
   }
 
 
-  drawLineBetween(firstCircle: string, secondCircle: string): void {
+  drawLineBetween(firstCircle: string, secondCircle: string, color: string): void {
+
+    if (color == "red") {
+      this.ctx.strokeStyle = "#EB2A2A";
+    } else if (color == "green") {
+      this.ctx.strokeStyle = "#53D26F";
+    }
+
+    this.ctx.lineWidth = 1.5;
+
     this.ctx.beginPath();
     this.ctx.moveTo(this.positions[firstCircle].positionX, this.positions[firstCircle].positionY);
     this.ctx.lineTo(this.positions[secondCircle].positionX, this.positions[secondCircle].positionY);
     this.ctx.stroke();
+
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = 0.5;
+
   }
 
 
@@ -189,14 +202,14 @@ export class CanvasService {
     // this.ctx.fillText("C, B, E, A, D", 235, 88);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 90, this.positions["circle" + i].positionY + 3.5, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["women"]);
     let currentLetter = 'A';
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
-      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 32.5, this.positions["circle" + i].positionY + 3.5, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
@@ -210,6 +223,35 @@ export class CanvasService {
       
     // }
   }
+
+  selectCircles(circles: Array<string>) {
+
+    let originalLineWidth: number = this.ctx.lineWidth;
+    let originalStrokeStyle: string | CanvasGradient | CanvasPattern = this.ctx.strokeStyle;
+
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeStyle = "#53D26F";
+
+    for (let circle of circles) {
+
+      this.ctx.beginPath();
+
+      let posX: number = this.positions[circle].positionX;
+      let posY: number = this.positions[circle].positionY;
+
+      this.ctx.moveTo(posX + this.radiusOfCircles, posY);
+
+      this.ctx.arc(posX, posY, this.radiusOfCircles, 0, Math.PI * 2, true)
+
+      this.ctx.stroke();
+
+    }
+
+    this.ctx.lineWidth = originalLineWidth;
+    this.ctx.strokeStyle = originalStrokeStyle;
+
+  }
+
 
   getNextTab(x) {
     let i = 0;
@@ -342,12 +384,17 @@ export class CanvasService {
     var parent = document.getElementById("parent");
     canvas.width = parent.offsetWidth - 20;
     canvas.height = parent.offsetHeight - 20;
+    canvas.style.width = String(canvas.width / 2);
+    canvas.style.height = String(canvas.height / 2);
+    this.ctx.scale(2,2);
+
     this.setFont();
 
     // update positions of all canvas elements
     this.calculateEqualDistance();
 
     // draw lines between circles (matches and relations)
+    this.drawLineBetween("circle1", "circleE", "red")
     // this.drawLineBetween("circle1", "circleB");
 
     // draw circles
@@ -357,6 +404,8 @@ export class CanvasService {
     if (this.drawPreferences) {
       this.drawAllPreferences();
     }
+
+    this.selectCircles(["circle1", "circleE"]);
 
   }
 }
