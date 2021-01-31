@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExecutionService } from './algorithms/execution.service';
+import { CanvasService } from './canvas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class PlaybackService {
 
   description: string = "Click play to run the program below!";
 
-  constructor(public exeService: ExecutionService) { }
+  constructor(public exeService: ExecutionService, public drawService: CanvasService) { }
 
   resetPlaybackData(): void {
     this.firstRun = true;
@@ -61,6 +62,7 @@ export class PlaybackService {
     this.currentCommand = this.algorithmData["commands"][this.stepCounter];
     this.description = this.algorithmData["descriptions"][this.stepCounter];
     this.currentLine = this.currentCommand["lineNumber"];
+    this.drawService.redrawCanvas(this.currentCommand);
   }
 
 

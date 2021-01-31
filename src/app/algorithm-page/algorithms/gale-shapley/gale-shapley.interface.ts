@@ -4,4 +4,7 @@ export interface GaleShapley {
     matches: Object;
     stepVariables: Object;
     changeTrace: Object;
+    // preferenceList: Object;
+    group1CurrentPreferences: Object,
+    group2CurrentPreferences: Object
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CanvasService } from '../canvas.service';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
 import { SimpleService } from './simple/simple.service';
 
@@ -18,7 +19,8 @@ export class ExecutionService {
   // add the services for any new algorithms here
   constructor(
     public simpleService: SimpleService,
-    public gsService: GaleShapleyService
+    public gsService: GaleShapleyService,
+    public drawService: CanvasService
   ) { }
 
 
@@ -29,6 +31,8 @@ export class ExecutionService {
 
     let commandList = algorithmService.run(numPeople);
     commandList["descriptions"] = this.generateDescriptions(commandList);
+
+    // this.drawService.redrawCanvas(commandList["commands"][0]);
 
     return commandList;
   }

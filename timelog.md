@@ -264,4 +264,4 @@ Holiday taken for Christmas.
 - 4 hours: positioning circles correctly, linking up all previously developed features
 
 29/01/21:
-- 5 hours: figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)
+- 6 hours: figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)

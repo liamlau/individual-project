@@ -1,6 +1,7 @@
 import { ElementRef, ViewChild } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { AlgorithmRetrievalService } from '../home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { ExecutionService } from './algorithms/execution.service';
 import { PlaybackService } from './playback.service';
 
 @Injectable({
@@ -19,13 +20,13 @@ export class CanvasService {
 
 
   // circle properties
-  radiusOfCircles: number = 15;
-  yMargin: number = 0.075;
-  xMargin: number = 0.15;
+  radiusOfCircles: number = 30;
+  yMargin: number = 0.15;
+  xMargin: number = 0.3;
 
 
   // font properties
-  fontSize: number = 10;
+  fontSize: number = 20;
 
 
   drawPreferences: boolean = true;
@@ -34,12 +35,21 @@ export class CanvasService {
 
   positions;
 
+  public currentCommand: Object;
+
   public ctx: CanvasRenderingContext2D;
 
-  constructor(public algService: AlgorithmRetrievalService, public playback: PlaybackService) { }
+  constructor(public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
-    
+
+  }
+
+  setCommand(command) {
+    console.log("|| ||")
+    console.log(command);
+    this.currentCommand = command;
+    this.redrawCanvas();
   }
 
   calculateEqualDistance() {
@@ -47,7 +57,7 @@ export class CanvasService {
     // console.log(canvas.width);
     // console.log(canvas.height);
 
-    let effectiveHeight: number = (canvas.height)/2 - (canvas.height * this.yMargin);
+    let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
     // console.log(effectiveHeight);
 
     let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
@@ -60,7 +70,7 @@ export class CanvasService {
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.positions["circle" + i] = {
-        positionX: (canvas.width * this.xMargin),
+        positionX: canvas.width * this.xMargin,
         positionY: currentCirclePosition
       }
 
@@ -76,7 +86,7 @@ export class CanvasService {
 
     for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
       this.positions["circle" + lastLetter ] = {
-        positionX: ((canvas.width)/2 - (canvas.width * this.xMargin)),
+        positionX: canvas.width - (canvas.width * this.xMargin),
         positionY: currentCirclePosition
       }
 
@@ -85,7 +95,7 @@ export class CanvasService {
       currentCirclePosition = currentCirclePosition + spaceBetweenCircles
     }
 
-    console.log(this.positions);
+    // console.log(this.positions);
 
   }
 
@@ -116,7 +126,7 @@ export class CanvasService {
       this.ctx.fillStyle = "black";
       this.ctx.font = this.radiusOfCircles + 'px Arial';
 
-      this.ctx.fillText(String(i), posX - 4.3, posY + 5.4, 20);
+      this.ctx.fillText(String(i), posX - 8, posY + 10, 20);
 
     }
 
@@ -163,7 +173,7 @@ export class CanvasService {
       this.ctx.fillStyle = "black";
       this.ctx.font = this.radiusOfCircles + 'px Arial';
 
-      this.ctx.fillText(currentLetter, posX - 4.5, posY + 5.5, 20);
+      this.ctx.fillText(currentLetter, posX - 9, posY + 11, 20);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
   }
@@ -177,7 +187,7 @@ export class CanvasService {
       this.ctx.strokeStyle = "#53D26F";
     }
 
-    this.ctx.lineWidth = 1.5;
+    this.ctx.lineWidth = 3;
 
     this.ctx.beginPath();
     this.ctx.moveTo(this.positions[firstCircle].positionX, this.positions[firstCircle].positionY);
@@ -185,7 +195,7 @@ export class CanvasService {
     this.ctx.stroke();
 
     this.ctx.strokeStyle = "#000000";
-    this.ctx.lineWidth = 0.5;
+    this.ctx.lineWidth = 1;
 
   }
 
@@ -194,7 +204,10 @@ export class CanvasService {
 
     this.ctx.font = this.fontSize + 'px Arial';
 
-    let group1PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["men"]);
+    let group1PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group1CurrentPreferences"]);
+    console.log("----------");
+    // console.log(Object.values(this.playback.algorithmData["commands"][stepCounter]["group1CurrentPreferences"]));
+
     // console.log(preferenceList[0].join(", "));
     console.log(group1PreferenceList);
     // console.log(preferenceList.join(", "));
@@ -202,14 +215,14 @@ export class CanvasService {
     // this.ctx.fillText("C, B, E, A, D", 235, 88);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 90, this.positions["circle" + i].positionY + 3.5, this.fontSize);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
-    let group2PreferenceList: Array<Array<string>> = Object.values(this.playback.algorithmData["women"]);
+    let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
     let currentLetter = 'A';
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
-      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 32.5, this.positions["circle" + i].positionY + 3.5, this.fontSize);
+      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + i].positionY + 7, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
@@ -229,7 +242,7 @@ export class CanvasService {
     let originalLineWidth: number = this.ctx.lineWidth;
     let originalStrokeStyle: string | CanvasGradient | CanvasPattern = this.ctx.strokeStyle;
 
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 4;
     this.ctx.strokeStyle = "#53D26F";
 
     for (let circle of circles) {
@@ -379,14 +392,18 @@ export class CanvasService {
 
 
 
-  redrawCanvas(): void {
+  redrawCanvas(command?: Object): void {
+
+    if (command) {
+      this.currentCommand = command;
+    }
+
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
     var parent = document.getElementById("parent");
     canvas.width = parent.offsetWidth - 20;
     canvas.height = parent.offsetHeight - 20;
-    canvas.style.width = String(canvas.width / 2);
-    canvas.style.height = String(canvas.height / 2);
-    this.ctx.scale(2,2);
+    // canvas.style.width = String(canvas.width / 2);
+    // canvas.style.height = String(canvas.height / 2);
 
     this.setFont();
 
@@ -394,18 +411,18 @@ export class CanvasService {
     this.calculateEqualDistance();
 
     // draw lines between circles (matches and relations)
-    this.drawLineBetween("circle1", "circleE", "red")
+    // this.drawLineBetween("circle1", "circleE", "red")
     // this.drawLineBetween("circle1", "circleB");
 
     // draw circles
     this.drawLHSCircles();
     this.drawRHSCircles();
 
-    if (this.drawPreferences) {
+    if (this.drawPreferences && this.currentCommand) {
       this.drawAllPreferences();
     }
 
-    this.selectCircles(["circle1", "circleE"]);
+    // this.selectCircles(["circle1", "circleE"]);
 
   }
 }
