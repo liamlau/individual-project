@@ -265,3 +265,9 @@ Holiday taken for Christmas.
 
 29/01/21:
 - 6 hours: figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)
+
+30/01/21:
+- rest day
+
+31/01/21:
+- 3 hours: making correct variable display green colour for canvas animation

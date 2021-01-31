@@ -82,6 +82,10 @@ export class PlaybackControlsComponent implements OnInit {
 
   formatSteps(val: number) {
 
+    if (this.playback.firstRun) {
+      this.playback.firstRun = false;
+    }
+
     if (this.playback.previousStepCounter != this.playback.stepCounter) {
       this.playback.previousStepCounter = this.playback.stepCounter;
     }
