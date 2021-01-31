@@ -245,12 +245,12 @@ export class CanvasService {
     this.ctx.lineWidth = 4;
     this.ctx.strokeStyle = "#53D26F";
 
-    for (let circle of circles) {
+    for (let agent of circles) {
 
       this.ctx.beginPath();
 
-      let posX: number = this.positions[circle].positionX;
-      let posY: number = this.positions[circle].positionY;
+      let posX: number = this.positions["circle" + agent].positionX;
+      let posY: number = this.positions["circle" + agent].positionY;
 
       this.ctx.moveTo(posX + this.radiusOfCircles, posY);
 
@@ -422,7 +422,8 @@ export class CanvasService {
       this.drawAllPreferences();
     }
 
-    // this.selectCircles(["circle1", "circleE"]);
+    // console.log();
+    this.selectCircles(this.currentCommand["currentlySelectedAgents"]);
 
   }
 }

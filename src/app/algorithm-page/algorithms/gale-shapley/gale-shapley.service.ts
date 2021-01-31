@@ -17,6 +17,8 @@ export class GaleShapleyService {
   group1CurrentPreferences: Object;
   group2CurrentPreferences: Object;
 
+  currentlySelectedAgents: Array<string> = [];
+
   commandList = {
     men: null,
     women: null,
@@ -217,6 +219,8 @@ export class GaleShapleyService {
 
     if (style == "green") {
       style = "#53D26F";
+    } else if (style == "red") {
+      style = "#EB2A2A";
     } else if (style == "grey") {
       style = "#C4C4C4";
     } else if (style == "black") {
@@ -257,8 +261,28 @@ export class GaleShapleyService {
       changeTrace: {},
       group1CurrentPreferences: JSON.parse(JSON.stringify(this.group1CurrentPreferences)),
       group2CurrentPreferences: JSON.parse(JSON.stringify(this.group2CurrentPreferences)),
+      currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
     }
     this.commandList.commands.push(galeShapley);
+  }
+
+
+  checkArrayEquality(a: Array<string>, b: Array<string>) {
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) { return false; }
+    }
+    return true;
+  }
+
+
+  removeArrayFromArray(a: Array<Array<string>>, b: Array<string>) {
+    let arrayPositionCounter: number = 0;
+    for (let subArray of a) {
+      if (this.checkArrayEquality(subArray, b)) {
+        a.splice(arrayPositionCounter, 1);
+      }
+      arrayPositionCounter++;
+    }
   }
 
 
@@ -284,13 +308,17 @@ export class GaleShapleyService {
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
+
+      this.currentlySelectedAgents = [];
       
       let man: Object = this.men[this.freeMen[0]];
+      this.currentlySelectedAgents.push(man["name"].substring(3));
       this.update(2, {"%man%": man["name"]});
       // console.log("-------");
 
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
       let woman: Object = man["ranking"][man["lastProposed"]];
+      this.currentlySelectedAgents.push(woman["name"].substring(5));
       this.update(3, {"%woman%": woman["name"], "%man%": man["name"]});
 
       // console.log("Man: " + man["name"]);
@@ -315,6 +343,7 @@ export class GaleShapleyService {
       } else {
         this.update(6, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
         let manName = man["name"];
+        this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), woman["ranking"].findIndex(((manToFind: { name: string; }) => manToFind.name == manName)), "red");
         // console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
         // console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
         this.update(7, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
@@ -323,12 +352,6 @@ export class GaleShapleyService {
         if (woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])) > woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName))) {
           this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), woman["ranking"].findIndex(((manToFind: { name: string; }) => manToFind.name == woman["match"]["name"])), "grey");
           this.changePreferenceStyle(this.group1CurrentPreferences, woman["match"]["name"].substring(3), woman["match"]["ranking"].findIndex(((womanToFind: { name: string; }) => womanToFind.name == woman["name"])), "grey");
-        
-          console.log("man's match! ---------------------------- ");
-          console.log(man["match"]);
-          console.log(this.men);
-          // this.changePreferenceStyle(this.group1CurrentPreferences, man["name"].substring(3), man["ranking"].findIndex(((womanToFind: { name: string; }) => womanToFind.name == man["match"][])), "green");
-
           this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), woman["ranking"].findIndex(((manToFind: { name: string; }) => manToFind.name == manName)), "green");
           // console.log(woman["name"] + " prefers " + man["name"] + " (current match) to " + woman["match"]["name"] + " (" + woman["match"]["name"] + " is free, " + man["name"] + " engaged to " + woman["name"] + ")");
           let match: string = woman["match"]["name"];
@@ -343,6 +366,7 @@ export class GaleShapleyService {
           this.update(8, {"%woman%": woman["name"], "%man%": man["name"], "%match%": match})
         } else {
           this.changePreferenceStyle(this.group1CurrentPreferences, man["name"].substring(3), man["ranking"].findIndex(((womanToFind: { name: string; }) => womanToFind.name == woman["name"])), "grey");
+          this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), woman["ranking"].findIndex(((manToFind: { name: string; }) => manToFind.name == manName)), "grey");
           this.update(9, {"%woman%": woman["name"], "%man%": man["name"], "%match%": woman["match"]["name"]})
 
           // console.log(woman["name"] + " prefers " + woman["match"]["name"] + " to " + man["name"] + " (no change)");
@@ -353,6 +377,7 @@ export class GaleShapleyService {
     }
 
     // let matches = this.generateMatches();
+    this.currentlySelectedAgents = [];
 
     this.update(11);
 
