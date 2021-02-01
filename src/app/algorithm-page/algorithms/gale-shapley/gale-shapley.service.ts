@@ -265,6 +265,7 @@ export class GaleShapleyService {
       group2CurrentPreferences: JSON.parse(JSON.stringify(this.group2CurrentPreferences)),
       currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
       currentLines: JSON.parse(JSON.stringify(this.currentLines)),
+      // preferencesToShow:
     }
     this.commandList.commands.push(galeShapley);
   }
