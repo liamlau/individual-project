@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/home-page/algorithm-tab-content/algorithm-retrieval.service';
 import { PlaybackService } from '../playback.service';
 
@@ -17,6 +17,16 @@ export class PlaybackControlsComponent implements OnInit {
   constructor(public playback: PlaybackService, public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == " ") {
+      console.log("here!!!!!!!!!!!!");
+      if (!(this.playback.stepCounter >= this.playback.numCommands)) {
+        this.toggle();
+      }
+    }
   }
 
   async toggle() {
