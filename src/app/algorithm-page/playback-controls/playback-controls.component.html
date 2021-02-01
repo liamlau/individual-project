@@ -45,7 +45,7 @@
             #slider
             thumbLabel
             [(ngModel)]="this.playback.stepCounter"
-            (input)="this.formatSteps(slider.value)"
+            (input)="this.playback.onSliderChange(slider.value)"
             tickInterval="1"
             min="0"
             max={{this.playback.numCommands}}></mat-slider>

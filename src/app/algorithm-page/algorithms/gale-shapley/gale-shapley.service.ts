@@ -410,7 +410,7 @@ export class GaleShapleyService {
 
     // // console.log(this.men);
 
-    this.generateChanges();
+    // this.generateChanges();
 
     // console.log("------- COMMAND LIST")
     // console.log(this.commandList);

@@ -3,5 +3,8 @@ export interface Step {
     freeAgents: Array<String>;
     matches: Map<String, String>;
     stepVariables: Object;
-    changeTrace: Object;
+    group1CurrentPreferences: Array<string>;
+    group2CurrentPreferences: Array<string>;
+    currentlySelectedAgents: Array<string>;
+    currentLines: Array<Array<string>>;
 }

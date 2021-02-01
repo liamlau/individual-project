@@ -22,7 +22,6 @@ export class PlaybackControlsComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key == " ") {
-      console.log("here!!!!!!!!!!!!");
       if (!(this.playback.stepCounter >= this.playback.numCommands)) {
         this.toggle();
       }
@@ -49,7 +48,6 @@ export class PlaybackControlsComponent implements OnInit {
       //   duration: 400
       // })
       // this.playback.setAlgorithm(this.algorithm, this.numPeople);
-      console.log("here");
       // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
       this.playback.firstRun = false;
       this.playback.pause = false;
@@ -88,33 +86,6 @@ export class PlaybackControlsComponent implements OnInit {
 
   updateSpeed(val: number): void {
     this.playback.speed = 3050 - val;
-  }
-
-  formatSteps(val: number) {
-
-    if (this.playback.firstRun) {
-      this.playback.firstRun = false;
-    }
-
-    if (this.playback.previousStepCounter != this.playback.stepCounter) {
-      this.playback.previousStepCounter = this.playback.stepCounter;
-    }
-
-    this.playback.pause = true;
-
-    this.playback.stepCounter = val;
-
-    var command = this.playback.commandList[this.playback.previousStepCounter];
-    let a = document.getElementById("line" + command["lineNumber"]);
-    a.style.backgroundColor = "";
-    a.style.color = "";
-    
-    this.playback.unboldenPreviousVariables();
-
-    this.playback.updateCurrentCommand();
-    
-    this.playback.emboldenVariables();
-    this.playback.colourCurrentLine();
   }
 
   delay(ms: number) {

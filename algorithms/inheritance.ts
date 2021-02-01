@@ -24,6 +24,12 @@ abstract class MatchingAlgorithm {
         descriptions: new Array()
     };
 
+
+    group1CurrentPreferences: Array<string> = [];
+    group2CurrentPreferences: Array<string> = [];
+    currentlySelectedAgents: Array<string> = [];
+    currentLines: Array<Array<string>> = [];
+
     constructor() { }
 
     initialise(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
@@ -118,7 +124,10 @@ abstract class MatchingAlgorithm {
             freeAgents: Object.assign([], this.freeAgentsOfGroup1),
             matches: new Map(),
             stepVariables: stepVariables,
-            changeTrace: {}
+            group1CurrentPreferences: JSON.parse(JSON.stringify(this.group1CurrentPreferences)),
+            group2CurrentPreferences: JSON.parse(JSON.stringify(this.group2CurrentPreferences)),
+            currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
+            currentLines: JSON.parse(JSON.stringify(this.currentLines)),
         }
 
         this.algorithmData.commands.push(currentStep);

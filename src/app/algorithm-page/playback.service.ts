@@ -69,40 +69,30 @@ export class PlaybackService {
   restart(): void {
     this.pause = true;
     this.uncolourCurrentLine();
-    this.unboldenCurrentVariables();
-    // unbolden
     this.stepCounter = 0;
     this.updateCurrentCommand();
-    this.emboldenVariables();
     this.colourCurrentLine();
   }
 
   goToEnd(): void {
     this.pause = true;
     this.uncolourCurrentLine();
-    this.unboldenCurrentVariables();
-    // unbolden
     this.stepCounter = this.numCommands;
     this.updateCurrentCommand();
-    this.emboldenVariables();
     this.colourCurrentLine();
   }
 
   backStep(): void {
     this.uncolourCurrentLine();
-    this.unboldenCurrentVariables();
     if (this.stepCounter > 0) { this.stepCounter--; }
     this.updateCurrentCommand();
-    this.emboldenVariables();
     this.colourCurrentLine(); 
   }
 
   forwardStep(): void {
     this.uncolourCurrentLine();
-    this.unboldenCurrentVariables();
     if (this.stepCounter < this.numCommands) { this.stepCounter++; }
     this.updateCurrentCommand();
-    this.emboldenVariables();
     this.colourCurrentLine();
   }
 
@@ -114,11 +104,6 @@ export class PlaybackService {
         console.log("Paused at step " + (this.stepCounter) + "!");
         console.log("Current Line: " + this.currentLine);
         break;
-      }
-
-      if (this.stepCounter > 0 && this.exeService.algorithm != "simple") {
-        this.unboldenVariables();
-        this.emboldenVariables();
       }
 
       this.colourCurrentLine();
@@ -156,63 +141,88 @@ export class PlaybackService {
   }
 
 
-  unboldenVariables(): void {
+  onSliderChange(val: number) {
 
-    var command = this.commandList[this.stepCounter-1];
-    let changeTrace = command["changeTrace"]["embolden"];
-
-    console.log(changeTrace);
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: normal;");
-      }
+    if (this.firstRun) {
+      this.firstRun = false;
     }
-  }
 
-  unboldenPreviousVariables(): void {
+    if (this.previousStepCounter != this.stepCounter) {
+      this.previousStepCounter = this.stepCounter;
+    }
+
+    this.pause = true;
+
+    this.stepCounter = val;
 
     var command = this.commandList[this.previousStepCounter];
-    let changeTrace = command["changeTrace"]["embolden"];
+    let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
+    a.style.color = "";
 
-    console.log(changeTrace);
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: normal;");
-      }
-    }
-  }
-
-  unboldenCurrentVariables(): void {
-
-    var command = this.commandList[this.stepCounter];
-    let changeTrace = command["changeTrace"]["embolden"];
-
-    console.log(changeTrace);
-
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: normal;");
-      }
-    }
+    this.updateCurrentCommand();
+    
+    this.colourCurrentLine();
   }
 
 
-  emboldenVariables(): void {
+  // unboldenVariables(): void {
 
-    var command = this.commandList[this.stepCounter];
-    let changeTrace = command["changeTrace"]["embolden"];
+  //   var command = this.commandList[this.stepCounter-1];
+  //   let changeTrace = command["changeTrace"]["embolden"];
 
-    for (let className of changeTrace) {
-      let a = document.getElementsByClassName(className);
-      for (let i = 0; i < a.length; i++) {
-        a[i].setAttribute("style", "font-weight: bold;");
-      }
-    }
-  }
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+  // unboldenPreviousVariables(): void {
+
+  //   var command = this.commandList[this.previousStepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+  // unboldenCurrentVariables(): void {
+
+  //   var command = this.commandList[this.stepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+
+  // emboldenVariables(): void {
+
+  //   var command = this.commandList[this.stepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: bold;");
+  //     }
+  //   }
+  // }
 
 }
