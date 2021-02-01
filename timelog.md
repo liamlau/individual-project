@@ -271,3 +271,6 @@ Holiday taken for Christmas.
 
 31/01/21:
 - 3 hours: making correct variable display green colour for canvas animation
+
+01/02/21:
+- 4 hours: writing the residents->hospitals algorithm using oop principles
