@@ -1,10 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from '../home-page/algorithm-tab-content/algorithm-retrieval.service';
 import { CanvasService } from './canvas.service';
 import { PlaybackService } from './playback.service';
 declare var anime: any;
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
 
 @Component({
   selector: 'algorithm-page',
@@ -63,6 +68,21 @@ export class AlgorithmPageComponent implements OnInit {
       duration: 1200
     })
   }
+
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if (event.key == "ArrowRight") {
+      if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
+        this.playback.forwardStep();
+      }
+    } else if (event.key == "ArrowLeft") {
+      if (!(!this.playback.pause || this.playback.stepCounter == 0)) {
+        this.playback.backStep();
+      }
+    }
+  }
+
 
   firstSelection: boolean = true
   algorithm = new FormControl('');

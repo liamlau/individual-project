@@ -311,56 +311,26 @@ abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
             // while (some hospital h is undersubscribed) and (h's preference list contains a resident r not provisionally assigned to h) {
             let currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
-            this.update(3, {"%currentAgent%": currentAgent.name});
-
-            // r := first such resident on h's list;
-            this.update(4);
-            let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
-
             // if all potential proposees are gone, remove 
-            if (currentAgent.ranking.length <= 0 || !potentialProposee) {
+            if (currentAgent.ranking.length <= 0 || !this.getNextPotentialProposee(currentAgent)) {
                 this.freeAgentsOfGroup1.shift();
             } else {
 
-                // if r is already assigned, say to h' {
-                this.update(5);
-                if (potentialProposee.match.length >= 1) {
-                    // break the provisional assignment of r to h'
-                    this.update(6);
-                    let matchPosition: number = potentialProposee.match[0].match.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
-                    if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name)) {
-                        this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
-                    }
-                    potentialProposee.match[0].match.splice(matchPosition, 1);
-                } else {
-                    // } (r is not currently assigned)
-                    this.update(7);
-                }
-        
-                // provisionally assign r to h;
-                this.update(8);
-                potentialProposee.match[0] = currentAgent;
-                currentAgent.match.push(potentialProposee);
-        
+                this.update(3, {"%currentAgent%": currentAgent.name});
 
-                let currentAgentPosition: number = potentialProposee.ranking.findIndex((agent: { name: string }) => agent.name == currentAgent.name);
+                // r := first such resident on h's list;
+                this.update(4);
+                let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent); {
+
+                    this.breakAssignment(currentAgent, potentialProposee);
             
-                // for each successor h' of h on r's list {
-                this.update(9);
-                for (let i = currentAgentPosition + 1; i < potentialProposee.ranking.length; i++) {
-        
-                    let proposeePosition: number = potentialProposee.ranking[i].ranking.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
-                    potentialProposee.ranking[i].ranking.splice(proposeePosition, 1);
-        
-                    // remove h' and r from each other's lists
-                    this.update(10);
-
-                    potentialProposee.ranking.splice(i, 1);
-                    i -= 1;
-                }
-        
-                if (this.shouldContinueMatching(currentAgent)) {
-                    this.freeAgentsOfGroup1.shift();
+                    this.provisionallyAssign(currentAgent, potentialProposee);
+            
+                    this.removeRuledOutPreferences(currentAgent, potentialProposee);
+            
+                    if (this.shouldContinueMatching(currentAgent)) {
+                        this.freeAgentsOfGroup1.shift();
+                    }
                 }
             }
         }
@@ -384,10 +354,62 @@ abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
     abstract getNextPotentialProposee(currentAgent: Agent): Agent;
 
+    abstract provisionallyAssign(currentAgent: Agent, potentialProposee: Agent): void;
+
+    abstract removeRuledOutPreferences(currentAgent: Agent, potentialProposee: Agent): void;
+
+    abstract breakAssignment(currentAgent: Agent, potentialProposee: Agent): void;
+
 }
 
 
-class EgsStableMarriage extends ExtendedGaleShapley {
+abstract class EgsManyToOne extends ExtendedGaleShapley {
+    provisionallyAssign(currentAgent: Agent, potentialProposee: Agent) {
+        // provisionally assign r to h;
+        this.update(8);
+        potentialProposee.match[0] = currentAgent;
+        currentAgent.match.push(potentialProposee);
+    }
+
+    removeRuledOutPreferences(currentAgent: Agent, potentialProposee: Agent) {
+        let currentAgentPosition: number = potentialProposee.ranking.findIndex((agent: { name: string }) => agent.name == currentAgent.name);
+            
+        // for each successor h' of h on r's list {
+        this.update(9);
+        for (let i = currentAgentPosition + 1; i < potentialProposee.ranking.length; i++) {
+
+            let proposeePosition: number = potentialProposee.ranking[i].ranking.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
+            potentialProposee.ranking[i].ranking.splice(proposeePosition, 1);
+
+            // remove h' and r from each other's lists
+            this.update(10);
+
+            potentialProposee.ranking.splice(i, 1);
+            i -= 1;
+        }
+    }
+
+    breakAssignment(currentAgent: Agent, potentialProposee: Agent) {
+        // if r is already assigned, say to h' {
+        this.update(5);
+        if (potentialProposee.match.length >= 1) {
+            // break the provisional assignment of r to h'
+            this.update(6);
+            let matchPosition: number = potentialProposee.match[0].match.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
+            if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name)) {
+                this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
+            }
+            potentialProposee.match[0].match.splice(matchPosition, 1);
+        } else {
+            // } (r is not currently assigned)
+            this.update(7);
+        }
+    }
+
+}
+
+
+class EgsStableMarriage extends EgsManyToOne {
 
     shouldContinueMatching(currentAgent: Agent): boolean {
         return true;
@@ -399,7 +421,7 @@ class EgsStableMarriage extends ExtendedGaleShapley {
 
 }
 
-class EgsHospitalResidents extends ExtendedGaleShapley {
+class EgsHospitalResidents extends EgsManyToOne {
 
     group1Agents: Map<String, Hospital> = new Map();
 
@@ -408,7 +430,7 @@ class EgsHospitalResidents extends ExtendedGaleShapley {
         for (let i = 1; i < this.numberOfAgents + 1; i++) {
             let group1AgentName = this.group1Name + i;
 
-            this.group1Agents.set(group1AgentName, {
+                this.group1Agents.set(group1AgentName, {
                 name: group1AgentName,
                 match: new Array(),
                 ranking: new Array(),
@@ -457,17 +479,85 @@ class EgsHospitalResidents extends ExtendedGaleShapley {
 }
 
 
+
+class EgsResidentsHospital extends ExtendedGaleShapley {
+    breakAssignment(currentAgent: Agent, potentialProposee: Agent): void {
+        throw new Error("Method not implemented.");
+    }
+    removeRuledOutPreferences(currentAgent: Agent, potentialProposee: Agent): void {
+        throw new Error("Method not implemented.");
+    }
+    provisionallyAssign(currentAgent: Agent, potentialProposee: Agent) {
+        throw new Error("Method not implemented.");
+    }
+
+    group2Agents: Map<String, Hospital> = new Map();
+
+
+    generateAgents() {
+        for (let i = 1; i < this.numberOfAgents + 1; i++) {
+            let group1AgentName = this.group1Name + i;
+
+            this.group1Agents.set(group1AgentName, {
+                name: group1AgentName,
+                match: new Array(),
+                ranking: new Array(),
+            });
+
+            this.freeAgentsOfGroup1.push(group1AgentName);
+
+        }
+
+        for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
+            let group2AgentName = this.group2Name + i;
+
+            this.group2Agents.set(group2AgentName, {
+                name: group2AgentName,
+                match: new Array(),
+                ranking: new Array(),
+                availableSpaces: this.getRandomInt(1, this.numberOfGroup2Agents-2)
+            });
+        }
+    }
+
+
+    getRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+
+    shouldContinueMatching(currentAgent: Hospital): boolean {
+        let residentList: Array<Agent> = currentAgent.ranking.filter(agent => agent.match[0] != currentAgent);
+
+        return (currentAgent.match.length >= currentAgent.availableSpaces || residentList.length == 0);
+    }
+
+    getNextPotentialProposee(currentAgent: Hospital): Agent {
+        if (currentAgent) {
+            let residentList: Array<Agent> = currentAgent.ranking.filter(agent => agent.match[0] != currentAgent);
+            return residentList[0];
+        } else {
+            return null;
+        }
+    }
+
+
+}
+
+
 // ------------------------------------------------
 
 console.log("Program start!");
 
 let gs: GaleShapley = new GsStableMarraige(5, "man", "woman");
 let egs: GaleShapley = new EgsStableMarriage(5, "man", "woman");
-let hegs: GaleShapley = new EgsHospitalResidents(5, "hospital", "resident");
+let hegs: GaleShapley = new EgsHospitalResidents(5, "hospital", "resident", 10);
 
 gs.generateMatches();
-// egs.generateMatches();
-// hegs.generateMatches();
+egs.generateMatches();
+hegs.generateMatches();
 
 console.log("----");
 
@@ -481,9 +571,9 @@ console.log("matches:");
 
 console.log("----");
 
-console.log(gs.getMatches());
-// egs.getMatches();
-// hegs.getMatches();
+// console.log(gs.getMatches());
+console.log(egs.getMatches());
+console.log(hegs.getMatches());
 
 // console.log(gs.group1Agents);
 // console.log(gs.group2Agents);
