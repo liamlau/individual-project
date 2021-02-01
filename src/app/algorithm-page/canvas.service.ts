@@ -179,7 +179,9 @@ export class CanvasService {
   }
 
 
-  drawLineBetween(firstCircle: string, secondCircle: string, color: string): void {
+  drawLine(line: Array<string>): void {
+
+    let color: string = line[2];
 
     if (color == "red") {
       this.ctx.strokeStyle = "#EB2A2A";
@@ -190,8 +192,8 @@ export class CanvasService {
     this.ctx.lineWidth = 3;
 
     this.ctx.beginPath();
-    this.ctx.moveTo(this.positions[firstCircle].positionX, this.positions[firstCircle].positionY);
-    this.ctx.lineTo(this.positions[secondCircle].positionX, this.positions[secondCircle].positionY);
+    this.ctx.moveTo(this.positions["circle" + line[0]].positionX, this.positions["circle" + line[0]].positionY);
+    this.ctx.lineTo(this.positions["circle" + line[1]].positionX, this.positions["circle" + line[1]].positionY);
     this.ctx.stroke();
 
     this.ctx.strokeStyle = "#000000";
@@ -411,6 +413,11 @@ export class CanvasService {
     this.calculateEqualDistance();
 
     // draw lines between circles (matches and relations)
+    for (let line of this.currentCommand["currentLines"]) {
+      console.log("-------------- HEREEEEE");
+      console.log(this.currentCommand["currentLines"]);
+      this.drawLine(line);
+    }
     // this.drawLineBetween("circle1", "circleE", "red")
     // this.drawLineBetween("circle1", "circleB");
 

@@ -7,5 +7,6 @@ export interface GaleShapley {
     // preferenceList: Object;
     group1CurrentPreferences: Object,
     group2CurrentPreferences: Object,
-    currentlySelectedAgents: Object
+    currentlySelectedAgents: Object,
+    currentLines: Object
 }
