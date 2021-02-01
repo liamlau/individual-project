@@ -24,17 +24,13 @@ abstract class MatchingAlgorithm {
         descriptions: new Array()
     };
 
-    constructor(numberOfAgents: number, group1: string, group2: string, numberOfGroup2Agents: number = numberOfAgents) {
-        this.numberOfAgents = numberOfAgents;
-        this.numberOfGroup2Agents = numberOfGroup2Agents;
-        this.group1Name = group1;
-        this.group2Name = group2;
+    constructor() { }
 
-    }
-
-    initialise() {
+    initialise(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
         this.freeAgentsOfGroup1 = [];
         // command list initialisation
+        this.numberOfAgents = numberOfAgents;
+        this.numberOfGroup2Agents = numberOfGroup2Agents;
     }
 
     generateAgents() {
@@ -160,25 +156,27 @@ abstract class MatchingAlgorithm {
 
     abstract match(): AlgorithmData;
 
-    generateMatches() {
-        this.initialise();
+    generateMatches(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
+        if (numberOfGroup2Agents != numberOfAgents) {
+            this.initialise(numberOfAgents, numberOfGroup2Agents);
+        } else {
+            this.initialise(numberOfAgents);
+        }
+        
         this.generateAgents();
         this.generatePreferences();
-        // console.log(this.getGroupRankings(this.group1Agents));
-        // console.log(this.getGroupRankings(this.group2Agents));
+
         this.match();
         this.getMatches();
-        // for (let i = 0; i < 10; i++) {
-        //     this.match();
-        // }
+
     }
 
 }
 
 abstract class GaleShapley extends MatchingAlgorithm {
 
-    constructor(numAgents: number, group1: string, group2: string, numberOfGroup2Agents: number = numAgents) {
-        super(numAgents, group1, group2, numberOfGroup2Agents);
+    constructor() {
+        super();
     }
 
     abstract match(): AlgorithmData;
@@ -187,6 +185,9 @@ abstract class GaleShapley extends MatchingAlgorithm {
 
 
 class GsStableMarraige extends GaleShapley {
+
+    group1Name = "men";
+    group2Name = "women";
 
     group1Agents: Map<String, Man> = new Map();
 
@@ -300,11 +301,6 @@ class GsStableMarraige extends GaleShapley {
 
 abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
-    constructor(numAgents: number, group1: string, group2: string, numberOfGroup2Agents: number = numAgents) {
-        super(numAgents, group1, group2, numberOfGroup2Agents);
-    }
-
-
     match(): AlgorithmData {
 
         // assign each resident to be free;
@@ -416,6 +412,9 @@ abstract class EgsManyToOne extends ExtendedGaleShapley {
 
 class EgsStableMarriage extends EgsManyToOne {
 
+    group1Name = "men";
+    group2Name = "women";
+
     shouldContinueMatching(currentAgent: Agent): boolean {
         return true;
     }
@@ -427,6 +426,9 @@ class EgsStableMarriage extends EgsManyToOne {
 }
 
 class EgsHospitalResidents extends EgsManyToOne {
+
+    group1Name = "hospitals";
+    group2Name = "residents";
 
     group1Agents: Map<String, Hospital> = new Map();
 
@@ -486,6 +488,9 @@ class EgsHospitalResidents extends EgsManyToOne {
 
 
 class EgsResidentsHospital extends ExtendedGaleShapley {
+
+    group1Name = "residents";
+    group2Name = "hospitals";
 
     group2Agents: Map<String, Hospital> = new Map();
 
@@ -600,15 +605,15 @@ class EgsResidentsHospital extends ExtendedGaleShapley {
 
 console.log("Program start!");
 
-let gs: GaleShapley = new GsStableMarraige(5, "man", "woman");
-let egs: GaleShapley = new EgsStableMarriage(5, "man", "woman");
-let hegs: GaleShapley = new EgsHospitalResidents(5, "hospital", "resident", 10);
-let regs: GaleShapley = new EgsResidentsHospital(5, "resident", "hospital", 5);
+let gs: GaleShapley = new GsStableMarraige();
+let egs: GaleShapley = new EgsStableMarriage();
+let hegs: GaleShapley = new EgsHospitalResidents();
+let regs: GaleShapley = new EgsResidentsHospital();
 
-// gs.generateMatches();
-// egs.generateMatches();
-// hegs.generateMatches();
-regs.generateMatches();
+gs.generateMatches(5);
+egs.generateMatches(5);
+hegs.generateMatches(5, 10);
+regs.generateMatches(5, 5);
 
 console.log("----");
 
@@ -622,9 +627,9 @@ console.log("matches:");
 
 console.log("----");
 
-// console.log(gs.getMatches());
-// console.log(egs.getMatches());
-// console.log(hegs.getMatches());
+console.log(gs.getMatches());
+console.log(egs.getMatches());
+console.log(hegs.getMatches());
 console.log(regs.getMatches());
 
 // console.log(gs.group1Agents);
