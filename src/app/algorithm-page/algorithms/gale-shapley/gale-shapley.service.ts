@@ -328,6 +328,9 @@ export class GaleShapleyService {
 
       let greenLine = [];
 
+      this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), woman["ranking"].findIndex(((manToFind: { name: string; }) => manToFind.name == man["name"])), "red");
+      this.changePreferenceStyle(this.group1CurrentPreferences, man["name"].substring(3), man["ranking"].findIndex(((womanToFind: { name: string; }) => womanToFind.name == woman["name"])), "red");
+
       this.update(3, {"%woman%": woman["name"], "%man%": man["name"]});
 
       // console.log("Man: " + man["name"]);
