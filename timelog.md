@@ -274,3 +274,4 @@ Holiday taken for Christmas.
 
 01/02/21:
 - 4 hours: writing the residents->hospitals algorithm using oop principles
+- 2 hours: general refactoring / removing old code / preparing codebase for additional algorithms to be implemented (oop method)
