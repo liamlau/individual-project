@@ -23,8 +23,8 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 this.update(2, {"%currentAgent%": currentAgent.name});
 
                 // r := first such resident on h's list;
-                this.update(3);
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
+                this.update(3, {"%potentialProposee%": potentialProposee.name});
 
                 // if h is fully subscribed, then break the assignment of the worst resident of that hospital
                 this.breakAssignment(currentAgent, potentialProposee);
@@ -35,7 +35,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         
                 if (this.shouldContinueMatching(currentAgent)) {
                     this.freeAgentsOfGroup1.shift();
-                }
+                }  
             }
         }
 

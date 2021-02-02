@@ -28,8 +28,10 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
       }
 
+      let currentLetter = 'A';
+
       for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
-          let group2AgentName = this.group2Name + i;
+          let group2AgentName = this.group2Name + currentLetter;
 
           this.group2Agents.set(group2AgentName, {
               name: group2AgentName,
@@ -37,6 +39,8 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               ranking: new Array(),
               availableSpaces: this.getRandomInt(1, this.numberOfGroup2Agents-2)
           });
+
+          currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
       }
   }
 
@@ -68,36 +72,49 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
   }
 
   breakAssignment(resident: Agent, hospital: Hospital): void {
-      if (hospital.match.length >= hospital.availableSpaces) {
-          let worstResident = this.getWorstResident(hospital);
-          let matchPosition = this.findPositionInMatches(hospital, worstResident);
-          worstResident.match.splice(0, 1);
-          hospital.match.splice(matchPosition, 1);
-      }
+
+    this.update(4);
+    if (hospital.match.length >= hospital.availableSpaces) {
+      let worstResident = this.getWorstResident(hospital);
+      this.update(5, {"%worstResident%": worstResident.name});
+
+      let matchPosition = this.findPositionInMatches(hospital, worstResident);
+      worstResident.match.splice(0, 1);
+      hospital.match.splice(matchPosition, 1);
+
+      this.update(6);
+
+    }
   }
 
   provisionallyAssign(resident: Agent, hospital: Hospital) {
       // provisionally assign r to h;
-      this.update(8);
+      this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
       resident.match[0] = hospital;
       hospital.match.push(resident);
   }
 
   removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
+
+    this.update(8, {"%hospital%": hospital.name});
+
       if (hospital.match.length >= hospital.availableSpaces) {
           let worstResident: Agent = this.getWorstResident(hospital);
           let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
+          this.update(9, {"%worstResident%": worstResident.name});
+
       // for each successor h' of h on r's list {
-          this.update(9);
           for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
               let hospitalPosition: number = this.findPositionInMatches(worstResident, hospital);
 
+              this.update(10, {"%nextResident%": hospital.ranking[i].name});
+
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
   
               // remove h' and r from each other's lists
-              this.update(10);
+              this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
   
               hospital.ranking.splice(i, 1);
               i -= 1;

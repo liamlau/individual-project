@@ -288,8 +288,9 @@ export class GaleShapleyService {
     this.createPeople(numPeople);
     this.createRandomRankings();
 
-    // this.commandList["men"] = this.getMenRankings();
-    // this.commandList["women"] = this.getWomenRankings();
+    // this.commandList["group1"] = this.getMenRankings();
+    // this.commandList["group2"] = this.getWomenRankings();
+
     this.commandList["commands"] = [];
 
     this.group1CurrentPreferences = this.getMenRankings();

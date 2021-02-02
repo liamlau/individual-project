@@ -16,7 +16,7 @@ export class ExecutionService {
   serviceMap = {
     "simple": this.simpleService,
     "smp-man-gs": this.gsService,
-    "egs-resident-hr": this.egsResidentHsService
+    "hr-resident-egs": this.egsResidentHsService
   }
 
   // add the services for any new algorithms here
@@ -35,6 +35,7 @@ export class ExecutionService {
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
     let commandList = algorithmService.run(numPeople);
+    console.log(commandList);
     commandList["descriptions"] = this.generateDescriptions(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);

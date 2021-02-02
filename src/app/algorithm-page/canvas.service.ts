@@ -202,12 +202,20 @@ export class CanvasService {
 
     let group1PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group1CurrentPreferences"]);
 
+    if (group1PreferenceList.length <= 0) {
+      group1PreferenceList = Array.from(this.currentCommand["group1CurrentPreferences"].values());
+    }
+
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
     let currentLetter = 'A';
+
+    if (group2PreferenceList.length <= 0) {
+      group2PreferenceList = Array.from(this.currentCommand["group2CurrentPreferences"].values());
+    }
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
       this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + i].positionY + 7, this.fontSize);

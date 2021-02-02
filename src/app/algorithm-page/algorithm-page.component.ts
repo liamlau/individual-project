@@ -36,9 +36,11 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.algorithm.setValue("Gale-Shapley Stable Marriage");
 
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
+    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
+    // this.playback.setAlgorithm("smp-man-gs", 5);
 
-    this.playback.setAlgorithm("smp-man-gs", 5);
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
+    this.playback.setAlgorithm("hr-resident-egs", 5);
 
   }
 
@@ -116,7 +118,6 @@ export class AlgorithmPageComponent implements OnInit {
   toggleExpansion() {
     var terminalElement = document.getElementById("terminal");
     if (this.showCode) {
-      console.log(terminalElement.style.display);
       terminalElement.style.display = "none";
       terminalElement.style.visibility = "none";
       // anime({

@@ -21,8 +21,8 @@ export abstract class MatchingAlgorithm {
     };
 
 
-    group1CurrentPreferences: Array<string> = [];
-    group2CurrentPreferences: Array<string> = [];
+    group1CurrentPreferences: Map<String, Array<String>> = new Map();
+    group2CurrentPreferences: Map<String, Array<String>> = new Map();
     currentlySelectedAgents: Array<string> = [];
     currentLines: Array<Array<string>> = [];
 
@@ -49,14 +49,19 @@ export abstract class MatchingAlgorithm {
 
         }
 
+        let currentLetter = 'A';
+
         for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
-            let group2AgentName = this.group2Name + i;
+            let group2AgentName = this.group2Name + currentLetter;
 
             this.group2Agents.set(group2AgentName, {
                 name: group2AgentName,
                 match: new Array(),
                 ranking: new Array()
             });
+
+            currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
+
         }
     }
 
@@ -102,10 +107,13 @@ export abstract class MatchingAlgorithm {
             let preferenceList = [];
             
             for (let match of agent.ranking) {
-                preferenceList.push(match.name);
+                preferenceList.push(match.name.slice(match.name.length - 1));
             }
 
-            matches.set(agent.name, preferenceList);
+            let identifier: string = agent.name.slice(agent.name.length - 1);
+            console.log()
+
+            matches.set(identifier, preferenceList);
 
         }
 
@@ -120,8 +128,8 @@ export abstract class MatchingAlgorithm {
             freeAgents: Object.assign([], this.freeAgentsOfGroup1),
             matches: new Map(),
             stepVariables: stepVariables,
-            group1CurrentPreferences: JSON.parse(JSON.stringify(this.group1CurrentPreferences)),
-            group2CurrentPreferences: JSON.parse(JSON.stringify(this.group2CurrentPreferences)),
+            group1CurrentPreferences: this.group1CurrentPreferences,
+            group2CurrentPreferences: this.group2CurrentPreferences,
             currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
             currentLines: JSON.parse(JSON.stringify(this.currentLines)),
         }
@@ -171,8 +179,13 @@ export abstract class MatchingAlgorithm {
         this.generateAgents();
         this.generatePreferences();
 
+        this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
+        this.group2CurrentPreferences = this.getGroupRankings(this.group2Agents);
+
+        console.log(this.group1CurrentPreferences);
+
         this.match();
-        this.getMatches();
+        // this.getMatches();
 
         return this.algorithmData;
 
