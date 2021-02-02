@@ -18,8 +18,6 @@ abstract class MatchingAlgorithm {
     group2Agents: Map<String, Agent> = new Map();
 
     algorithmData: AlgorithmData = {
-        agentGroup1: new Map(),
-        agentGroup2: new Map(),
         commands: new Array(),
         descriptions: new Array()
     };

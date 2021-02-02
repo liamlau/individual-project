@@ -43,7 +43,6 @@ export class PlaybackService {
 
     console.log(this.algorithmData);
     this.updateCurrentCommand();
-    console.log(this.description);
 
   }
 
@@ -55,9 +54,6 @@ export class PlaybackService {
     if (this.previousStepCounter != this.stepCounter) {
       this.previousStepCounter = this.stepCounter;
     }
-
-    console.log(this.previousStepCounter);
-    console.log(this.stepCounter);
 
     this.currentCommand = this.algorithmData["commands"][this.stepCounter];
     this.description = this.algorithmData["descriptions"][this.stepCounter];

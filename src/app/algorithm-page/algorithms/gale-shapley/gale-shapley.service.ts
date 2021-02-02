@@ -22,8 +22,6 @@ export class GaleShapleyService {
   currentLines: Array<Array<string>> = [];
 
   commandList = {
-    men: null,
-    women: null,
     commands: []
   };
 
@@ -47,8 +45,6 @@ export class GaleShapleyService {
     this.freeMen = [];
     this.freeWomen = [];
     this.commandList = {
-      men: null,
-      women: null,
       commands: []
     };
   }
@@ -196,8 +192,6 @@ export class GaleShapleyService {
         }
       }
 
-      console.log(stepNumber + ": " + embolden);
-
       changeTrace["embolden"] = embolden;
       
       step["changeTrace"] = changeTrace;
@@ -228,9 +222,6 @@ export class GaleShapleyService {
     } else if (style == "black") {
       style = "#000000";
     }
-
-    console.log("agent: " + person);
-    console.log("position: " + String(position));
 
     preferenceList[person][position] = "{" + style + currentAgent + "}";
 
@@ -297,18 +288,14 @@ export class GaleShapleyService {
     this.createPeople(numPeople);
     this.createRandomRankings();
 
-    console.log(this.commandList);
-
-    this.commandList["men"] = this.getMenRankings();
-    this.commandList["women"] = this.getWomenRankings();
+    // this.commandList["men"] = this.getMenRankings();
+    // this.commandList["women"] = this.getWomenRankings();
     this.commandList["commands"] = [];
 
     this.group1CurrentPreferences = this.getMenRankings();
     this.group2CurrentPreferences = this.getWomenRankings();
 
     this.update(1);
-
-    // console.log("\n\nAlgorithm Steps:");
 
     // 2: while some man m is free do
     while (this.freeMen.length > 0) {
@@ -318,7 +305,6 @@ export class GaleShapleyService {
       let man: Object = this.men[this.freeMen[0]];
       this.currentlySelectedAgents.push(man["name"].substring(3));
       this.update(2, {"%man%": man["name"]});
-      // console.log("-------");
 
       // 3: w = most preferred woman on m’s list to which he has not yet proposed;
       let woman: Object = man["ranking"][man["lastProposed"]];
@@ -417,9 +403,6 @@ export class GaleShapleyService {
 
     // console.log("------- MATCHES")
     // console.log(this.generateMatches());
-    console.log(this.men);
-    console.log(this.women);
-
     // console.log(this.commandList["men"][1][0])
     // this.commandList["men"][1][0] = "{#53D26F" + this.commandList["men"][1][0] + "}";
     // this.changePreferenceStyle(this.commandList["men"], "1", 0, "green");

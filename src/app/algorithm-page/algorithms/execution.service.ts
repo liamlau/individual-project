@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/home-page/algorithm-tab-content/algorithm-retrieval.service';
 import { CanvasService } from '../canvas.service';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
 import { SimpleService } from './simple/simple.service';
@@ -20,14 +21,15 @@ export class ExecutionService {
   constructor(
     public simpleService: SimpleService,
     public gsService: GaleShapleyService,
-    public drawService: CanvasService
+    public drawService: CanvasService,
+    public algorithmRetrieval: AlgorithmRetrievalService
   ) { }
 
 
   getExecutionFlow(algorithm: string, numPeople: number): Object {
     this.algorithm = algorithm;
     let algorithmService = this.serviceMap[algorithm];
-    this.commandMap = algorithmService.commandMap;
+    this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
     let commandList = algorithmService.run(numPeople);
     commandList["descriptions"] = this.generateDescriptions(commandList);

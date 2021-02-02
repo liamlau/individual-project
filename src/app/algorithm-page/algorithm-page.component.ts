@@ -36,15 +36,9 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.algorithm.setValue("Gale-Shapley Stable Marriage");
 
-    this.algorithmService.currentAlgorithm = {
-      id: "smp-man-gs",
-      name: "Stable Marriage Problem",
-      orientation: "Man",
-      algorithm: "Gale-Shapley Stable Matching",
-      description: "The stable marriage problem is the problem of finding a stable matching between two equally sized sets of elements. In this case: <b>men and women</b>.<br><br>To do this, the Gale-Shapley Stable Marriage algorithm is used."
-    };
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
 
-    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, 5);
+    this.playback.setAlgorithm("smp-man-gs", 5);
 
   }
 

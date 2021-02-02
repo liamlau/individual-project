@@ -46,19 +46,14 @@ export class CanvasService {
   }
 
   setCommand(command) {
-    console.log("|| ||")
-    console.log(command);
     this.currentCommand = command;
     this.redrawCanvas();
   }
 
   calculateEqualDistance() {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
-    // console.log(canvas.width);
-    // console.log(canvas.height);
 
     let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
-    // console.log(effectiveHeight);
 
     let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
     let currentCirclePosition = (canvas.height * this.yMargin);
@@ -95,7 +90,6 @@ export class CanvasService {
       currentCirclePosition = currentCirclePosition + spaceBetweenCircles
     }
 
-    // console.log(this.positions);
 
   }
 
@@ -207,14 +201,6 @@ export class CanvasService {
     this.ctx.font = this.fontSize + 'px Arial';
 
     let group1PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group1CurrentPreferences"]);
-    console.log("----------");
-    // console.log(Object.values(this.playback.algorithmData["commands"][stepCounter]["group1CurrentPreferences"]));
-
-    // console.log(preferenceList[0].join(", "));
-    console.log(group1PreferenceList);
-    // console.log(preferenceList.join(", "));
-
-    // this.ctx.fillText("C, B, E, A, D", 235, 88);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
@@ -228,15 +214,6 @@ export class CanvasService {
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
-
-
-    // for (let [currentAgent, preferences] of Object.entries(this.playback.algorithmData["men"])) {
-    //   console.log(currentAgent);
-    //   let preferenceString: string = Object.values(preferences).join(", ");
-    //   console.log(preferenceString);
-    //   console.log("----------");
-      
-    // }
   }
 
   selectCircles(circles: Array<string>) {
@@ -414,8 +391,6 @@ export class CanvasService {
 
     // draw lines between circles (matches and relations)
     for (let line of this.currentCommand["currentLines"]) {
-      console.log("-------------- HEREEEEE");
-      console.log(this.currentCommand["currentLines"]);
       this.drawLine(line);
     }
     // this.drawLineBetween("circle1", "circleE", "red")
@@ -429,7 +404,6 @@ export class CanvasService {
       this.drawAllPreferences();
     }
 
-    // console.log();
     this.selectCircles(this.currentCommand["currentlySelectedAgents"]);
 
   }
