@@ -75,20 +75,31 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
     this.update(4);
     if (hospital.match.length >= hospital.availableSpaces) {
-      let worstResident = this.getWorstResident(hospital);
-      this.update(5, {"%worstResident%": worstResident.name});
+        let worstResident = this.getWorstResident(hospital);
+        this.update(5, {"%worstResident%": worstResident.name});
 
-      let matchPosition = this.findPositionInMatches(hospital, worstResident);
-      worstResident.match.splice(0, 1);
-      hospital.match.splice(matchPosition, 1);
+        console.log(worstResident + " chosen as the worst resident in " + hospital + "\'s matches");
 
-      this.update(6);
+        let matchPosition = this.findPositionInMatches(hospital, worstResident);
+        console.log("Position of " + worstResident + ": " + matchPosition);
+
+        console.log("worst resident: %o", worstResident);
+        console.log("current hospital: %o", hospital);
+
+        worstResident.match.splice(0, 1);
+        hospital.match.splice(matchPosition, 1);
+
+        this.update(6);
 
     }
   }
 
   provisionallyAssign(resident: Agent, hospital: Hospital) {
       // provisionally assign r to h;
+
+      this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), this.findPositionInMatches(resident, hospital), "green");
+      this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), this.findPositionInMatches(hospital, resident), "green");
+
       this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
       resident.match[0] = hospital;
       hospital.match.push(resident);
@@ -107,15 +118,29 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
       // for each successor h' of h on r's list {
           for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
-              let hospitalPosition: number = this.findPositionInMatches(worstResident, hospital);
+              let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
 
               this.update(10, {"%nextResident%": hospital.ranking[i].name});
 
+              console.log("------" + "RANKINGS FOR " + hospital.ranking[i].name);
+
+              for (let hName of Object.assign([], hospital.ranking[i].ranking)) {
+                console.log(hName.name);
+            }
+
+            console.log("------");
+
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
+              
+              for (let hName of Object.assign([], hospital.ranking[i].ranking)) {
+                  console.log(hName.name);
+              }
+              console.log("------");
   
               // remove h' and r from each other's lists
               this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
-  
+
+              console.log("%o removed from " + hospital.name + "\'s rankings", hospital.ranking[i]);
               hospital.ranking.splice(i, 1);
               i -= 1;
           }

@@ -6,8 +6,7 @@
 <div class="terminal row justify-content-center align-items-center mt-0" *ngIf="!(this.algorithm == '')">
     <simple-code *ngIf="this.algorithm == 'simple'"></simple-code>
     <gs-code *ngIf="this.algorithm == 'smp-man-gs'"></gs-code>
-    <egs-resident-hs-code *ngIf="this.algorithm == 'hs-resident-egs'"></egs-resident-hs-code>
-    <egs-resident-hs-code></egs-resident-hs-code>
+    <egs-resident-hs-code *ngIf="this.algorithm == 'hr-resident-egs'"></egs-resident-hs-code>
 </div>
 
 <!-- <div style="position: absolute; opacity: 0;"><gs-code *ngIf="this.algorithm == 'gale-shapley'"></gs-code></div> -->

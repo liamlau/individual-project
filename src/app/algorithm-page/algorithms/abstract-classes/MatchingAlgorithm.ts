@@ -122,14 +122,27 @@ export abstract class MatchingAlgorithm {
     }
 
 
+    clone(mapIn: Map<String, Array<String>>): Map<String, Array<String>> {
+        let mapCloned: Map<String, Array<String>> = new Map<String, Array<String>>();
+    
+        mapIn.forEach((str: Array<String>, key: String, mapObj: Map<String, Array<String>>) => {
+          
+          //products.slice(0) clone array
+          mapCloned.set(key, str.slice(0));
+        });
+    
+        return mapCloned;
+    }
+
+
     update(step: number, stepVariables?: Object): void {
         let currentStep: Step = {
             lineNumber: step,
             freeAgents: Object.assign([], this.freeAgentsOfGroup1),
             matches: new Map(),
             stepVariables: stepVariables,
-            group1CurrentPreferences: this.group1CurrentPreferences,
-            group2CurrentPreferences: this.group2CurrentPreferences,
+            group1CurrentPreferences: this.clone(this.group1CurrentPreferences),
+            group2CurrentPreferences: this.clone(this.group2CurrentPreferences),
             currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
             currentLines: JSON.parse(JSON.stringify(this.currentLines)),
         }
@@ -166,6 +179,42 @@ export abstract class MatchingAlgorithm {
         return position;
     }
 
+    getLastCharacter(name: string) {
+        return name.slice(name.length - 1);
+    }
+
+
+    // #53D26F (green)
+    // #C4C4C4 (grey)
+    // changePreferenceStyle(preferenceList: Object, person: string, position: number, style: string) {
+    changePreferenceStyle(preferenceList: Map<String, Array<String>>, person: string, position: number, style: string) {
+
+        let currentAgent: string = "";
+
+        // console.log(preferenceList);
+        // console.log(person);
+        // console.log(position);
+
+        if (preferenceList.get(person)[position].includes("#")) {
+        currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);
+        } else {
+        currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 1);
+        }
+
+        if (style == "green") {
+        style = "#53D26F";
+        } else if (style == "red") {
+        style = "#EB2A2A";
+        } else if (style == "grey") {
+        style = "#C4C4C4";
+        } else if (style == "black") {
+        style = "#000000";
+        }
+
+        preferenceList.get(person)[position] = "{" + style + currentAgent + "}";
+
+    }
+
 
     abstract match(): AlgorithmData;
 
@@ -182,7 +231,8 @@ export abstract class MatchingAlgorithm {
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
         this.group2CurrentPreferences = this.getGroupRankings(this.group2Agents);
 
-        console.log(this.group1CurrentPreferences);
+        console.log("Group 1 Preferences: %o", this.group1CurrentPreferences);
+        console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
 
         this.match();
         // this.getMatches();
