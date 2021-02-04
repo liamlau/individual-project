@@ -97,7 +97,15 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
         // this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, matchPosition, "green");
         this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(worstResident.name), this.getLastCharacter(hospital.name), "green"]);
 
+        this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(worstResident.name), this.findPositionInMatches(worstResident, hospital), "grey");
+        this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition, "grey");
+
         worstResident.match.splice(0, 1);
+        worstResident.ranking.splice(0, 1);
+
+        this.freeAgentsOfGroup1.push(worstResident.name);
+        console.log(worstResident.match);
+
         hospital.match.splice(matchPosition, 1);
 
         let hospitalLastChar = this.getLastCharacter(hospital.name);
@@ -174,7 +182,8 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               
               hospitalRankingClearCounter++;
 
-              this.relevantPreferences.splice(this.relevantPreferences.findIndex(element => element == this.getLastCharacter(hospital.ranking[i].name)), 1);
+              console.log("Selected: " + this.getLastCharacter(hospital.ranking[i].name));
+              this.relevantPreferences.pop();
 
           }
 
