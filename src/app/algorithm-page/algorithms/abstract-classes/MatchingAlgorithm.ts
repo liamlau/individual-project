@@ -111,7 +111,7 @@ export abstract class MatchingAlgorithm {
             }
 
             let identifier: string = agent.name.slice(agent.name.length - 1);
-            console.log()
+            // console.log()
 
             matches.set(identifier, preferenceList);
 
@@ -191,9 +191,9 @@ export abstract class MatchingAlgorithm {
 
         let currentAgent: string = "";
 
-        // console.log(preferenceList);
-        // console.log(person);
-        // console.log(position);
+        // // console.log(preferenceList);
+        // // console.log(person);
+        // // console.log(position);
 
         if (preferenceList.get(person)[position].includes("#")) {
         currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);
@@ -231,8 +231,8 @@ export abstract class MatchingAlgorithm {
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
         this.group2CurrentPreferences = this.getGroupRankings(this.group2Agents);
 
-        console.log("Group 1 Preferences: %o", this.group1CurrentPreferences);
-        console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
+        // console.log("Group 1 Preferences: %o", this.group1CurrentPreferences);
+        // console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
 
         this.match();
         // this.getMatches();

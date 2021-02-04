@@ -14,9 +14,9 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
             // while (some hospital h is undersubscribed) and (h's preference list contains a resident r not provisionally assigned to h) {
             let currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
-            console.log("------------------");
-            console.log(currentAgent.name + " chosen as currentAgent (resident)");
-            console.log("currentAgent: %o", currentAgent);
+            // console.log("------------------");
+            // console.log(currentAgent.name + " chosen as currentAgent (resident)");
+            // console.log("currentAgent: %o", currentAgent);
 
 
             // if all potential proposees are gone, remove 
@@ -29,24 +29,24 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 // r := first such resident on h's list;
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
 
-                console.log(potentialProposee.name + " chosen as potential proposee (hospital)")
-                console.log("potentialProposee: %o", potentialProposee);
+                // console.log(potentialProposee.name + " chosen as potential proposee (hospital)")
+                // console.log("potentialProposee: %o", potentialProposee);
 
-                // console.log(this.group1CurrentPreferences);
-                // console.log(this.group2CurrentPreferences);
+                // // console.log(this.group1CurrentPreferences);
+                // // console.log(this.group2CurrentPreferences);
 
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
                 let proposeeLastChar = this.getLastCharacter(potentialProposee.name);
                 let positionOfProposeeInAgentPrefs = this.findPositionInMatches(currentAgent, potentialProposee);
                 let positionOfAgentInProposeePrefs = this.findPositionInMatches(potentialProposee, currentAgent);
 
-                // console.log("Last character of Agent: " + agentLastChar);
-                // console.log("Last character of Proposee:" + proposeeLastChar);
-                // console.log("Position of Proposee in Current Agent Preferences: " + positionOfProposeeInAgentPrefs);
-                // console.log("Position of Current Agent in Proposee Preferences: " + positionOfAgentInProposeePrefs);
+                // // console.log("Last character of Agent: " + agentLastChar);
+                // // console.log("Last character of Proposee:" + proposeeLastChar);
+                // // console.log("Position of Proposee in Current Agent Preferences: " + positionOfProposeeInAgentPrefs);
+                // // console.log("Position of Current Agent in Proposee Preferences: " + positionOfAgentInProposeePrefs);
 
                 // if (positionOfAgentInProposeePrefs == -1 || positionOfProposeeInAgentPrefs == -1) {
-                //     console.log(this.algorithmData);
+                //     // console.log(this.algorithmData);
                 // }
 
                 // fix this bug (i took a screenshot)
@@ -79,7 +79,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         //     currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
         // }
 
-        // console.log(this.algorithmData.commands);
+        // // console.log(this.algorithmData.commands);
         return;
         // return "Extended Gale-Shapley!";
     }
