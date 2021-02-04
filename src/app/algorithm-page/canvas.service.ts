@@ -65,7 +65,7 @@ export class CanvasService {
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       this.positions["circle" + i] = {
-        positionX: canvas.width * this.xMargin,
+        positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
         positionY: currentCirclePosition
       }
 

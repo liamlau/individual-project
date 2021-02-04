@@ -64,11 +64,11 @@
     <div class="col-1 flex-fill d-flex align-items-center text-center">
       <button mat-raised-button color="primary" (click)="this.toggleExpansion()">{{ this.showCode ? "Hide Code" : "Show Code" }}</button>
     </div>
-    <div id="terminal" class="col-5 flex-fill mr-4" style="border: solid black 1px; border-radius: 20px; visibility: hidden; display: none;">
+    <div id="terminal" class="col-4 flex-fill mr-4" style="border: solid black 1px; border-radius: 20px; visibility: hidden; display: none;">
       <code-display></code-display>
     </div>
 
-    <div id="parent" class="flex-fill text-center" style="border: solid black 1px; border-radius: 20px;" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-10': !this.showCode, 'col-5': this.showCode}">
+    <div id="parent" class="col-6 flex-fill text-center" style="border: solid black 1px; border-radius: 20px;" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-10': !this.showCode, 'col-5': this.showCode}">
       <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
  
       </canvas>
