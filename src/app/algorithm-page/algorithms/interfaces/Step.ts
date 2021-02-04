@@ -7,4 +7,5 @@ export interface Step {
     group2CurrentPreferences: Map<String, Array<String>>;
     currentlySelectedAgents: Array<string>;
     currentLines: Array<Array<string>>;
+    algorithmSpecificData: Map<string, Object>
 }

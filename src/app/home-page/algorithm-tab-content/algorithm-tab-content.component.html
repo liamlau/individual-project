@@ -1,7 +1,7 @@
 <div class="algorithm-card text-center mt-5" style="max-width: 300px; margin:auto; border: solid #9B9B9B 1px; border-radius: 10px;" (click)="openDialog(algorithm)" *ngFor="let algorithm of algorithmRetrieval.getListOfAlgorithms()">
     <div class="mt-4 mb-1">
         <span class="lead">{{ algorithm.name }}</span>
-        <p class="lead mt-1" style="font-size: 12px">{{ algorithm.orientation }}-Oriented</p>
+        <p class="lead mt-1" style="font-size: 12px">{{ algorithm.orientation[0] }}-Oriented</p>
     </div>
     <div class="row justify-content-center" style="height: 1px;">
         <div class="col-7 text-center" style="background-color: #D7D7D7; height: 1px;"></div>

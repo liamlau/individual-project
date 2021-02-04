@@ -35,7 +35,6 @@ export class ExecutionService {
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
     let commandList = algorithmService.run(numPeople);
-    console.log(commandList);
     commandList["descriptions"] = this.generateDescriptions(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);

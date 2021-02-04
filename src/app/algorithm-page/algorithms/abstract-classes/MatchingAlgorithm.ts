@@ -20,11 +20,14 @@ export abstract class MatchingAlgorithm {
         descriptions: new Array()
     };
 
+    currentLine: Array<string> = [];
 
     group1CurrentPreferences: Map<String, Array<String>> = new Map();
     group2CurrentPreferences: Map<String, Array<String>> = new Map();
     currentlySelectedAgents: Array<string> = [];
     currentLines: Array<Array<string>> = [];
+
+    algorithmSpecificData: Object = {};
 
     constructor() { }
 
@@ -145,6 +148,7 @@ export abstract class MatchingAlgorithm {
             group2CurrentPreferences: this.clone(this.group2CurrentPreferences),
             currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
             currentLines: JSON.parse(JSON.stringify(this.currentLines)),
+            algorithmSpecificData: JSON.parse(JSON.stringify(this.algorithmSpecificData))
         }
 
         this.algorithmData.commands.push(currentStep);
@@ -182,6 +186,23 @@ export abstract class MatchingAlgorithm {
     getLastCharacter(name: string) {
         return name.slice(name.length - 1);
     }
+
+    checkArrayEquality(a: Array<string>, b: Array<string>) {
+        for (let i = 0; i < a.length; i++) {
+          if (a[i] !== b[i]) { return false; }
+        }
+        return true;
+      }
+
+    removeArrayFromArray(a: Array<Array<string>>, b: Array<string>) {
+        let arrayPositionCounter: number = 0;
+        for (let subArray of a) {
+          if (this.checkArrayEquality(subArray, b)) {
+            a.splice(arrayPositionCounter, 1);
+          }
+          arrayPositionCounter++;
+        }
+      }
 
 
     // #53D26F (green)
