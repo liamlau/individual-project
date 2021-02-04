@@ -29,6 +29,8 @@ export abstract class MatchingAlgorithm {
 
     algorithmSpecificData: Object = {};
 
+    relevantPreferences: Array<string> = [];
+
     constructor() { }
 
     initialise(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
@@ -148,7 +150,8 @@ export abstract class MatchingAlgorithm {
             group2CurrentPreferences: this.clone(this.group2CurrentPreferences),
             currentlySelectedAgents: JSON.parse(JSON.stringify(this.currentlySelectedAgents)),
             currentLines: JSON.parse(JSON.stringify(this.currentLines)),
-            algorithmSpecificData: JSON.parse(JSON.stringify(this.algorithmSpecificData))
+            algorithmSpecificData: JSON.parse(JSON.stringify(this.algorithmSpecificData)),
+            relevantPreferences: JSON.parse(JSON.stringify(this.relevantPreferences)),
         }
 
         this.algorithmData.commands.push(currentStep);

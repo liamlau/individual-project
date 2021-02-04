@@ -13,10 +13,12 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         while (this.freeAgentsOfGroup1.length > 0) {
 
             this.currentlySelectedAgents = [];
+            this.relevantPreferences = [];
 
             // while (some hospital h is undersubscribed) and (h's preference list contains a resident r not provisionally assigned to h) {
             let currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
             this.currentlySelectedAgents.push(this.getLastCharacter(currentAgent.name));
+            this.relevantPreferences.push(this.getLastCharacter(currentAgent.name));
 
 
             // if all potential proposees are gone, remove 
@@ -36,6 +38,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let positionOfAgentInProposeePrefs = this.findPositionInMatches(potentialProposee, currentAgent);
 
                 this.currentlySelectedAgents.push(proposeeLastChar);
+                this.relevantPreferences.push(proposeeLastChar);
 
                 this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, positionOfProposeeInAgentPrefs, "red");
                 this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, positionOfAgentInProposeePrefs, "red");
@@ -58,6 +61,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
             }
         }
 
+        this.relevantPreferences = [];
         // a stable matching has been found
         this.update(12);
 

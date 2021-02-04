@@ -154,6 +154,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
           for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
               let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
+              this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
               this.update(10, {"%nextResident%": hospital.ranking[i].name});
 
@@ -172,6 +173,9 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               i -= 1;
               
               hospitalRankingClearCounter++;
+
+              this.relevantPreferences.splice(this.relevantPreferences.findIndex(element => element == this.getLastCharacter(hospital.ranking[i].name)), 1);
+
           }
 
       }

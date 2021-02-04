@@ -29,7 +29,7 @@ export class CanvasService {
   fontSize: number = 20;
 
 
-  drawPreferences: boolean = true;
+  alwaysShowPreferences: boolean = true;
 
   canvas: ElementRef<HTMLCanvasElement>;
 
@@ -221,6 +221,29 @@ export class CanvasService {
       this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + i].positionY + 7, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
+    }
+  }
+
+  drawRelevantPreferences() {
+
+    let group1PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group1CurrentPreferences"]);
+
+    if (group1PreferenceList.length <= 0) {
+      group1PreferenceList = Array.from(this.currentCommand["group1CurrentPreferences"].values());
+    }
+
+    let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
+
+    if (group2PreferenceList.length <= 0) {
+      group2PreferenceList = Array.from(this.currentCommand["group2CurrentPreferences"].values());
+    }
+
+    for (let agent of this.currentCommand["relevantPreferences"]) {
+      if (agent.match(/[A-Z]/i)) {
+        this.drawText(this.ctx, group2PreferenceList[(((agent.charCodeAt(0)) - 65 ))].join(", "), this.positions["circle" + agent].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + agent].positionY + 7, this.fontSize);
+      } else {
+        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - 175, this.positions["circle" + agent].positionY + 7, this.fontSize);
+      }
     }
   }
 
@@ -426,11 +449,15 @@ export class CanvasService {
     this.drawLHSCircles();
     this.drawRHSCircles();
 
-    if (this.drawPreferences && this.currentCommand) {
+    if (this.currentCommand) {
       if (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"]) {
         this.drawHospitalCapacity();
       }
-      this.drawAllPreferences();
+      if (this.currentCommand["relevantPreferences"].length >= 1 && this.alwaysShowPreferences) {
+        this.drawRelevantPreferences();
+      } else {
+        this.drawAllPreferences();
+      }
     }
 
     this.selectCircles(this.currentCommand["currentlySelectedAgents"]);

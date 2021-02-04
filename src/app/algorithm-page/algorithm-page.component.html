@@ -50,7 +50,7 @@
       <p>{{ algorithmService.currentAlgorithm.algorithm }}</p>
     </div>
     <div class="infoLogo col-1 flex-fill d-flex align-items-center text-center">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="this.drawService.drawPreferences = !this.drawService.drawPreferences; this.drawService.redrawCanvas()">info</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas()">info</mat-icon>
     </div>
   </div>
 
@@ -68,11 +68,12 @@
       <code-display></code-display>
     </div>
 
-    <div id="parent" class="col-6 flex-fill text-center" style="border: solid black 1px; border-radius: 20px;" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-10': !this.showCode, 'col-5': this.showCode}">
+    <div id="parent" class="flex-fill text-center" style="border: solid black 1px; border-radius: 20px;" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-10': !this.showCode, 'col-6': this.showCode}">
       <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
  
       </canvas>
     </div>
+
   </div>
 
   <div class="row my-3">
