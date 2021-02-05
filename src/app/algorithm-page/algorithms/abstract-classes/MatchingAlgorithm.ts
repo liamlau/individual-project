@@ -215,9 +215,9 @@ export abstract class MatchingAlgorithm {
 
         let currentAgent: string = "";
 
-        // // console.log(preferenceList);
-        // // console.log(person);
-        // // console.log(position);
+        // console.log(preferenceList);
+        // console.log(person);
+        // console.log(position);
 
         if (preferenceList.get(person)[position].includes("#")) {
         currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);

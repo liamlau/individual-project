@@ -88,25 +88,28 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
         // console.log(worstResident + " chosen as the worst resident in " + hospital + "\'s matches");
 
         let matchPosition = this.findPositionInMatches(hospital, worstResident);
-        // console.log("Position of " + worstResident + ": " + matchPosition);
+        console.log("Position of %o: %o", worstResident, matchPosition);
 
-        // console.log("worst resident: %o", worstResident);
-        // console.log("current hospital: %o", hospital);
+        console.log("worst resident: %o", worstResident);
+        console.log("current hospital: %o", hospital);
 
         // this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.findPositionInMatches(resident, hospital), "green");
         // this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, matchPosition, "green");
         this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(worstResident.name), this.getLastCharacter(hospital.name), "green"]);
 
+        console.log(this.algorithmData);
+
         this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(worstResident.name), this.findPositionInMatches(worstResident, hospital), "grey");
         this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition, "grey");
 
-        worstResident.match.splice(0, 1);
-        worstResident.ranking.splice(0, 1);
-
         this.freeAgentsOfGroup1.push(worstResident.name);
-        console.log(worstResident.match);
+        // console.log(worstResident.match);
 
-        hospital.match.splice(matchPosition, 1);
+        hospital.match.splice(hospital.match.findIndex((agent: { name: string; }) => agent.name == worstResident.name), 1);
+        hospital.ranking.splice(matchPosition, 1);
+
+        worstResident.match.splice(0, 1);
+        worstResident.ranking.splice(this.findPositionInMatches(worstResident, hospital), 1);
 
         let hospitalLastChar = this.getLastCharacter(hospital.name);
         let currentHospitalCapacity: string = this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar];
@@ -134,12 +137,8 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
       if (hospital.match.length >= hospital.availableSpaces - 1) {
         this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
-        console.log(this.algorithmSpecificData);
+        // console.log(this.algorithmSpecificData);
       }
-
-      console.log(hospital);
-      console.log(hospital.match.length);
-      console.log(hospital.availableSpaces);
 
       this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
       resident.match[0] = hospital;
@@ -168,7 +167,6 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
               this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), hospitalPosition, "grey");
 
-              console.log("i: " + i);
               this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
             //   this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), i+1, "grey");
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
@@ -176,13 +174,13 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               // remove h' and r from each other's lists
               this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
 
-              // console.log("%o removed from " + hospital.name + "\'s rankings", hospital.ranking[i]);
+              console.log("%o removed from " + hospital.name + "\'s rankings", hospital.ranking[i]);
               hospital.ranking.splice(i, 1);
               i -= 1;
               
               hospitalRankingClearCounter++;
 
-              console.log("Selected: " + this.getLastCharacter(hospital.ranking[i].name));
+            //   console.log("Selected: " + this.getLastCharacter(hospital.ranking[i].name));
               this.relevantPreferences.pop();
 
           }

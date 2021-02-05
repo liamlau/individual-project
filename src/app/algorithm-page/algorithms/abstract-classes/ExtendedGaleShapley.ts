@@ -32,6 +32,11 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
 
 
+                console.log("-------------");
+                console.log("resident: %o", currentAgent);
+                console.log("hospital: %o", potentialProposee);
+
+
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
                 let proposeeLastChar = this.getLastCharacter(potentialProposee.name);
                 let positionOfProposeeInAgentPrefs = this.findPositionInMatches(currentAgent, potentialProposee);
