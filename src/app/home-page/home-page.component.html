@@ -45,10 +45,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto pt-5 pb-1 pr-5">
-        <a class="nav-item nav-link active mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('')">Home<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/about')">About</a>
-        <a class="nav-item nav-link mr-4 pr-3" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/algorithms')">Algorithms</a>
-        <a class="nav-item nav-link mr-4" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/feedback')">Feedback</a>
+        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('')" [ngClass]="{'active' : this.currentPage == ''}">Home</a>
+        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/about')" [ngClass]="{'active' : this.currentPage == '/about'}">About</a>
+        <a class="nav-item nav-link mr-4 pr-3" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/algorithms')" [ngClass]="{'active' : this.currentPage == '/algorithms'}">Algorithms</a>
+        <a class="nav-item nav-link mr-4" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/feedback')" [ngClass]="{'active' : this.currentPage == '/feedback'}">Feedback</a>
         </div>
     </div>
 </nav>
