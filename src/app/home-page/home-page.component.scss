@@ -14,3 +14,39 @@
 .body-text {
     font-size: 15px;
 }
+
+// under small
+@media only screen and (max-width: 576px) {
+    .title-text {
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 44px;
+        line-height: 60px;
+    }
+}
+
+// small
+@media only screen and (min-width: 576px) {
+    .title-text {
+        font-size: 60px;
+        line-height: 72px;
+    }
+}
+
+// medium
+@media only screen and (min-width: 768px) {
+    .title-text {
+        font-size: 70px;
+        line-height: 94px;
+    }
+}
+
+// large
+@media only screen and (min-width: 992px) {
+
+}
+
+// extra large
+@media only screen and (min-width: 1200px) {
+
+}
