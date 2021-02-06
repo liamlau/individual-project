@@ -45,12 +45,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto pt-5 pb-1 pr-5">
-        <a class="nav-item nav-link active mr-5" href="#" style="font-size: 23px; font-weight: 600" routerLink="">Home<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link mr-5" href="#" style="font-size: 23px; font-weight: 600" routerLink="/about">About</a>
-        <a class="nav-item nav-link mr-4 pr-3" href="#" style="font-size: 23px; font-weight: 600" routerLink="/algorithms">Algorithms</a>
-        <a class="nav-item nav-link mr-4" href="#" style="font-size: 23px; font-weight: 600" routerLink="/feedback">Feedback</a>
+        <a class="nav-item nav-link active mr-5" style="font-size: 23px; font-weight: 600" routerLink="">Home<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600" routerLink="/about">About</a>
+        <a class="nav-item nav-link mr-4 pr-3" style="font-size: 23px; font-weight: 600" routerLink="/algorithms">Algorithms</a>
+        <a class="nav-item nav-link mr-4" style="font-size: 23px; font-weight: 600;" routerLink="/feedback">Feedback</a>
         </div>
     </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div>
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>

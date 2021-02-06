@@ -13,11 +13,13 @@ const routes: Routes = [
   { path: '', component: HomePageComponent, children: [
     {
       path: '',
-      component: HomeContentComponent
+      component: HomeContentComponent,
+      data: {animation: 'HomePage'}
     },
     {
       path: 'about',
-      component: AboutContentComponent
+      component: AboutContentComponent,
+      data: {animation: 'AboutPage'}
     },
     {
       path: 'algorithms',
