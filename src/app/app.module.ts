@@ -31,6 +31,10 @@ import { AboutMeTabContentComponent } from './home-page/about-me-tab-content/abo
 import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { EgsResidentHsCodeComponent } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs-code/egs-resident-hs-code.component';
+import { HomeContentComponent } from './home-page/home-content/home-content.component';
+import { AboutContentComponent } from './home-page/about-content/about-content.component';
+import { AlgorithmContentComponent } from './home-page/algorithm-content/algorithm-content.component';
+import { FeedbackContentComponent } from './home-page/feedback-content/feedback-content.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,11 @@ import { EgsResidentHsCodeComponent } from './algorithm-page/algorithms/egs-resi
     AlgorithmTabContentComponent,
     AboutMeTabContentComponent,
     AlgorithmSelectionDialogComponent,
-    EgsResidentHsCodeComponent
+    EgsResidentHsCodeComponent,
+    HomeContentComponent,
+    AboutContentComponent,
+    AlgorithmContentComponent,
+    FeedbackContentComponent
   ],
   imports: [
     BrowserModule,
