@@ -31,7 +31,7 @@ const routes: Routes = [
     },
   ]},
   { path: 'algorithm', component: AlgorithmPageComponent, canActivate: [AlgorithmGuard] },
-  { path: '**', component: HomePageComponent },  // Wildcard route
+  { path: '**', redirectTo: '' },  // Wildcard route
 ];
 
 @NgModule({
