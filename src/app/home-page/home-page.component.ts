@@ -8,30 +8,16 @@ declare var anime: any;
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  animations: [
-    // the fade-in/fade-out animation.
-    trigger('simpleFadeAnimation', [
-
-      // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({opacity: 1})),
-
-      // fade in when created. this could also be written as transition('void => *')
-      transition(':enter', [
-        style({opacity: 0}),
-        animate(600 )
-      ]),
-
-      // fade out when destroyed. this could also be written as transition('void => *')
-      transition(':leave',
-        animate(600, style({opacity: 0})))
-    ])
-  ]
 })
 export class HomePageComponent implements OnInit {
 
+  currentPage: string = "";
+
   componentMap: Object = {
     "/": ".homeContent",
-    "/algorithms": ".algorithmContent"
+    "/about": ".aboutContent",
+    "/algorithms": ".algorithmContent",
+    "/feedback": ".feedbackContent"
   };
 
   constructor(private router: Router) { }
@@ -43,25 +29,24 @@ export class HomePageComponent implements OnInit {
 
   }
 
-  async goToFeedback(): Promise<void> {
-    // console.log(this.router.url);
-    // console.log(this.componentMap[this.router.url]);
-    // anime({
-    //   targets: [this.componentMap[this.router.url]],
-    //   easing: 'easeInOutQuint',
-    //   opacity: [1, 0],
-    //   duration: 500
-    // })
-    // await this.delay(100);
-    // this.router.navigateByUrl('/algorithms');
-    // console.log(this.componentMap['/algorithms']);
-    // anime({
-    //   targets: ".algorithmContent",
-    //   easing: 'easeInOutQuint',
-    //   opacity: [0, 1],
-    //   duration: 500,
-    //   delay: 100
-    // })
+  fadeCurrentPage(): void {
+    anime({
+      targets: [this.componentMap[this.router.url]],
+      easing: 'easeInOutQuint',
+      opacity: [1, 0],
+      duration: 500
+    })
+  }
+
+  async goToPage(page: string): Promise<void> {
+    console.log(this.currentPage);
+    console.log(page);
+    if (!(this.router.url == page)) {
+      this.currentPage = page;
+      this.fadeCurrentPage();
+      await this.delay(500);
+      this.router.navigateByUrl(page);
+    }
   }
 
   delay(ms: number) {
