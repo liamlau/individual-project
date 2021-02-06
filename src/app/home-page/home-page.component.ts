@@ -34,7 +34,7 @@ export class HomePageComponent implements OnInit {
       targets: [this.componentMap[this.router.url]],
       easing: 'easeInOutQuint',
       opacity: [1, 0],
-      duration: 500
+      duration: 400
     })
   }
 
@@ -44,7 +44,7 @@ export class HomePageComponent implements OnInit {
     if (!(this.router.url == page)) {
       this.currentPage = page;
       this.fadeCurrentPage();
-      await this.delay(500);
+      await this.delay(400);
       this.router.navigateByUrl(page);
     }
   }

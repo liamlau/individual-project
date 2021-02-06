@@ -10,7 +10,7 @@ export const simpleFadeAnimation =
         // fade in when created. this could also be written as transition('void => *')
         transition(':enter', [
           style({opacity: 0}),
-          animate(500)
+          animate('400ms 0ms cubic-bezier(0.5, 0, 0.75, 0)')
         ]),
   
         // fade out when destroyed. this could also be written as transition('void => *')
