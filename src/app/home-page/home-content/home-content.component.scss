@@ -30,6 +30,28 @@ a:hover .linkedin-icon {
     color: #518bd3;
 }
 
+button:focus {
+    outline: none;
+}
+
+.startButton {
+    background-color: #2058FF;
+    transition: 200ms background-color;
+}
+
+.startButton:hover {
+    background-color: #1140ce;
+}
+
+.feedbackButton {
+    background-color: rgb(240, 240, 240);
+    transition: 200ms background-color;
+}
+
+.feedbackButton:hover {
+    background-color: rgb(184, 184, 184)
+}
+
 
 // under small
 @media only screen and (max-width: 576px) {
