@@ -25,9 +25,7 @@ import { VariableDisplayComponent } from './algorithm-page/variable-display/vari
 import { GsVariablesComponent } from './algorithm-page/algorithms/gale-shapley/gs-variables/gs-variables.component';
 import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { HomeTabContentComponent } from './home-page/home-tab-content/home-tab-content.component';
 import { AlgorithmTabContentComponent } from './home-page/algorithm-tab-content/algorithm-tab-content.component';
-import { AboutMeTabContentComponent } from './home-page/about-me-tab-content/about-me-tab-content.component';
 import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { EgsResidentHsCodeComponent } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs-code/egs-resident-hs-code.component';
@@ -49,9 +47,7 @@ import { FeedbackContentComponent } from './home-page/feedback-content/feedback-
     GsVariablesComponent,
     SimpleVariablesComponent,
     HomePageComponent,
-    HomeTabContentComponent,
     AlgorithmTabContentComponent,
-    AboutMeTabContentComponent,
     AlgorithmSelectionDialogComponent,
     EgsResidentHsCodeComponent,
     HomeContentComponent,
