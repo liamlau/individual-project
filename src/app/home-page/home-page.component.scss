@@ -14,3 +14,25 @@
 .body-text {
     font-size: 15px;
 }
+
+#alg {
+    color: #d44b21;
+    transition: 200ms color;
+}
+
+#match {
+    color: #9810ca;
+    transition: 200ms color;
+}
+
+a:hover span #alg {
+    color: #ff3c00;
+}
+
+a:hover span #match {
+    color: #bb00ff;
+}
+
+a {
+    transition: 200ms color;
+}
