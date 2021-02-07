@@ -29,18 +29,16 @@ export class AlgorithmPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.drawService.canvas = this.canvas;
-    this.drawService.ctx = this.canvas.nativeElement.getContext('2d');
+    // this.drawService.canvas = this.canvas;
+    // this.drawService.ctx = this.canvas.nativeElement.getContext('2d');
 
-    // this.ctx = this.canvas.nativeElement.getContext('2d');
+    // this.algorithm.setValue("Gale-Shapley Stable Marriage");
 
-    this.algorithm.setValue("Gale-Shapley Stable Marriage");
+    // // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
+    // // this.playback.setAlgorithm("smp-man-gs", 5);
 
-    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
-    // this.playback.setAlgorithm("smp-man-gs", 5);
-
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
-    this.playback.setAlgorithm("hr-resident-egs", 5);
+    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
+    // this.playback.setAlgorithm("hr-resident-egs", 5);
 
   }
 
