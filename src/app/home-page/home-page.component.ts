@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
     "/feedback": ".feedbackContent"
   };
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -39,8 +39,6 @@ export class HomePageComponent implements OnInit {
   }
 
   async goToPage(page: string): Promise<void> {
-    console.log(this.currentPage);
-    console.log(page);
     if (!(this.router.url == page)) {
       this.currentPage = page;
       this.fadeCurrentPage();
