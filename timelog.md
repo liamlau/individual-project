@@ -276,3 +276,15 @@ Holiday taken for Christmas.
 - 4 hours: writing the residents->hospitals algorithm using oop principles
 - 2 hours: general refactoring / removing old code / preparing codebase for additional algorithms to be implemented (oop method)
 - 4 hours: implementing hospital residents into app (halfway done)
+
+03/02/21:
+- 2 hours: adding finishing touches to hospital/residents problem
+
+04/02/21:
+- 2 hours: refining hospital residents algorithm
+
+05/02/21:
+- 3 hours: finishing hospital/residents (apart from descriptions)
+
+06/02/21:
+- 8 hours: making new home page
