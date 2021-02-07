@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Algorithm } from './Algorithm';
+import { Algorithm } from './home-page/algorithm-tab-content/Algorithm';
 
 @Injectable({
   providedIn: 'root'
@@ -48,18 +48,18 @@ export class AlgorithmRetrievalService {
       }
     ],
 
-    [
-      "hr-hospital-egs", {
-        id: "hr-hospital-egs",
-        name: "Hospital/Residents Problem",
-        orientation: ["Hospital", "Resident"],
-        algorithm: "Extended Gale-Shapley Stable Matching",
-        description: "The hospital/residents problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
-        helpTextMap: {
+    // [
+    //   "hr-hospital-egs", {
+    //     id: "hr-hospital-egs",
+    //     name: "Hospital/Residents Problem",
+    //     orientation: ["Hospital", "Resident"],
+    //     algorithm: "Extended Gale-Shapley Stable Matching",
+    //     description: "The hospital/residents problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+    //     helpTextMap: {
   
-        },
-      }
-    ],
+    //     },
+    //   }
+    // ],
 
     [
       "hr-resident-egs", {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlgorithmRetrievalService } from 'src/app/home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { PlaybackService } from '../playback.service';
 
 declare var anime: any;

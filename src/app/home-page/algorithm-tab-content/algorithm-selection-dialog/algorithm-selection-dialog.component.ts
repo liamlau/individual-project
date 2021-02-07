@@ -3,7 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Algorithm } from '../Algorithm';
-import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from '../../../algorithm-retrieval.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

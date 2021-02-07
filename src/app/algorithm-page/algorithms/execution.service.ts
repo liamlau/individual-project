@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlgorithmRetrievalService } from 'src/app/home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { CanvasService } from '../canvas.service';
 import { EgsResidentHSService } from './egs-resident-hs/egs-resident-hs.service';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';

@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { element } from 'protractor';
-import { AlgorithmRetrievalService } from '../home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { CanvasService } from './canvas.service';
 import { PlaybackService } from './playback.service';
 declare var anime: any;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AlgorithmRetrievalService } from './home-page/algorithm-tab-content/algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from './algorithm-retrieval.service';
 
 @Injectable({
   providedIn: 'root'

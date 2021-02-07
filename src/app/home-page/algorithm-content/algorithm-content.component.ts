@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { simpleFadeAnimation } from 'src/app/animations';
 
 @Component({
@@ -11,7 +12,7 @@ import { simpleFadeAnimation } from 'src/app/animations';
 })
 export class AlgorithmContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public algorithmRetrieval: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
   }
