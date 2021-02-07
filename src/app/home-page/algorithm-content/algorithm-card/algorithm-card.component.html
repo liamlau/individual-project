@@ -29,7 +29,7 @@
                           This field is <strong>required</strong>
                         </mat-error>
                         <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
-                          Please input a number between 1 and 10
+                          Please input a number between 1 and 9
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -42,7 +42,7 @@
                           This field is <strong>required</strong>
                         </mat-error>
                         <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
-                          Please input a number between 1 and 10
+                          Please input a number between 1 and 9
                         </mat-error>
                       </mat-form-field>
                 
@@ -53,7 +53,7 @@
                           This field is <strong>required</strong>
                         </mat-error>
                         <mat-error *ngIf="numberOfGroup2Agents.hasError('min') || numberOfGroup2Agents.hasError('max')">
-                          Please input a number between 1 and 10
+                          Please input a number between 1 and 9
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -62,7 +62,8 @@
             </div>
 
             <div clas="col-4">
-                <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
+                <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Stable Marriage Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
+                <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Hospital/Residents Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
             </div>
         </div>
         

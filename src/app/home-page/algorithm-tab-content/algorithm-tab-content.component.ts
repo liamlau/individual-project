@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Algorithm } from './Algorithm';
+import { Algorithm } from '../algorithm-content/Algorithm';
 import { AlgorithmRetrievalService } from '../../algorithm-retrieval.service';
 import { AlgorithmSelectionDialogComponent } from './algorithm-selection-dialog/algorithm-selection-dialog.component';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Algorithm } from './home-page/algorithm-tab-content/Algorithm';
+import { Algorithm } from './home-page/algorithm-content/Algorithm';
 
 @Injectable({
   providedIn: 'root'

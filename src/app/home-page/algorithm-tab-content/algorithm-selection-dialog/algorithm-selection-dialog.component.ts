@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Algorithm } from '../Algorithm';
+import { Algorithm } from '../../algorithm-content/Algorithm';
 import { AlgorithmRetrievalService } from '../../../algorithm-retrieval.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */

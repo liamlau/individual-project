@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { Algorithm } from '../../algorithm-tab-content/Algorithm';
+import { Algorithm } from '../Algorithm';
 import { MyErrorStateMatcher } from '../../algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
 
 @Component({
@@ -17,13 +17,13 @@ export class AlgorithmCardComponent implements OnInit {
   numberOfGroup1Agents = new FormControl('', [
     Validators.required,
     Validators.min(1),
-    Validators.max(10)
+    Validators.max(9)
   ]);
 
   numberOfGroup2Agents = new FormControl('', [
     Validators.required,
     Validators.min(1),
-    Validators.max(10)
+    Validators.max(9)
   ]);
 
   matcher = new MyErrorStateMatcher();
