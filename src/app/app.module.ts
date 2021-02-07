@@ -33,6 +33,7 @@ import { HomeContentComponent } from './home-page/home-content/home-content.comp
 import { AboutContentComponent } from './home-page/about-content/about-content.component';
 import { AlgorithmContentComponent } from './home-page/algorithm-content/algorithm-content.component';
 import { FeedbackContentComponent } from './home-page/feedback-content/feedback-content.component';
+import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-card/algorithm-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { FeedbackContentComponent } from './home-page/feedback-content/feedback-
     HomeContentComponent,
     AboutContentComponent,
     AlgorithmContentComponent,
-    FeedbackContentComponent
+    FeedbackContentComponent,
+    AlgorithmCardComponent
   ],
   imports: [
     BrowserModule,
