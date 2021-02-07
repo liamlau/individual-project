@@ -26,7 +26,12 @@ export class HomePageComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
+    anime({
+      targets: '.titleContent',
+      easing: 'easeInOutQuint',
+      translateY: [-200, 0],
+      duration: 500
+    })
   }
 
   fadeCurrentPage(): void {
