@@ -288,3 +288,7 @@ Holiday taken for Christmas.
 
 06/02/21:
 - 8 hours: making new home page
+
+07/02/21:
+- 8 hours: making alg page
+- 3 hours: positioning elements/integrating things I've done before
