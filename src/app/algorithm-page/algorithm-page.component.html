@@ -60,13 +60,14 @@
 
 
   <div class="col-4 text-left align-middle" style="height: 100%">
-    <div class="align-middle" style="display: inline-block; cursor: pointer; height: 100%">
-      <mat-icon class="mr-3" style="vertical-align: middle">skip_previous</mat-icon>
+    <div class="align-middle" style="display: inline-block; height: 100%">
+      
     </div>
-    <a class="" href="#" style="vertical-align: middle">Features</a>
-    <a class="" href="#" style="vertical-align: middle">Features</a>
-    <a class="" href="#" style="vertical-align: middle">Pricing</a>
-    <a class="" href="#" style="vertical-align: middle">Disabled</a>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">menu_open</mat-icon>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">edit</mat-icon>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">visibility</mat-icon>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">help_outline</mat-icon>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">home</mat-icon>
   </div>
   <div class="col-4 text-center">
     <span style="color: white; font-size: 1.1rem; font-weight: 400;">Stable Marriage Problem / Gale-Shapley Stable Marriage / Man-Oriented</span>
@@ -76,16 +77,81 @@
 
 </nav>
 
-<div class="container-fluid pt-3">
-  <div class="row">
+<div class="container-fluid pt-2" style="height: calc(100% - 50px)">
+  <div class="row" style="height: 100%">
     <nav class="col-md-3 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
+        <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.41fr 0.2fr 2fr 2fr;">
+          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom">
+            <h1 class="h2 mt-3">{{ this.playback.description }}</h1>
+          </div>
+          <div class="border-bottom">
+            Free agents
+          </div>
+          <div class="border-bottom">
+            <code-display></code-display>
+          </div>
+          <div>
+            Execution trace
+          </div>
+        </div>
 
       </div>
     </nav>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-9 pt-3">
-      <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center mt-3 pb-2 mb-3 border-bottom">
+    <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
+      <div class="grid-container-algorithm col-md-9 ml-sm-auto col-lg-9" style="height: 100%; display: grid; grid-template-rows: 0.4fr 3.4fr 0.8fr;">
+
+        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom">
+          <h1 class="h2 mt-3">Residents</h1>
+          <h1 class="h2 mt-3">Hospitals</h1>
+        </div>
+
+
+
+        <div id="parent" (resized)="this.drawService.redrawCanvas()">
+          <canvas #canvas id="myCanvas" style="min-height: 280px;">
+       
+          </canvas>
+        </div>
+
+        <div>
+          <div class="col-12" >
+            <div class="playback-block">
+              <playback-controls [numPeople]="5"></playback-controls>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom">
+          <h1 class="h2">Residents</h1>
+          <h1 class="h2">Hospitals</h1>
+        </div>
+
+        <div class="">
+    
+          <div id="terminal" class="col-4 mr-4" style="border: solid black 1px; border-radius: 20px; visibility: hidden; display: none;">
+            <code-display></code-display>
+          </div>
+
+          <canvas height=500 width=500></canvas>
+
+          <div id="parent" class="text-center" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-12': !this.showCode, 'col-6': this.showCode}">
+            <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
+       
+            </canvas>
+          </div>
+      
+        </div>
+
+        <div class="row my-3">
+          <div class="col-12" >
+            <div class="playback-block">
+              <playback-controls [numPeople]="5"></playback-controls>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center mt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Residents</h1>
         <h1 class="h2">Hospitals</h1>
       </div>
@@ -113,8 +179,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-    </main>
+    <!-- </main> -->
   </div>
 </div>
