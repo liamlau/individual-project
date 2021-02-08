@@ -85,10 +85,30 @@
           <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom">
             <h1 class="h2 mt-3">{{ this.playback.description }}</h1>
           </div>
-          <div class="border-bottom">
-            Free agents
+          <div class="border-bottom align-items-center">
+            <div class="row align-items-center mx-2" style="height: 100%">
+              <div class="col-3" style="font-size: 22px;">
+                Free Agents:
+              </div>
+              <div class="col-9" style="font-size: 18px;">
+                [
+                <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
+                  <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
+                </span>
+                ]
+              </div>
+            </div>
           </div>
-          <div class="border-bottom">
+          <div class="border-bottom my-3 mx-4">
+            <!-- <div class="row">
+              hi
+            </div>
+            <div class="row">
+              hihi
+            </div>
+            <div class="row">
+              there
+            </div> -->
             <code-display></code-display>
           </div>
           <div>
