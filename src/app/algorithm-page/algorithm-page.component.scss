@@ -164,3 +164,14 @@ a:hover span #alg {
 a:hover span #match {
     color: #ff009d;
 }
+
+.navbarIconButton {
+  cursor: pointer;
+  vertical-align: middle;
+  color: rgb(153, 153, 153);
+  transition: 200ms color;
+}
+
+.navbarIconButton:hover {
+  color: rgb(194, 194, 194);
+}

@@ -63,17 +63,17 @@
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)" (click)="this.showCode = !this.showCode">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
     <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center">
-    <span style="color: white; font-size: 1.1rem; font-weight: 400;">Stable Marriage Problem / Gale-Shapley Stable Marriage / Man-Oriented</span>
+    <span style="color: white; font-size: 1.1rem; font-weight: 400;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
   <div class="col-3 text-right">
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">edit</mat-icon>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">visibility</mat-icon>
-    <mat-icon class="mr-2" style="vertical-align: middle; color: rgb(153, 153, 153)">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas()">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2">help_outline</mat-icon>
   </div>
 
 </nav>
