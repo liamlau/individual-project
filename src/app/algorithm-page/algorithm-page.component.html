@@ -63,7 +63,7 @@
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
-    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
     <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center">
@@ -71,9 +71,9 @@
   </div>
 
   <div class="col-3 text-right">
-    <mat-icon class="navbarIconButton unselectable mr-4">edit</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas()">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help">help_outline</mat-icon>
   </div>
 
 </nav>
@@ -88,13 +88,13 @@
           </div>
           <div class="border-bottom align-items-center">
             <div class="row align-items-center mx-2" style="height: 100%">
-              <div class="col-3" style="font-size: 22px;">
-                <span style="font-size: 0.77vw;">Free Agents:</span>
+              <div class="col-4" style="font-size: 22px;">
+                <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
               </div>
-              <div class="col-9" style="font-size: 0.7vw; line-height: 1.5vw;">
+              <div class="col-8" style="font-size: 0.9vw;">
                 [
                 <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
-                  <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
+                  <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
                 </span>
                 ]
               </div>
@@ -132,8 +132,8 @@
       <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr;" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode}">
 
         <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px">
-          <h1 class="h2 mt-3">Residents</h1>
-          <h1 class="h2 mt-3">Hospitals</h1>
+          <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
+          <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
         </div>
 
 
