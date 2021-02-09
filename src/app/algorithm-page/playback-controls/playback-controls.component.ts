@@ -12,7 +12,6 @@ declare var anime: any;
 export class PlaybackControlsComponent implements OnInit {
 
   @Input() algorithm: string;
-  @Input() numPeople: number;
 
   constructor(public playback: PlaybackService, public algService: AlgorithmRetrievalService) { }
 

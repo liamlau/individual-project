@@ -67,7 +67,7 @@
     <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center">
-    <span style="color: white; font-size: 1.1rem; font-weight: 400;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
+    <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
   <div class="col-3 text-right">
@@ -91,7 +91,7 @@
               <div class="col-4" style="font-size: 22px;">
                 <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
               </div>
-              <div class="col-8" style="font-size: 0.9vw;">
+              <div class="col-8 text-center pr-5" style="font-size: 0.9vw;">
                 [
                 <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
                   <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
@@ -147,7 +147,7 @@
         <div>
           <div class="col-12" >
             <div class="playback-block">
-              <playback-controls [numPeople]="5"></playback-controls>
+              <playback-controls></playback-controls>
             </div>
           </div>
         </div>
