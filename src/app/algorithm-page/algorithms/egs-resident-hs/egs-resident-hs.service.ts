@@ -80,10 +80,10 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
   breakAssignment(resident: Agent, hospital: Hospital): void {
 
-    this.update(4);
+    this.update(4, {"%hospital%": hospital.name});
     if (hospital.match.length >= hospital.availableSpaces) {
         let worstResident = this.getWorstResident(hospital);
-        this.update(5, {"%worstResident%": worstResident.name});
+        this.update(5, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
 
         // console.log(worstResident + " chosen as the worst resident in " + hospital + "\'s matches");
 
@@ -116,7 +116,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
         this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length - 2);
 
-        this.update(6);
+        this.update(6, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
 
     }
   }
@@ -147,13 +147,13 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
   removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
-    this.update(8, {"%hospital%": hospital.name});
+    this.update(8, {"%resident%": resident.name, "%hospital%": hospital.name});
 
       if (hospital.match.length >= hospital.availableSpaces) {
           let worstResident: Agent = this.getWorstResident(hospital);
           let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
-          this.update(9, {"%worstResident%": worstResident.name});
+          this.update(9, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
 
           let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
@@ -163,7 +163,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
               this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
-              this.update(10, {"%nextResident%": hospital.ranking[i].name});
+              this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
 
               this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), hospitalPosition, "grey");
 
