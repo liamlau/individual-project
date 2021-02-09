@@ -141,8 +141,26 @@
   
   .border-top { border-top: 1px solid #e5e5e5; }
   .border-bottom { border-bottom: 1px solid #e5e5e5; }
-  
 
-  body {
-      background-color: #f7f7f7;
-  }
+
+  #alg {
+    color: #ff3c00;
+    transition: 200ms color;
+}
+
+#match {
+    color: #e100ff;
+    transition: 200ms color;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover span #alg {
+    color: #ffae00;
+}
+
+a:hover span #match {
+    color: #ff009d;
+}

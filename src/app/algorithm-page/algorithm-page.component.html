@@ -59,38 +59,39 @@
 <nav class="navbar sticky-top navbar-light p-0" style="background-color: #1b1f23; height: 50px">
 
 
-  <div class="col-4 text-left align-middle" style="height: 100%">
+  <div class="col-3 text-left align-middle" style="height: 100%">
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
     <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">menu_open</mat-icon>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">edit</mat-icon>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">visibility</mat-icon>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">help_outline</mat-icon>
-    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">home</mat-icon>
+    <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
-  <div class="col-4 text-center">
+  <div class="col-6 text-center">
     <span style="color: white; font-size: 1.1rem; font-weight: 400;">Stable Marriage Problem / Gale-Shapley Stable Marriage / Man-Oriented</span>
   </div>
 
-  <div class="col-4 text-center"></div>
+  <div class="col-3 text-right">
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">edit</mat-icon>
+    <mat-icon class="mr-4" style="vertical-align: middle; color: rgb(153, 153, 153)">visibility</mat-icon>
+    <mat-icon class="mr-2" style="vertical-align: middle; color: rgb(153, 153, 153)">help_outline</mat-icon>
+  </div>
 
 </nav>
 
-<div class="container-fluid pt-2" style="height: calc(100% - 50px)">
+<div class="container-fluid" style="height: calc(100% - 50px)">
   <div class="row" style="height: 100%">
     <nav class="col-md-3 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.41fr 0.2fr 2fr 2fr;">
-          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom">
+          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
             <h1 class="h2 mt-3">{{ this.playback.description }}</h1>
           </div>
           <div class="border-bottom align-items-center">
             <div class="row align-items-center mx-2" style="height: 100%">
               <div class="col-3" style="font-size: 22px;">
-                Free Agents:
+                <span style="font-size: 0.77vw;">Free Agents:</span>
               </div>
-              <div class="col-9" style="font-size: 18px;">
+              <div class="col-9" style="font-size: 0.7vw; line-height: 1.5vw;">
                 [
                 <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
                   <span class="{{ item }}">{{ item }}</span><span *ngIf="!lastItem">,</span>
@@ -99,7 +100,7 @@
               </div>
             </div>
           </div>
-          <div class="border-bottom my-3 mx-4">
+          <div class="border-bottom my-3">
             <!-- <div class="row">
               hi
             </div>
@@ -110,6 +111,7 @@
               there
             </div> -->
             <code-display></code-display>
+            
           </div>
           <div>
             Execution trace
@@ -120,9 +122,9 @@
     </nav>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
-      <div class="grid-container-algorithm col-md-9 ml-sm-auto col-lg-9" style="height: 100%; display: grid; grid-template-rows: 0.4fr 3.4fr 0.8fr;">
+      <div class="grid-container-algorithm col-md-9 ml-sm-auto col-lg-9" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr;">
 
-        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom">
+        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px">
           <h1 class="h2 mt-3">Residents</h1>
           <h1 class="h2 mt-3">Hospitals</h1>
         </div>

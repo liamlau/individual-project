@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { CanvasService } from './canvas.service';
@@ -25,7 +26,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   showCode: boolean = false;
 
-  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService) { }
+  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public router: Router) { }
 
   ngOnInit(): void {
 
@@ -76,6 +77,16 @@ export class AlgorithmPageComponent implements OnInit {
       }
     }
   }
+
+
+  // async goToPage(page: string): Promise<void> {
+  //   if (!(this.router.url == page)) {
+  //     this.currentPage = page;
+  //     this.fadeCurrentPage();
+  //     await this.delay(400);
+  //     this.router.navigateByUrl(page);
+  //   }
+  // }
 
 
   firstSelection: boolean = true
