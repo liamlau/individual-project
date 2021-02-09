@@ -84,7 +84,7 @@
       <div class="sidebar-sticky">
         <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.41fr 0.2fr 2fr 2fr;">
           <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
-            <h1 class="h2 mt-3">{{ this.playback.description }}</h1>
+            <h2 class="h2 mt-3 mx-2 text-center" style="font-weight: 400;">{{ this.playback.description }}</h2>
           </div>
           <div class="border-bottom align-items-center">
             <div class="row align-items-center mx-2" style="height: 100%">
@@ -113,8 +113,15 @@
             <code-display></code-display>
             
           </div>
-          <div>
-            Execution trace
+          <div id="executionTrace" style="overflow: scroll">
+            <div class="text-center mb-3">
+              <h3>Execution Trace</h3>
+            </div>
+            <ol start=0>
+              <li class="mb-4" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
+                {{ line }}
+              </li>
+            </ol>
           </div>
         </div>
 
