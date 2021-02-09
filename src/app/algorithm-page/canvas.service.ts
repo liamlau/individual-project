@@ -207,6 +207,7 @@ export class CanvasService {
     }
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+      // got a bug here - text is displayed dodgy with different numbers than 5
       this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
