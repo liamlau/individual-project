@@ -292,3 +292,7 @@ Holiday taken for Christmas.
 07/02/21:
 - 8 hours: making alg page
 - 3 hours: positioning elements/integrating things I've done before
+
+08/02/21:
+- 6 hours: finalising alg page
+- 2 hours: linking up app to alg page properly (halfway done)
