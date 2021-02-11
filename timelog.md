@@ -15,9 +15,9 @@
 ## Total Time Spent (so far): 4 + 18.5 + 11 + 12.5 + 10 + 0.5 + 5.5 + 12 = **74 hours**
 Current expected time spent (using 15 hours a week estimation - excluding week before being allocated project): 7 * 15 = **105 hours**
 
-<hr>
+<br><br>
 
-# Semester 1
+# Semester 1 - 86.5 hours
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 1 -->
 
@@ -162,10 +162,14 @@ Current expected time spent (using 15 hours a week estimation - excluding week b
 * *1.5 hours*: Learned about CSS Grid and experimented with it
 * *1.5 hours*: Made responsive animations within grid layout
 
+<hr>
+
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 9 -->
 
 ## Week 9 (16 Nov 2020 - 22 Nov 2020)
 Time was spent on other subjects and coursework.
+
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 10 -->
 
@@ -175,6 +179,7 @@ Time was spent on other subjects and coursework.
 ### 24 Nov 2020 (Tue) - 0.5 hours
 * *0.5 hours*: Supervisor meeting
 
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 11 -->
 
@@ -184,6 +189,7 @@ Break was taken due to personal issues.
 ### 1 Dec 2020 (Tue) - 0.5 hours
 * *0.5 hours*: Supervisor meeting
 
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 12 -->
 
@@ -191,7 +197,7 @@ Break was taken due to personal issues.
 ### 10 Dec 2020 (Thu) - 2.5 hours
 * *2.5 hours*: Wrote status report
 
-
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 13 -->
 
@@ -199,16 +205,22 @@ Break was taken due to personal issues.
 ### 16 Dec 2020 (Tue) - 2.5 hours
 * *2.5 hours*: Organised all wiki pages and created some issues for the rest of the project
 
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 1) -->
 
-## WINTER BREAK (week 1) (21 Dec 2020 - 27 Dec 2020)
+<br><br>
+
+# Winter Break - 15.5 hours
+
+## Week 1 (21 Dec 2020 - 27 Dec 2020)
 Holiday taken for Christmas.
 
+<hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 2) -->
 
-## WINTER BREAK (week 2) (28 Dec 2020 - 3 Jan 2021) - **7 hours**
+## Week 2 (28 Dec 2020 - 3 Jan 2021) - **7 hours**
 ### 30 Dec 2020 (Wed) - 3 hours
 * *3 hours*: Fleshed out lots of pages on the wiki (documentation)
 
@@ -219,80 +231,117 @@ Holiday taken for Christmas.
 ### 3 Jan 2020 (Sat) - 2 hours
 * *2 hours*: Learned how the Hospital/Residents problem works, and wrote up documentation on how I am to implement it into the application
 
+<hr>
+
 <!-- ------------------------------------------------------------------------------------------------------- WINTER BREAK (week 3) -->
 
-## WINTER BREAK (week 3) (4 Jan 2021 - 10 Jan 2021) - **8.5 hours**
-08/01/21:
-- 3 hours class plan/learning egs
+## Week 3 (4 Jan 2021 - 10 Jan 2021) - **8.5 hours**
+### 8 Jan 2020 (Fri) - 3 hours
+* *3 hours*: Class plan/learning egs
 
-09/01/21:
-- 4.5 hours implementing class, working through dry run
+### 9 Jan 2020 (Sat) - 4.5 hours
+* *4.5 hours*: Implemented class, worked through dry run
 
-10/01/21:
-- 1 hour rewrote existing GS stable marriage algorithm in class form
-
-<hr>
+### 10 Jan 2020 (Sun) - 1 hour
+* *1 hour*: Rewrote existing GS stable marriage algorithm in class form
 
 <!-- ------------------------------------------------------------------------------------------------------- SEMESTER 2 -->
 
-# Semester 2
+<br><br>
 
-13/01/21:
-- 3 hours designing revised wireframes for app
+# Semester 2 - 94 hours
 
-14/01/21:
-- 0.5 hours planning tomorrow's meeting
-- 0.5 hours refining plan
-- 4.5 hours designing
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 17 -->
 
-19/01/21:
-- 4 hours refinement of design (specifically hospital/residents problem)
+## Week 17 (11 Jan 2021 - 17 Jan 2021) - **9 hours**
+### 13 Jan 2020 (Wed) - 3 hours
+* *3 hours*: Designed revised wireframes for app
 
-24/01/21:
-- 7 hours: working on redesign of app (implementation)
+### 14 Jan 2020 (Thu) - 5.5 hours
+* *0.5 hours*: Made plan for supervisor meeting
+* *0.5 hours*: Refining and rethinking plan for rest of semester
+* *4.5 hours*: Further design on the app (wireframes)
 
-25/01/21:
-- 7 hours: working on redesign of app (implementation)
+### 15 Jan 2020 (Fri) - 0.5 hours
+* *0.5 hours*: Supervisor meeting
 
-26/01/21:
-- 2 hours: learning canvas
+<hr>
 
-27/01/21:
-- 1 hour: drawing circles on canvas and testing things
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 18 -->
 
-28/01/21:
-- 4 hours: positioning circles correctly, linking up all previously developed features
+## Week 18 (18 Jan 2021 - 24 Jan 2021) - **11 hours**
+### 19 Jan 2020 (Tue) - 4 hours
+* *4 hours*: Refinement of design (specifically hospital/residents problem)
 
-29/01/21:
-- 6 hours: figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)
+### 24 Jan 2020 (Sun) - 7 hours
+* *3 hours*: Implementation of design wireframes (layout)
+* *4 hours*: Further implementation of wireframes (home page content, color scheme, redesigning things that don't work)
 
-30/01/21:
-- rest day
+<hr>
 
-31/01/21:
-- 3 hours: making correct variable display green colour for canvas animation
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 19 -->
 
-01/02/21:
-- 4 hours: writing the residents->hospitals algorithm using oop principles
-- 2 hours: general refactoring / removing old code / preparing codebase for additional algorithms to be implemented (oop method)
-- 4 hours: implementing hospital residents into app (halfway done)
+## Week 19 (25 Jan 2021 - 31 Jan 2021) - **28 hours**
+### 25 Jan 2020 (Mon) - 7 hours
+* *7 hours*: Finishing implementation of redesign of the app
 
-03/02/21:
-- 2 hours: adding finishing touches to hospital/residents problem
+### 26 Jan 2020 (Tue) - 3 hours
+* *3 hours*: Learning HTML canvas in order to be able to animate algorithms as per my redesign
 
-04/02/21:
-- 2 hours: refining hospital residents algorithm
+### 27 Jan 2020 (Wed) - 2 hours
+* *1 hour*: Drawing circles on canvas (initial testing)
+* *1 hour*: Designing how circles will have to be displayed to be responsive
 
-05/02/21:
-- 3 hours: finishing hospital/residents (apart from descriptions)
+### 28 Jan 2020 (Thu) - 4 hours
+* *2 hours*: Positioning circles correctly
+* *2 hours*: Linking up all previously developed features
 
-06/02/21:
-- 8 hours: making new home page
+### 29 Jan 2020 (Fri) - 6 hours
+* *6 hours*: Figuring out how to display and animate everything (spent a lot of time figuring out how to draw specific things certain colours with canvas - quite finnicky)
 
-07/02/21:
-- 8 hours: making alg page
-- 3 hours: positioning elements/integrating things I've done before
+### 31 Jan 2020 (Sun) - 6 hours
+* *3 hours*: Making correct variable display green colour for canvas animation
 
-08/02/21:
-- 6 hours: finalising alg page
-- 2 hours: linking up app to alg page properly (halfway done)
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 20 -->
+
+## Week 20 (1 Jan 2021 - 7 Jan 2021) - **36 hours**
+### 1 Feb 2020 (Mon) - 10 hours
+* *4 hours*: Writing the residents->hospitals algorithm using oop principles
+* *2 hours*: General refactoring / removing old code / preparing codebase for additional algorithms to be implemented (oop method)
+* *4 hours*: Implementing hospital residents into app (halfway done)
+
+### 3 Feb 2020 (Wed) - 2 hours
+* *2 hours*: Adding finishing touches to hospital/residents problem
+
+### 4 Feb 2020 (Thu) - 2 hours
+* *2 hours*: Refining hospital/residents algorithm
+
+### 5 Feb 2020 (Fri) - 3 hours
+* *3 hours*: Finishing hospital/residents (apart from descriptions)
+
+### 6 Feb 2020 (Sat) - 8 hours
+* *1.5 hours*: Designing new home page (research, testing and iterating on old design)
+* *3 hours*: Implementing responsive layout of new home page
+* *2.5 hours*: Created new components for all of the pages (Home, About, Algorithms, Feedback)
+* *1 hour*: Clean-up and initial polishing
+
+### 7 Feb 2020 (Sun) - 11 hours
+* *2 hours*: Designing new algorithm page (iterating on old design)
+* *6 hours*: Implementing layout and linking components to the new algorithm page
+* *3 hours*: Integrating things I've done before
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
+
+## Week 21 (8 Jan 2021 - 14 Jan 2021) - **10 hours**
+### 8 Feb 2020 (Mon) - 10 hours
+* *6 hours*: Finalising alg page
+* *2 hours*: Linking up app to alg page properly (halfway done)
+* *2 hours*: Implementing new features on alg page (hide code/show preferences/execution trace)
+
+
+
+<hr>
