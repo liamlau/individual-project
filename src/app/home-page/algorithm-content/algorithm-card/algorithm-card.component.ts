@@ -1,8 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { Algorithm } from '../Algorithm';
-import { MyErrorStateMatcher } from '../../algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
+import { Algorithm } from '../../../Algorithm';
+
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 
 @Component({
   selector: 'algorithm-card',
@@ -26,7 +36,7 @@ export class AlgorithmCardComponent implements OnInit {
     Validators.max(9)
   ]);
 
-  matcher = new MyErrorStateMatcher();
+  // matcher = new MyErrorStateMatcher();
 
   constructor(public algorithmService: AlgorithmRetrievalService) { }
 

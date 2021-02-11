@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AboutContentComponent } from './about-content.component';
 
@@ -8,7 +9,7 @@ describe('AboutContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AboutContentComponent ]
+      declarations: [ AboutContentComponent ], imports: [ BrowserAnimationsModule ],
     })
     .compileComponents();
   }));
