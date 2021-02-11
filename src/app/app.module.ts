@@ -26,8 +26,6 @@ import { VariableDisplayComponent } from './algorithm-page/variable-display/vari
 import { GsVariablesComponent } from './algorithm-page/algorithms/gale-shapley/gs-variables/gs-variables.component';
 import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { AlgorithmTabContentComponent } from './home-page/algorithm-tab-content/algorithm-tab-content.component';
-import { AlgorithmSelectionDialogComponent } from './home-page/algorithm-tab-content/algorithm-selection-dialog/algorithm-selection-dialog.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { EgsResidentHsCodeComponent } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs-code/egs-resident-hs-code.component';
 import { HomeContentComponent } from './home-page/home-content/home-content.component';
@@ -49,8 +47,6 @@ import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-
     GsVariablesComponent,
     SimpleVariablesComponent,
     HomePageComponent,
-    AlgorithmTabContentComponent,
-    AlgorithmSelectionDialogComponent,
     EgsResidentHsCodeComponent,
     HomeContentComponent,
     AboutContentComponent,
