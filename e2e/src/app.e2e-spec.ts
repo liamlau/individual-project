@@ -8,77 +8,77 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  // ---------------- initial e2e tests
+  // // ---------------- initial e2e tests
 
-  it('should display title', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toContain('Matching Algorithm Animator');
-  });
+  // it('should display title', () => {
+  //   page.navigateTo();
+  //   expect(page.getTitleText()).toContain('Matching Algorithm Animator');
+  // });
 
-  it('should display subtitle', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toContain('Created by Liam Lau');
-  });
+  // it('should display subtitle', () => {
+  //   page.navigateTo();
+  //   expect(page.getTitleText()).toContain('Created by Liam Lau');
+  // });
 
-  it('algorithm dropdown appears', () => {
-    page.navigateTo();
-    expect(element(by.id('algorithmDropdown')).isPresent()).toBeTruthy();
-  });
+  // it('algorithm dropdown appears', () => {
+  //   page.navigateTo();
+  //   expect(element(by.id('algorithmDropdown')).isPresent()).toBeTruthy();
+  // });
 
-  // ---------------- simple e2e tests
+  // // ---------------- simple e2e tests
 
-  it('can navigate to simple algorithm page using dropdown', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Simple')).click();
-  });
+  // it('can navigate to simple algorithm page using dropdown', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Simple')).click();
+  // });
 
-  it('simple algorithm page displays playback tools properly', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Simple')).click();
+  // it('simple algorithm page displays playback tools properly', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Simple')).click();
 
-    expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
-  });
+  //   expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
+  // });
 
-  it('simple algorithm page displays code properly', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Simple')).click();
-    expect(element(by.css('#line4')).getText()).toContain("this is now 5!");
-  });
+  // it('simple algorithm page displays code properly', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Simple')).click();
+  //   expect(element(by.css('#line4')).getText()).toContain("this is now 5!");
+  // });
 
-  // ----------------  gale-shapley e2e tests
+  // // ----------------  gale-shapley e2e tests
 
-  it('can navigate to gale-shapley algorithm page using dropdown', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
-  });
+  // it('can navigate to gale-shapley algorithm page using dropdown', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
+  // });
 
-  it('gale-shapley algorithm page displays playback tools properly', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
+  // it('gale-shapley algorithm page displays playback tools properly', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
 
-    expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
-    expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
-  });
+  //   expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
+  //   expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
+  // });
 
-  it('gale-shapley algorithm page displays code properly', () => {
-    page.navigateTo();
-    element(by.id('algorithmDropdown')).click();
-    element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
+  // it('gale-shapley algorithm page displays code properly', () => {
+  //   page.navigateTo();
+  //   element(by.id('algorithmDropdown')).click();
+  //   element(by.cssContainingText('span', 'Gale-Shapley Stable Marriage')).click();
 
-    expect(element(by.css('#line4')).getText()).toContain("if w is free then");
-  });
+  //   expect(element(by.css('#line4')).getText()).toContain("if w is free then");
+  // });
 
   // need to wait 400ms?
   // it('gale-shapley algorithm page displays variables properly after clicking play', () => {
