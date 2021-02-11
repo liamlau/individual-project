@@ -1,11 +1,52 @@
+// .terminal::before {
+//     content: "<p>hi</p>";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 4px;
+//     background: rgb(58, 58, 58);
+//     color: #c2c3c4;
+//     width: 100%;
+//     font-size: 2rem;
+//     line-height: 0;
+//     padding: 14px 0;
+//     text-indent: 4px;
+// }
+
+// .terminal::before:hover {
+//     background: red;
+// }
+
+// .terminal-header {
+//     background: rgb(58, 58, 58);
+//     height: 23px;
+//     border-radius: 6px 6px 0px 0px;
+//     cursor: pointer;
+//     transition: background 0.2s ease;
+// }
+
+// .terminal-header:hover {
+//     background: rgb(75, 75, 75);
+// }
+
 .terminal {
     transition: height 0.2s ease;
     position: relative;
-    border-radius: 6px;
-    padding-top: 40px;
+    border-radius: 0px 0px 6px 6px;
+    padding-top: 30px;
     margin-top: 8px;
+    margin-left: -50px;
     overflow: hidden;
-    background-color: rgb(15, 15, 16);
+    // background-color: rgb(15, 15, 16);
     text-align: left;
-    color: white;
+    color: black;
+}
+
+.playbackButton {
+    transition: color 0.2s ease;
+    color: grey;
+}
+
+.playbackButton:hover {
+    color: #666666;
 }

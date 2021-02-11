@@ -1,0 +1,69 @@
+.startButton {
+    background-color: #2058FF;
+    transition: 200ms background-color;
+}
+
+.startButton:hover {
+    background-color: #1140ce;
+}
+
+.feedbackButton {
+    background-color: rgb(240, 240, 240);
+    transition: 200ms background-color;
+}
+
+.feedbackButton:hover {
+    background-color: rgb(184, 184, 184)
+}
+
+
+// under small
+@media only screen and (max-width: 576px) {
+    .title-text {
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 44px;
+        line-height: 60px;
+    }
+
+    .video {
+        height: 270px;
+    }
+}
+
+// small
+@media only screen and (min-width: 576px) {
+    .title-text {
+        font-size: 60px;
+        line-height: 72px;
+    }
+
+    .video {
+        height: 300px;
+    }
+}
+
+// medium
+@media only screen and (min-width: 768px) {
+    .title-text {
+        font-size: 70px;
+        line-height: 94px;
+    }
+
+    .video {
+        height: 410px;
+    }
+
+}
+
+// large
+@media only screen and (min-width: 992px) {
+    .video {
+        height: 490px;
+    }
+}
+
+// extra large
+@media only screen and (min-width: 1200px) {
+
+}

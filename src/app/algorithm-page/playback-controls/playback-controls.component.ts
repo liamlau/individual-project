@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { PlaybackService } from '../playback.service';
+
+declare var anime: any;
 
 @Component({
   selector: 'playback-controls',
@@ -9,19 +12,53 @@ import { PlaybackService } from '../playback.service';
 export class PlaybackControlsComponent implements OnInit {
 
   @Input() algorithm: string;
-  @Input() numPeople: number;
 
-  constructor(public playback: PlaybackService) { }
+  constructor(public playback: PlaybackService, public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
   }
 
-  toggle() {
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == " ") {
+      if (!(this.playback.stepCounter >= this.playback.numCommands)) {
+        this.toggle();
+      }
+    }
+  }
+
+  async toggle() {
     if (this.playback.firstRun) {
-      this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      // var yMid = ((window.innerHeight / 2) / 2) - 20;
+      // // console.log(yMid);
+
+      // anime({
+      //   targets: '.algorithm-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [-yMid, 0],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // anime({
+      //   targets: '.title-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [40, 20],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
       // this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
       this.playback.firstRun = false;
       this.playback.pause = false;
+
+
+      // await this.delay(400);
+      // anime({
+      //   targets: '.variable-block',
+      //   easing: 'easeInOutQuint',
+      //   opacity: [0, 1],
+      //   duration: 300
+      // })
       this.playback.play();
     } else {
       if (this.playback.pause) {
@@ -50,23 +87,8 @@ export class PlaybackControlsComponent implements OnInit {
     this.playback.speed = 3050 - val;
   }
 
-  formatSteps(val: number) {
-
-    if (this.playback.previousStepCounter != this.playback.stepCounter) {
-      this.playback.previousStepCounter = this.playback.stepCounter;
-    }
-
-    this.playback.pause = true;
-
-    this.playback.stepCounter = val;
-
-    var command = this.playback.commandList[this.playback.previousStepCounter];
-    let a = document.getElementById("line" + command["lineNumber"]);
-    a.style.color = "";
-    
-    this.playback.updateCurrentCommand();
-    
-    this.playback.colourCurrentLine();
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }

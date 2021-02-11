@@ -1,33 +1,215 @@
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="col-lg-10 text-center">
-    
-      <div class="option-box">
-        <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+<!-- <div [class.single-center-item]="this.firstSelection" [class.grid-container]="!this.firstSelection" >
 
-        <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+  <div class="title-container text-center my-3" [class.hidden]="!this.firstSelection">
+    <div class="">
+      <p class="title" *ngIf="(this.algorithm.value == '')">Matching Algorithm Animator</p>
+  
+      <p class="title mb-3" style="font-size: 12px; font-weight: 400;" *ngIf="(this.algorithm.value == '')">Created by Liam Lau</p>
+  
+      <mat-form-field style="width: 250px" appearance="fill">
+        <mat-label>Choose an Algorithm</mat-label>
+        <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
+          <mat-option value="simple">Simple</mat-option>
+          <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
 
-        <mat-form-field style="width: 250px" appearance="fill">
-          <mat-label>Choose an Algorithm</mat-label>
-          <mat-select id="algorithmDropdown" [formControl]="algorithm" (selectionChange)="changeAlgorithm()">
-            <mat-option value="simple">Simple</mat-option>
-            <mat-option value="gale-shapley">Gale-Shapley Stable Marriage</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="variable-block col-10 col-lg-7 text-center" *ngIf="!this.playback.firstRun" style="opacity: 0;">
+    <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
+  </div>
 
-      <div class="variable-block">
-        <variable-display [algorithm]="this.algorithm.value" *ngIf="!(this.algorithm.value == '') && !this.playback.firstRun"></variable-display>
-      </div>
+  <div class="algorithm-container col-lg-6 col-md-8 col-10 text-center">
+    <div class="">
 
       <div class="playback-block">
         <playback-controls [algorithm]="this.algorithm.value" [numPeople]="5" *ngIf="!(this.algorithm.value == '')"></playback-controls>
       </div>
 
-      <div class="code-block">
+      <div class="code-block" [class.mb-4]="!this.firstSelection">
         <code-display [algorithm]="this.algorithm.value"></code-display>
       </div>
 
     </div>
+  </div>
+
+</div> -->
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------- NEW -->
+
+
+<!-- <div class="row pt-4">
+  <div class="logo col-1">
+    <img src="assets/images/projectLogo.png" style="max-width: 40%; min-width: 50px;" routerLink="/home">
+  </div>
+  <div class="title col-10 text-center">
+    <h2 class="lead mt-2">{{ algorithmService.currentAlgorithm.name }}: {{ algorithmService.currentAlgorithm.orientation[0] }}-Oriented</h2>
+    <p>{{ algorithmService.currentAlgorithm.algorithm }}</p>
+  </div>
+  <div class="infoLogo col-1 flex-fill d-flex align-items-center text-center">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas()">info</mat-icon>
+  </div>
+</div> -->
+
+
+<!-- 1b1f23 -->
+
+<nav class="navbar sticky-top navbar-light p-0" style="background-color: #1b1f23; height: 50px">
+
+
+  <div class="col-3 text-left align-middle" style="height: 100%">
+    <div class="align-middle" style="display: inline-block; height: 100%">
+      
+    </div>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+  </div>
+  <div class="col-6 text-center">
+    <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
+  </div>
+
+  <div class="col-3 text-right">
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help">help_outline</mat-icon>
+  </div>
+
+</nav>
+
+<div class="container-fluid" style="height: calc(100% - 50px); overflow-x: hidden">
+  <div class="row" style="height: 100%">
+    <nav class="d-none bg-light sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode}">
+      <div class="sidebar-sticky">
+        <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.41fr 0.2fr 2fr 2fr;">
+          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
+            <h3 class="h2 mt-3 mx-2 text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
+          </div>
+          <div class="border-bottom align-items-center">
+            <div class="row align-items-center mx-2" style="height: 100%">
+              <div class="col-4" style="font-size: 22px;">
+                <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
+              </div>
+              <div class="col-8 text-center pr-5" style="font-size: 0.9vw;">
+                [
+                <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
+                  <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
+                </span>
+                ]
+              </div>
+            </div>
+          </div>
+          <div class="border-bottom my-3">
+            <!-- <div class="row">
+              hi
+            </div>
+            <div class="row">
+              hihi
+            </div>
+            <div class="row">
+              there
+            </div> -->
+            <code-display></code-display>
+            
+          </div>
+          <div id="executionTrace" style="overflow: scroll">
+            <div class="text-center mb-3">
+              <h3>Execution Trace</h3>
+            </div>
+            <ol start=0>
+              <li class="mb-4" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
+                {{ line }}
+              </li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
+      <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr;" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode}">
+
+        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px">
+          <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
+          <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
+        </div>
+
+
+
+        <div id="parent" (resized)="this.drawService.redrawCanvas()">
+          <canvas #canvas id="myCanvas" style="min-height: 280px;">
+       
+          </canvas>
+        </div>
+
+        <div>
+          <div class="col-12" >
+            <div class="playback-block">
+              <playback-controls></playback-controls>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom">
+          <h1 class="h2">Residents</h1>
+          <h1 class="h2">Hospitals</h1>
+        </div>
+
+        <div class="">
+    
+          <div id="terminal" class="col-4 mr-4" style="border: solid black 1px; border-radius: 20px; visibility: hidden; display: none;">
+            <code-display></code-display>
+          </div>
+
+          <canvas height=500 width=500></canvas>
+
+          <div id="parent" class="text-center" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-12': !this.showCode, 'col-6': this.showCode}">
+            <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
+       
+            </canvas>
+          </div>
+      
+        </div>
+
+        <div class="row my-3">
+          <div class="col-12" >
+            <div class="playback-block">
+              <playback-controls [numPeople]="5"></playback-controls>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center mt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Residents</h1>
+        <h1 class="h2">Hospitals</h1>
+      </div>
+
+      <div class="container-fluid d-flex flex-column" style="height: 1130px">
+      
+        <div class="row mt-3 flex-fill">
+    
+          <div id="terminal" class="col-4 flex-fill mr-4" style="border: solid black 1px; border-radius: 20px; visibility: hidden; display: none;">
+            <code-display></code-display>
+          </div>
+
+          <div id="parent" class="flex-fill text-center" (resized)="this.drawService.redrawCanvas()" [ngClass]="{'col-12': !this.showCode, 'col-6': this.showCode}">
+            <canvas #canvas id="myCanvas" style="margin-top: 10px; margin-left: -6px; min-height: 280px;">
+       
+            </canvas>
+          </div>
+      
+        </div>
+      
+        <div class="row my-3">
+          <div class="col-12" >
+            <div class="playback-block">
+              <playback-controls [numPeople]="5"></playback-controls>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    <!-- </main> -->
   </div>
 </div>

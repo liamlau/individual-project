@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExecutionService } from './algorithms/execution.service';
+import { CanvasService } from './canvas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class PlaybackService {
 
   description: string = "Click play to run the program below!";
 
-  constructor(public exeService: ExecutionService) { }
+  constructor(public exeService: ExecutionService, public drawService: CanvasService) { }
 
   resetPlaybackData(): void {
     this.firstRun = true;
@@ -42,7 +43,6 @@ export class PlaybackService {
 
     console.log(this.algorithmData);
     this.updateCurrentCommand();
-    console.log(this.description);
 
   }
 
@@ -58,13 +58,13 @@ export class PlaybackService {
     this.currentCommand = this.algorithmData["commands"][this.stepCounter];
     this.description = this.algorithmData["descriptions"][this.stepCounter];
     this.currentLine = this.currentCommand["lineNumber"];
+    this.drawService.redrawCanvas(this.currentCommand);
   }
 
 
   restart(): void {
     this.pause = true;
     this.uncolourCurrentLine();
-    // unbolden
     this.stepCounter = 0;
     this.updateCurrentCommand();
     this.colourCurrentLine();
@@ -73,7 +73,6 @@ export class PlaybackService {
   goToEnd(): void {
     this.pause = true;
     this.uncolourCurrentLine();
-    // unbolden
     this.stepCounter = this.numCommands;
     this.updateCurrentCommand();
     this.colourCurrentLine();
@@ -103,11 +102,6 @@ export class PlaybackService {
         break;
       }
 
-      // if (this.algorithm.value == "gale-shapley") {
-      //   this.unboldenVariables();
-      //   this.emboldenVariables();
-      // }
-
       this.colourCurrentLine();
 
       await this.sleep(this.speed);
@@ -132,12 +126,99 @@ export class PlaybackService {
 
   uncolourCurrentLine(): void {
     let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.backgroundColor = "";
     codeLineHTML.style.color = "";
   }
 
   colourCurrentLine(): void {
     let codeLineHTML = document.getElementById("line" + this.currentLine);
+    codeLineHTML.style.backgroundColor = "black";
     codeLineHTML.style.color = "#37FF00";
   }
+
+
+  onSliderChange(val: number) {
+
+    if (this.firstRun) {
+      this.firstRun = false;
+    }
+
+    if (this.previousStepCounter != this.stepCounter) {
+      this.previousStepCounter = this.stepCounter;
+    }
+
+    this.pause = true;
+
+    this.stepCounter = val;
+
+    var command = this.commandList[this.previousStepCounter];
+    let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
+    a.style.color = "";
+
+    this.updateCurrentCommand();
+    
+    this.colourCurrentLine();
+  }
+
+
+  // unboldenVariables(): void {
+
+  //   var command = this.commandList[this.stepCounter-1];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+  // unboldenPreviousVariables(): void {
+
+  //   var command = this.commandList[this.previousStepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+  // unboldenCurrentVariables(): void {
+
+  //   var command = this.commandList[this.stepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   console.log(changeTrace);
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: normal;");
+  //     }
+  //   }
+  // }
+
+
+  // emboldenVariables(): void {
+
+  //   var command = this.commandList[this.stepCounter];
+  //   let changeTrace = command["changeTrace"]["embolden"];
+
+  //   for (let className of changeTrace) {
+  //     let a = document.getElementsByClassName(className);
+  //     for (let i = 0; i < a.length; i++) {
+  //       a[i].setAttribute("style", "font-weight: bold;");
+  //     }
+  //   }
+  // }
 
 }

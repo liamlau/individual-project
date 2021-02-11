@@ -1,0 +1,127 @@
+while (some hospital is undersubscribed and some residents from h's list are not assigned) {
+    resident = first such resident on h's list
+    if (resident is assigned) {
+        break resident's current match (both ways)
+    }
+    match current hospital and resident
+
+    for each successor h' of h on r's list {
+        remove h' and r from each other's lists
+    }
+
+}
+
+--------
+
+
+Problem instance:
+
+r1: h1, h3              |   h1: (2): r3, r7, r5, r2, r4, r6, r1
+r2: h1, h5, h4, h3      |   h2: (3): r5, r6, r3, r4
+r3: h1, h2, h5          |   h3: (1): r2, r5, r6, r1, r7
+r4: h1, h2, h4          |   h4: (1): r8, r2, r4, r7
+r5: h3, h1, h2          |   h5: (1): r3, r7, r6, r8, r2
+r6: h3, h2, h1, h5      |
+r7: h3, h4, h5, h1      |
+r8: h5, h4              |
+
+
+--------
+
+
+Problem instance (with removals):
+
+r1: h1, h3              |   h1: (2): r3, r7, r5, r2, r4, r1
+r2: h1, h5, h4, h3      |   h2: (3): r5, r6, r4
+r3: h1                  |   h3: (1): r2, r5, r6, r1, r7
+r4: h1, h2              |   h4: (1): r8, r2, r7
+r5: h3, h1, h2          |   h5: (1): r7, r8, r2
+r6: h3, h2              |
+r7: h3, h4, h5, h1      |
+r8: h5, h4              |
+
+
+--------
+
+Log:
+
+r1: (  )   |   h1: [r3]
+r2: (h3)   |   h2: [r5, r6, r4]
+r3: (h1)   |   h3: [r2]
+r4: (h2)   |   h4: [r8]
+r5: (h2)   |   h5: []
+r6: (h2)   |
+r7: (  )   |
+r8: (h4)   |
+
+--------
+
+
+Solution:
+
+Step 1:
+    Free Hospitals = [h1, h2, h3, h4, h5]
+    Picked hospital: h1
+    resident: r3
+    match h1 and r3
+    remove hospitals right of h1 from r3 (h2, h5)
+    remove r3 from h2, h5
+    h1 space: 1 < 2, so h1 stays in free hospitals
+
+Step 2:
+    Free Hospitals = [h1, h2, h3, h4, h5]
+    Picked hospital: h1
+    resident: r7
+    remove hospitals right of h1 from r7 (none)
+    match h1 and r7
+    h1 space: 2 >= 2, so h1 removed from free hospitals
+
+Step 3:
+    Free Hospitals = [h2, h3, h4, h5]
+    Picked hospital: h2
+    resident: r5
+    remove hospitals right of h2 from r5 (none)
+    match h2 and r5
+    h2 space: 1 < 3, so h2 stays in free hospitals
+
+Step 4:
+    Free Hospitals = [h2, h3, h4, h5]
+    Picked hospital: h2
+    resident: r6
+    remove hospitals right of h2 from r6 (h1, h5)
+    remove r6 from h1, h5
+    match h2 and r6
+    h2 space: 2 < 3, so h2 stays in free hospitals
+
+Step 5:
+    Free Hospitals = [h2, h3, h4, h5]
+    Picked hospital: h2
+    resident: r4
+    remove hospitals right of h2 from r4 (h4)
+    remove r4 from h4
+    match h2 and r4
+    h2 space: 3 >= 3, so h2 removed from free hospitals
+
+Step 6:
+    Free Hospitals = [h3, h4, h5]
+    Picked hospital: h3
+    resident: r2
+    remove hospitals right of h3 from r2 (none)
+    match h3 and r2
+    h3 space: 1 >= 1, so h3 removed from free hospitals
+
+Step 7:
+    Free Hospitals = [h4, h5]
+    Picked hospital: h4
+    resident: r8
+    remove hospitals right of h4 from r8 (none)
+    match h4 and r8
+    h4 space: 1 >= 1, so h4 removed from free hospitals
+
+Step 8:
+    Free Hospitals = [h5]
+    Picked hospital: h5
+    resident: r7
+    resident 7 currently assigned to h1
+    break assignment
+    add h1 back to free hospitals if it has a resident in its ranking list that is not already assigned to it (it does)

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
+import { CanvasService } from '../canvas.service';
+import { EgsResidentHSService } from './egs-resident-hs/egs-resident-hs.service';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
 import { SimpleService } from './simple/simple.service';
 
@@ -7,26 +10,34 @@ import { SimpleService } from './simple/simple.service';
 })
 export class ExecutionService {
 
+  algorithm: string = "";
   commandMap = {}
   commandList = {};
   serviceMap = {
     "simple": this.simpleService,
-    "gale-shapley": this.gsService
+    "smp-man-gs": this.gsService,
+    "hr-resident-egs": this.egsResidentHsService
   }
 
   // add the services for any new algorithms here
   constructor(
     public simpleService: SimpleService,
-    public gsService: GaleShapleyService
+    public gsService: GaleShapleyService,
+    public egsResidentHsService: EgsResidentHSService,
+    public drawService: CanvasService,
+    public algorithmRetrieval: AlgorithmRetrievalService
   ) { }
 
 
   getExecutionFlow(algorithm: string, numPeople: number): Object {
+    this.algorithm = algorithm;
     let algorithmService = this.serviceMap[algorithm];
-    this.commandMap = algorithmService.commandMap;
+    this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
     let commandList = algorithmService.run(numPeople);
     commandList["descriptions"] = this.generateDescriptions(commandList);
+
+    // this.drawService.redrawCanvas(commandList["commands"][0]);
 
     return commandList;
   }
