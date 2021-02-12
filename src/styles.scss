@@ -36,3 +36,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: o
 .cdk-global-scrollblock {
   overflow:visible;
 }
+
+button:focus {
+  outline: none;
+}
