@@ -38,20 +38,7 @@
 
 </div> -->
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: white;">
-    <a class="navbar-brand pl-5 mt-5 mb-4" style="cursor: pointer;" (click)="this.goToPage('/')"><span class="display-1" style="font-size: 40px;"><span id="alg">alg</span><span id="match">match</span></span></a>
-    <button class="navbar-toggler mt-4 mr-5" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse ml-5" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto pt-5 pb-3 pr-5">
-        <a class="nav-item nav-link mr-5" id="homeLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/')" [ngClass]="{'active' : !['/about', '/algorithms', '/feedback'].includes(this.router.url)}">Home</a>
-        <a class="nav-item nav-link mr-5" id="aboutLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/about')" [ngClass]="{'active' : this.router.url == '/about'}">About</a>
-        <a class="nav-item nav-link mr-4 pr-3" id="algorithmsLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/algorithms')" [ngClass]="{'active' : this.router.url == '/algorithms'}">Algorithms</a>
-        <a class="nav-item nav-link mr-4" id="feedbackLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/feedback')" [ngClass]="{'active' : this.router.url == '/feedback'}">Feedback</a>
-        </div>
-    </div>
-</nav>
+<navbar></navbar>
 
 <div id="content">
     <router-outlet #outlet="outlet"></router-outlet>

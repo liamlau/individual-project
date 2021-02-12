@@ -35,6 +35,7 @@ import { FeedbackContentComponent } from './home-page/feedback-content/feedback-
 import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-card/algorithm-card.component';
 import { IconBannerComponent } from './home-page/icon-banner/icon-banner.component';
 import { FeedbackBannerComponent } from './home-page/feedback-banner/feedback-banner.component';
+import { NavbarComponent } from './home-page/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { FeedbackBannerComponent } from './home-page/feedback-banner/feedback-ba
     FeedbackContentComponent,
     AlgorithmCardComponent,
     IconBannerComponent,
-    FeedbackBannerComponent
+    FeedbackBannerComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

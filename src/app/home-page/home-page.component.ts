@@ -11,16 +11,7 @@ declare var anime: any;
 })
 export class HomePageComponent implements OnInit {
 
-  currentPage: string = "";
-
-  componentMap: Object = {
-    "/": ".homeContent",
-    "/about": ".aboutContent",
-    "/algorithms": ".algorithmContent",
-    "/feedback": ".feedbackContent"
-  };
-
-  constructor(public router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -33,31 +24,4 @@ export class HomePageComponent implements OnInit {
       duration: 500
     })
   }
-
-  fadeCurrentPage(): void {
-    anime({
-      targets: [this.componentMap[this.router.url]],
-      easing: 'easeInOutQuint',
-      opacity: [1, 0],
-      duration: 400
-    })
-  }
-
-  async goToPage(page: string): Promise<void> {
-    if (!(this.router.url == page)) {
-      this.currentPage = page;
-      this.fadeCurrentPage();
-      await this.delay(400);
-      this.router.navigateByUrl(page);
-    }
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
-  // prepareRoute(outlet: RouterOutlet) {
-  //   return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  // }
-
 }
