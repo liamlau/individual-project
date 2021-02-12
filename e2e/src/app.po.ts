@@ -8,4 +8,13 @@ export class AppPage {
   getTitleText(): Promise<string> {
     return element(by.css('.title-text')).getText() as Promise<string>;
   }
+
+  getLogoAlg(): Promise<string> {
+    return element(by.css('#alg')).getText() as Promise<string>;
+  }
+
+  getLogoMatch(): Promise<string> {
+    return element(by.css('#match')).getText() as Promise<string>;
+  }
+
 }

@@ -15,10 +15,11 @@ describe('workspace-project App', () => {
     expect(page.getTitleText()).toContain('Learn, visualise and walk');
   });
 
-  // it('should display subtitle', () => {
-  //   page.navigateTo();
-  //   expect(page.getTitleText()).toContain('Created by Liam Lau');
-  // });
+  it('should display logo', () => {
+    page.navigateTo();
+    expect(page.getLogoAlg()).toContain('alg');
+    expect(page.getLogoMatch()).toContain('match');
+  });
 
   // it('algorithm dropdown appears', () => {
   //   page.navigateTo();
