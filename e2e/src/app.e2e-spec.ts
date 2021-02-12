@@ -53,6 +53,17 @@ describe('workspace-project App', () => {
     expect(element(by.css('#homePageRow3Content')).isPresent()).toBeTruthy();
   });
 
+  it('feedback banner should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#feedbackBanner')).isPresent()).toBeTruthy();
+  });
+
+  it('feedback banner text should appear', () => {
+    page.navigateTo();
+    expect(page.getFeedbackBannerText()).toContain('If you have any feedback for me, or anything you\'d like to see in this app, click the button below to email me or contact me at one of my socials!');
+    expect(page.getFeedbackBannerText()).toContain('I\'m currently actively working on the app, however as it is part of my final year university project, I will eventually stop.');
+  });
+
   // // ---------------- simple e2e tests
 
   // it('can navigate to simple algorithm page using dropdown', () => {

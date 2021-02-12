@@ -31,4 +31,8 @@ export class AppPage {
     return element(by.css('#homePageRow3Text')).getText() as Promise<string>;
   }
 
+  getFeedbackBannerText(): Promise<string> {
+    return element(by.css('#feedbackBanner')).getText() as Promise<string>;
+  }
+
 }
