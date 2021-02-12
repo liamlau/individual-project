@@ -10,10 +10,10 @@ describe('workspace-project App', () => {
 
   // // ---------------- initial e2e tests
 
-  // it('should display title', () => {
-  //   page.navigateTo();
-  //   expect(page.getTitleText()).toContain('Matching Algorithm Animator');
-  // });
+  it('should display title', () => {
+    page.navigateTo();
+    expect(page.getTitleText()).toContain('Learn, visualise and walk');
+  });
 
   // it('should display subtitle', () => {
   //   page.navigateTo();
