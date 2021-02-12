@@ -29,6 +29,11 @@ describe('workspace-project App', () => {
     expect(element(by.css('#feedbackLink')).isPresent()).toBeTruthy();
   });
 
+  it('video appears', () => {
+    page.navigateTo();
+    expect(element(by.css('#animationVideo')).isPresent()).toBeTruthy();
+  });
+
   // // ---------------- simple e2e tests
 
   // it('can navigate to simple algorithm page using dropdown', () => {
