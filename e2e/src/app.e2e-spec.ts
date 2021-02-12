@@ -21,10 +21,13 @@ describe('workspace-project App', () => {
     expect(page.getLogoMatch()).toContain('match');
   });
 
-  // it('algorithm dropdown appears', () => {
-  //   page.navigateTo();
-  //   expect(element(by.id('algorithmDropdown')).isPresent()).toBeTruthy();
-  // });
+  it('navbar links appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#homeLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#aboutLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#algorithmsLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#feedbackLink')).isPresent()).toBeTruthy();
+  });
 
   // // ---------------- simple e2e tests
 
@@ -39,10 +42,10 @@ describe('workspace-project App', () => {
   //   element(by.id('algorithmDropdown')).click();
   //   element(by.cssContainingText('span', 'Simple')).click();
 
-  //   expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
   //   expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
   // });
 

@@ -45,10 +45,10 @@
     </button>
     <div class="collapse navbar-collapse ml-5" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto pt-5 pb-3 pr-5">
-        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/')" [ngClass]="{'active' : !['/about', '/algorithms', '/feedback'].includes(this.router.url)}">Home</a>
-        <a class="nav-item nav-link mr-5" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/about')" [ngClass]="{'active' : this.router.url == '/about'}">About</a>
-        <a class="nav-item nav-link mr-4 pr-3" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/algorithms')" [ngClass]="{'active' : this.router.url == '/algorithms'}">Algorithms</a>
-        <a class="nav-item nav-link mr-4" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/feedback')" [ngClass]="{'active' : this.router.url == '/feedback'}">Feedback</a>
+        <a class="nav-item nav-link mr-5" id="homeLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/')" [ngClass]="{'active' : !['/about', '/algorithms', '/feedback'].includes(this.router.url)}">Home</a>
+        <a class="nav-item nav-link mr-5" id="aboutLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/about')" [ngClass]="{'active' : this.router.url == '/about'}">About</a>
+        <a class="nav-item nav-link mr-4 pr-3" id="algorithmsLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/algorithms')" [ngClass]="{'active' : this.router.url == '/algorithms'}">Algorithms</a>
+        <a class="nav-item nav-link mr-4" id="feedbackLink" style="font-size: 23px; font-weight: 600; cursor: pointer" (click)="this.goToPage('/feedback')" [ngClass]="{'active' : this.router.url == '/feedback'}">Feedback</a>
         </div>
     </div>
 </nav>

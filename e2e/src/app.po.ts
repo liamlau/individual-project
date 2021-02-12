@@ -5,6 +5,8 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
+  // ---------------------------------- HOME PAGE
+
   getTitleText(): Promise<string> {
     return element(by.css('.title-text')).getText() as Promise<string>;
   }
