@@ -64,6 +64,13 @@ describe('workspace-project App', () => {
     expect(page.getFeedbackBannerText()).toContain('I\'m currently actively working on the app, however as it is part of my final year university project, I will eventually stop.');
   });
 
+  it('social media icons should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#github-icon')).isPresent()).toBeTruthy();
+    expect(element(by.css('#facebook-icon')).isPresent()).toBeTruthy();
+    expect(element(by.css('#linkedin-icon')).isPresent()).toBeTruthy();
+  });
+
   // // ---------------- simple e2e tests
 
   // it('can navigate to simple algorithm page using dropdown', () => {
