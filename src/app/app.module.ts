@@ -33,6 +33,7 @@ import { AboutContentComponent } from './home-page/about-content/about-content.c
 import { AlgorithmContentComponent } from './home-page/algorithm-content/algorithm-content.component';
 import { FeedbackContentComponent } from './home-page/feedback-content/feedback-content.component';
 import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-card/algorithm-card.component';
+import { IconBannerComponent } from './home-page/icon-banner/icon-banner.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-
     AboutContentComponent,
     AlgorithmContentComponent,
     FeedbackContentComponent,
-    AlgorithmCardComponent
+    AlgorithmCardComponent,
+    IconBannerComponent
   ],
   imports: [
     BrowserModule,
