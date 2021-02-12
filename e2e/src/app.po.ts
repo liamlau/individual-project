@@ -19,4 +19,16 @@ export class AppPage {
     return element(by.css('#match')).getText() as Promise<string>;
   }
 
+  getHomePageRow1Text(): Promise<string> {
+    return element(by.css('#homePageRow1Text')).getText() as Promise<string>;
+  }
+
+  getHomePageRow2Text(): Promise<string> {
+    return element(by.css('#homePageRow2Text')).getText() as Promise<string>;
+  }
+
+  getHomePageRow3Text(): Promise<string> {
+    return element(by.css('#homePageRow3Text')).getText() as Promise<string>;
+  }
+
 }

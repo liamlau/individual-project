@@ -21,7 +21,7 @@ describe('workspace-project App', () => {
     expect(page.getLogoMatch()).toContain('match');
   });
 
-  it('navbar links appear', () => {
+  it('navbar links should appear', () => {
     page.navigateTo();
     expect(element(by.css('#homeLink')).isPresent()).toBeTruthy();
     expect(element(by.css('#aboutLink')).isPresent()).toBeTruthy();
@@ -29,9 +29,28 @@ describe('workspace-project App', () => {
     expect(element(by.css('#feedbackLink')).isPresent()).toBeTruthy();
   });
 
-  it('video appears', () => {
+  it('video should appear', () => {
     page.navigateTo();
     expect(element(by.css('#animationVideo')).isPresent()).toBeTruthy();
+  });
+
+  it('home page text should appear', () => {
+    page.navigateTo();
+    expect(page.getHomePageRow1Text()).toContain('Perfect for beginners');
+    expect(page.getHomePageRow1Text()).toContain('With a simple, intuitive interface, learn how the Gale-Shapley and Extended Gale-Shapley matching algorithms work in different problems with step-by-step playback.');
+
+    expect(page.getHomePageRow2Text()).toContain('Learn visually');
+    expect(page.getHomePageRow2Text()).toContain('Decide to play each algorithm with pseudocode shown or not in conjunction with a visual representation of matching.');
+
+    expect(page.getHomePageRow3Text()).toContain('Control your learning');
+    expect(page.getHomePageRow3Text()).toContain('Use the playback controls for each algorithm to control the speed you learn.');
+  });
+
+  it('home page images should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#homePageRow1Content')).isPresent()).toBeTruthy();
+    expect(element(by.css('#homePageRow2Content')).isPresent()).toBeTruthy();
+    expect(element(by.css('#homePageRow3Content')).isPresent()).toBeTruthy();
   });
 
   // // ---------------- simple e2e tests
