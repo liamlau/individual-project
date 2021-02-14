@@ -35,8 +35,8 @@ export class PlaybackService {
     this.description = "Click play to run the program below!";
   }
 
-  setAlgorithm(algorithm: string, numPeople: number): void { 
-    this.algorithmData = this.exeService.getExecutionFlow(algorithm, numPeople);
+  setAlgorithm(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): void { 
+    this.algorithmData = this.exeService.getExecutionFlow(algorithm, numberOfAgents, numberOfGroup2Agents);
     this.commandList = this.algorithmData["commands"];
     this.resetPlaybackData();
     this.numCommands = this.commandList.length-1;

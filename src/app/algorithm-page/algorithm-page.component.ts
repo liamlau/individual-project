@@ -38,8 +38,8 @@ export class AlgorithmPageComponent implements OnInit {
     // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
     // this.playback.setAlgorithm("smp-man-gs", 5);
 
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
-    this.playback.setAlgorithm("hr-resident-egs", 5);
+    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
+    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
   }
 

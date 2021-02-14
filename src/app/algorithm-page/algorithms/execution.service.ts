@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { CanvasService } from '../canvas.service';
+import { MatchingAlgorithm } from './abstract-classes/MatchingAlgorithm';
 import { EgsResidentHSService } from './egs-resident-hs/egs-resident-hs.service';
 import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
+import { AlgorithmData } from './interfaces/AlgorithmData';
 import { SimpleService } from './simple/simple.service';
 
 @Injectable({
@@ -10,7 +12,6 @@ import { SimpleService } from './simple/simple.service';
 })
 export class ExecutionService {
 
-  algorithm: string = "";
   commandMap = {}
   commandList = {};
 
@@ -20,13 +21,12 @@ export class ExecutionService {
   ) { }
 
 
-  getExecutionFlow(algorithm: string, numPeople: number): Object {
-    this.algorithm = algorithm;
-    let algorithmService = this.algorithmRetrieval.serviceMap[algorithm];
+  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): Object {
+    let algorithmService: MatchingAlgorithm = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).service;
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
-    let commandList = algorithmService.run(numPeople);
-    commandList["descriptions"] = this.generateDescriptions(commandList);
+    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents);
+    commandList.descriptions = this.generateDescriptions(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);
 
@@ -37,7 +37,7 @@ export class ExecutionService {
 
   // --------------------------------------------------------- FUNCTIONS TO GENERATE LINE DESCRIPTIONS
 
-  generateDescriptions(commandList: Object): Object {
+  generateDescriptions(commandList: AlgorithmData): String[] {
     let descriptions = [];
 
     for (let step of commandList["commands"]) {
