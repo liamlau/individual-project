@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { timingSafeEqual } from 'crypto';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { CanvasService } from './canvas.service';
@@ -33,7 +34,7 @@ export class AlgorithmPageComponent implements OnInit {
     this.drawService.canvas = this.canvas;
     this.drawService.ctx = this.canvas.nativeElement.getContext('2d');
 
-    this.algorithm.setValue("Gale-Shapley Stable Marriage");
+    // this.algorithm.setValue("Gale-Shapley Stable Marriage");
 
     // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
     // this.playback.setAlgorithm("smp-man-gs", 5);

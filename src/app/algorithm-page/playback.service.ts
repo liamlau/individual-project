@@ -25,6 +25,12 @@ export class PlaybackService {
 
   constructor(public exeService: ExecutionService, public drawService: CanvasService) { }
 
+  initialise(): void {
+    this.algorithmData = {};
+    this.commandList = [];
+    this.currentCommand = {};
+  }
+
   resetPlaybackData(): void {
     this.firstRun = true;
     this.stepCounter = 0;
@@ -36,6 +42,8 @@ export class PlaybackService {
   }
 
   setAlgorithm(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): void { 
+
+    this.initialise();
     this.algorithmData = this.exeService.getExecutionFlow(algorithm, numberOfAgents, numberOfGroup2Agents);
     this.commandList = this.algorithmData["commands"];
     this.resetPlaybackData();

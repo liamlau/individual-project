@@ -35,7 +35,26 @@ export abstract class MatchingAlgorithm {
 
     initialise(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
         this.freeAgentsOfGroup1 = [];
-        // command list initialisation
+
+        this.group1Agents = new Map();
+        this.group2Agents = new Map();
+
+        this.algorithmData = {
+            commands: new Array(),
+            descriptions: new Array()
+        };
+    
+        this.currentLine = [];
+    
+        this.group1CurrentPreferences = new Map();
+        this.group2CurrentPreferences = new Map();
+        this.currentlySelectedAgents = [];
+        this.currentLines = [];
+    
+        this.algorithmSpecificData = {};
+    
+        this.relevantPreferences = [];
+
         this.numberOfAgents = numberOfAgents;
         this.numberOfGroup2Agents = numberOfGroup2Agents;
     }

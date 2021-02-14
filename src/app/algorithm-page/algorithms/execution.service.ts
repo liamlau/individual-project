@@ -20,8 +20,13 @@ export class ExecutionService {
     public algorithmRetrieval: AlgorithmRetrievalService
   ) { }
 
+  initialise(): void {
+    this.commandMap = {};
+    this.commandList = {};
+  }
 
   getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): Object {
+    this.initialise();
     let algorithmService: MatchingAlgorithm = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).service;
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
