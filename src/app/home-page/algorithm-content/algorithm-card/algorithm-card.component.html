@@ -36,7 +36,7 @@
                 
                     <div class="row justify-content-center" *ngIf="algorithm.name == 'Hospital/Residents Problem'">
                       <mat-form-field style="width: 200px;" class="mr-1">
-                        <mat-label>Number of Hospitals</mat-label>
+                        <mat-label>Number of Residents</mat-label>
                         <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5">
                         <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
                           This field is <strong>required</strong>
@@ -47,7 +47,7 @@
                       </mat-form-field>
                 
                       <mat-form-field style="width: 200px;" class="ml-1">
-                        <mat-label>Number of Residents</mat-label>
+                        <mat-label>Number of Hospitals</mat-label>
                         <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5">
                         <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
                           This field is <strong>required</strong>
