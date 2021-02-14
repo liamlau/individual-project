@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Algorithm } from './Algorithm';
+import { EgsResidentHSService } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs.service';
+import { GaleShapleyService } from './algorithm-page/algorithms/gale-shapley/gale-shapley.service';
 
 @Injectable({
   providedIn: 'root'
@@ -93,7 +95,15 @@ export class AlgorithmRetrievalService {
     ["Hospital", "Hospitals"]
   ]);
 
-  constructor() { }
+  serviceMap = {
+    "smp-man-gs": this.gsService,
+    "hr-resident-egs": this.egsResidentHsService
+  }
+
+  constructor(
+    public gsService: GaleShapleyService,
+    public egsResidentHsService: EgsResidentHSService,
+  ) { }
 
   getListOfAlgorithms(): Array<Algorithm> {
     return Array.from(this.mapOfAvailableAlgorithms.values());

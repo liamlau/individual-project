@@ -13,25 +13,16 @@ export class ExecutionService {
   algorithm: string = "";
   commandMap = {}
   commandList = {};
-  serviceMap = {
-    "simple": this.simpleService,
-    "smp-man-gs": this.gsService,
-    "hr-resident-egs": this.egsResidentHsService
-  }
 
   // add the services for any new algorithms here
   constructor(
-    public simpleService: SimpleService,
-    public gsService: GaleShapleyService,
-    public egsResidentHsService: EgsResidentHSService,
-    public drawService: CanvasService,
     public algorithmRetrieval: AlgorithmRetrievalService
   ) { }
 
 
   getExecutionFlow(algorithm: string, numPeople: number): Object {
     this.algorithm = algorithm;
-    let algorithmService = this.serviceMap[algorithm];
+    let algorithmService = this.algorithmRetrieval.serviceMap[algorithm];
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
     let commandList = algorithmService.run(numPeople);
