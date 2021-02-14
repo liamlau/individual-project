@@ -336,12 +336,21 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
 
-## Week 21 (8 Jan 2021 - 14 Jan 2021) - **10 hours**
+## Week 21 (8 Jan 2021 - 14 Jan 2021) - **23 hours**
 ### 8 Feb 2020 (Mon) - 10 hours
 * *6 hours*: Finalising alg page
 * *2 hours*: Linking up app to alg page properly (halfway done)
 * *2 hours*: Implementing new features on alg page (hide code/show preferences/execution trace)
 
+### 11 Feb 2020 (Thu) - 8 hours
+* *3 hours*: Organising the codebase and fixing misc bugs
+* *3 hours*: Fixing pre-existing tests and implementing additional e2e tests
+* *1 hour*: Cleaned up timelog
+* *1 hour*: Merged work into main branch and did general GitHub organisation
 
+### 13 Feb 2020 (Sat) - 5 hours
+* *2 hours*: Fixed bugs with going to algorithm page and number of agents not working properly
+* *2 hours*: Fully implemented gs-stable-marriage problem algorithm
+* *1 hour*: Fixing misc bugs
 
 <hr>
