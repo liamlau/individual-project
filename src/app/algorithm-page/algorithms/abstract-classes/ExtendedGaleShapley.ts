@@ -51,7 +51,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let redLine = [agentLastChar, proposeeLastChar, "red"];
                 this.currentLines.push(redLine);
 
-                this.update(3, {"%potentialProposee%": potentialProposee.name});
+                this.update(3, {"%currentAgent%": currentAgent.name, "%potentialProposee%": potentialProposee.name});
 
                 // if h is fully subscribed, then break the assignment of the worst resident of that hospital
                 this.breakAssignment(currentAgent, potentialProposee);
