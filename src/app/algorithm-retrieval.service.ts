@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Algorithm } from './Algorithm';
 import { EgsResidentHSService } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs.service';
-import { GaleShapleyService } from './algorithm-page/algorithms/gale-shapley/gale-shapley.service';
 import { EgsStableMarriageService } from './algorithm-page/algorithms/smp-man-egs/egs-stable-marriage.service';
 import { GsStableMarriageService } from './algorithm-page/algorithms/smp-man-gs/gs-stable-marriage.service';
 
+
+// ------------------------------------------------------- ALGORITHM TEMPLATE
 
 // [
 //   "smp-man-egs", {
@@ -19,6 +20,8 @@ import { GsStableMarriageService } from './algorithm-page/algorithms/smp-man-gs/
 //     },
 //   }
 // ],
+
+// -------------------------------------------------------
 
 
 @Injectable({
@@ -81,6 +84,7 @@ export class AlgorithmRetrievalService {
       }
     ],
 
+    // base template for hr-hospital-egs
     // [
     //   "hr-hospital-egs", {
     //     id: "hr-hospital-egs",
