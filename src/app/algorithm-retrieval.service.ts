@@ -2,7 +2,24 @@ import { Injectable } from '@angular/core';
 import { Algorithm } from './Algorithm';
 import { EgsResidentHSService } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs.service';
 import { GaleShapleyService } from './algorithm-page/algorithms/gale-shapley/gale-shapley.service';
+import { EgsStableMarriageService } from './algorithm-page/algorithms/smp-man-egs/egs-stable-marriage.service';
 import { GsStableMarriageService } from './algorithm-page/algorithms/smp-man-gs/gs-stable-marriage.service';
+
+
+// [
+//   "smp-man-egs", {
+//     id: "smp-man-egs",
+//     name: "Stable Marriage Problem",
+//     orientation: ["Man", "Woman"],
+//     algorithm: "Extended Gale-Shapley Stable Matching",
+//     service: null,
+//     description: "The stable marriage problem is the problem of finding a stable matching between two equally sized sets of elements. In this case: <b>men and women</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+//     helpTextMap: {
+
+//     },
+//   }
+// ],
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,10 +62,21 @@ export class AlgorithmRetrievalService {
         name: "Stable Marriage Problem",
         orientation: ["Man", "Woman"],
         algorithm: "Extended Gale-Shapley Stable Matching",
-        service: null,
+        service: this.egsStableMarriageService,
         description: "The stable marriage problem is the problem of finding a stable matching between two equally sized sets of elements. In this case: <b>men and women</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
-  
+          1: "placeholder 1",
+          2: "placeholder 2",
+          3: "placeholder 3",
+          4: "placeholder 4",
+          5: "placeholder 5",
+          6: "placeholder 6",
+          7: "placeholder 7",
+          8: "placeholder 8",
+          9: "placeholder 9",
+          10: "placeholder 10",
+          11: "placeholder 11",
+          12: "placeholder 12",
         },
       }
     ],
@@ -90,6 +118,9 @@ export class AlgorithmRetrievalService {
         },
       }
     ],
+
+    // ADD NEW ALGORITHMS UNDER HERE
+
   ]);
 
   pluralMap: Map<string, string> = new Map([
@@ -106,6 +137,7 @@ export class AlgorithmRetrievalService {
 
   constructor(
     public gsStableMarriageService: GsStableMarriageService,
+    public egsStableMarriageService: EgsStableMarriageService,
     public egsResidentHsService: EgsResidentHSService,
   ) { }
 

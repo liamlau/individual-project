@@ -4,11 +4,12 @@ import { Step } from "../interfaces/Step";
 
 export abstract class MatchingAlgorithm {
 
+    abstract group1Name: string;
+    abstract group2Name: string;
+    abstract numberOfLines: number;
+
     numberOfAgents: number;
     numberOfGroup2Agents: number;
-
-    group1Name: string;
-    group2Name: string;
 
     freeAgentsOfGroup1: Array<String>;
 

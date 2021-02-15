@@ -68,7 +68,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
         this.relevantPreferences = [];
         // a stable matching has been found
-        this.update(12);
+        this.update(this.numberOfLines);
 
         // while some hospital h is undersubscribed
         // while (this.shouldContinueMatching(currentAgent)) {

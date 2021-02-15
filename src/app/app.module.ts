@@ -36,6 +36,7 @@ import { AlgorithmCardComponent } from './home-page/algorithm-content/algorithm-
 import { IconBannerComponent } from './home-page/icon-banner/icon-banner.component';
 import { FeedbackBannerComponent } from './home-page/feedback-banner/feedback-banner.component';
 import { NavbarComponent } from './home-page/navbar/navbar.component';
+import { SmpManEgsCodeComponent } from './algorithm-page/algorithms/smp-man-egs/smp-man-egs-code/smp-man-egs-code.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { NavbarComponent } from './home-page/navbar/navbar.component';
     AlgorithmCardComponent,
     IconBannerComponent,
     FeedbackBannerComponent,
-    NavbarComponent
+    NavbarComponent,
+    SmpManEgsCodeComponent
   ],
   imports: [
     BrowserModule,

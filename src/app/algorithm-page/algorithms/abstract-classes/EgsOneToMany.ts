@@ -3,6 +3,24 @@ import { Agent } from "../interfaces/Agent";
 import { ExtendedGaleShapley } from "./ExtendedGaleShapley";
 
 export abstract class EgsOneToMany extends ExtendedGaleShapley {
+
+    breakAssignment(currentAgent: Agent, potentialProposee: Agent) {
+        // if r is already assigned, say to h' {
+        this.update(4);
+        if (potentialProposee.match.length >= 1) {
+            // break the provisional assignment of r to h'
+            this.update(5);
+            let matchPosition: number = potentialProposee.match[0].match.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
+            if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name)) {
+                this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
+            }
+            potentialProposee.match[0].match.splice(matchPosition, 1);
+        } else {
+            // } (r is not currently assigned)
+            this.update(6);
+        }
+    }
+
     provisionallyAssign(currentAgent: Agent, potentialProposee: Agent) {
         // provisionally assign r to h;
         this.update(7);
@@ -25,24 +43,10 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
 
             potentialProposee.ranking.splice(i, 1);
             i -= 1;
-        }
-    }
 
-    breakAssignment(currentAgent: Agent, potentialProposee: Agent) {
-        // if r is already assigned, say to h' {
-        this.update(4);
-        if (potentialProposee.match.length >= 1) {
-            // break the provisional assignment of r to h'
-            this.update(5);
-            let matchPosition: number = potentialProposee.match[0].match.findIndex((agent: { name: string }) => agent.name == potentialProposee.name);
-            if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name)) {
-                this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
-            }
-            potentialProposee.match[0].match.splice(matchPosition, 1);
-        } else {
-            // } (r is not currently assigned)
-            this.update(6);
+            this.update(10);
         }
+        this.update(11);
     }
 
 }
