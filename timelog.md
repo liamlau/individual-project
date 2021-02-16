@@ -336,7 +336,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
 
-## Week 21 (8 Jan 2021 - 14 Jan 2021) - **23 hours**
+## Week 21 (8 Jan 2021 - 14 Jan 2021) - **28 hours**
 ### 8 Feb 2020 (Mon) - 10 hours
 * *6 hours*: Finalising alg page
 * *2 hours*: Linking up app to alg page properly (halfway done)
@@ -353,4 +353,15 @@ Holiday taken for Christmas.
 * *2 hours*: Fully implemented gs-stable-marriage problem algorithm
 * *1 hour*: Fixing misc bugs
 
+### 14 Feb 2020 (Sun) - 5 hours
+* *5 hours*: Implementing and bug fixing egs version of stable marriage problem
+
 <hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
+
+## Week 22 (15 Jan 2021 - 21 Jan 2021) - ** hours**
+
+### 15 Feb 2020 (Mon) - 8 hours
+* *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
+* *1 hour*: General bug fixing
