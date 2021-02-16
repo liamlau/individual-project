@@ -3,6 +3,7 @@ import { Agent } from "../interfaces/Agent";
 import { ExtendedGaleShapley } from "./ExtendedGaleShapley";
 
 export abstract class EgsOneToMany extends ExtendedGaleShapley {
+  
 
     breakAssignment(currentAgent: Agent, potentialProposee: Agent) {
         // if w is currently assigned to someone {
@@ -17,18 +18,16 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
                 this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
             }
 
-            console.log([this.getLastCharacter(potentialProposee.match[0].name), this.getLastCharacter(potentialProposee.name), "green"]);
-            let a = JSON.parse(JSON.stringify(this.currentLines));
-            console.log(a);
+
             this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(potentialProposee.match[0].name), this.getLastCharacter(potentialProposee.name), "green"]);
-            let b = JSON.parse(JSON.stringify(this.currentLines));
-            console.log(b);
-            this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(potentialProposee.match[0].name), this.findPositionInMatches(potentialProposee.match[0], potentialProposee), "grey");
+
+            this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(potentialProposee.match[0].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(potentialProposee.match[0].name)).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "grey");
             this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(potentialProposee.name), matchPosition, "grey");
             
             this.update(5, {"%woman%": potentialProposee.name, "%currentPartner%": potentialProposee.match[0].name});
 
-            potentialProposee.match[0].match.splice(matchPosition, 1);
+            potentialProposee.ranking.splice(matchPosition, 1);
+            potentialProposee.match[0].ranking.splice(this.findPositionInMatches(potentialProposee.match[0], potentialProposee), 1);
         } else {
             // } (r is not currently assigned)
             this.update(6, {"%woman%": potentialProposee.name});
@@ -45,7 +44,9 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
         let greenLine = [agentLastChar, proposeeLastChar, "green"];
         this.currentLines.push(greenLine);
 
-        this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.findPositionInMatches(currentAgent, potentialProposee), "green");
+        console.log(this.findPositionInMatches(currentAgent, potentialProposee));
+
+        this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "green");
         this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(potentialProposee, currentAgent), "green");
 
         this.update(7, {"%man%": currentAgent.name, "%woman%": potentialProposee.name});
@@ -72,15 +73,18 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
             // remove h' and r from each other's lists
             this.update(9, {"%nextWorstMan%": potentialProposee.ranking[i].name, "%woman%": potentialProposee.name});
 
-            this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(potentialProposee.ranking[i].name), proposeePosition, "grey");
+            this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(potentialProposee.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(potentialProposee.ranking[i].name)).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "grey");
 
             this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(potentialProposee.name), proposeeRankingClearCounter, "grey");
 
+            this.update(10, {"%nextWorstMan%": potentialProposee.ranking[i].name, "%woman%": potentialProposee.name});
+
+            console.log(potentialProposee.ranking[i].name);
+            console.log(potentialProposee.name);
+            
             potentialProposee.ranking[i].ranking.splice(proposeePosition, 1);
             potentialProposee.ranking.splice(i, 1);
             i -= 1;
-
-            this.update(10, {"%nextWorstMan%": potentialProposee.ranking[i].name, "%woman%": potentialProposee.name});
 
             proposeeRankingClearCounter++;
         }

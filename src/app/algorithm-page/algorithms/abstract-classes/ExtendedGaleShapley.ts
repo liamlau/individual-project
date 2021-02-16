@@ -33,8 +33,8 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
 
                 console.log("-------------");
-                // console.log("resident: %o", currentAgent);
-                // console.log("hospital: %o", potentialProposee);
+                console.log("man: %o", currentAgent);
+                console.log("woman: %o", potentialProposee);
 
 
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
@@ -45,8 +45,8 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 this.currentlySelectedAgents.push(proposeeLastChar);
                 this.relevantPreferences.push(proposeeLastChar);
 
-                this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, positionOfProposeeInAgentPrefs, "red");
-                this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, positionOfAgentInProposeePrefs, "red");
+                this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "red");
+                this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(potentialProposee, currentAgent), "red");
 
                 let redLine = [agentLastChar, proposeeLastChar, "red"];
                 this.currentLines.push(redLine);

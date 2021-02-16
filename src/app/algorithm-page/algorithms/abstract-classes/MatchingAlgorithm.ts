@@ -23,6 +23,9 @@ export abstract class MatchingAlgorithm {
 
     currentLine: Array<string> = [];
 
+    originalGroup1CurrentPreferences: Map<String, Array<String>> = new Map();
+    originalGroup2CurrentPreferences: Map<String, Array<String>> = new Map();
+
     group1CurrentPreferences: Map<String, Array<String>> = new Map();
     group2CurrentPreferences: Map<String, Array<String>> = new Map();
     currentlySelectedAgents: Array<string> = [];
@@ -273,7 +276,10 @@ export abstract class MatchingAlgorithm {
         this.generatePreferences();
 
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
+        this.originalGroup1CurrentPreferences = this.getGroupRankings(this.group1Agents);
+
         this.group2CurrentPreferences = this.getGroupRankings(this.group2Agents);
+        this.originalGroup2CurrentPreferences = this.getGroupRankings(this.group2Agents);
 
         // console.log("Group 1 Preferences: %o", this.group1CurrentPreferences);
         // console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
