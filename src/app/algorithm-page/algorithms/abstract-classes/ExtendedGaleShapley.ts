@@ -32,9 +32,9 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
 
 
-                console.log("-------------");
-                console.log("man: %o", currentAgent);
-                console.log("woman: %o", potentialProposee);
+                // console.log("-------------");
+                // console.log("man: %o", currentAgent);
+                // console.log("woman: %o", potentialProposee);
 
 
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
@@ -77,7 +77,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         //     currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
         // }
 
-        // // console.log(this.algorithmData.commands);
+        // // // console.log(this.algorithmData.commands);
         return;
         // return "Extended Gale-Shapley!";
     }

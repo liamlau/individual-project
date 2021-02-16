@@ -44,7 +44,7 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
         let greenLine = [agentLastChar, proposeeLastChar, "green"];
         this.currentLines.push(greenLine);
 
-        console.log(this.findPositionInMatches(currentAgent, potentialProposee));
+        // this.findPositionInMatches(currentAgent, potentialProposee));
 
         this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "green");
         this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(potentialProposee, currentAgent), "green");
@@ -63,12 +63,12 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
         this.update(8, {"%man%": currentAgent.name, "%woman%": potentialProposee.name});
         for (let i = currentAgentPosition + 1; i < potentialProposee.ranking.length; i++) {
 
-            console.log("Woman: " + potentialProposee.name);
+            // "Woman: " + potentialProposee.name);
 
             let proposeePosition: number = this.findPositionInMatches(potentialProposee.ranking[i], potentialProposee);
 
-            console.log(potentialProposee.ranking[i].name);
-            console.log(potentialProposee.ranking[i].ranking[proposeePosition]);
+            // potentialProposee.ranking[i].name);
+            // potentialProposee.ranking[i].ranking[proposeePosition]);
 
             // remove h' and r from each other's lists
             this.update(9, {"%nextWorstMan%": potentialProposee.ranking[i].name, "%woman%": potentialProposee.name});
@@ -79,8 +79,8 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
 
             this.update(10, {"%nextWorstMan%": potentialProposee.ranking[i].name, "%woman%": potentialProposee.name});
 
-            console.log(potentialProposee.ranking[i].name);
-            console.log(potentialProposee.name);
+            // potentialProposee.ranking[i].name);
+            // potentialProposee.name);
             
             potentialProposee.ranking[i].ranking.splice(proposeePosition, 1);
             potentialProposee.ranking.splice(i, 1);
