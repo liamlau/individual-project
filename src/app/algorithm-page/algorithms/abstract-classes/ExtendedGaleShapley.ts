@@ -33,8 +33,8 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
 
 
                 console.log("-------------");
-                console.log("resident: %o", currentAgent);
-                console.log("hospital: %o", potentialProposee);
+                // console.log("resident: %o", currentAgent);
+                // console.log("hospital: %o", potentialProposee);
 
 
                 let agentLastChar = this.getLastCharacter(currentAgent.name);

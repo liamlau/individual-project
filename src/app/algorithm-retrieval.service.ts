@@ -134,11 +134,6 @@ export class AlgorithmRetrievalService {
     ["Hospital", "Hospitals"]
   ]);
 
-  // serviceMap = {
-  //   "smp-man-gs": this.gsService,
-  //   "hr-resident-egs": this.egsResidentHsService
-  // }
-
   constructor(
     public gsStableMarriageService: GsStableMarriageService,
     public egsStableMarriageService: EgsStableMarriageService,
