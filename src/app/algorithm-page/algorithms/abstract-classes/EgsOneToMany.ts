@@ -14,7 +14,7 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
 
             let matchPosition: number = this.findPositionInMatches(potentialProposee, potentialProposee.match[0]);
 
-            if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name)) {
+            if (potentialProposee.match[0].ranking.filter(agent => agent.match[0] != currentAgent).length > 0 && !this.freeAgentsOfGroup1.includes(potentialProposee.match[0].name) && potentialProposee.match[0].ranking.length > 0) {
                 this.freeAgentsOfGroup1.push(potentialProposee.match[0].name);
             }
 

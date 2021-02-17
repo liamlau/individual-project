@@ -71,7 +71,7 @@
   </div>
 
   <div class="col-3 text-right">
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help">help_outline</mat-icon>
   </div>

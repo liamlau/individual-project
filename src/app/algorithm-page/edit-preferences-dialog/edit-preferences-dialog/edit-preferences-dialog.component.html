@@ -1,0 +1,56 @@
+<div style="min-width: 300px">
+    <h1>Edit Preferences</h1>
+    <form class="example-form pl-3">
+        <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Marriage Problem'">
+          <mat-form-field style="width: 200px;">
+            <mat-label>Number of Men and Women</mat-label>
+            <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5">
+            <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
+              Please input a number between 1 and 9
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div class="row justify-content-center" *ngIf="this.algorithmService.currentAlgorithm.name == 'Hospital/Residents Problem'">
+          <mat-form-field style="width: 200px;" class="mr-1">
+            <mat-label>Number of Residents</mat-label>
+            <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5">
+            <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
+              Please input a number between 1 and 9
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field style="width: 200px;" class="ml-1">
+            <mat-label>Number of Hospitals</mat-label>
+            <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5">
+            <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="numberOfGroup2Agents.hasError('min') || numberOfGroup2Agents.hasError('max')">
+              Please input a number between 1 and 9
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+      </form>
+
+    <h2 class="mt-2">Input New Prefereces</h2>
+
+    <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
+        <mat-label>Clear the input area for randomly generated preferences!</mat-label>
+        <textarea matInput [formControl]="preferencesForm" placeholder="1: A, B, C, D, E" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;"></textarea>
+    </mat-form-field>
+
+    <div class="row">
+        <div class="col-12 text-right">
+            <button mat-stroked-button (click)="generateAlgorithmPreferences()">Generate!</button>
+        </div>
+    </div>
+
+</div>

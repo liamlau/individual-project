@@ -1,10 +1,10 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { timingSafeEqual } from 'crypto';
-import { element } from 'protractor';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { CanvasService } from './canvas.service';
+import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { PlaybackService } from './playback.service';
 declare var anime: any;
 
@@ -27,7 +27,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   showCode: boolean = false;
 
-  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public router: Router) { }
+  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
 
@@ -163,6 +163,16 @@ export class AlgorithmPageComponent implements OnInit {
     }
 
     this.showCode = !this.showCode;
+
+  }
+
+
+  openEditPreferencesDialog(): void {
+    const dialogRef = this.dialog.open(EditPreferencesDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
 
   }
 

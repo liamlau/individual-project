@@ -112,6 +112,35 @@ export abstract class MatchingAlgorithm {
 
     }
 
+    populatePreferences(preferences: Map<String, Array<String>>): void {
+        // console.log(preferences);
+        let tempCopyList: Agent[];
+
+        for (let agent of Array.from(this.group1Agents.keys())) {
+            tempCopyList = [];
+            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
+            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
+                console.log(preferenceAgent);
+                tempCopyList.push(this.group2Agents.get(this.group2Name + preferenceAgent));
+            }
+            this.group1Agents.get(agent).ranking = tempCopyList;
+        }
+
+        for (let agent of Array.from(this.group2Agents.keys())) {
+            tempCopyList = [];
+            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
+            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
+                console.log(preferenceAgent);
+                tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
+            }
+            this.group2Agents.get(agent).ranking = tempCopyList;
+        }
+    
+        console.log(this.group1Agents);
+        console.log(this.group2Agents);
+
+    }
+
     // FROM: https://javascript.info/task/shuffle
     shuffle(array: Array<Object>) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -273,7 +302,12 @@ export abstract class MatchingAlgorithm {
         }
         
         this.generateAgents();
-        this.generatePreferences();
+
+        if (preferences) {
+            this.populatePreferences(preferences);
+        } else {
+            this.generatePreferences();
+        }
 
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
         this.originalGroup1CurrentPreferences = this.getGroupRankings(this.group1Agents);

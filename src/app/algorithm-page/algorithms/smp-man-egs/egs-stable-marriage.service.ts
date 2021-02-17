@@ -7,8 +7,8 @@ import { Agent } from '../interfaces/Agent';
 })
 export class EgsStableMarriageService extends EgsOneToMany {
 
-  group1Name = "men";
-  group2Name = "women";
+  group1Name = "man";
+  group2Name = "woman";
 
   numberOfLines = 12;
 
