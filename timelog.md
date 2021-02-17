@@ -365,3 +365,6 @@ Holiday taken for Christmas.
 ### 15 Feb 2020 (Mon) - 8 hours
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
 * *1 hour*: General bug fixing
+
+### 17 Feb 2020 (Wed) - x hours
+* *x hours*:

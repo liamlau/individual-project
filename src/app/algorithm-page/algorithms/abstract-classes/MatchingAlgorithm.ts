@@ -265,7 +265,7 @@ export abstract class MatchingAlgorithm {
 
     abstract match(): AlgorithmData;
 
-    run(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): AlgorithmData {
+    run(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): AlgorithmData {
         if (numberOfGroup2Agents != numberOfAgents) {
             this.initialise(numberOfAgents, numberOfGroup2Agents);
         } else {

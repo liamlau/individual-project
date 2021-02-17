@@ -25,12 +25,12 @@ export class ExecutionService {
     this.commandList = {};
   }
 
-  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents): Object {
+  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): Object {
     this.initialise();
     let algorithmService: MatchingAlgorithm = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).service;
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
-    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents);
+    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents, preferences);
     commandList.descriptions = this.generateDescriptions(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);
