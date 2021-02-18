@@ -17,6 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
 import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
 import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
@@ -78,6 +79,7 @@ import { EditPreferencesDialogComponent } from './algorithm-page/edit-preference
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     AngularResizedEventModule

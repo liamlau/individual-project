@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { PlaybackService } from '../../playback.service';
 
@@ -15,7 +17,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   preferences: string = "";
 
-  constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService) { }
+  constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService, public dialogRef: MatDialogRef<EditPreferencesDialogComponent>, private _snackBar: MatSnackBar) { }
 
   @Input() algorithm: Algorithm;
 
@@ -101,6 +103,12 @@ export class EditPreferencesDialogComponent implements OnInit {
     this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
 
     this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
+
+    this.dialogRef.close();
+
+    this._snackBar.open("Preferences changed", "Dismiss", {
+      duration: 2000,
+    });
 
   }
   

@@ -366,5 +366,5 @@ Holiday taken for Christmas.
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
 * *1 hour*: General bug fixing
 
-### 17 Feb 2020 (Wed) - x hours
-* *x hours*:
+### 17 Feb 2020 (Wed) - 6 hours
+* *6 hours*: Implemented functionality to edit preferences (with a few bugs)
