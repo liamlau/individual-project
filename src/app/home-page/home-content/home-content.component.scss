@@ -54,19 +54,26 @@
 }
 
 @media #{$mq-xlarge} {
+    .title-text {
+        padding-top: 7vh;
+        font-size: $base-font-size*4;
+        line-height: $base-font-size*1.6;
+    }
+
     .video {
-        height: 410px;
+        height: 540px;
     }
 }
 
 // extra large
 @media #{$mq-xxlarge} {
     .title-text {
+        padding-top: 7vh;
         font-size: $base-font-size*4.6;
         line-height: $base-font-size*1.6;
     }
 
     .video {
-        height: 540px;
+        height: 600px;
     }
 }
