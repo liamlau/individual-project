@@ -366,5 +366,7 @@ Holiday taken for Christmas.
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
 * *1 hour*: General bug fixing
 
-### 17 Feb 2020 (Wed) - 6 hours
+### 17 Feb 2020 (Wed) - 12 hours
 * *6 hours*: Implemented functionality to edit preferences (with a few bugs)
+* *3 hours*: Attempted to implement tutorial (dimming rest of screen to highlight) - had to abandon as would take too long
+* *3 hours*: Researched SCSS to reduce the amount of duplicate styles throughout the project
