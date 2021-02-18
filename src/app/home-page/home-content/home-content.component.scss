@@ -1,3 +1,5 @@
+@import "../../../styles.scss";
+
 .startButton {
     background-color: #2058FF;
     transition: 200ms background-color;
@@ -7,15 +9,19 @@
     background-color: #1140ce;
 }
 
+.title-text {
+    font-size: $base-font-size*3.6;
+    line-height: $base-font-size*1.6;
+}
 
 // under small
 @media only screen and (max-width: 576px) {
-    .title-text {
-        padding-left: 40px;
-        padding-right: 40px;
-        font-size: 44px;
-        line-height: 60px;
-    }
+    // .title-text {
+    //     padding-left: 40px;
+    //     padding-right: 40px;
+    //     font-size: 44px;
+    //     line-height: 60px;
+    // }
 
     .video {
         height: 270px;
@@ -24,10 +30,10 @@
 
 // small
 @media only screen and (min-width: 576px) {
-    .title-text {
-        font-size: 60px;
-        line-height: 72px;
-    }
+    // .title-text {
+    //     font-size: 60px;
+    //     line-height: 72px;
+    // }
 
     .video {
         height: 300px;
@@ -36,10 +42,10 @@
 
 // medium
 @media only screen and (min-width: 768px) {
-    .title-text {
-        font-size: 70px;
-        line-height: 94px;
-    }
+    // .title-text {
+    //     font-size: 4.6rem;
+    //     line-height: 6rem;
+    // }
 
     .video {
         height: 410px;
@@ -47,14 +53,20 @@
 
 }
 
-// large
-@media only screen and (min-width: 992px) {
+@media #{$mq-xlarge} {
     .video {
-        height: 490px;
+        height: 410px;
     }
 }
 
 // extra large
-@media only screen and (min-width: 1200px) {
+@media #{$mq-xxlarge} {
+    .title-text {
+        font-size: $base-font-size*4.6;
+        line-height: $base-font-size*1.6;
+    }
 
+    .video {
+        height: 540px;
+    }
 }
