@@ -370,3 +370,10 @@ Holiday taken for Christmas.
 * *6 hours*: Implemented functionality to edit preferences (with a few bugs)
 * *3 hours*: Attempted to implement tutorial (dimming rest of screen to highlight) - had to abandon as would take too long
 * *3 hours*: Researched SCSS to reduce the amount of duplicate styles throughout the project
+
+### 18 Feb 2020 (Thu) - 9 hours
+* *2 hours*: More research on how to optimise the app (make it responsive/reduce lines of code)
+* *1 hour*: Changed the home page slightly to look better (put images round circles - looks more modern now)
+* *2 hours*: Dissertation research and planning (looked at Moodle slides for guidance)
+* *3 hour*: Read all relevant example dissertations given to us
+* *1 hour*: Started planning out dissertation sections  
