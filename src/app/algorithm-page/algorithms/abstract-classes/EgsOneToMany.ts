@@ -92,8 +92,3 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
     }
 
 }
-
-
-// bugs:
-// plural for agent name instead of singular
-// highlighting colour for men is wrong (we forget to delete!!!)
