@@ -360,7 +360,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
 
-## Week 22 (15 Jan 2021 - 21 Jan 2021) - ** hours**
+## Week 22 (15 Jan 2021 - 21 Jan 2021) - **36 hours**
 
 ### 15 Feb 2020 (Mon) - 8 hours
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
@@ -376,4 +376,10 @@ Holiday taken for Christmas.
 * *1 hour*: Changed the home page slightly to look better (put images round circles - looks more modern now)
 * *2 hours*: Dissertation research and planning (looked at Moodle slides for guidance)
 * *3 hour*: Read all relevant example dissertations given to us
-* *1 hour*: Started planning out dissertation sections  
+* *1 hour*: Started planning out dissertation sections
+
+### 19 Feb 2020 (Fri) - 7 hours
+* *2 hours*: General home page fixes and responsiveness changes
+* *2 hours*: Thinking/researching and designing how to fix the algorithm page's design
+* *1 hour*: Refactor of code storage (no longer in separate component, now in service) to cut down superfluous components 
+* *2 hours*: Implementing new code display
