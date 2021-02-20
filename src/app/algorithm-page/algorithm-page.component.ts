@@ -28,6 +28,8 @@ export class AlgorithmPageComponent implements OnInit {
 
   showCode: boolean = false;
 
+  tutorialStep: number;
+
   constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
@@ -54,7 +56,9 @@ export class AlgorithmPageComponent implements OnInit {
       $('[data-toggle="popover"]').popover()
     })
 
-    this.startTutorial();
+    this.tutorialStep = 0;
+
+    this.nextTutorialStep();
 
   }
 
@@ -184,9 +188,46 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  startTutorial(): void {
-    $('.navbarPopover').popover('show')
+  nextTutorialStep(): void {
+    console.log(this.tutorialStep);
+    if (this.tutorialStep == 0) {
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+      this.startTutorial();
+    } else if (this.tutorialStep == 1) {
+      this.sidebarTutorial();
+    } else if (this.tutorialStep == 2) {
+      this.mainContentTutorial();
+    } else if (this.tutorialStep == 3) {
+      this.stopTutorial();
+    }
   }
 
+  startTutorial(): void {
+    this.tutorialStep += 1;
+    $('.navbarPopover').popover('show');
+  }
+
+  sidebarTutorial(): void {
+    console.log(this.tutorialStep);
+    this.tutorialStep += 1;
+    console.log(this.tutorialStep);
+    $('.navbarPopover').popover('hide');
+    $('.sidebarPopover').popover('show');
+  }
+
+  mainContentTutorial(): void {
+    this.tutorialStep += 1;
+    $('.sidebarPopover').popover('hide');
+    $('.mainContentPopover').popover('show');
+  }
+
+  stopTutorial(): void {
+    this.tutorialStep = 0;
+    $('.navbarPopover').popover('hide');
+    $('.sidebarPopover').popover('hide');
+    $('.mainContentPopover').popover('hide');
+  }
 
 }

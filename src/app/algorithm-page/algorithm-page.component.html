@@ -56,7 +56,7 @@
 
 <!-- 1b1f23 -->
 
-<div class="covering-panel">
+<div class="covering-panel" *ngIf="this.tutorialStep != 0">
 
 </div>
 
@@ -68,16 +68,18 @@
       
     </div>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
-    <a class="navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+    <a class="navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
-  <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
+  <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual">
     <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
   <div class="col-3 text-right">
-    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" *ngIf="this.tutorialStep != 0" (click)="this.nextTutorialStep()">arrow_forward_ios</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
+    <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
   </div>
 
 
