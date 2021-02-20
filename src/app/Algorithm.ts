@@ -8,4 +8,5 @@ export interface Algorithm {
     service: MatchingAlgorithm;
     description: string;
     helpTextMap: Object; // map<number, string>
+    code: Array<string>;
 }

@@ -82,7 +82,7 @@
   <div class="row" style="height: 100%">
     <nav class="d-none bg-light sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode}">
       <div class="sidebar-sticky">
-        <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.41fr 0.2fr 2fr 2fr;">
+        <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
           <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
             <h3 class="h2 mt-3 mx-2 text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
           </div>
@@ -100,7 +100,7 @@
               </div>
             </div>
           </div>
-          <div class="border-bottom my-3">
+          <div class="border-bottom" style="background-color: #1b1f23;">
             <!-- <div class="row">
               hi
             </div>

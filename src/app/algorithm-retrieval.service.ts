@@ -55,7 +55,22 @@ export class AlgorithmRetrievalService {
           9: "%woman% likes %match% more than %man%",
           10: "No change to anyone's matches",
           11: "A stable matching has been generated."
-        }
+        },
+        code: []
+        // code: {
+        //   1: "set each person to be free;",
+        //   2: "while some man m is free {",
+        //   3: "\tw = first woman on m's list",
+        //   4: "\tif w is currently engaged to someone {",
+        //   5: "\t\tbreak engagement between w and w's current partner",
+        //   6: "\t}",
+        //   7: "\tprovisionally engage m and w to be",
+        //   8: "\tfor each successor m'' of m on w's list {",
+        //   9: "\t\tm'' = next worst man on w's preference list",
+        //   10: "\t\tremove m'' from w's preference list and vice versa",
+        //   11: "\t}",
+        //   12: "}"   // a stable matching between men and women has been found
+        // }
       }
     ],
 
@@ -81,6 +96,20 @@ export class AlgorithmRetrievalService {
           11: "All men worse than %man% on %woman%\'s preference list have been removed",
           12: "A stable matching between men and women has been found",
         },
+        code: [
+          "set each person to be free;",
+          "while some man m is free {",
+          "\tw = first woman on m's list",
+          "\tif w is currently engaged to someone {",
+          "\t\tbreak engagement between w and w's current partner",
+          "\t}",
+          "\tprovisionally engage m and w to be",
+          "\tfor each successor m'' of m on w's list {",
+          "\t\tm'' = next worst man on w's preference list",
+          "\t\tremove m'' from w's preference list and vice versa",
+          "\t}",
+          "}"   // a stable matching between men and women has been found
+        ]
       }
     ],
 
@@ -120,6 +149,21 @@ export class AlgorithmRetrievalService {
           11: "Remove %nextResident% from %hospital%'s list",
           12: "A stable matching between residents and hospitals has been found",
         },
+        code: []
+        // code: {
+        //   1: "set each person to be free;",
+        //   2: "while some man m is free {",
+        //   3: "\tw = first woman on m's list",
+        //   4: "\tif w is currently engaged to someone {",
+        //   5: "\t\tbreak engagement between w and w's current partner",
+        //   6: "\t}",
+        //   7: "\tprovisionally engage m and w to be",
+        //   8: "\tfor each successor m'' of m on w's list {",
+        //   9: "\t\tm'' = next worst man on w's preference list",
+        //   10: "\t\tremove m'' from w's preference list and vice versa",
+        //   11: "\t}",
+        //   12: "}"   // a stable matching between men and women has been found
+        // }
       }
     ],
 
