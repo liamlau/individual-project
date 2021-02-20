@@ -383,3 +383,6 @@ Holiday taken for Christmas.
 * *2 hours*: Thinking/researching and designing how to fix the algorithm page's design
 * *1 hour*: Refactor of code storage (no longer in separate component, now in service) to cut down superfluous components 
 * *2 hours*: Implementing new code display
+
+### 20 Feb 2020 (Sat) - 5 hours
+* *5 hours*: Got new idea for tutorial, been experimenting, designing and implementing

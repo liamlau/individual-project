@@ -67,8 +67,8 @@
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
-    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
-    <a class="navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <a style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual">
     <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
@@ -76,10 +76,10 @@
 
   <div class="col-3 text-right">
     <mat-icon class="navbarIconButton unselectable mr-4" *ngIf="this.tutorialStep != 0" (click)="this.nextTutorialStep()">arrow_forward_ios</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4"  matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
   </div>
 
 
@@ -87,10 +87,10 @@
 
 <div class="container-fluid" style="height: calc(100% - 50px); overflow-x: hidden">
   <div class="row" style="height: 100%">
-    <nav class="d-none bg-light sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode}">
+    <nav class="d-none bg-light sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
       <div class="sidebar-sticky">
         <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
-          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
+          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom sidebarPopover" data-toggle="popover" data-placement="left" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" style="height:114px">
             <h3 class="h2 mt-3 mx-2 text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
           </div>
           <div class="border-bottom align-items-center">
@@ -136,7 +136,7 @@
     </nav>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
-      <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: rgb(255, 255, 255);" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode}">
+      <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: rgb(255, 255, 255);" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
 
         <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px;">
           <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
