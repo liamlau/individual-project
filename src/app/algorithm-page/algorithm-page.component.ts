@@ -7,6 +7,7 @@ import { CanvasService } from './canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { PlaybackService } from './playback.service';
 declare var anime: any;
+declare var $: any;
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
@@ -48,6 +49,12 @@ export class AlgorithmPageComponent implements OnInit {
 
     // uncomment the line below to enable working algorithm selection
     // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    })
+
+    this.startTutorial();
 
   }
 
@@ -175,5 +182,11 @@ export class AlgorithmPageComponent implements OnInit {
     });
 
   }
+
+
+  startTutorial(): void {
+    $('.navbarPopover').popover('show')
+  }
+
 
 }

@@ -56,7 +56,11 @@
 
 <!-- 1b1f23 -->
 
-<nav class="navbar sticky-top navbar-light p-0" style="background-color: #1b1f23; height: 50px">
+<div class="covering-panel">
+
+</div>
+
+<nav class="navbar sticky-top navbar-light p-0 moveToTop" style="background-color: #1b1f23; height: 50px;">
 
 
   <div class="col-3 text-left align-middle" style="height: 100%">
@@ -64,17 +68,18 @@
       
     </div>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
-    <a class="" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+    <a class="navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
-  <div class="col-6 text-center">
+  <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
     <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
   <div class="col-3 text-right">
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2" matTooltip="Help">help_outline</mat-icon>
   </div>
+
 
 </nav>
 
@@ -129,9 +134,9 @@
     </nav>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
-      <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr;" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode}">
+      <div class="grid-container-algorithm ml-sm-auto" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: rgb(255, 255, 255);" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode}">
 
-        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px">
+        <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:120px;">
           <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
           <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
         </div>
