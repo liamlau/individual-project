@@ -67,10 +67,10 @@
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
-    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Click this to hide or expand the sidebar underneath!" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
     <a style="cursor: pointer;vertical-align: -2px" routerLink="/"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
-  <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual">
+  <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Tutorial" data-content="Click the arrow in the top right to move to the next step of the tutorial! Or you can click the question mark again to stop the tutorial." data-trigger="manual">
     <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
@@ -79,7 +79,8 @@
     <mat-icon class="navbarIconButton unselectable mr-4"  matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()">info</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: advance the tutorial, edit preferences, toggle all preferences or only relevant preferences, and stop this tutorial." data-trigger="manual" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
   </div>
 
 
@@ -90,15 +91,16 @@
     <nav class="d-none bg-light sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
       <div class="sidebar-sticky">
         <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
-          <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom sidebarPopover" data-toggle="popover" data-placement="left" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="manual" style="height:114px">
-            <h3 class="h2 mt-3 mx-2 text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
+          <div id="descriptionDiv" class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
+            <h3 class="h2 mt-3 mx-2 text-center sidebarPopover" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
+            data-template='<div class="popover fade show bs-popover-right popoverPositioning" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>{{ this.playback.description }}</h3>
           </div>
           <div class="border-bottom align-items-center">
             <div class="row align-items-center mx-2" style="height: 100%">
               <div class="col-4" style="font-size: 22px;">
                 <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
               </div>
-              <div class="col-8 text-center pr-5" style="font-size: 0.9vw;">
+              <div class="col-8 text-center pr-5 py-3" style="font-size: 0.9vw;">
                 [
                 <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
                   <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
@@ -107,7 +109,8 @@
               </div>
             </div>
           </div>
-          <div class="border-bottom" style="background-color: #1b1f23;">
+          <div class="border-bottom sidebarPopover" style="background-color: #1b1f23;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
+            data-template='<div class="popover fade show bs-popover-right popoverPositioning" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
             <!-- <div class="row">
               hi
             </div>
@@ -120,7 +123,8 @@
             <code-display></code-display>
             
           </div>
-          <div id="executionTrace" style="overflow: scroll">
+          <div class="sidebarPopover" id="executionTrace" style="overflow: scroll" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Execution Trace" data-content="This will fill out as you play the algorithm with a log of all current line descriptions, so you can go back and get a better idea of what happens at certain parts in the algorithm!" data-trigger="manual"
+            data-template='<div class="popover fade show bs-popover-right popoverPositioning" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
             <div class="text-center mb-3">
               <h3>Execution Trace</h3>
             </div>
@@ -145,14 +149,14 @@
 
 
 
-        <div id="parent" (resized)="this.drawService.redrawCanvas()">
+        <div class="mainContentPopover" id="parent" (resized)="this.drawService.redrawCanvas()" data-toggle="popover" data-placement="left" title="Algorithm Display" data-content="This is where you can see the animation for the algorithm! Green lines mean there is a matching between 2 circles, and red lines mean there is a proposal currently being considered. If you want more information, click on the info button next to the tutorial button!" data-trigger="manual">
           <canvas #canvas id="myCanvas" style="min-height: 280px;">
        
           </canvas>
         </div>
 
         <div>
-          <div class="col-12" >
+          <div class="col-12 mainContentPopover" data-toggle="popover" data-placement="top" title="Playback Controls" data-content="Use the controls below to interact with the algorithm! Play or step through at a pace you choose with the speed slider, or use the position slider at the bottom to drag through the algorithm!" data-trigger="manual">
             <div class="playback-block">
               <playback-controls></playback-controls>
             </div>

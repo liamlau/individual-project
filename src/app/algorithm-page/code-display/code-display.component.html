@@ -13,10 +13,10 @@
     Pseudocode
 </h1>
 
-<div style="white-space: pre; height: 100%; vertical-align: middle; font-size: 1.1rem; margin: 0; color:rgb(231, 231, 231)">
-    <ol class="pt-4 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23;">
+<div style="white-space: pre; height: 100%; vertical-align: middle; font-size: 0.88rem; margin: 0; color:rgb(231, 231, 231)">
+    <ol class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px;">
         <div style="display: table-row; width: 100%; vertical-align: middle; margin: 0; " *ngFor="let line of this.algService.currentAlgorithm.code; let i = index" id="line{{i+1}}">
-            <li class="pl-3" style="vertical-align: middle; width: 100%; tab-size: 30px; word-wrap: break-word;">
+            <li class="pl-2" style="vertical-align: middle; width: 100%; tab-size: 20px; word-wrap: break-word;">
                 {{ line }}
             </li>
         </div>

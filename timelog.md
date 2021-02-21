@@ -386,3 +386,4 @@ Holiday taken for Christmas.
 
 ### 20 Feb 2020 (Sat) - 5 hours
 * *5 hours*: Got new idea for tutorial, been experimenting, designing and implementing
+<!-- remember to put something in eval/design/requirements about colourblindness (won't be able to do anything about it, not enough time) -->

@@ -84,3 +84,11 @@ body {
 button:focus {
   outline: none;
 }
+
+.popoverPositioning {
+  position: fixed !important;
+  top: 40px !important;
+  left: 300px !important;
+  margin-left: 10rem !important;
+  z-index: 3000;
+}
