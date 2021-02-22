@@ -101,7 +101,7 @@ export class AlgorithmRetrievalService {
           "\tif w is currently engaged to someone {",
           "\t\tbreak engagement between w and w's current partner",
           "\t}",
-          "\tprovisionally engage m and w to be",
+          "\tprovisionally engage m and w",
           "\tfor each successor m'' of m on w's list {",
           "\t\tm'' = next worst man on w's preference list",
           "\t\tremove m'' from w's preference list and vice versa",

@@ -44,7 +44,7 @@
 
 # Todo (22/02/21)
 x Add pseudocode for smp-gs-man
-- Add pseudocode for hr-gs-resident
+x Add pseudocode for hr-gs-resident
 - Fix bugs with smp-gs-man
     - Only showing relevant preferences isn't working
 - Fix bugs with hr-gs-resident

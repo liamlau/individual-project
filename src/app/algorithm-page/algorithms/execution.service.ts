@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { CanvasService } from '../canvas.service';
 import { MatchingAlgorithm } from './abstract-classes/MatchingAlgorithm';
-import { EgsResidentHSService } from './egs-resident-hs/egs-resident-hs.service';
-import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
 import { AlgorithmData } from './interfaces/AlgorithmData';
-import { SimpleService } from './simple/simple.service';
 
 @Injectable({
   providedIn: 'root'

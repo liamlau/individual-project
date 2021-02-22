@@ -19,16 +19,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
-import { GsCodeComponent } from './algorithm-page/algorithms/gale-shapley/gs-code/gs-code.component';
 import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
 import { PlaybackControlsComponent } from './algorithm-page/playback-controls/playback-controls.component';
 import { CodeDisplayComponent } from './algorithm-page/code-display/code-display.component';
-import { VariableDisplayComponent } from './algorithm-page/variable-display/variable-display.component';
-import { GsVariablesComponent } from './algorithm-page/algorithms/gale-shapley/gs-variables/gs-variables.component';
 import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
-import { EgsResidentHsCodeComponent } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs-code/egs-resident-hs-code.component';
 import { HomeContentComponent } from './home-page/home-content/home-content.component';
 import { AboutContentComponent } from './home-page/about-content/about-content.component';
 import { AlgorithmContentComponent } from './home-page/algorithm-content/algorithm-content.component';
@@ -45,15 +41,11 @@ import { EditPreferencesDialogComponent } from './algorithm-page/edit-preference
     AppComponent,
     AlgorithmPageComponent,
     MatAnimatedIconComponent,
-    GsCodeComponent,
     SimpleCodeComponent,
     PlaybackControlsComponent,
     CodeDisplayComponent,
-    VariableDisplayComponent,
-    GsVariablesComponent,
     SimpleVariablesComponent,
     HomePageComponent,
-    EgsResidentHsCodeComponent,
     HomeContentComponent,
     AboutContentComponent,
     AlgorithmContentComponent,
