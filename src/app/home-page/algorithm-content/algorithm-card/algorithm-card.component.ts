@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { Algorithm } from '../../../Algorithm';
 
+declare var anime: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -38,13 +40,14 @@ export class AlgorithmCardComponent implements OnInit {
 
   // matcher = new MyErrorStateMatcher();
 
-  constructor(public algorithmService: AlgorithmRetrievalService) { }
+  constructor(public algorithmService: AlgorithmRetrievalService, public router: Router) { }
 
   ngOnInit(): void {
   }
 
+
   // on clicking "Generate Preferences" change the global algorithm to the one passed into this dialog
-  onGeneratePreferences(): void {
+  async onGeneratePreferences(): Promise<void> {
     this.algorithmService.currentAlgorithm = this.algorithm;
     this.algorithmService.numberOfGroup1Agents = this.numberOfGroup1Agents.value;
     if (this.numberOfGroup2Agents.value == '') {
@@ -52,6 +55,31 @@ export class AlgorithmCardComponent implements OnInit {
     } else {
       this.algorithmService.numberOfGroup2Agents = this.numberOfGroup2Agents.value;
     }
+
+    anime({
+      targets: '.main-page',
+      easing: 'easeOutQuint',
+      opacity: [1, 0],
+      duration: 500
+    })
+
+    anime({
+      targets: '.navbar',
+      easing: 'easeOutQuint',
+      translateY: [0, -150],
+      opacity: [1, 0],
+      delay: 300,
+      duration: 500
+    })
+
+    await this.delay(700);
+
+    this.router.navigateByUrl("/algorithm");
+  }
+
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }
