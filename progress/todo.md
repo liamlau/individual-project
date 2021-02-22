@@ -43,10 +43,18 @@
 
 
 # Todo (22/02/21)
-- Add pseudocode for smp-gs-man
+x Add pseudocode for smp-gs-man
 - Add pseudocode for hr-gs-resident
 - Fix bugs with smp-gs-man
+    - Only showing relevant preferences isn't working
 - Fix bugs with hr-gs-resident
+- Implement error checking for edit preferences
+
+- Create Animation Guide
+- Fix testing to allow push, write new tests for every part of program
+- Finish evaluation script
+
+-----------------------------
 
 - URGENT: Fix bug with canvas auto sizing going off screen
 
@@ -55,9 +63,7 @@
     - Preferences don't show correctly
     - Make the circles start from the middle (for 1 preference, it starts at the top)
 
-- Implement error checking for edit preferences
 
-- Create Animation Guide
 
 - Implement animations for closing sidebar panel
 
@@ -69,3 +75,11 @@
 
 - Link up "Get Started" button
 - Link up "Give Feedback!" button
+
+
+
+- Do evaluations
+
+- Documentation
+
+- Write plan for dissertation

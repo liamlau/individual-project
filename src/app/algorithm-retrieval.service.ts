@@ -56,21 +56,19 @@ export class AlgorithmRetrievalService {
           10: "No change to anyone's matches",
           11: "A stable matching has been generated."
         },
-        code: []
-        // code: {
-        //   1: "set each person to be free;",
-        //   2: "while some man m is free {",
-        //   3: "\tw = first woman on m's list",
-        //   4: "\tif w is currently engaged to someone {",
-        //   5: "\t\tbreak engagement between w and w's current partner",
-        //   6: "\t}",
-        //   7: "\tprovisionally engage m and w to be",
-        //   8: "\tfor each successor m'' of m on w's list {",
-        //   9: "\t\tm'' = next worst man on w's preference list",
-        //   10: "\t\tremove m'' from w's preference list and vice versa",
-        //   11: "\t}",
-        //   12: "}"   // a stable matching between men and women has been found
-        // }
+        code: [
+          "set each person to be free;",
+          "while some man m is free do:",
+          "\tw = next most preferred woman on m’s list;",
+          "\tif w is free then",
+          "\t\tassign m to w;",
+          "\telse",
+          "\t\tif w prefers m to her current partner m' then",
+          "\t\t\tassign m to w to be engaged and set m' to be free;",
+          "\t\telse",
+          "\t\t\tw rejects m’s proposal and remains with m';",
+          "the stable matching consists of all n engagements"
+        ]
       }
     ],
 
@@ -113,20 +111,6 @@ export class AlgorithmRetrievalService {
       }
     ],
 
-    // base template for hr-hospital-egs
-    // [
-    //   "hr-hospital-egs", {
-    //     id: "hr-hospital-egs",
-    //     name: "Hospital/Residents Problem",
-    //     orientation: ["Hospital", "Resident"],
-    //     algorithm: "Extended Gale-Shapley Stable Matching",
-    //     description: "The hospital/residents problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
-    //     helpTextMap: {
-  
-    //     },
-    //   }
-    // ],
-
     [
       "hr-resident-egs", {
         id: "hr-resident-egs",
@@ -149,7 +133,20 @@ export class AlgorithmRetrievalService {
           11: "Remove %nextResident% from %hospital%'s list",
           12: "A stable matching between residents and hospitals has been found",
         },
-        code: []
+        code: [
+          "set each hospital and resident to be completely free;",
+          "while (some resident r is free) and (r has a nonempty list)",
+          "\th := first hospital on r's list",
+          "\tif h is fully subscribed then",
+          "\t\tr' := worst resident provisionally assigned to h",
+          "\t\tassign r' to be free (clear match)",
+          "\tprovisionally assign r to h",
+          "\tif h is fully subscribed (after assigning r to h) then",
+          "\t\ts := worst resident provisionally assigned to h",
+          "\t\tfor each successor s' of s on h's list",
+          "\t\t\tremove s' and h from each other's lists",
+          "the stable matching consists of all n engagements"
+        ]
         // code: {
         //   1: "set each person to be free;",
         //   2: "while some man m is free {",
