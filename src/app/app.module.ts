@@ -19,10 +19,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatAnimatedIconComponent } from './algorithm-page/mat-animated-icon/mat-animated-icon.component';
-import { SimpleCodeComponent } from './algorithm-page/algorithms/simple/simple-code/simple-code.component';
 import { PlaybackControlsComponent } from './algorithm-page/playback-controls/playback-controls.component';
 import { CodeDisplayComponent } from './algorithm-page/code-display/code-display.component';
-import { SimpleVariablesComponent } from './algorithm-page/algorithms/simple/simple-variables/simple-variables.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { HomeContentComponent } from './home-page/home-content/home-content.component';
@@ -41,10 +39,8 @@ import { EditPreferencesDialogComponent } from './algorithm-page/edit-preference
     AppComponent,
     AlgorithmPageComponent,
     MatAnimatedIconComponent,
-    SimpleCodeComponent,
     PlaybackControlsComponent,
     CodeDisplayComponent,
-    SimpleVariablesComponent,
     HomePageComponent,
     HomeContentComponent,
     AboutContentComponent,
