@@ -228,3 +228,7 @@ div .bs-popover-left {
 .popoverPositioning {
   margin-left: 10rem !important;
 }
+
+li::marker {
+  font-family: Roboto;
+}

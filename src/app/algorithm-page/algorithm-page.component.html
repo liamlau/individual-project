@@ -80,7 +80,7 @@
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()">info</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: advance the tutorial, edit preferences, toggle all preferences or only relevant preferences, and stop this tutorial." data-trigger="manual" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: advance the tutorial, edit preferences, toggle all preferences or only relevant preferences, and stop this tutorial." data-trigger="manual" matTooltip="Tutorial" (click)="this.nextTutorialStep()">help_outline</mat-icon>
   </div>
 
 
@@ -91,8 +91,8 @@
     <nav class="d-none sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
       <div class="sidebar-sticky shadow-lg" style="background-color: #1b1f23; color:rgb(231, 231, 231)">
         <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
-          <div id="descriptionDiv" class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom" style="height:114px">
-            <h3 class="h2 mx-2 text-center sidebarPopover my-auto" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
+          <div id="descriptionDiv" class="row text-center border-bottom" style="height:114px">
+            <h3 class="col-12 h2 sidebarPopover my-auto text-center pr-4" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>{{ this.playback.description }}</h3>
           </div>
           <div class="border-bottom align-items-center">
@@ -126,10 +126,10 @@
 
           <div class="sidebarPopover" id="executionTrace" style="overflow: auto;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Execution Trace" data-content="This will fill out as you play the algorithm with a log of all current line descriptions, so you can go back and get a better idea of what happens at certain parts in the algorithm!" data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" style="color:black" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-            <div class="text-center mb-3">
-              <h3>Execution Trace</h3>
-            </div>
-            <ol start=0>
+            <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0">
+              Execution Log
+            </h1>
+            <ol start=0 class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px;">
               <li class="mb-4" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
                 {{ line }}
               </li>
