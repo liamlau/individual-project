@@ -12,8 +12,7 @@
 
 <hr>
 
-## Total Time Spent (so far): 4 + 18.5 + 11 + 12.5 + 10 + 0.5 + 5.5 + 12 = **74 hours**
-Current expected time spent (using 15 hours a week estimation - excluding week before being allocated project): 7 * 15 = **105 hours**
+## Total Time Spent (so far): **265 hours**
 
 <br><br>
 
@@ -360,7 +359,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
 
-## Week 22 (15 Jan 2021 - 21 Jan 2021) - **36 hours**
+## Week 22 (15 Jan 2021 - 21 Jan 2021) - **51 hours**
 
 ### 15 Feb 2020 (Mon) - 8 hours
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
@@ -387,3 +386,8 @@ Holiday taken for Christmas.
 ### 20 Feb 2020 (Sat) - 5 hours
 * *5 hours*: Got new idea for tutorial, been experimenting, designing and implementing
 <!-- remember to put something in eval/design/requirements about colourblindness (won't be able to do anything about it, not enough time) -->
+
+### 21 Feb 2020 (Sun) - 10 hours
+* *5 hours*: Fixed almost all formatting for algorithm page
+* *3 hours*: Misc bug fixing
+* *2 hours*: Implementing animations for routes

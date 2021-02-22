@@ -38,3 +38,34 @@
 - Change the colour of the right hand side circles to purple (look on Figma for the hex)
 - Make functions for drawing circles and lines between circles
 - Made positions of circles more responsive
+
+
+
+
+# Todo (22/02/21)
+- Add pseudocode for smp-gs-man
+- Add pseudocode for hr-gs-resident
+- Fix bugs with smp-gs-man
+- Fix bugs with hr-gs-resident
+
+- URGENT: Fix bug with canvas auto sizing going off screen
+
+- Fix formatting of canvas drawings
+    - Possibly make responsive
+    - Preferences don't show correctly
+    - Make the circles start from the middle (for 1 preference, it starts at the top)
+
+- Implement error checking for edit preferences
+
+- Create Animation Guide
+
+- Implement animations for closing sidebar panel
+
+- Fix text sizing for main-page
+
+- Create new cards for problems (or fix existing ones)
+
+- Write text for all content pages (main-page)
+
+- Link up "Get Started" button
+- Link up "Give Feedback!" button
