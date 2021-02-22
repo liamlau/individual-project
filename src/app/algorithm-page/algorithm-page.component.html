@@ -68,7 +68,7 @@
       
     </div>
     <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Click this to hide or expand the sidebar underneath!" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
-    <a style="cursor: pointer;vertical-align: -2px" (click)="this.goHome('/')"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+    <a style="cursor: pointer;vertical-align: -2px" (click)="this.goHome('/')" matTooltip="Go Home"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Tutorial" data-content="This short tutorial will walk you through the sections of this page. Click the arrow in the top right to move to the next step of the tutorial! Or you can click the x, also in the top right of the screen, to stop the tutorial." data-trigger="manual">
     <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
@@ -92,7 +92,7 @@
     <nav class="d-none sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
       <div class="sidebar-sticky shadow-lg" style="background-color: #1b1f23; color:rgb(231, 231, 231)">
         <div class="grid-container-algorithm" id="sidebarContent" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
-          <div id="descriptionDiv" class="row text-center border-bottom" style="height:114px">
+          <div id="descriptionDiv" class="row text-center border-bottom px-5" style="height:114px">
             <h3 class="col-12 h2 sidebarPopover my-auto text-center pr-4" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>{{ this.playback.description }}</h3>
           </div>
@@ -110,7 +110,7 @@
               </div>
             </div>
           </div>
-          <div class="border-bottom sidebarPopover" style="background-color: #1b1f23;" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
+          <div class="border-bottom sidebarPopover mr-2" style="background-color: #1b1f23; max-width: 100%;" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
             <!-- <div class="row">
               hi
@@ -127,11 +127,11 @@
 
           <div class="sidebarPopover" id="executionTrace" style="overflow: auto;" data-toggle="popover" data-placement="left" title="Execution Trace" data-content="This will fill out as you play the algorithm with a log of all current line descriptions, so you can go back and get a better idea of what happens at certain parts in the algorithm!" data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" style="color:black" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-            <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0">
+            <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0; font-size: 1.4vw;">
               Execution Log
             </h1>
-            <ol start=0 class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px;">
-              <li class="mb-4" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
+            <ol start=0 class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px; font-size: 0.8vw; line-height: 1.2vw;">
+              <li class="mb-4 pr-2" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
                 {{ line }}
               </li>
             </ol>

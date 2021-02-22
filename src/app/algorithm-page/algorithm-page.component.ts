@@ -88,7 +88,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       translateX: [-500, 0],
       // opacity: [0, 1],
-      delay: 200,
+      delay: 270,
       duration: 1000
     })
 
@@ -97,7 +97,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],
-      delay: 200,
+      delay: 270,
       duration: 1500
     })
 
@@ -106,7 +106,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],
-      delay: 600,
+      delay: 670,
       duration: 900
     })
   }
