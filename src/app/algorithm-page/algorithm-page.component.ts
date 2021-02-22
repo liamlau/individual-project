@@ -27,6 +27,7 @@ export class AlgorithmPageComponent implements OnInit {
   private ctx: CanvasRenderingContext2D;
 
   showCode: boolean = false;
+  dialogOpen: boolean = false;
 
   tutorialStep: number;
 
@@ -46,8 +47,8 @@ export class AlgorithmPageComponent implements OnInit {
     // smp-man-egs
     // hr-resident-egs
 
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
-    this.playback.setAlgorithm("hr-resident-egs", 5, 5);
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-egs");
+    this.playback.setAlgorithm("smp-man-egs", 5, 5);
 
     // uncomment the line below to enable working algorithm selection
     // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
@@ -209,7 +210,10 @@ export class AlgorithmPageComponent implements OnInit {
   openEditPreferencesDialog(): void {
     const dialogRef = this.dialog.open(EditPreferencesDialogComponent);
 
+    this.dialogOpen = true;
+
     dialogRef.afterClosed().subscribe(result => {
+      this.dialogOpen = false;
       console.log(`Dialog result: ${result}`);
     });
 
@@ -291,9 +295,7 @@ export class AlgorithmPageComponent implements OnInit {
   nextTutorialStep(): void {
     console.log(this.tutorialStep);
     if (this.tutorialStep == 0) {
-      $(function () {
-        $('[data-toggle="popover"]').popover()
-      })
+      this.showCode = false;
       this.startTutorial();
     } else if (this.tutorialStep == 1) {
       this.sidebarTutorial();

@@ -232,3 +232,8 @@ div .bs-popover-left {
 li::marker {
   font-family: Roboto;
 }
+
+.disabled {
+  pointer-events: none;
+  color: #616161;
+}

@@ -49,6 +49,9 @@ x Fix bugs with smp-man-gs
     x Only showing relevant preferences isn't working
 x Fix bugs with hr-resident-gs
 
+x Stopped user from clicking certain buttons during tutorial
+
+x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 

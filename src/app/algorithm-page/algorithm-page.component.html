@@ -67,7 +67,7 @@
     <div class="align-middle" style="display: inline-block; height: 100%">
       
     </div>
-    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Click this to hide or expand the sidebar underneath!" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Click this to hide or expand the sidebar underneath when not in this tutorial!" data-trigger="manual" (click)="this.showCode = !this.showCode; $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}" [ngClass]="{'disabled': this.tutorialStep != 0}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
     <a style="cursor: pointer;vertical-align: -2px" (click)="this.goHome('/')" matTooltip="Go Home"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Tutorial" data-content="This short tutorial will walk you through the sections of this page. Click the arrow in the top right to move to the next step of the tutorial! Or you can click the x, also in the top right of the screen, to stop the tutorial." data-trigger="manual">
@@ -76,11 +76,11 @@
 
   <div class="col-3 text-right">
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Stop Tutorial" *ngIf="this.tutorialStep != 0" (click)="this.stopTutorial()">cancel</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Generate New Random Preferences" (click)="this.generateNewPreferences()">refresh</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()">edit</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Generate New Random Preferences" (click)="this.generateNewPreferences()" [ngClass]="{'disabled': this.tutorialStep != 0}">refresh</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
-    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()">info</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}" [ngClass]="{'disabled': this.tutorialStep != 0}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()" [ngClass]="{'disabled': this.tutorialStep != 0}">info</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: stop this tutorial, generate new preferences, edit preferences, toggle all preferences or only relevant preferences, see an animation guide, or advance the tutorial." data-trigger="manual" matTooltip="{{this.tutorialStep == 0 ? 'Tutorial' : 'Advance Tutorial'}}" (click)="this.nextTutorialStep()">{{this.tutorialStep == 0 ? "help_outline" : "arrow_forward_ios"}}</mat-icon>
   </div>
 
