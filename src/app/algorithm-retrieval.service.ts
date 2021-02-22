@@ -147,20 +147,6 @@ export class AlgorithmRetrievalService {
           "\t\t\tremove s' and h from each other's lists",
           "the stable matching consists of all n engagements"
         ]
-        // code: {
-        //   1: "set each person to be free;",
-        //   2: "while some man m is free {",
-        //   3: "\tw = first woman on m's list",
-        //   4: "\tif w is currently engaged to someone {",
-        //   5: "\t\tbreak engagement between w and w's current partner",
-        //   6: "\t}",
-        //   7: "\tprovisionally engage m and w to be",
-        //   8: "\tfor each successor m'' of m on w's list {",
-        //   9: "\t\tm'' = next worst man on w's preference list",
-        //   10: "\t\tremove m'' from w's preference list and vice versa",
-        //   11: "\t}",
-        //   12: "}"   // a stable matching between men and women has been found
-        // }
       }
     ],
 

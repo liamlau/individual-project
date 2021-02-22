@@ -56,8 +56,12 @@ export class GsStableMarriageService extends GaleShapley {
   
       // 2: while some man m is free do
       while (this.freeAgentsOfGroup1.length > 0) {
+
+          this.currentlySelectedAgents = [];
+          this.relevantPreferences = [];
         
           let man: Man = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+          this.relevantPreferences.push(man["name"].substring(3));
           this.currentlySelectedAgents.push(man["name"].substring(3));
           this.update(2, {"%man%": man.name});
           // console.log("-------");
@@ -66,6 +70,7 @@ export class GsStableMarriageService extends GaleShapley {
           let woman: Agent = man.ranking[man.lastProposed];
 
           this.currentlySelectedAgents.push(woman["name"].substring(5));
+          this.relevantPreferences.push(woman["name"].substring(5));
 
           let redLine = [man["name"].substring(3), woman["name"].substring(5), "red"];
           this.currentLines.push(redLine);
@@ -102,12 +107,15 @@ export class GsStableMarriageService extends GaleShapley {
 
               this.update(5, {"%woman%": woman.name, "%man%": man.name});
           } else {
+              this.relevantPreferences.push(woman.match[0].name.substring(3));
               this.update(6, {"%woman%": woman.name, "%man%": man.name, "%match%": woman.match[0].name})
               let manName = man.name;
               this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), this.findPositionInMatches(woman, man), "red");
               // console.log("Index of current match (" + woman["match"]["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == woman["match"]["name"])));
               // console.log("Index of man (" + man["name"] + "): " + woman["ranking"].findIndex(((man: { name: string; }) => man.name == manName)) );
               this.update(7, {"%woman%": woman.name, "%man%": man.name, "%match%": woman.match[0].name})
+
+              
 
               if (woman.ranking.findIndex(((man: { name: string; }) => man.name == woman.match[0].name)) > woman.ranking.findIndex(((man: { name: string; }) => man.name == manName))) {
 

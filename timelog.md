@@ -391,3 +391,13 @@ Holiday taken for Christmas.
 * *5 hours*: Fixed almost all formatting for algorithm page
 * *3 hours*: Misc bug fixing
 * *2 hours*: Implementing animations for routes
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
+
+## Week 23 (22 Jan 2021 - 28 Jan 2021) - **x hours**
+
+### 15 Feb 2020 (Mon) - 4 hours
+* *2 hours*: Miscellaneous bug/positional fixes
+* *2 hours*: Added updated, refactored pseudocode for smp-gs-man and hr-egs-resident
