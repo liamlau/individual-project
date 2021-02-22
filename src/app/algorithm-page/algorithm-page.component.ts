@@ -74,13 +74,39 @@ export class AlgorithmPageComponent implements OnInit {
     // var yPos = document.querySelector('.option-box').getBoundingClientRect().y;
     // console.log(yPos)
 
-    // anime({
-    //   targets: '.title-container',
-    //   easing: 'easeInOutQuint',
-    //   translateY: [-150, 0],
-    //   opacity: [0, 1],
-    //   duration: 1200
-    // })
+    anime({
+      targets: '.navbar',
+      easing: 'easeInOutQuint',
+      // translateY: [-150, 0],
+      opacity: [0, 1],
+      duration: 600
+    })
+
+    anime({
+      targets: '.sidebar',
+      easing: 'easeInOutQuint',
+      translateX: [-500, 0],
+      // opacity: [0, 1],
+      // delay: 600,
+      duration: 1000
+    })
+
+    anime({
+      targets: '#sidebarContent',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [0, 1],
+      duration: 1500
+    })
+
+    anime({
+      targets: '#mainContent',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [0, 1],
+      delay: 500,
+      duration: 900
+    })
   }
 
 

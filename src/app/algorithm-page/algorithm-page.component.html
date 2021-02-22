@@ -80,7 +80,7 @@
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()">info</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: advance the tutorial, edit preferences, toggle all preferences or only relevant preferences, and stop this tutorial." data-trigger="manual" matTooltip="Tutorial" (click)="this.nextTutorialStep()">help_outline</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: advance the tutorial, edit preferences, toggle all preferences or only relevant preferences, and stop this tutorial." data-trigger="manual" matTooltip="Help" (click)="this.nextTutorialStep()">help_outline</mat-icon>
   </div>
 
 
@@ -90,7 +90,7 @@
   <div class="row" style="height: 100%">
     <nav class="d-none sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
       <div class="sidebar-sticky shadow-lg" style="background-color: #1b1f23; color:rgb(231, 231, 231)">
-        <div class="grid-container-algorithm" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
+        <div class="grid-container-algorithm" id="sidebarContent" style="height: 100%; display: grid; grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr; grid-auto-rows: minmax(100px, auto);">
           <div id="descriptionDiv" class="row text-center border-bottom" style="height:114px">
             <h3 class="col-12 h2 sidebarPopover my-auto text-center pr-4" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;" data-container="#descriptionDiv" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
             data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>{{ this.playback.description }}</h3>
@@ -141,7 +141,7 @@
     </nav>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
-      <div class="grid-container-algorithm ml-sm-auto" style="width: 100%; height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: #ffffff; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
+      <div class="grid-container-algorithm ml-sm-auto" id="mainContent" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: #ffffff; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
 
         <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center" style="height:120px; border-bottom: 1px solid rgba(184, 184, 184, 0.658);">
           <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
