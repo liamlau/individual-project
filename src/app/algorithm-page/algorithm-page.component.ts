@@ -58,7 +58,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.tutorialStep = 0;
 
-    this.nextTutorialStep();
+    // this.nextTutorialStep();
 
   }
 
