@@ -81,7 +81,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
   breakAssignment(resident: Agent, hospital: Hospital): void {
 
-    this.update(4, {"%hospital%": hospital.name});
+    this.update(4, {"%hospital%": hospital.name, "%capacity%": hospital.availableSpaces, "%resident%": resident.name});
     if (hospital.match.length >= hospital.availableSpaces) {
         let worstResident = this.getWorstResident(hospital);
         this.update(5, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
@@ -133,7 +133,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
       let greenLine = [agentLastChar, proposeeLastChar, "green"];
       this.currentLines.push(greenLine);
 
-      this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.findPositionInMatches(resident, hospital), "green");
+      this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(h => h == this.getLastCharacter(hospital.name)), "green");
       this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
 
       if (hospital.match.length >= hospital.availableSpaces - 1) {

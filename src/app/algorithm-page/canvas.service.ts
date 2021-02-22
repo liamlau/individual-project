@@ -29,7 +29,7 @@ export class CanvasService {
   fontSize: number = 20;
 
 
-  alwaysShowPreferences: boolean = true;
+  alwaysShowPreferences: boolean = false;
 
   canvas: ElementRef<HTMLCanvasElement>;
 
