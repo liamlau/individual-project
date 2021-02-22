@@ -47,8 +47,10 @@ x Add pseudocode for smp-gs-man
 x Add pseudocode for hr-gs-resident
 x Fix bugs with smp-man-gs
     x Only showing relevant preferences isn't working
-- Fix bugs with hr-resident-gs
+x Fix bugs with hr-resident-gs
+
 - Implement error checking for edit preferences
+- Implement working edit preferences for hr-egs-resident
 
 - Create Animation Guide
 - Fix testing to allow push, write new tests for every part of program
@@ -83,3 +85,4 @@ x Fix bugs with smp-man-gs
 - Documentation
 
 - Write plan for dissertation
+- Do dissertation
