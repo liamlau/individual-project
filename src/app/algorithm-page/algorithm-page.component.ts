@@ -77,9 +77,9 @@ export class AlgorithmPageComponent implements OnInit {
     anime({
       targets: '.navbar',
       easing: 'easeInOutQuint',
-      // translateY: [-150, 0],
+      translateY: [-150, 0],
       opacity: [0, 1],
-      duration: 600
+      duration: 500
     })
 
     anime({
@@ -104,7 +104,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],
-      delay: 500,
+      delay: 400,
       duration: 900
     })
   }
