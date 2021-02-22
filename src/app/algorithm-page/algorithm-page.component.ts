@@ -261,6 +261,33 @@ export class AlgorithmPageComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
+
+  async generateNewPreferences() {
+
+    var command = this.playback.commandList[this.playback.previousStepCounter];
+    let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
+    a.style.color = "";
+
+    anime({
+      targets: '#myCanvas',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [1, 0],
+      duration: 300
+    })
+    await this.delay(300);
+    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    anime({
+      targets: '#myCanvas',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [0, 1],
+      duration: 300
+    })
+  }
+
+
   nextTutorialStep(): void {
     console.log(this.tutorialStep);
     if (this.tutorialStep == 0) {
