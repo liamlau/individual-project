@@ -76,10 +76,11 @@ export class AlgorithmPageComponent implements OnInit {
 
     anime({
       targets: '.navbar',
-      easing: 'easeInOutQuint',
+      easing: 'easeOutQuint',
       translateY: [-150, 0],
-      opacity: [0, 1],
-      duration: 500
+      // opacity: [0, 1],
+      delay: 200,
+      duration: 900
     })
 
     anime({
@@ -87,7 +88,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       translateX: [-500, 0],
       // opacity: [0, 1],
-      // delay: 600,
+      delay: 200,
       duration: 1000
     })
 
@@ -96,6 +97,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],
+      delay: 200,
       duration: 1500
     })
 
@@ -104,7 +106,7 @@ export class AlgorithmPageComponent implements OnInit {
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],
-      delay: 400,
+      delay: 600,
       duration: 900
     })
   }
@@ -213,6 +215,51 @@ export class AlgorithmPageComponent implements OnInit {
 
   }
 
+  async goHome(page: string): Promise<void> {
+    if (!(this.router.url == page)) {
+
+      anime({
+        targets: '.navbar',
+        easing: 'easeOutQuint',
+        translateY: [0, -150],
+        // opacity: [0, 1],
+        delay: 400,
+        duration: 900
+      })
+  
+      anime({
+        targets: '.sidebar',
+        easing: 'easeInOutQuint',
+        translateX: [0, -500],
+        // opacity: [0, 1],
+        duration: 600
+      })
+  
+      anime({
+        targets: '#sidebarContent',
+        easing: 'easeInOutQuint',
+        // translateX: [-1500, 0],
+        opacity: [1, 0],
+        duration: 600
+      })
+  
+      anime({
+        targets: '#mainContent',
+        easing: 'easeInOutQuint',
+        // translateX: [-1500, 0],
+        opacity: [1, 0],
+        duration: 600
+      })
+
+      await this.delay(1000);
+
+      this.router.navigateByUrl(page);
+    }
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   nextTutorialStep(): void {
     console.log(this.tutorialStep);

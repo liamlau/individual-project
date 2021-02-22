@@ -17,11 +17,23 @@ export class HomePageComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+
     anime({
-      targets: '.titleContent',
+      targets: '.navbar',
       easing: 'easeInOutQuint',
-      translateY: [-200, 0],
-      duration: 500
+      translateY: [-150, 0],
+      opacity: [0, 1],
+      delay: 100,
+      duration: 1000
+    })
+
+    anime({
+      targets: '.main-page',
+      easing: 'easeInOutQuint',
+      opacity: [0, 1],
+      // translateY: [-100, 0],
+      delay: 550,
+      duration: 900
     })
   }
 }
