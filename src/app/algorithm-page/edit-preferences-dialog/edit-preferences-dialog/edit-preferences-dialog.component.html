@@ -48,6 +48,8 @@
         <textarea matInput [formControl]="preferencesForm" placeholder="1: A, B, C, D, E" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;" value={{this.generatePreferenceString()}}></textarea>
     </mat-form-field>
 
+    <h2>Preferences Missing</h2>
+
     <div class="row">
         <div class="col-12 text-right">
             <button mat-stroked-button (click)="generateAlgorithmPreferences()">Generate!</button>

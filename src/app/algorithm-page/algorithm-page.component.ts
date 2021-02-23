@@ -114,14 +114,16 @@ export class AlgorithmPageComponent implements OnInit {
 
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
-    if (event.key == "ArrowRight" || event.key == "d") {
-      if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
-        this.playback.forwardStep();
-      }
-    } else if (event.key == "ArrowLeft" || event.key == "a") {
-      if (!(!this.playback.pause || this.playback.stepCounter == 0)) {
-        this.playback.backStep();
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (!this.dialogOpen && this.tutorialStep == 0) {
+      if (event.key == "ArrowRight" || event.key == "d") {
+        if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
+          this.playback.forwardStep();
+        }
+      } else if (event.key == "ArrowLeft" || event.key == "a") {
+        if (!(!this.playback.pause || this.playback.stepCounter == 0)) {
+          this.playback.backStep();
+        }
       }
     }
   }
