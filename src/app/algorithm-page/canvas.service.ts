@@ -254,7 +254,15 @@ export class CanvasService {
       if (agent.match(/[A-Z]/i)) {
         this.drawText(this.ctx, group2PreferenceList[(((agent.charCodeAt(0)) - 65 ))].join(", "), this.positions["circle" + agent].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + agent].positionY + 7, this.fontSize);
       } else {
-        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - 175, this.positions["circle" + agent].positionY + 7, this.fontSize);
+
+        let lineSizes: Array<number> = []
+
+        for (let i=0; i < this.algService.numberOfGroup1Agents; i++) {
+          let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i].join(", ")).width;
+          lineSizes.push(lineSize);
+        }
+
+        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - lineSizes[Number(agent) - 1] - 83.8, this.positions["circle" + agent].positionY + 7, this.fontSize);
       }
     }
   }
@@ -437,7 +445,6 @@ export class CanvasService {
     if (command) {
       this.currentCommand = command;
       if (this.currentCommand["lineNumber"] == 1 && !(this.originalGroup1Preferences || this.originalGroup2Preferences)) {
-        console.log("here");
         this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values())
         this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values())
       }

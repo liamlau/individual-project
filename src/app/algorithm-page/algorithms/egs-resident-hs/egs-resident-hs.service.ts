@@ -156,8 +156,6 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
 
           let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
-          console.log("---------------------------------------------");
-          console.log(hospital.name);
       // for each successor h' of h on r's list {
           for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
@@ -165,9 +163,6 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
               this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
               this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
-              console.log(hospital.ranking[i].name)
-              console.log("---- " + hospitalPosition + " ----");
-              console.log(hospital.ranking[i].ranking[hospitalPosition]);
 
               this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 

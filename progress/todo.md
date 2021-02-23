@@ -71,8 +71,9 @@ x Get ethics checklist ready to be sent
 
 - Fix bugs with hr-resident-gs
     x Now highlights correct preferences
-    - Make sure it doesn't break on different input values
-    - Breaks with higher number of hospitals than residents
+    x Make sure it doesn't break on different input values
+    x Breaks with higher number of hospitals than residents
+    - Edit preferences breaks when just clicking on it and trying to generate
 
 
 - URGENT: Fix bug with canvas auto sizing going off screen
