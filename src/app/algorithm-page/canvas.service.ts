@@ -216,8 +216,6 @@ export class CanvasService {
       let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i].join(", ")).width;
       lineSizes.push(lineSize);
     }
-    
-    console.log(this.originalGroup1Preferences);
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       // got a bug here - text is displayed dodgy with different numbers than 5

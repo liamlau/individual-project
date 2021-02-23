@@ -66,6 +66,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
             }
         }
 
+        this.currentlySelectedAgents = [];
         this.relevantPreferences = [];
         // a stable matching has been found
         this.update(this.numberOfLines);
