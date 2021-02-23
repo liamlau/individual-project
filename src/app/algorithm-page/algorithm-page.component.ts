@@ -48,11 +48,11 @@ export class AlgorithmPageComponent implements OnInit {
     // smp-man-egs
     // hr-resident-egs
 
-    this.algorithmService.numberOfGroup1Agents = 4
-    this.algorithmService.numberOfGroup2Agents = 6
+    this.algorithmService.numberOfGroup1Agents = 5
+    this.algorithmService.numberOfGroup2Agents = 9
 
     this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("hr-resident-egs");
-    this.playback.setAlgorithm("hr-resident-egs", 4, 6);
+    this.playback.setAlgorithm("hr-resident-egs", 5, 9);
 
     // uncomment the line below to enable working algorithm selection
     // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);

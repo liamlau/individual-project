@@ -9,6 +9,9 @@ import { PlaybackService } from './playback.service';
 })
 export class CanvasService {
 
+  originalGroup1Preferences: Array<Array<string>>;
+  originalGroup2Preferences: Array<Array<string>>;
+
   // HTML drawing properties
   sizes = [];
   baseSize = undefined;
@@ -206,9 +209,19 @@ export class CanvasService {
       group1PreferenceList = Array.from(this.currentCommand["group1CurrentPreferences"].values());
     }
 
+    let lineSizes: Array<number> = []
+
+    // this.ctx.textAlign = "right";
+    for (let i=0; i < this.algService.numberOfGroup1Agents; i++) {
+      let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i].join(", ")).width;
+      lineSizes.push(lineSize);
+    }
+    
+    console.log(this.originalGroup1Preferences);
+
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       // got a bug here - text is displayed dodgy with different numbers than 5
-      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - lineSizes[i - 1] - 65, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
@@ -425,6 +438,11 @@ export class CanvasService {
 
     if (command) {
       this.currentCommand = command;
+      if (this.currentCommand["lineNumber"] == 1 && !(this.originalGroup1Preferences || this.originalGroup2Preferences)) {
+        console.log("here");
+        this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values())
+        this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values())
+      }
     }
 
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
