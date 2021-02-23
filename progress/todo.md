@@ -47,30 +47,40 @@ x Add pseudocode for smp-gs-man
 x Add pseudocode for hr-gs-resident
 x Fix bugs with smp-man-gs
     x Only showing relevant preferences isn't working
-- Fix bugs with hr-resident-gs
-    x Now highlights correct preferences
-    - Make sure it doesn't break on different input values
-    - Breaks with higher number of hospitals than residents
 
 x Stopped user from clicking certain buttons during tutorial
 
 x Create Animation Guide
 
-- Show relevant preferences for smp-man-egs
+x Show relevant preferences for smp-man-egs
 
 x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
+
+- Create new cards for problems (or fix existing ones)
+
+- Write text for all content pages (main-page)
+
+x Link up "Give Feedback!" button
+
+- Finish evaluation script
+- Plan for tomorrow's meeting
+- Get consent form ready to be sent
+
+-----------------------------
+
 - Implement auto fixing for edit preferences
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 - Make it so it the program doesn't break when inputting preferences of different sizes
 
-- Finish evaluation script
-- Plan for tomorrow's meeting
 
------------------------------
+- Fix bugs with hr-resident-gs
+    x Now highlights correct preferences
+    - Make sure it doesn't break on different input values
+    - Breaks with higher number of hospitals than residents
+
 
 - URGENT: Fix bug with canvas auto sizing going off screen
-
 - Fix formatting of canvas drawings
     - Possibly make responsive
     - Preferences don't show correctly
@@ -81,15 +91,6 @@ x Fix bug with edit preferences not appearing on top (allowing the user to click
 - Implement animations for closing sidebar panel
 
 - Fix text sizing for main-page
-
-- Create new cards for problems (or fix existing ones)
-
-- Write text for all content pages (main-page)
-
-- Link up "Get Started" button
-- Link up "Give Feedback!" button
-
-
 
 - Do evaluations
 
