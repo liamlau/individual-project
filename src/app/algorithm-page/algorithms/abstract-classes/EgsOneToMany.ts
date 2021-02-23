@@ -66,6 +66,7 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
             // "Woman: " + potentialProposee.name);
 
             let proposeePosition: number = this.findPositionInMatches(potentialProposee.ranking[i], potentialProposee);
+            this.relevantPreferences.push(this.getLastCharacter(potentialProposee.ranking[i].name));
 
             // potentialProposee.ranking[i].name);
             // potentialProposee.ranking[i].ranking[proposeePosition]);
@@ -87,6 +88,9 @@ export abstract class EgsOneToMany extends ExtendedGaleShapley {
             i -= 1;
 
             proposeeRankingClearCounter++;
+
+            this.relevantPreferences.pop();
+
         }
         this.update(11, {"%man%": currentAgent.name, "%woman%": potentialProposee.name});
     }

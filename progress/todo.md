@@ -49,10 +49,14 @@ x Fix bugs with smp-man-gs
     x Only showing relevant preferences isn't working
 - Fix bugs with hr-resident-gs
     x Now highlights correct preferences
+    - Make sure it doesn't break on different input values
+    - Breaks with higher number of hospitals than residents
 
 x Stopped user from clicking certain buttons during tutorial
 
 x Create Animation Guide
+
+- Show relevant preferences for smp-man-egs
 
 x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
 - Implement auto fixing for edit preferences
