@@ -37,12 +37,11 @@ export class EditPreferencesDialogComponent implements OnInit {
   ]);
 
   preferencesForm: FormControl;
+  formString: string;
 
   ngOnInit(): void {
     this.group1Preferences = this.playbackService.commandList[0]["group1CurrentPreferences"];
     this.group2Preferences = this.playbackService.commandList[0]["group2CurrentPreferences"];
-
-    this.preferences = this.generatePreferenceString();
 
     this.preferencesForm = new FormControl(this.preferences);
 
@@ -50,9 +49,14 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.equalGroups = true;
     }
 
+    this.generatePreferenceString();
+    console.log(this.formString)
+
   }
 
-  generatePreferenceString(): string {
+  generatePreferenceString(): void {
+
+    console.log("here");
 
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
     let currentLine: string = "";
@@ -118,12 +122,12 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     }
 
-    return preferenceString.slice(0, -1);
+    this.formString = preferenceString.slice(0, -1);
 
   }
 
   generateAlgorithmPreferences(): void {
-    let preferenceString: string = this.preferencesForm.value;
+    let preferenceString: string = this.formString;
 
     console.log("---");
     console.log(preferenceString);
