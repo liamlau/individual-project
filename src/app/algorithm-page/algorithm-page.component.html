@@ -71,7 +71,7 @@
     <a style="cursor: pointer;vertical-align: -2px" (click)="this.goHome('/')" matTooltip="Go Home"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Tutorial" data-content="This short tutorial will walk you through the sections of this page. Click the arrow in the top right to move to the next step of the tutorial! Or you can click the x, also in the top right of the screen, to stop the tutorial." data-trigger="manual">
-    <span style="color: white; font-size: 1.1rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
+    <span style="color: white; font-size: 0.98rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
   <div class="col-3 text-right">
@@ -80,7 +80,7 @@
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
     <!-- <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" *ngIf="this.tutorialStep != 0">edit</mat-icon> -->
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}" [ngClass]="{'disabled': this.tutorialStep != 0}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.nextTutorialStep()" [ngClass]="{'disabled': this.tutorialStep != 0}">info</mat-icon>
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.openAnimationGuideDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">info</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: stop this tutorial, generate new preferences, edit preferences, toggle all preferences or only relevant preferences, see an animation guide, or advance the tutorial." data-trigger="manual" matTooltip="{{this.tutorialStep == 0 ? 'Tutorial' : 'Advance Tutorial'}}" (click)="this.nextTutorialStep()">{{this.tutorialStep == 0 ? "help_outline" : "arrow_forward_ios"}}</mat-icon>
   </div>
 
@@ -157,7 +157,7 @@
           </canvas>
         </div>
 
-        <div class="container-fluid py-3" style="background-color: rgb(228, 228, 228); border-top: 0.6px solid rgb(124, 124, 124); ">
+        <div class="container-fluid py-3" style="background-color: rgb(241, 241, 241); border-top: 0.6px solid rgb(124, 124, 124); ">
           <div class="row" style="height: 100%">
             <div class="col-12 mainContentPopover my-auto" data-toggle="popover" data-placement="top" title="Playback Controls" data-content="Use the controls below to interact with the algorithm! Play or step through at a pace you choose with the speed slider, or use the position slider at the bottom to drag through the algorithm!" data-trigger="manual">
               <div class="playback-block">

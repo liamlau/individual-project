@@ -32,6 +32,7 @@ import { IconBannerComponent } from './home-page/icon-banner/icon-banner.compone
 import { FeedbackBannerComponent } from './home-page/feedback-banner/feedback-banner.component';
 import { NavbarComponent } from './home-page/navbar/navbar.component';
 import { EditPreferencesDialogComponent } from './algorithm-page/edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
+import { AnimationGuideDialogComponent } from './algorithm-page/animation-guide-dialog/animation-guide-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditPreferencesDialogComponent } from './algorithm-page/edit-preference
     IconBannerComponent,
     FeedbackBannerComponent,
     NavbarComponent,
-    EditPreferencesDialogComponent
+    EditPreferencesDialogComponent,
+    AnimationGuideDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -123,7 +123,11 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
   generateAlgorithmPreferences(): void {
-    let preferenceString: string = this.generatePreferenceString();
+    let preferenceString: string = this.preferencesForm.value;
+
+    console.log("---");
+    console.log(preferenceString);
+
     let newPreferences: Map<String, Array<String>> = new Map();
 
     console.log(preferenceString.split("\n"));

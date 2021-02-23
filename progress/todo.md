@@ -47,18 +47,21 @@ x Add pseudocode for smp-gs-man
 x Add pseudocode for hr-gs-resident
 x Fix bugs with smp-man-gs
     x Only showing relevant preferences isn't working
-x Fix bugs with hr-resident-gs
+- Fix bugs with hr-resident-gs
+    x Now highlights correct preferences
 
 x Stopped user from clicking certain buttons during tutorial
+
+x Create Animation Guide
 
 x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
 - Implement auto fixing for edit preferences
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
+- Make it so it the program doesn't break when inputting preferences of different sizes
 
-- Create Animation Guide
-- Fix testing to allow push, write new tests for every part of program
 - Finish evaluation script
+- Plan for tomorrow's meeting
 
 -----------------------------
 

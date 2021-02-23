@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
+import { AnimationGuideDialogComponent } from './animation-guide-dialog/animation-guide-dialog.component';
 import { CanvasService } from './canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { PlaybackService } from './playback.service';
@@ -220,6 +221,20 @@ export class AlgorithmPageComponent implements OnInit {
     });
 
   }
+
+
+  openAnimationGuideDialog(): void {
+    const dialogRef = this.dialog.open(AnimationGuideDialogComponent);
+
+    this.dialogOpen = true;
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogOpen = false;
+      console.log(`Dialog result: ${result}`);
+    });
+
+  }
+
 
   async goHome(page: string): Promise<void> {
     if (!(this.router.url == page)) {
