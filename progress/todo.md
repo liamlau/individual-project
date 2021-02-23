@@ -56,16 +56,10 @@ x Show relevant preferences for smp-man-egs
 
 x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
 
-- Create new cards for problems (or fix existing ones)
-
-- Write text for all content pages (main-page)
-
 x Link up "Give Feedback!" button
 
-- Finish evaluation script
-
-- Plan for tomorrow's meeting
-- Get ethics checklist ready to be sent
+x Plan for tomorrow's meeting
+x Get ethics checklist ready to be sent
 
 -----------------------------
 
@@ -87,7 +81,10 @@ x Link up "Give Feedback!" button
     - Preferences don't show correctly
     - Make the circles start from the middle (for 1 preference, it starts at the top)
 
+- Create new cards for problems (or fix existing ones)
 
+- Write text for all content pages (main-page)
+- Finish evaluation script
 
 - Implement animations for closing sidebar panel
 
@@ -99,3 +96,5 @@ x Link up "Give Feedback!" button
 
 - Write plan for dissertation
 - Do dissertation
+
+- Autoplay videos
