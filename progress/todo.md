@@ -63,8 +63,9 @@ x Fix bug with edit preferences not appearing on top (allowing the user to click
 x Link up "Give Feedback!" button
 
 - Finish evaluation script
+
 - Plan for tomorrow's meeting
-- Get consent form ready to be sent
+- Get ethics checklist ready to be sent
 
 -----------------------------
 

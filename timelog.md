@@ -396,8 +396,9 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (22 Jan 2021 - 28 Jan 2021) - **x hours**
+## Week 23 (22 Jan 2021 - 28 Jan 2021) - **11 hours**
 
-### 15 Feb 2020 (Mon) - 4 hours
+### 22 Feb 2020 (Mon) - 11 hours
 * *2 hours*: Miscellaneous bug/positional fixes
 * *2 hours*: Added updated, refactored pseudocode for smp-gs-man and hr-egs-resident
+* *7 hours*: Created animation guide, lots of bug fixes, started implementing checks for edit preferences
