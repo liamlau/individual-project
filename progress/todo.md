@@ -74,6 +74,7 @@ x Get ethics checklist ready to be sent
     x Make sure it doesn't break on different input values
     x Breaks with higher number of hospitals than residents
     - Edit preferences breaks when just clicking on it and trying to generate
+    x Positioning of show relevant preferences was off
 
 
 - URGENT: Fix bug with canvas auto sizing going off screen
@@ -81,6 +82,8 @@ x Get ethics checklist ready to be sent
     - Possibly make responsive
     - Preferences don't show correctly
     - Make the circles start from the middle (for 1 preference, it starts at the top)
+
+- sort RHS on finish
 
 - Create new cards for problems (or fix existing ones)
 

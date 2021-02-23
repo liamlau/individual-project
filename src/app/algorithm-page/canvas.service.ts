@@ -42,6 +42,8 @@ export class CanvasService {
 
   public ctx: CanvasRenderingContext2D;
 
+  lineSizes: Map<string, number> = new Map();
+
   constructor(public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
@@ -209,17 +211,10 @@ export class CanvasService {
       group1PreferenceList = Array.from(this.currentCommand["group1CurrentPreferences"].values());
     }
 
-    let lineSizes: Array<number> = []
-
-    // this.ctx.textAlign = "right";
-    for (let i=0; i < this.algService.numberOfGroup1Agents; i++) {
-      let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i].join(", ")).width;
-      lineSizes.push(lineSize);
-    }
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       // got a bug here - text is displayed dodgy with different numbers than 5
-      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - lineSizes[i - 1] - 65, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - this.lineSizes.get(String(i)) - 125, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
@@ -254,15 +249,7 @@ export class CanvasService {
       if (agent.match(/[A-Z]/i)) {
         this.drawText(this.ctx, group2PreferenceList[(((agent.charCodeAt(0)) - 65 ))].join(", "), this.positions["circle" + agent].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + agent].positionY + 7, this.fontSize);
       } else {
-
-        let lineSizes: Array<number> = []
-
-        for (let i=0; i < this.algService.numberOfGroup1Agents; i++) {
-          let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i].join(", ")).width;
-          lineSizes.push(lineSize);
-        }
-
-        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - lineSizes[Number(agent) - 1] - 83.8, this.positions["circle" + agent].positionY + 7, this.fontSize);
+        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - this.lineSizes.get(agent) - 125, this.positions["circle" + agent].positionY + 7, this.fontSize);
       }
     }
   }
@@ -447,6 +434,11 @@ export class CanvasService {
       if (this.currentCommand["lineNumber"] == 1 && !(this.originalGroup1Preferences || this.originalGroup2Preferences)) {
         this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values())
         this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values())
+        this.lineSizes = new Map();
+        for (let i=1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+          let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i-1].join(", ")).width;
+          this.lineSizes.set(String(i), lineSize);
+        }
       }
     }
 
