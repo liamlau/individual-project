@@ -100,6 +100,48 @@ export class PlaybackService {
     this.colourCurrentLine();
   }
 
+  async toggle() {
+    if (this.firstRun) {
+      // var yMid = ((window.innerHeight / 2) / 2) - 20;
+      // // console.log(yMid);
+
+      // anime({
+      //   targets: '.algorithm-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [-yMid, 0],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // anime({
+      //   targets: '.title-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [40, 20],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
+      this.firstRun = false;
+      this.pause = false;
+
+
+      // await this.delay(400);
+      // anime({
+      //   targets: '.variable-block',
+      //   easing: 'easeInOutQuint',
+      //   opacity: [0, 1],
+      //   duration: 300
+      // })
+      this.play();
+    } else {
+      if (this.pause) {
+        this.pause = false;
+        this.play();
+      } else {
+        this.pause = true;
+      }
+    }
+  }
 
   async play(): Promise<void> {
     while (this.stepCounter < this.numCommands) {

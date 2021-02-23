@@ -50,12 +50,13 @@ export class AlgorithmPageComponent implements OnInit {
 
     let group1 = 5;
     let group2 = 5;
+    let alg: string = "smp-man-gs";
 
     this.algorithmService.numberOfGroup1Agents = group1;
     this.algorithmService.numberOfGroup2Agents = group2;
 
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
-    this.playback.setAlgorithm("smp-man-gs", group1, group2);
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
+    this.playback.setAlgorithm(alg, group1, group2);
 
     // uncomment the line below to enable working algorithm selection
     // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
@@ -131,19 +132,13 @@ export class AlgorithmPageComponent implements OnInit {
         if (!(!this.playback.pause || this.playback.stepCounter == 0)) {
           this.playback.backStep();
         }
+      } else if (event.key == " ") {
+        if (!(this.playback.stepCounter >= this.playback.numCommands)) {
+          this.playback.toggle();
+        }
       }
     }
   }
-
-
-  // async goToPage(page: string): Promise<void> {
-  //   if (!(this.router.url == page)) {
-  //     this.currentPage = page;
-  //     this.fadeCurrentPage();
-  //     await this.delay(400);
-  //     this.router.navigateByUrl(page);
-  //   }
-  // }
 
 
   firstSelection: boolean = true

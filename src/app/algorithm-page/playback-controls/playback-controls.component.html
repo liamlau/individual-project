@@ -27,7 +27,7 @@
         <mat-icon id="backButton" style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.backStep()" [ngClass]="{'disabled': !this.playback.pause || this.playback.stepCounter == 0}">fast_rewind</mat-icon>
         
         <!-- PLAY -->
-        <mat-animated-icon id="playButton" class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
+        <mat-animated-icon id="playButton" class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.playback.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
 
         <!-- FORWARD ONE STEP -->
         <mat-icon id="forwardButton" style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.forwardStep()" [ngClass]="{'disabled': !this.playback.pause || this.playback.stepCounter >= this.playback.numCommands}">fast_forward</mat-icon>

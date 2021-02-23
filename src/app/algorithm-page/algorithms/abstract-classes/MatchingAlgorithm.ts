@@ -319,6 +319,7 @@ export abstract class MatchingAlgorithm {
         // console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
 
         this.match();
+
         // this.getMatches();
 
         return this.algorithmData;

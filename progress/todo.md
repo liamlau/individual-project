@@ -67,13 +67,12 @@ x Get ethics checklist ready to be sent
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 - Make it so it the program doesn't break when inputting preferences of different sizes
-
+- Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
 
 - Fix bugs with hr-resident-gs
     x Now highlights correct preferences
     x Make sure it doesn't break on different input values
     x Breaks with higher number of hospitals than residents
-    - Edit preferences breaks when just clicking on it and trying to generate
     x Positioning of show relevant preferences was off
 
 
