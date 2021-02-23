@@ -17,6 +17,8 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   preferences: string = "";
 
+  equalGroups: boolean = false;
+
   constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService, public dialogRef: MatDialogRef<EditPreferencesDialogComponent>, private _snackBar: MatSnackBar) { }
 
   @Input() algorithm: Algorithm;
@@ -43,6 +45,11 @@ export class EditPreferencesDialogComponent implements OnInit {
     this.preferences = this.generatePreferenceString();
 
     this.preferencesForm = new FormControl(this.preferences);
+
+    if (this.algorithmService.numberOfGroup1Agents == this.algorithmService.numberOfGroup2Agents) {
+      this.equalGroups = true;
+    }
+
   }
 
   generatePreferenceString(): string {
@@ -50,30 +57,65 @@ export class EditPreferencesDialogComponent implements OnInit {
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
     let currentLine: string = "";
 
+    let counter: number = 0;
+
     for (let agent of this.group1Preferences) {
       currentLine = "";
 
-      let id: string = agent[0];
-      let currentPreferences: string = agent[1].join(", ");
+      if (counter < this.numberOfGroup1Agents.value) {
+        let id: string = agent[0];
+        let currentPreferences: string[] = agent[1];
 
-      currentLine = id + ": " + currentPreferences;
+        let newPreferences: string[] = [];
 
-      currentLine += "\n";
-      preferenceString += currentLine;
+        for (let preference of currentPreferences) {
+          if (preference.charCodeAt(0) - 65 < this.numberOfGroup1Agents.value) {
+            newPreferences.push(preference);
+          }
+        }
+  
+        currentLine = id + ": " + newPreferences.join(", ");
+
+        currentLine += "\n";
+        preferenceString += currentLine;
+      }
+
+      counter++;
+
     }
 
     preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
 
+    counter = 0;
+
+    if (this.equalGroups) {
+      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+    }
+
     for (let agent of this.group2Preferences) {
       currentLine = "";
 
-      let id: string = agent[0];
-      let currentPreferences: string = agent[1].join(", ");
+      if (counter < this.numberOfGroup2Agents.value) {
+        let id: string = agent[0];
+        let currentPreferences: string[] = agent[1];
 
-      currentLine = id + ": " + currentPreferences;
+        let newPreferences: string[] = [];
 
-      currentLine += "\n";
-      preferenceString += currentLine;
+        for (let preference of currentPreferences) {
+          if (Number(preference) <= this.numberOfGroup2Agents.value) {
+            newPreferences.push(preference);
+          }
+        }
+
+        currentLine = id + ": " + newPreferences.join(", ");
+
+
+        currentLine += "\n";
+        preferenceString += currentLine;
+      }
+
+      counter++;
+
     }
 
     return preferenceString.slice(0, -1);
@@ -81,7 +123,7 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
   generateAlgorithmPreferences(): void {
-    let preferenceString: string = this.preferencesForm.value;
+    let preferenceString: string = this.generatePreferenceString();
     let newPreferences: Map<String, Array<String>> = new Map();
 
     console.log(preferenceString.split("\n"));
@@ -93,7 +135,7 @@ export class EditPreferencesDialogComponent implements OnInit {
           let agentId: string = line.slice(0, line.indexOf(":"));
           let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
           
-          newPreferences.set(agentId, agentPreferences);
+          newPreferences.set(agentId, agentPreferences.slice());
 
         }
       }
@@ -101,6 +143,8 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     this.algorithmService.numberOfGroup1Agents = Number(this.numberOfGroup1Agents.value);
     this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
+
+    console.log(newPreferences);
 
     this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
 

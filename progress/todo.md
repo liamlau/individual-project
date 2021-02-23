@@ -52,6 +52,7 @@ x Fix bugs with hr-resident-gs
 x Stopped user from clicking certain buttons during tutorial
 
 x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
+- Implement auto fixing for edit preferences
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 
