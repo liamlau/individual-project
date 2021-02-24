@@ -112,7 +112,27 @@ export class CanvasService {
       console.log(this.positions);
 
     } else {
-      console.log("even!");
+      // plot circles above middle
+      console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)); i > 0; i--) {
+        console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle - ((Math.ceil((this.algService.numberOfGroup1Agents / 2) + 1) - i) * spaceBetweenCircles / 2)
+        }
+      }
+
+      // plot circles below middle
+      console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+        console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle + ((i - Math.ceil((this.algService.numberOfGroup1Agents / 2))) * (spaceBetweenCircles/2))
+        }
+      }
+
+      console.log(this.positions);
     }
 
 

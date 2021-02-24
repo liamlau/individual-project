@@ -65,16 +65,13 @@ x Get ethics checklist ready to be sent
 
 # Todo (23/02/21)
 
-x Fix bugs with hr-resident-gs
+x Fix bugs with hr-resident-egs
     x Now highlights correct preferences
     x Make sure it doesn't break on different input values
     x Breaks with higher number of hospitals than residents
     x Positioning of show relevant preferences was off
 
 x Implement auto fixing for edit preferences
-- Implement error checking for edit preferences
-- Implement working edit preferences for hr-egs-resident
-- Make it so it the program doesn't break when inputting preferences of different sizes
 x Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
 x Fix edit preferences not reading textarea value when number of agents changed
 x Fix edit preferences not resetting line background colour
@@ -84,12 +81,18 @@ x Fix canvas not snapping back when sidebar expanded/retracted
 x Implement animations for closing sidebar panel
 
 - Fix formatting of canvas drawings
-    - Possibly make responsive
     x Preferences don't show correctly
-    - Make the circles start from the middle (for 1 preference, it starts at the top)
-    - 
 
 -----------------------------
+
+# Todo (24/02/21)
+
+- Possibly make canvas responsive
+- Make the circles start from the middle (for 1 preference, it starts at the top)
+
+- Implement error checking for edit preferences
+- Implement working edit preferences for hr-egs-resident
+- Make it so it the program doesn't break when inputting preferences of different sizes
 
 - Add descriptions when sidebar is hidden
 

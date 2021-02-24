@@ -396,9 +396,16 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (22 Jan 2021 - 28 Jan 2021) - **11 hours**
+## Week 23 (22 Jan 2021 - 28 Jan 2021) - **24 hours**
 
 ### 22 Feb 2020 (Mon) - 11 hours
 * *2 hours*: Miscellaneous bug/positional fixes
 * *2 hours*: Added updated, refactored pseudocode for smp-gs-man and hr-egs-resident
 * *7 hours*: Created animation guide, lots of bug fixes, started implementing checks for edit preferences
+
+### 23 Feb 2020 (Thu) - 13 hours
+* *2 hours*: Fixing bugs with hr-resident-egs (now doesn't break with erroneous input)
+* *3 hours*: Fixed all positioning with preferences (it's all responsive now)
+* *3 hours*: Implemented auto filling for edit preferences (changing the number of agents now changes the textarea appropriately)
+* *1 hour*: Designed and implemented animation for sidebar expansion/retraction
+* *4 hours*: Fixed urgent bugs with canvas going off screen unexpectedly + in middle of responsive rewriting of canvas
