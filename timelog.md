@@ -403,9 +403,12 @@ Holiday taken for Christmas.
 * *2 hours*: Added updated, refactored pseudocode for smp-gs-man and hr-egs-resident
 * *7 hours*: Created animation guide, lots of bug fixes, started implementing checks for edit preferences
 
-### 23 Feb 2020 (Thu) - 13 hours
+### 23 Feb 2020 (Tue) - 13 hours
 * *2 hours*: Fixing bugs with hr-resident-egs (now doesn't break with erroneous input)
 * *3 hours*: Fixed all positioning with preferences (it's all responsive now)
 * *3 hours*: Implemented auto filling for edit preferences (changing the number of agents now changes the textarea appropriately)
 * *1 hour*: Designed and implemented animation for sidebar expansion/retraction
 * *4 hours*: Fixed urgent bugs with canvas going off screen unexpectedly + in middle of responsive rewriting of canvas
+
+### 24 Feb 2020 (Wed) - x hours
+* *x hours*: 

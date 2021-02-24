@@ -39,8 +39,7 @@
 - Make functions for drawing circles and lines between circles
 - Made positions of circles more responsive
 
-
-
+-----------------------------
 
 # Todo (22/02/21)
 x Add pseudocode for smp-gs-man
@@ -88,7 +87,7 @@ x Implement animations for closing sidebar panel
 # Todo (24/02/21)
 
 - Possibly make canvas responsive
-- Make the circles start from the middle (for 1 preference, it starts at the top)
+x Make the circles start from the middle (for 1 preference, it starts at the top)
 
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
@@ -101,15 +100,15 @@ x Implement animations for closing sidebar panel
 - Create new cards for problems (or fix existing ones)
 
 - Write text for all content pages (main-page)
-- Finish evaluation script
-
 - Fix text sizing for main-page
+- Autoplay videos
 
+-----------------------------
+
+- Finish evaluation script
 - Do evaluations
 
 - Documentation
 
 - Write plan for dissertation
 - Do dissertation
-
-- Autoplay videos
