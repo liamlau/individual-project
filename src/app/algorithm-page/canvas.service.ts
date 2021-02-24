@@ -69,11 +69,9 @@ export class CanvasService {
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 
     let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
-
-    let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
-    let currentCirclePosition = (canvas.height * this.yMargin);
+    let spaceBetweenCircles: number = (effectiveHeight / this.algService.numberOfGroup1Agents);
     
-    let canvasMiddle: number = (effectiveHeight / 2) + 45;
+    let canvasMiddle: number = (effectiveHeight / 2) + 40;
 
     console.log(canvasMiddle);
 
@@ -151,8 +149,6 @@ export class CanvasService {
     }
 
 
-
-    let lastLetter = 'A';
     spaceBetweenCircles = effectiveHeight / this.algService.numberOfGroup2Agents;
 
     if (this.algService.numberOfGroup2Agents % 2 == 1) {

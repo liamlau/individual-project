@@ -50,8 +50,8 @@ export class AlgorithmPageComponent implements OnInit {
     // smp-man-egs
     // hr-resident-egs
 
-    let group1 = 2;
-    let group2 = 2;
+    let group1 = 5;
+    let group2 = 5;
     let alg: string = "smp-man-gs";
 
     this.algorithmService.numberOfGroup1Agents = group1;
@@ -315,7 +315,9 @@ export class AlgorithmPageComponent implements OnInit {
   nextTutorialStep(): void {
     console.log(this.tutorialStep);
     if (this.tutorialStep == 0) {
-      this.showCode = false;
+      if (this.showCode) {
+        this.toggleSidebar();
+      }
       this.startTutorial();
     } else if (this.tutorialStep == 1) {
       this.sidebarTutorial();

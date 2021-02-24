@@ -89,11 +89,11 @@ x Implement animations for closing sidebar panel
 - Possibly make canvas responsive
 x Make the circles start from the middle (for 1 preference, it starts at the top)
 
+x Add descriptions when sidebar is hidden
+
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 - Make it so it the program doesn't break when inputting preferences of different sizes
-
-- Add descriptions when sidebar is hidden
 
 - sort RHS on finish
 
