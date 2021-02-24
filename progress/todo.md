@@ -71,11 +71,11 @@ x Fix bugs with hr-resident-gs
     x Breaks with higher number of hospitals than residents
     x Positioning of show relevant preferences was off
 
-- Implement auto fixing for edit preferences
+x Implement auto fixing for edit preferences
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 - Make it so it the program doesn't break when inputting preferences of different sizes
-- Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
+x Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
 x Fix edit preferences not reading textarea value when number of agents changed
 
 
