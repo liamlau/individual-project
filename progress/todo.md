@@ -77,7 +77,7 @@ x Implement auto fixing for edit preferences
 - Make it so it the program doesn't break when inputting preferences of different sizes
 x Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
 x Fix edit preferences not reading textarea value when number of agents changed
-
+x Fix edit preferences not resetting line background colour
 
 x URGENT: Fix bug with canvas auto sizing going off screen
 x Fix canvas not snapping back when sidebar expanded/retracted
@@ -90,6 +90,8 @@ x Implement animations for closing sidebar panel
     - 
 
 -----------------------------
+
+- Add descriptions when sidebar is hidden
 
 - sort RHS on finish
 

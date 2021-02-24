@@ -50,8 +50,8 @@ export class AlgorithmPageComponent implements OnInit {
     // smp-man-egs
     // hr-resident-egs
 
-    let group1 = 1;
-    let group2 = 1;
+    let group1 = 3;
+    let group2 = 3;
     let alg: string = "smp-man-gs";
 
     this.algorithmService.numberOfGroup1Agents = group1;

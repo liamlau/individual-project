@@ -62,7 +62,10 @@ export class CanvasService {
     this.firstRun = true;
   }
 
+  // Idea:
+  // Start from middle of canvas and 
   calculateEqualDistance() {
+
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 
     let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
@@ -70,19 +73,58 @@ export class CanvasService {
     let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
     let currentCirclePosition = (canvas.height * this.yMargin);
     
+    let canvasMiddle: number = (effectiveHeight / 2) + 45;
+
+    console.log(canvasMiddle);
 
     this.positions = {}
 
     // LHS Positions
 
-    for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.positions["circle" + i] = {
+    if (this.algService.numberOfGroup1Agents % 2 == 1) {
+
+      // plot middle circle
+      this.positions["circle" + Math.floor((this.algService.numberOfGroup1Agents / 2) + 1)] = {
         positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
-        positionY: currentCirclePosition
+        positionY: canvasMiddle
       }
 
-      currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+      // plot circles above middle
+      console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)); i > 0; i--) {
+        console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle - ((Math.ceil((this.algService.numberOfGroup1Agents / 2)) - i) * spaceBetweenCircles)
+        }
+      }
+
+      // plot circles below middle
+      console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+        console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle + ((i - Math.ceil((this.algService.numberOfGroup1Agents / 2))) * spaceBetweenCircles)
+        }
+      }
+
+      console.log(this.positions);
+
+    } else {
+      console.log("even!");
     }
+
+
+
+    // for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+    //   this.positions["circle" + i] = {
+    //     positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+    //     positionY: currentCirclePosition
+    //   }
+
+    //   currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+    // }
 
 
     // RHS Circle positions
