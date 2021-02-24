@@ -221,6 +221,11 @@ export class EditPreferencesDialogComponent implements OnInit {
       }
     }
 
+    var command = this.playbackService.commandList[this.playbackService.previousStepCounter];
+    let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
+    a.style.color = "";
+
     this.algorithmService.numberOfGroup1Agents = Number(this.numberOfGroup1Agents.value);
     this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
 

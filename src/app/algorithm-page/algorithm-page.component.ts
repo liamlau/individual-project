@@ -32,6 +32,8 @@ export class AlgorithmPageComponent implements OnInit {
 
   tutorialStep: number;
 
+  duringAnimation: boolean = false;
+
   constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
@@ -348,6 +350,88 @@ export class AlgorithmPageComponent implements OnInit {
     $('.navbarPopover').popover('hide');
     $('.sidebarPopover').popover('hide');
     $('.mainContentPopover').popover('hide');
+  }
+
+
+  async toggleSidebar() {
+
+    this.duringAnimation = true;
+
+    let mainContent = document.getElementById("mainContent");
+
+    if (!this.showCode) {
+      anime({
+        targets: '.sidebar',
+        easing: 'easeInOutQuint',
+        translateX: [0, -800],
+        delay: 200,
+        duration: 700
+      })
+      anime({
+        targets: '#mainContent',
+        easing: 'easeInOutQuint',
+        opacity: [1, 0],
+        duration: 500
+      })
+      
+  
+      await this.delay(700);
+  
+      mainContent.style.position = "";
+  
+      anime({
+        targets: '#mainContent',
+        easing: 'easeInOutQuint',
+        opacity: [0, 1],
+        duration: 500
+      })
+      this.showCode = !this.showCode
+
+    } else {
+
+      anime({
+        targets: '#mainContent',
+        easing: 'easeInOutQuint',
+        opacity: [1, 0],
+        duration: 500
+      })
+
+      await this.delay(400);
+
+      this.showCode = !this.showCode
+      anime({
+        targets: '.sidebar',
+        easing: 'easeInOutQuint',
+        translateX: [-500, 0],
+        // opacity: [0, 1],
+        duration: 600
+      })
+  
+      anime({
+        targets: '#sidebarContent',
+        easing: 'easeInOutQuint',
+        // translateX: [-1500, 0],
+        opacity: [0, 1],
+        duration: 600
+      })
+
+      await this.delay(200);
+
+      anime({
+        targets: '#mainContent',
+        easing: 'easeInOutQuint',
+        opacity: [0, 1],
+        duration: 500
+      })
+
+    }
+
+    await this.delay(200);
+
+    this.duringAnimation = false;
+
+    // mainContent.style.display = "";
+
   }
 
 }

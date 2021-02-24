@@ -81,10 +81,11 @@ x Fix edit preferences not reading textarea value when number of agents changed
 
 x URGENT: Fix bug with canvas auto sizing going off screen
 x Fix canvas not snapping back when sidebar expanded/retracted
+x Implement animations for closing sidebar panel
 
 - Fix formatting of canvas drawings
     - Possibly make responsive
-    - Preferences don't show correctly
+    x Preferences don't show correctly
     - Make the circles start from the middle (for 1 preference, it starts at the top)
     - 
 
@@ -96,8 +97,6 @@ x Fix canvas not snapping back when sidebar expanded/retracted
 
 - Write text for all content pages (main-page)
 - Finish evaluation script
-
-- Implement animations for closing sidebar panel
 
 - Fix text sizing for main-page
 
