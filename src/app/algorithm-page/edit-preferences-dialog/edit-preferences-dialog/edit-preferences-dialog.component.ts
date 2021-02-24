@@ -56,8 +56,6 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   generatePreferenceString(): void {
 
-    console.log("here");
-
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
     let currentLine: string = "";
 

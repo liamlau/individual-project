@@ -63,17 +63,20 @@ x Get ethics checklist ready to be sent
 
 -----------------------------
 
+# Todo (23/02/21)
+
+x Fix bugs with hr-resident-gs
+    x Now highlights correct preferences
+    x Make sure it doesn't break on different input values
+    x Breaks with higher number of hospitals than residents
+    x Positioning of show relevant preferences was off
+
 - Implement auto fixing for edit preferences
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 - Make it so it the program doesn't break when inputting preferences of different sizes
 - Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
-
-- Fix bugs with hr-resident-gs
-    x Now highlights correct preferences
-    x Make sure it doesn't break on different input values
-    x Breaks with higher number of hospitals than residents
-    x Positioning of show relevant preferences was off
+x Fix edit preferences not reading textarea value when number of agents changed
 
 
 - URGENT: Fix bug with canvas auto sizing going off screen
@@ -81,6 +84,8 @@ x Get ethics checklist ready to be sent
     - Possibly make responsive
     - Preferences don't show correctly
     - Make the circles start from the middle (for 1 preference, it starts at the top)
+
+-----------------------------
 
 - sort RHS on finish
 

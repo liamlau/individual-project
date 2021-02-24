@@ -5,7 +5,7 @@
       <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Marriage Problem'">
         <mat-form-field style="width: 200px;">
           <mat-label>Number of Men and Women</mat-label>
-          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()">
+          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
           <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -18,7 +18,7 @@
       <div class="row justify-content-center" *ngIf="this.algorithmService.currentAlgorithm.name == 'Hospital/Residents Problem'">
         <mat-form-field style="width: 200px;" class="mr-1">
           <mat-label>Number of Residents</mat-label>
-          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (change)="this.generatePreferenceString()">
+          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()">
           <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -29,7 +29,7 @@
   
         <mat-form-field style="width: 200px;" class="ml-1">
           <mat-label>Number of Hospitals</mat-label>
-          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (change)="this.generatePreferenceString()">
+          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()">
           <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -52,7 +52,7 @@
 
     <div class="row">
         <div class="col-12 text-right">
-            <button mat-stroked-button (click)="generateAlgorithmPreferences()">Generate!</button>
+            <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors">Generate!</button>
         </div>
     </div>
 
