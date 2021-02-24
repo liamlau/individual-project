@@ -44,6 +44,8 @@ export class CanvasService {
 
   lineSizes: Map<string, number> = new Map();
 
+  firstRun: boolean = true;
+
   constructor(public algService: AlgorithmRetrievalService) { }
 
   ngOnInit(): void {
@@ -53,6 +55,11 @@ export class CanvasService {
   setCommand(command) {
     this.currentCommand = command;
     this.redrawCanvas();
+  }
+
+  initialise() {
+    // this.lineSizes = new Map();
+    this.firstRun = true;
   }
 
   calculateEqualDistance() {
@@ -431,15 +438,6 @@ export class CanvasService {
 
     if (command) {
       this.currentCommand = command;
-      if (this.currentCommand["lineNumber"] == 1 && !(this.originalGroup1Preferences || this.originalGroup2Preferences)) {
-        this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values())
-        this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values())
-        this.lineSizes = new Map();
-        for (let i=1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-          let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i-1].join(", ")).width;
-          this.lineSizes.set(String(i), lineSize);
-        }
-      }
     }
 
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
@@ -448,6 +446,18 @@ export class CanvasService {
     canvas.height = parent.offsetHeight - 20;
     // canvas.style.width = String(canvas.width / 2);
     // canvas.style.height = String(canvas.height / 2);
+
+    if (this.firstRun) {
+      this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values());
+      this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values());
+      this.firstRun = false;
+    }
+
+    this.lineSizes = new Map();
+    for (let i=1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+      let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i-1].join(", ")).width;
+      this.lineSizes.set(String(i), lineSize);
+    }
 
     this.setFont();
 

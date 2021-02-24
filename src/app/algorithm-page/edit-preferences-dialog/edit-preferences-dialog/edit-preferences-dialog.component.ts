@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
+import { CanvasService } from '../../canvas.service';
 import { PlaybackService } from '../../playback.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   equalGroups: boolean = false;
 
-  constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService, public dialogRef: MatDialogRef<EditPreferencesDialogComponent>, private _snackBar: MatSnackBar) { }
+  constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService, public canvasService: CanvasService, public dialogRef: MatDialogRef<EditPreferencesDialogComponent>, private _snackBar: MatSnackBar) { }
 
   @Input() algorithm: Algorithm;
 
@@ -223,8 +224,7 @@ export class EditPreferencesDialogComponent implements OnInit {
     this.algorithmService.numberOfGroup1Agents = Number(this.numberOfGroup1Agents.value);
     this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
 
-    console.log(newPreferences);
-
+    this.canvasService.initialise();
     this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
 
     this.dialogRef.close();

@@ -120,7 +120,6 @@ export abstract class MatchingAlgorithm {
             tempCopyList = [];
             // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
             for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
-                console.log(preferenceAgent);
                 tempCopyList.push(this.group2Agents.get(this.group2Name + preferenceAgent));
             }
             this.group1Agents.get(agent).ranking = tempCopyList;
@@ -130,7 +129,6 @@ export abstract class MatchingAlgorithm {
             tempCopyList = [];
             // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
             for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
-                console.log(preferenceAgent);
                 tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
             }
             this.group2Agents.get(agent).ranking = tempCopyList;
