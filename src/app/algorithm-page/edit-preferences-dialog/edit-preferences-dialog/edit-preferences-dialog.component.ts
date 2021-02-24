@@ -68,64 +68,130 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     let counter: number = 0;
 
-    for (let agent of this.group1Preferences) {
-      currentLine = "";
-
-      if (counter < this.numberOfGroup1Agents.value) {
-        let id: string = agent[0];
-        let currentPreferences: string[] = agent[1];
-
-        let newPreferences: string[] = [];
-
-        for (let preference of currentPreferences) {
-          if (preference.charCodeAt(0) - 65 < this.numberOfGroup1Agents.value) {
-            newPreferences.push(preference);
+    if (this.algorithmService.numberOfGroup1Agents >= this.numberOfGroup1Agents.value) {
+      for (let agent of this.group1Preferences) {
+        currentLine = "";
+  
+        if (counter < this.numberOfGroup1Agents.value) {
+          let id: string = agent[0];
+          let currentPreferences: string[] = agent[1];
+  
+          let newPreferences: string[] = [];
+  
+          for (let preference of currentPreferences) {
+            if (preference.charCodeAt(0) - 65 < this.numberOfGroup1Agents.value) {
+              newPreferences.push(preference);
+            }
           }
+    
+          currentLine = id + ": " + newPreferences.join(", ");
+  
+          currentLine += "\n";
+          preferenceString += currentLine;
         }
   
-        currentLine = id + ": " + newPreferences.join(", ");
-
-        currentLine += "\n";
-        preferenceString += currentLine;
+        counter++;
+  
       }
-
-      counter++;
-
-    }
-
-    preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
-
-    counter = 0;
-
-    if (this.equalGroups) {
-      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
-    }
-
-    for (let agent of this.group2Preferences) {
-      currentLine = "";
-
-      if (counter < this.numberOfGroup2Agents.value) {
-        let id: string = agent[0];
-        let currentPreferences: string[] = agent[1];
-
-        let newPreferences: string[] = [];
-
-        for (let preference of currentPreferences) {
-          if (Number(preference) <= this.numberOfGroup2Agents.value) {
-            newPreferences.push(preference);
+  
+      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
+  
+      counter = 0;
+  
+      if (this.equalGroups) {
+        this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+      }
+  
+      for (let agent of this.group2Preferences) {
+        currentLine = "";
+  
+        if (counter < this.numberOfGroup2Agents.value) {
+          let id: string = agent[0];
+          let currentPreferences: string[] = agent[1];
+  
+          let newPreferences: string[] = [];
+  
+          for (let preference of currentPreferences) {
+            if (Number(preference) <= this.numberOfGroup2Agents.value) {
+              newPreferences.push(preference);
+            }
           }
+  
+          currentLine = id + ": " + newPreferences.join(", ");
+  
+  
+          currentLine += "\n";
+          preferenceString += currentLine;
         }
+  
+        counter++;
+  
+      }
+    } else {
+
+      let numbersToAdd: Array<string> = [];
+      let lettersToAdd: Array<string> = [];
+
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+        lettersToAdd.push(String.fromCharCode(i + 64));
+      }
+
+      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
+        numbersToAdd.push(String(i));
+      }
+
+      for (let agent of this.group1Preferences) {
+        currentLine = "";
+        this.shuffle(lettersToAdd);
+
+        let id: string = agent[0];
+        let newPreferences: string[] = agent[1].concat(lettersToAdd);
 
         currentLine = id + ": " + newPreferences.join(", ");
+  
+        currentLine += "\n";
+        preferenceString += currentLine;
 
+      }
 
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+        let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd);
+        this.shuffle(newPreferences);
+        currentLine = i + ": " + newPreferences.join(", ");
         currentLine += "\n";
         preferenceString += currentLine;
       }
 
-      counter++;
+      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
+
+      if (this.equalGroups) {
+        this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+      }
+
+      for (let agent of this.group2Preferences) {
+        currentLine = "";
+        this.shuffle(numbersToAdd);
+
+        let id: string = agent[0];
+        let newPreferences: string[] = agent[1].concat(numbersToAdd);
+
+        currentLine = id + ": " + newPreferences.join(", ");
+  
+        currentLine += "\n";
+        preferenceString += currentLine;
+
+      }
+
+      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
+        let newPreferences = Array.from(this.group2Preferences.values())[0].concat(numbersToAdd);
+        this.shuffle(newPreferences);
+        currentLine = String.fromCharCode(i + 64) + ": " + newPreferences.join(", ");
+        currentLine += "\n";
+        preferenceString += currentLine;
+      }
 
     }
+    
 
     this.formString = preferenceString.slice(0, -1);
 
@@ -177,5 +243,21 @@ export class EditPreferencesDialogComponent implements OnInit {
   checkValidity(str: string): boolean {
     return true;
   }
+
+
+    // FROM: https://javascript.info/task/shuffle
+  shuffle(array: Array<Object>) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+  
+      // swap elements array[i] and array[j]
+      // we use "destructuring assignment" syntax to achieve that
+      // you'll find more details about that syntax in later chapters
+      // same can be written as:
+      // let t = array[i]; array[i] = array[j]; array[j] = t
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
 
 }
