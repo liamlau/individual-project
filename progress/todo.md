@@ -90,6 +90,7 @@ x Implement animations for closing sidebar panel
 x Make the circles start from the middle (for 1 preference, it starts at the top)
 
 x Add descriptions when sidebar is hidden
+- Make execution scroll to bottom on new commands being added
 
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident

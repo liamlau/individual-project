@@ -9,8 +9,8 @@ import { Man } from '../interfaces/Man';
 })
 export class GsStableMarriageService extends GaleShapley {
 
-  group1Name = "men";
-  group2Name = "women";
+  group1Name = "man";
+  group2Name = "woman";
 
   group1Agents: Map<String, Man> = new Map();
 
