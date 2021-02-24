@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,6 +38,13 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   preferencesForm: FormControl;
   formString: string;
+
+  @HostListener('document:keydown.enter') 
+  onEnter() {
+    if (!(this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)) {
+      this.generateAlgorithmPreferences();
+    }
+  }
 
   ngOnInit(): void {
     this.group1Preferences = this.playbackService.commandList[0]["group1CurrentPreferences"];
