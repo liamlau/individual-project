@@ -138,6 +138,10 @@ export class AlgorithmPageComponent implements OnInit {
         if (!(this.playback.stepCounter >= this.playback.numCommands)) {
           this.playback.toggle();
         }
+      } else if (event.key == "r" || event.key == "#") {
+        this.generateNewPreferences()
+      } else if (event.key == "e" || event.key == "]") {
+        this.openEditPreferencesDialog()
       }
     }
   }

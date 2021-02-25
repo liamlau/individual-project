@@ -89,30 +89,31 @@ x Fix formatting of canvas drawings
 x Make the circles start from the middle (for 1 preference, it starts at the top)
 x Autoplay videos
 x Add descriptions when sidebar is hidden
-
-- Implement error checking for edit preferences
-- Implement working edit preferences for hr-egs-resident
 x Only let user enter correct input
-
-- Make it so it the program doesn't break when inputting preferences of different sizes
-
-- Fix bug with program breaking if moving from hr-resident-egs to sm-man-egs
 
 -----------------------------
 
 # Todo (25/02/21)
 
+- Implement error checking for edit preferences
+- Implement working edit preferences for hr-egs-resident
+- Make it so it the program doesn't break when inputting preferences of different sizes
+- Fix bug with program breaking if moving from hr-resident-egs to sm-man-egs
 - Create new cards for problems (or fix existing ones)
+
+- Write text for all content pages (main-page)
+
+- Finish evaluation script
+
+-----------------------------
+
+# Todo (26/02/21)
 
 - Make execution scroll to bottom on new commands being added
 - sort RHS on finish
-
-- Write text for all content pages (main-page)
 - Fix text sizing for main-page
 
 - Possibly make canvas responsive
-
-- Finish evaluation script
 - Do evaluations
 
 - Documentation
