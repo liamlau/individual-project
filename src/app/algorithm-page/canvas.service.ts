@@ -73,7 +73,7 @@ export class CanvasService {
     
     let canvasMiddle: number = (effectiveHeight / 2) + 40;
 
-    console.log(canvasMiddle);
+    // console.log(canvasMiddle);
 
     this.positions = {}
 
@@ -88,7 +88,7 @@ export class CanvasService {
       }
 
       // plot circles above middle
-      console.log("above middle");
+      // console.log("above middle");
       for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)); i > 0; i--) {
         // console.log(i);
         this.positions["circle" + i] = {
@@ -98,7 +98,7 @@ export class CanvasService {
       }
 
       // plot circles below middle
-      console.log("below middle");
+      // console.log("below middle");
       for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
         // console.log(i);
         this.positions["circle" + i] = {
@@ -107,7 +107,7 @@ export class CanvasService {
         }
       }
 
-      console.log(this.positions);
+      // console.log(this.positions);
 
     } else {
 
@@ -126,9 +126,9 @@ export class CanvasService {
       }
 
       // plot circles above middle
-      console.log("above middle");
+      // console.log("above middle");
       for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)) - 1; i > 0; i--) {
-        console.log(i);
+        // console.log(i);
         this.positions["circle" + i] = {
           positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
           positionY: canvasMiddle - (spaceBetweenCircles / 2) - ((Math.ceil((this.algService.numberOfGroup1Agents / 2)) - i) * spaceBetweenCircles)
@@ -136,20 +136,22 @@ export class CanvasService {
       }
 
       // // plot circles below middle
-      console.log("below middle");
+      // console.log("below middle");
       for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 2; i < this.algService.numberOfGroup1Agents + 1; i++) {
-        console.log(i);
+        // console.log(i);
         this.positions["circle" + i] = {
           positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
           positionY: canvasMiddle + (spaceBetweenCircles / 2) + ((i - Math.ceil((this.algService.numberOfGroup1Agents / 2) + 1)) * spaceBetweenCircles)
         }
       }
 
-      console.log(this.positions);
+      // console.log(this.positions);
     }
 
 
     spaceBetweenCircles = effectiveHeight / this.algService.numberOfGroup2Agents;
+
+    console.log(this.algService.numberOfGroup2Agents);
 
     if (this.algService.numberOfGroup2Agents % 2 == 1) {
 
@@ -160,7 +162,7 @@ export class CanvasService {
       }
 
       // plot circles above middle
-      console.log("above middle");
+      // console.log("above middle");
       for (let i = Math.floor((this.algService.numberOfGroup2Agents / 2)); i > 0; i--) {
         // console.log(i);
         this.positions["circle" + String.fromCharCode(i + 64)] = {
@@ -170,8 +172,8 @@ export class CanvasService {
       }
 
       // plot circles below middle
-      console.log("below middle");
-      for (let i = Math.ceil((this.algService.numberOfGroup2Agents / 2)) + 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+      // console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup2Agents / 2)) + 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
         // console.log(i);
         this.positions["circle" + String.fromCharCode(i + 64)] = {
           positionX: canvas.width - (canvas.width * this.xMargin),
@@ -179,14 +181,14 @@ export class CanvasService {
         }
       }
 
-      console.log(this.positions);
+      // console.log(this.positions);
 
     } else {
 
       // plot middle circle
       // console.log(Math.floor(this.algService.numberOfGroup1Agents / 2));
       // console.log((Math.ceil(this.algService.numberOfGroup1Agents / 2)) + 1);
-      console.log(String.fromCharCode(Math.floor(this.algService.numberOfGroup2Agents / 2) + 64));
+      // console.log(String.fromCharCode(Math.floor(this.algService.numberOfGroup2Agents / 2) + 64));
       this.positions["circle" + String.fromCharCode(Math.floor(this.algService.numberOfGroup2Agents / 2) + 64)] = {
         positionX: canvas.width - (canvas.width * this.xMargin),
         positionY: canvasMiddle - spaceBetweenCircles / 2
@@ -199,9 +201,9 @@ export class CanvasService {
       }
 
       // plot circles above middle
-      console.log("above middle");
+      // console.log("above middle");
       for (let i = Math.floor((this.algService.numberOfGroup2Agents / 2)) - 1; i > 0; i--) {
-        console.log(i);
+        // console.log(i);
         this.positions["circle" + String.fromCharCode(i + 64)] = {
           positionX: canvas.width - (canvas.width * this.xMargin),
           positionY: canvasMiddle - (spaceBetweenCircles / 2) - ((Math.ceil((this.algService.numberOfGroup2Agents / 2)) - i) * spaceBetweenCircles)
@@ -209,18 +211,19 @@ export class CanvasService {
       }
 
       // // plot circles below middle
-      console.log("below middle");
+      // console.log("below middle");
       for (let i = Math.ceil((this.algService.numberOfGroup2Agents / 2)) + 2; i < this.algService.numberOfGroup2Agents + 1; i++) {
-        console.log(i);
+        // console.log(i);
         this.positions["circle" + String.fromCharCode(i + 64)] = {
           positionX: canvas.width - (canvas.width * this.xMargin),
           positionY: canvasMiddle + (spaceBetweenCircles / 2) + ((i - Math.ceil((this.algService.numberOfGroup2Agents / 2) + 1)) * spaceBetweenCircles)
         }
       }
 
-      console.log(this.positions);
+      // console.log(this.positions);
     }
 
+    console.log(this.positions);
 
     // for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
     //   this.positions["circle" + i] = {

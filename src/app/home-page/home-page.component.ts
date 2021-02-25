@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 declare var anime: any;
@@ -11,12 +11,14 @@ declare var anime: any;
 })
 export class HomePageComponent implements OnInit {
 
+  
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
 
     anime({
       targets: '.navbar',
@@ -35,5 +37,9 @@ export class HomePageComponent implements OnInit {
       delay: 550,
       duration: 900
     })
+
+
   }
+
+
 }

@@ -53,7 +53,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     this.preferencesForm = new FormControl(this.preferences);
 
-    if (this.algorithmService.numberOfGroup1Agents == this.algorithmService.numberOfGroup2Agents) {
+    if (this.algorithmService.currentAlgorithm.equalGroups) {
       this.equalGroups = true;
     }
 
@@ -80,7 +80,7 @@ export class EditPreferencesDialogComponent implements OnInit {
           let newPreferences: string[] = [];
   
           for (let preference of currentPreferences) {
-            if (preference.charCodeAt(0) - 65 < this.numberOfGroup1Agents.value) {
+            if (preference.charCodeAt(0) - 65 < this.numberOfGroup2Agents.value) {
               newPreferences.push(preference);
             }
           }
@@ -113,7 +113,7 @@ export class EditPreferencesDialogComponent implements OnInit {
           let newPreferences: string[] = [];
   
           for (let preference of currentPreferences) {
-            if (Number(preference) <= this.numberOfGroup2Agents.value) {
+            if (Number(preference) <= this.numberOfGroup1Agents.value) {
               newPreferences.push(preference);
             }
           }

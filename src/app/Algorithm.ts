@@ -4,6 +4,7 @@ export interface Algorithm {
     id: string;
     name: string;
     orientation: Array<string>;
+    equalGroups: boolean;
     algorithm: string;
     service: MatchingAlgorithm;
     description: string;

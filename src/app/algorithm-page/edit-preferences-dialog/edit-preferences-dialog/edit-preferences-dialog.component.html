@@ -18,7 +18,7 @@
       <div class="row justify-content-center" *ngIf="this.algorithmService.currentAlgorithm.name == 'Hospital/Residents Problem'">
         <mat-form-field style="width: 200px;" class="mr-1">
           <mat-label>Number of Residents</mat-label>
-          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()">
+          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
           <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -29,7 +29,7 @@
   
         <mat-form-field style="width: 200px;" class="ml-1">
           <mat-label>Number of Hospitals</mat-label>
-          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()">
+          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
           <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>

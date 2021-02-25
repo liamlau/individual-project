@@ -79,7 +79,7 @@ x URGENT: Fix bug with canvas auto sizing going off screen
 x Fix canvas not snapping back when sidebar expanded/retracted
 x Implement animations for closing sidebar panel
 
-- Fix formatting of canvas drawings
+x Fix formatting of canvas drawings
     x Preferences don't show correctly
 
 -----------------------------
@@ -102,7 +102,7 @@ x Add descriptions when sidebar is hidden
 
 - Write text for all content pages (main-page)
 - Fix text sizing for main-page
-- Autoplay videos
+x Autoplay videos
 
 -----------------------------
 
