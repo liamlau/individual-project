@@ -68,7 +68,7 @@
       
     </div>
     <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Click this to hide or expand the sidebar underneath when not in this tutorial!" data-trigger="manual" (click)="this.toggleSidebar(); $event.stopImmediatePropagation()" matTooltip="{{this.showCode ? 'Expand Panel' : 'Close Panel'}}" [ngClass]="{'disabled': this.tutorialStep != 0 || this.duringAnimation}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
-    <a class="unselectable" style="cursor: pointer;vertical-align: -2px" (click)="this.goHome('/')" matTooltip="Go Home"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
+    <a class="unselectable" style="cursor: pointer;vertical-align: -2px" [ngClass]="{'disabled': this.tutorialStep != 0 || this.duringAnimation}" (click)="this.goHome('/')" matTooltip="Go Home"><span class="display-1" style="font-size: 20px;"><span id="alg">alg</span><span id="match">match</span></span></a>
   </div>
   <div class="col-6 text-center navbarPopover" data-toggle="popover" data-placement="bottom" title="Tutorial" data-content="This short tutorial will walk you through the sections of this page. Click the arrow in the top right to move to the next step of the tutorial! Or you can click the x, also in the top right of the screen, to stop the tutorial." data-trigger="manual">
     <span style="color: white; font-size: 0.98rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
