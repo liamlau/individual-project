@@ -52,7 +52,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     let group1 = 5;
     let group2 = 5;
-    let alg: string = "smp-man-egs";
+    let alg: string = "hr-resident-egs";
 
     this.algorithmService.numberOfGroup1Agents = group1;
     this.algorithmService.numberOfGroup2Agents = group2;

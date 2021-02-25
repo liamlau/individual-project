@@ -92,6 +92,7 @@ x Add descriptions when sidebar is hidden
 
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
+x Only let user enter correct input
 
 - Make it so it the program doesn't break when inputting preferences of different sizes
 

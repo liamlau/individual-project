@@ -69,6 +69,10 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     let counter: number = 0;
 
+    if (this.equalGroups) {
+      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+    }
+
     if (this.algorithmService.numberOfGroup1Agents >= this.numberOfGroup1Agents.value) {
       for (let agent of this.group1Preferences) {
         currentLine = "";
@@ -99,9 +103,7 @@ export class EditPreferencesDialogComponent implements OnInit {
   
       counter = 0;
   
-      if (this.equalGroups) {
-        this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
-      }
+
   
       for (let agent of this.group2Preferences) {
         currentLine = "";
@@ -133,11 +135,11 @@ export class EditPreferencesDialogComponent implements OnInit {
       let numbersToAdd: Array<string> = [];
       let lettersToAdd: Array<string> = [];
 
-      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
         lettersToAdd.push(String.fromCharCode(i + 64));
       }
 
-      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
         numbersToAdd.push(String(i));
       }
 
@@ -193,7 +195,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     }
     
-
+    console.log(this.formString);
     this.formString = preferenceString.slice(0, -1);
 
   }
