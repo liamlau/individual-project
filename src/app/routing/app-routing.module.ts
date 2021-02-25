@@ -30,7 +30,7 @@ const routes: Routes = [
       component: FeedbackContentComponent
     },
   ]},
-  { path: 'algorithm', component: AlgorithmPageComponent, canActivate: [AlgorithmGuard] },
+  { path: 'animation', component: AlgorithmPageComponent, canActivate: [AlgorithmGuard] },
   { path: '**', redirectTo: '' },  // Wildcard route
 ];
 

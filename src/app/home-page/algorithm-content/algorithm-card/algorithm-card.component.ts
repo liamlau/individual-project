@@ -74,7 +74,7 @@ export class AlgorithmCardComponent implements OnInit {
 
     await this.delay(700);
 
-    this.router.navigateByUrl("/algorithm");
+    this.router.navigateByUrl("/animation");
   }
 
 
