@@ -2,6 +2,7 @@ import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { element } from 'protractor';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { CanvasService } from '../../canvas.service';
 import { PlaybackService } from '../../playback.service';
@@ -39,6 +40,9 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   preferencesForm: FormControl;
   formString: string;
+  missingPreferences: Array<Array<string>>;
+
+  valid: boolean = true;
 
   @HostListener('document:keydown.enter') 
   onEnter() {
@@ -68,6 +72,8 @@ export class EditPreferencesDialogComponent implements OnInit {
     let currentLine: string = "";
 
     let counter: number = 0;
+
+    this.missingPreferences = [];
 
     if (this.equalGroups) {
       this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
@@ -213,6 +219,10 @@ export class EditPreferencesDialogComponent implements OnInit {
     for (let line of preferenceString.split("\n")) {
       if (this.checkIfPreference(line)) {
         if (this.checkValidity) {
+          line = line.replace(/:\s+,/g, ':');
+          line = line.replace(/,\s+,/g, ',');
+          line = line.replace(/, $/g, '');
+          line = line.replace(/,$/g, '');
           line = line.replace(/\s+/g, '');    // remove whitespace from line from https://stackoverflow.com/questions/24580912/trim-all-white-space-from-string-javascript
           let agentId: string = line.slice(0, line.indexOf(":"));
           let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
@@ -252,6 +262,110 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
 
+  generateMissingPreferences(preferenceString) {
+
+    let newPreferences: Map<string, Array<string>> = new Map();
+    this.missingPreferences = [];
+
+    for (let line of preferenceString.split("\n")) {
+      if (this.checkIfPreference(line)) {
+        if (this.checkValidity) {
+          line = line.replace(/:\s+,/g, ':');
+          line = line.replace(/,\s+,/g, ',');
+          line = line.replace(/, $/g, '');
+          line = line.replace(/,$/g, '');
+          line = line.replace(/\s+/g, '');    // remove whitespace from line from https://stackoverflow.com/questions/24580912/trim-all-white-space-from-string-javascript
+          let agentId: string = line.slice(0, line.indexOf(":"));
+          let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
+          
+          newPreferences.set(agentId, agentPreferences.slice());
+
+        }
+      }
+    }
+
+    // console.log(newPreferences);
+    // console.log("\n\n");
+
+    this.valid = true;
+
+    // let missingPreferences: Array<Array<string>> = [];
+
+    for (let agent of newPreferences) {
+      // let currentPreferences: Array<string> = agent[1];
+      let agentId: string = agent[0];
+      let currentPreferences: string[] = agent[1];
+      let isGroup1: boolean = isNaN(Number(agentId));
+
+      // console.log(agentId);
+      // console.log(currentPreferences);
+      // console.log(isGroup1);
+
+      // console.log("\n");
+
+      for (let i = 1; i <= (isGroup1 ? this.numberOfGroup1Agents.value : this.numberOfGroup2Agents.value); i++ ) {
+        // console.log(isGroup1 ? i : String.fromCharCode(i + 64));
+        let currentNumInPreference = false;
+        for (let preference of currentPreferences) {
+          // console.log(isGroup1 ? String(i) : String.fromCharCode(i + 64));
+          // console.log(preference);
+          if (((isGroup1 ? String(i) : String.fromCharCode(i + 64)) == preference)) {
+            // console.log("here");
+            // boolean array?
+            currentNumInPreference = true;
+          }
+        }
+        if (!currentNumInPreference) {
+          // console.log("(" + agentId + ", " + (isGroup1 ? String(i) : String.fromCharCode(i + 64)) + ")");
+          // console.log([agentId, (isGroup1 ? String(i) : String.fromCharCode(i + 64))])
+          // console.log([(isGroup1 ? String(i) : String.fromCharCode(i + 64)), agentId]);
+          // console.log([agentId, (isGroup1 ? String(i) : String.fromCharCode(i + 64))] == ["1", "D"]);
+
+          // console.log(this.checkArrayEquality([agentId, (isGroup1 ? String(i) : String.fromCharCode(i + 64))], ["1", "D"]));
+
+          let added: boolean = false;
+
+          for (let preference of this.missingPreferences) {
+            if (this.checkArrayEquality(preference, [(isGroup1 ? String(i) : String.fromCharCode(i + 64)), agentId])) {
+              added = true;
+              console.log("???");
+              console.log(this.missingPreferences.indexOf(preference));
+              this.missingPreferences.splice(this.missingPreferences.indexOf(preference), 1);
+            }
+          }
+
+          if (!added) {
+            this.missingPreferences.push([agentId, (isGroup1 ? String(i) : String.fromCharCode(i + 64))]);
+          }
+
+          // if (missingPreferences.includes([(isGroup1 ? String(i) : String.fromCharCode(i + 64)), agentId])) {
+          //   missingPreferences.splice(missingPreferences.indexOf([(isGroup1 ? String(i) : String.fromCharCode(i + 64)), agentId]), 1);
+          // } else {
+          //   missingPreferences.push([agentId, (isGroup1 ? String(i) : String.fromCharCode(i + 64))]);
+          // }
+          // console.log("make valid = false here!");
+        }
+      }
+
+
+      // console.log("-----------");
+
+
+
+    }
+    // console.log(this.group1Preferences);
+    this.valid = this.missingPreferences.length == 0;
+    console.log(this.missingPreferences);
+    console.log(this.valid);
+
+  }
+
+  // [1, 2, 3, 4]
+  // [4, 3, 2, 1]
+
+  // [1, 4], [1, 3], [1, 2], [1, 1]
+  // false, false, false, true
+
     // FROM: https://javascript.info/task/shuffle
   shuffle(array: Array<Object>) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -266,5 +380,12 @@ export class EditPreferencesDialogComponent implements OnInit {
     }
   }
 
+
+  checkArrayEquality(a: Array<string>, b: Array<string>) {
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) { return false; }
+    }
+    return true;
+  }
 
 }

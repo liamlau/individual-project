@@ -18,7 +18,7 @@
       <div class="row justify-content-center" *ngIf="this.algorithmService.currentAlgorithm.name == 'Hospital/Residents Problem'">
         <mat-form-field style="width: 200px;" class="mr-1">
           <mat-label>Number of Residents</mat-label>
-          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
+          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
           <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -29,7 +29,7 @@
   
         <mat-form-field style="width: 200px;" class="ml-1">
           <mat-label>Number of Hospitals</mat-label>
-          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
+          <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
           <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
@@ -45,14 +45,17 @@
 
     <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
         <mat-label>Clear the input area for randomly generated preferences!</mat-label>
-        <textarea matInput placeholder="1: A, B, C, D, E" [(ngModel)]="this.formString" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;" value="{{ this.formString }}"></textarea>
+        <textarea matInput placeholder="1: A, B, C, D, E" [(ngModel)]="this.formString" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;" value="{{ this.formString }}" (ngModelChange)="this.generateMissingPreferences($event)"></textarea>
     </mat-form-field>
 
     <h2>Preferences Missing</h2>
+    <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+      <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
+    </span>
 
     <div class="row">
         <div class="col-12 text-right">
-            <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors">Generate!</button>
+            <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)">Generate!</button>
         </div>
     </div>
 

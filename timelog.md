@@ -396,7 +396,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (22 Jan 2021 - 28 Jan 2021) - **32 hours**
+## Week 23 (22 Jan 2021 - 28 Jan 2021) - **36.5 hours** (overall: 301.5 hours)
 
 ### 22 Feb 2020 (Mon) - 11 hours
 * *2 hours*: Miscellaneous bug/positional fixes
@@ -412,4 +412,7 @@ Holiday taken for Christmas.
 
 ### 24 Feb 2020 (Wed) - 8 hours
 * *4 hours*: Fixed positioning of canvas circles properly
-* *4 hours*: Making progress on edit preferences (lots of edge cases for hr-resident-egs) 
+* *4 hours*: Making progress on edit preferences (lots of edge cases for hr-resident-egs)
+
+### 25 Feb 2020 (Wed) - 4.5 hours
+* *4.5 hours*: Implemented edit preferences that checks and automatically fills in dependant on group size

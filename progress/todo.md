@@ -95,7 +95,7 @@ x Only let user enter correct input
 
 # Todo (25/02/21)
 
-- Implement error checking for edit preferences
+x Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
 x Make it so it the program doesn't break when inputting preferences of different sizes
 - Fix bug with program breaking if moving from hr-resident-egs to sm-man-egs
