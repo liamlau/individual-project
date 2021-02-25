@@ -92,7 +92,9 @@ x Add descriptions when sidebar is hidden
 
 - Implement error checking for edit preferences
 - Implement working edit preferences for hr-egs-resident
+
 - Make it so it the program doesn't break when inputting preferences of different sizes
+
 - Fix bug with program breaking if moving from hr-resident-egs to sm-man-egs
 
 -----------------------------

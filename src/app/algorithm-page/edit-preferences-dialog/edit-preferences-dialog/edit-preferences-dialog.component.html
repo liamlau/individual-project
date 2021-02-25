@@ -5,7 +5,7 @@
       <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Marriage Problem'">
         <mat-form-field style="width: 200px;">
           <mat-label>Number of Men and Women</mat-label>
-          <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
+          <input [formControl]="numberOfGroup1Agents" type="number" [maxLength]="1" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" min="1" max="9" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(0))" onDrag="return false" onDrop="return false" onPaste="return false">
           <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
             This field is <strong>required</strong>
           </mat-error>
