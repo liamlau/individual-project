@@ -73,7 +73,72 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
     }
 
-    if (this.algorithmService.numberOfGroup1Agents >= this.numberOfGroup1Agents.value) {
+    if (this.algorithmService.numberOfGroup1Agents < this.numberOfGroup1Agents.value || this.algorithmService.numberOfGroup2Agents < this.numberOfGroup2Agents.value) {
+
+      let numbersToAdd: Array<string> = [];
+      let lettersToAdd: Array<string> = [];
+
+      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
+        lettersToAdd.push(String.fromCharCode(i + 64));
+      }
+
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+        numbersToAdd.push(String(i));
+      }
+
+      for (let agent of this.group1Preferences) {
+        currentLine = "";
+        this.shuffle(lettersToAdd);
+
+        let id: string = agent[0];
+        let newPreferences: string[] = agent[1].concat(lettersToAdd);
+
+        currentLine = id + ": " + newPreferences.join(", ");
+  
+        currentLine += "\n";
+        preferenceString += currentLine;
+
+      }
+
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+        let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd);
+        this.shuffle(newPreferences);
+        currentLine = i + ": " + newPreferences.join(", ");
+        currentLine += "\n";
+        preferenceString += currentLine;
+      }
+
+      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
+
+      if (this.equalGroups) {
+        this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+      }
+
+      for (let agent of this.group2Preferences) {
+        currentLine = "";
+        this.shuffle(numbersToAdd);
+
+        let id: string = agent[0];
+        let newPreferences: string[] = agent[1].concat(numbersToAdd);
+
+        currentLine = id + ": " + newPreferences.join(", ");
+  
+        currentLine += "\n";
+        preferenceString += currentLine;
+
+      }
+
+      console.log(this.numberOfGroup2Agents.value);
+      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
+        let newPreferences = Array.from(this.group2Preferences.values())[0].concat(numbersToAdd);
+        this.shuffle(newPreferences);
+        currentLine = String.fromCharCode(i + 64) + ": " + newPreferences.join(", ");
+        currentLine += "\n";
+        preferenceString += currentLine;
+      }
+
+    } else {
+      console.log(":(");
       for (let agent of this.group1Preferences) {
         currentLine = "";
   
@@ -130,69 +195,6 @@ export class EditPreferencesDialogComponent implements OnInit {
         counter++;
   
       }
-    } else {
-
-      let numbersToAdd: Array<string> = [];
-      let lettersToAdd: Array<string> = [];
-
-      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
-        lettersToAdd.push(String.fromCharCode(i + 64));
-      }
-
-      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
-        numbersToAdd.push(String(i));
-      }
-
-      for (let agent of this.group1Preferences) {
-        currentLine = "";
-        this.shuffle(lettersToAdd);
-
-        let id: string = agent[0];
-        let newPreferences: string[] = agent[1].concat(lettersToAdd);
-
-        currentLine = id + ": " + newPreferences.join(", ");
-  
-        currentLine += "\n";
-        preferenceString += currentLine;
-
-      }
-
-      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
-        let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd);
-        this.shuffle(newPreferences);
-        currentLine = i + ": " + newPreferences.join(", ");
-        currentLine += "\n";
-        preferenceString += currentLine;
-      }
-
-      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
-
-      if (this.equalGroups) {
-        this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
-      }
-
-      for (let agent of this.group2Preferences) {
-        currentLine = "";
-        this.shuffle(numbersToAdd);
-
-        let id: string = agent[0];
-        let newPreferences: string[] = agent[1].concat(numbersToAdd);
-
-        currentLine = id + ": " + newPreferences.join(", ");
-  
-        currentLine += "\n";
-        preferenceString += currentLine;
-
-      }
-
-      for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
-        let newPreferences = Array.from(this.group2Preferences.values())[0].concat(numbersToAdd);
-        this.shuffle(newPreferences);
-        currentLine = String.fromCharCode(i + 64) + ": " + newPreferences.join(", ");
-        currentLine += "\n";
-        preferenceString += currentLine;
-      }
-
     }
     
     console.log(this.formString);
