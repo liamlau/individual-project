@@ -75,7 +75,7 @@ export class AlgorithmCardComponent implements OnInit {
 
     await this.delay(700);
 
-    this.router.navigateByUrl("/animation");
+    this.router.navigateByUrl("/animation", { skipLocationChange: true });
   }
 
 

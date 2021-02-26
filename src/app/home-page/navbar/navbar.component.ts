@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
     if (!(this.router.url == page)) {
       this.fadeCurrentPage();
       await this.delay(400);
-      this.router.navigateByUrl(page);
+      this.router.navigateByUrl(page, { skipLocationChange: true });
     }
   }
 
