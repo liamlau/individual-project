@@ -36,7 +36,7 @@ export class EgsResidentHSService extends ExtendedGaleShapley {
       for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
           let group2AgentName = this.group2Name + currentLetter;
 
-          let availableSpaces = this.getRandomInt(1, this.numberOfGroup2Agents-2);
+          let availableSpaces = this.getRandomInt(1, this.numberOfAgents-2);
 
           this.group2Agents.set(group2AgentName, {
               name: group2AgentName,
