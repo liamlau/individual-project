@@ -56,10 +56,6 @@ export class AlgorithmCardComponent implements OnInit {
       this.algorithmService.numberOfGroup2Agents = this.numberOfGroup2Agents.value;
     }
 
-    console.log(this.algorithmService.currentAlgorithm);
-    console.log(this.algorithmService.numberOfGroup1Agents);
-    console.log(this.algorithmService.numberOfGroup2Agents);
-
 
     anime({
       targets: '.main-page',

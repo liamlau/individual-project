@@ -49,7 +49,7 @@ export class PlaybackService {
     this.resetPlaybackData();
     this.numCommands = this.commandList.length-1;
 
-    console.log(this.algorithmData);
+    // console.log(this.algorithmData);
     this.updateCurrentCommand();
 
   }

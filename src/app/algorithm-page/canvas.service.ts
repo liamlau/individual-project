@@ -176,7 +176,7 @@ export class CanvasService {
 
     spaceBetweenCircles = (effectiveHeight / this.algService.numberOfGroup2Agents) + RHSHeightOffset;
 
-    console.log(this.algService.numberOfGroup2Agents);
+    // console.log(this.algService.numberOfGroup2Agents);
 
     if (this.algService.numberOfGroup2Agents % 2 == 1) {
 
@@ -248,7 +248,7 @@ export class CanvasService {
       // console.log(this.positions);
     }
 
-    console.log(this.positions);
+    // console.log(this.positions);
 
     // for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
     //   this.positions["circle" + i] = {

@@ -61,6 +61,7 @@ export class AlgorithmPageComponent implements OnInit {
     // this.playback.setAlgorithm(alg, group1, group2);
 
     // uncomment the line below to enable working algorithm selection
+    this.drawService.initialise();
     this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
     $(function () {
@@ -224,7 +225,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
 
   }
@@ -237,7 +238,7 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
 
   }
@@ -317,7 +318,7 @@ export class AlgorithmPageComponent implements OnInit {
 
 
   nextTutorialStep(): void {
-    console.log(this.tutorialStep);
+    // console.log(this.tutorialStep);
     if (this.tutorialStep == 0) {
       if (this.showCode) {
         this.toggleSidebar();
@@ -338,9 +339,9 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   sidebarTutorial(): void {
-    console.log(this.tutorialStep);
+    // console.log(this.tutorialStep);
     this.tutorialStep += 1;
-    console.log(this.tutorialStep);
+    // console.log(this.tutorialStep);
     $('.navbarPopover').popover('hide');
     $('.sidebarPopover').popover('show');
   }
