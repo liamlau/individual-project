@@ -45,8 +45,8 @@ export class AlgorithmRetrievalService {
         service: this.gsStableMarriageService,
         description: "The stable marriage problem is the problem of finding a stable matching between two equally sized sets of elements. In this case: <b>men and women</b>.<br><br>To do this, the Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
-          1: "Set the 'match' attribute of men and women to null",
-          2: "While freeMen still has men in it, select the first one as m (%man%)",
+          1: "Ensure there are no pre-existing matches between men and women",
+          2: "While there is still a man without a match, select the first one (%man%)",
           3: "%woman% is selected as %man%'s most preferred woman who he has not yet proposed to",
           4: "Checking to see if %woman% has a match",
           5: "%woman% was free, so matching her with %man%",
