@@ -1,6 +1,14 @@
 <div style="min-width: 300px">
     <h1>Edit Preferences</h1>
 
+    <p>
+      Click on the number below and use arrow keys to change the number of {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
+      <br><br>
+      Any preferences should be in the form:
+      <br>
+      <{{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}}/{{this.algorithmService.currentAlgorithm.orientation[1].toLowerCase()}} number>: &lt;preferences separated by commas>
+    </p>
+
     <form class="example-form pl-3">
       <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Marriage Problem'">
         <mat-form-field style="width: 200px;">
@@ -44,11 +52,11 @@
     <h2 class="mt-2">Input New Preferences</h2>
 
     <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
-        <mat-label>Clear the input area for randomly generated preferences!</mat-label>
+        <mat-label>Enter your custom preferences here (separated by commas)!</mat-label>
         <textarea matInput placeholder="1: A, B, C, D, E" [(ngModel)]="this.formString" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;" value="{{ this.formString }}" (ngModelChange)="this.generateMissingPreferences($event)"></textarea>
     </mat-form-field>
 
-    <h2>Preferences Missing</h2>
+    <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
     <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
       <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
     </span>
