@@ -19,7 +19,7 @@
 
         <div class="row mt-4">
 
-            <div class="col-8">
+            <div class="col-7">
                 <form class="example-form pl-3">
                     <div class="row justify-content-start" *ngIf="algorithm.name == 'Stable Marriage Problem'">
                       <mat-form-field style="width: 200px;">
@@ -61,7 +61,7 @@
                   </form>
             </div>
 
-            <div clas="col-4">
+            <div class="col-5 text-right">
                 <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Stable Marriage Problem'" cdkFocusInitial [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
                 <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Hospital/Residents Problem'" cdkFocusInitial [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
             </div>

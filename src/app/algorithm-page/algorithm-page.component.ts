@@ -50,18 +50,18 @@ export class AlgorithmPageComponent implements OnInit {
     // smp-man-egs
     // hr-resident-egs
 
-    let group1 = 5;
-    let group2 = 5;
-    let alg: string = "hr-resident-egs";
+    // let group1 = 9;
+    // let group2 = 9;
+    // let alg: string = "hr-resident-egs";
 
-    this.algorithmService.numberOfGroup1Agents = group1;
-    this.algorithmService.numberOfGroup2Agents = group2;
+    // this.algorithmService.numberOfGroup1Agents = group1;
+    // this.algorithmService.numberOfGroup2Agents = group2;
 
-    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
-    this.playback.setAlgorithm(alg, group1, group2);
+    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
+    // this.playback.setAlgorithm(alg, group1, group2);
 
     // uncomment the line below to enable working algorithm selection
-    // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
     $(function () {
       $('[data-toggle="popover"]').popover()

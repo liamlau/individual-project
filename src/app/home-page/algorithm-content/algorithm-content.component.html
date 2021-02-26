@@ -18,14 +18,14 @@
             </div>
             
 
-            <div class="row justify-content-center mb-4">
+            <!-- <div class="row justify-content-center mb-4">
                 <div class="col-6 text-center">
                     <p class="lead" style="font-size: 1.6rem; line-height: 2.5rem;">Using this app you can pick a problem (currently either Stable Marriage or Hospital/Residents) and see how the Gale-Shapley and Extended Gale-Shapley algorithms are used in those scenarios.</p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row my-5 mx-5 justify-content-center">
-                <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let algorithm of algorithmRetrieval.getListOfAlgorithms()">
+                <div class="col-xl-6 col-sm-12 mb-5" *ngFor="let algorithm of algorithmRetrieval.getListOfAlgorithms()">
                   <algorithm-card [algorithm]=algorithm></algorithm-card>
                 </div>
             </div>

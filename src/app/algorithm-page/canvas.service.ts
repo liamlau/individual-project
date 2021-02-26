@@ -68,8 +68,33 @@ export class CanvasService {
 
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 
+    let LHSHeightOffset = 0;
+    let RHSHeightOffset = 0;
+
+    if (this.algService.numberOfGroup1Agents == 8) {
+      LHSHeightOffset = 8;
+      this.radiusOfCircles = 27;
+    } else if (this.algService.numberOfGroup1Agents == 9) {
+      LHSHeightOffset = 6;
+      this.radiusOfCircles = 21;
+    } else {
+      LHSHeightOffset = 0;
+      this.radiusOfCircles = 30;
+    }
+
+    if (this.algService.numberOfGroup2Agents == 8) {
+      RHSHeightOffset = 8;
+      this.radiusOfCircles = 27;
+    } else if (this.algService.numberOfGroup2Agents == 9) {
+      RHSHeightOffset = 6;
+      this.radiusOfCircles = 21;
+    } else {
+      RHSHeightOffset = 0;
+      this.radiusOfCircles = 30;
+    }
+
     let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
-    let spaceBetweenCircles: number = (effectiveHeight / this.algService.numberOfGroup1Agents);
+    let spaceBetweenCircles: number = (effectiveHeight / this.algService.numberOfGroup1Agents) + LHSHeightOffset;
     
     let canvasMiddle: number = (effectiveHeight / 2) + 40;
 
@@ -149,7 +174,7 @@ export class CanvasService {
     }
 
 
-    spaceBetweenCircles = effectiveHeight / this.algService.numberOfGroup2Agents;
+    spaceBetweenCircles = (effectiveHeight / this.algService.numberOfGroup2Agents) + RHSHeightOffset;
 
     console.log(this.algService.numberOfGroup2Agents);
 
