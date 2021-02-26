@@ -2,3 +2,11 @@
     background-color: #D7D7D7;
     height: 1px;
 }
+
+.cardButton {
+    transition: 200ms background-color;
+}
+
+.cardButton:hover {
+    background: rgb(211, 211, 211)
+}
