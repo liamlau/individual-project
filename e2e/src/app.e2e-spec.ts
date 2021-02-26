@@ -46,13 +46,6 @@ describe('workspace-project App', () => {
     expect(page.getHomePageRow3Text()).toContain('Use the playback controls for each algorithm to control the speed you learn.');
   });
 
-  it('home page images should appear', () => {
-    page.navigateTo();
-    expect(element(by.css('#homePageRow1Content')).isPresent()).toBeTruthy();
-    expect(element(by.css('#homePageRow2Content')).isPresent()).toBeTruthy();
-    expect(element(by.css('#homePageRow3Content')).isPresent()).toBeTruthy();
-  });
-
   it('feedback banner should appear', () => {
     page.navigateTo();
     expect(element(by.css('#feedbackBanner')).isPresent()).toBeTruthy();
@@ -60,14 +53,12 @@ describe('workspace-project App', () => {
 
   it('feedback banner text should appear', () => {
     page.navigateTo();
-    expect(page.getFeedbackBannerText()).toContain('If you have any feedback for me, or anything you\'d like to see in this app, click the button below to email me or contact me at one of my socials!');
-    expect(page.getFeedbackBannerText()).toContain('I\'m currently actively working on the app, however as it is part of my final year university project, I will eventually stop.');
+    expect(page.getFeedbackBannerText()).toContain('If you have any feedback for me, or anything you\'d like to see in this app, click the button below to be navigated to the feedback page');
   });
 
   it('social media icons should appear', () => {
     page.navigateTo();
     expect(element(by.css('#github-icon')).isPresent()).toBeTruthy();
-    expect(element(by.css('#facebook-icon')).isPresent()).toBeTruthy();
     expect(element(by.css('#linkedin-icon')).isPresent()).toBeTruthy();
   });
 
