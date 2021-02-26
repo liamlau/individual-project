@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ftest": "npm run test -- --no-watch --browsers=ChromeHeadlessCI & npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --port 4201",
-    "deploy": "ng build --prod --baseHref='https://liamlau.github.io/individual-project/'"
+    "deploy": "ng build --prod --baseHref=\"https://liamlau.github.io/individual-project/\""
   },
   "private": true,
   "dependencies": {
