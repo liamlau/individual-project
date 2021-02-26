@@ -3,7 +3,7 @@
 <div class="main-page">
     <router-outlet #outlet="outlet"></router-outlet>
 
-    <feedback-banner></feedback-banner>
+    <feedback-banner *ngIf="!(router.url === '/feedback')"></feedback-banner>
 
     <icon-banner></icon-banner>
 </div>

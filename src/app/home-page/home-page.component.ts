@@ -13,7 +13,7 @@ export class HomePageComponent implements OnInit {
 
   
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
