@@ -41,11 +41,14 @@ Functions in this file:
   - ngOnInit(): void
   - ngAfterViewInit(): void
   - handleKeyboardEvent(event: KeyboardEvent): void
+  
   - openEditPreferencesDialog(): void
   - openAnimationGuideDialog(): void
+
   - async goHome(): Promise<void>
   - async generateNewPreferences(): Promise<void>
   - async toggleSidebar(): Promise<void>
+
   - nextTutorialStep(): void
   - startTutorial(): void
   - sidebarTutorial(): void
