@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { AnimationGuideDialogComponent } from './animation-guide-dialog/animation-guide-dialog.component';
-import { CanvasService } from './canvas.service';
+import { CanvasService } from './canvas/canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
-import { PlaybackService } from './playback.service';
+import { PlaybackService } from './playback/playback.service';
 declare var anime: any;
 declare var $: any;
 

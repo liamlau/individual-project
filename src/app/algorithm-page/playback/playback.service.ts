@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ExecutionService } from './algorithms/execution.service';
-import { CanvasService } from './canvas.service';
+import { ExecutionService } from '../algorithms/execution.service';
+import { CanvasService } from '../canvas/canvas.service';
 
 @Injectable({
   providedIn: 'root'

@@ -18,8 +18,11 @@
 remember to put something in eval/design/requirements about colourblindness (won't be able to do anything about it, not enough time)
 
 15/03/21:
-    - Update timelog for March
-    - Merge redesign/refactor branch into master
+    - Send emails |
+    - Reply to TP3 team |
+    - Update timelog for March |
+    - Merge redesign/refactor branch into master |
+    - add eval to feedback page
     - Comment entire codebase
     - OOSE Demonstrating (1 hour)
     - Start dissertation writing (1 hour)
