@@ -305,7 +305,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 20 -->
 
-## Week 20 (1 Jan 2021 - 7 Jan 2021) - **36 hours**
+## Week 20 (1 Feb 2021 - 7 Feb 2021) - **36 hours**
 ### 1 Feb 2020 (Mon) - 10 hours
 * *4 hours*: Writing the residents->hospitals algorithm using oop principles
 * *2 hours*: General refactoring / removing old code / preparing codebase for additional algorithms to be implemented (oop method)
@@ -335,7 +335,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
 
-## Week 21 (8 Jan 2021 - 14 Jan 2021) - **28 hours**
+## Week 21 (8 Feb 2021 - 14 Feb 2021) - **28 hours**
 ### 8 Feb 2020 (Mon) - 10 hours
 * *6 hours*: Finalising alg page
 * *2 hours*: Linking up app to alg page properly (halfway done)
@@ -359,7 +359,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
 
-## Week 22 (15 Jan 2021 - 21 Jan 2021) - **51 hours**
+## Week 22 (15 Feb 2021 - 21 Feb 2021) - **51 hours**
 
 ### 15 Feb 2020 (Mon) - 8 hours
 * *7 hours*: Finished implementing and bug fixing egs version of stable marriage problem
@@ -385,7 +385,6 @@ Holiday taken for Christmas.
 
 ### 20 Feb 2020 (Sat) - 5 hours
 * *5 hours*: Got new idea for tutorial, been experimenting, designing and implementing
-<!-- remember to put something in eval/design/requirements about colourblindness (won't be able to do anything about it, not enough time) -->
 
 ### 21 Feb 2020 (Sun) - 10 hours
 * *5 hours*: Fixed almost all formatting for algorithm page
@@ -396,7 +395,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (22 Jan 2021 - 28 Jan 2021) - **36.5 hours** (overall: 301.5 hours)
+## Week 23 (22 Feb 2021 - 28 Feb 2021) - **48.5 hours** (overall: 313.5 hours)
 
 ### 22 Feb 2020 (Mon) - 11 hours
 * *2 hours*: Miscellaneous bug/positional fixes
@@ -414,5 +413,43 @@ Holiday taken for Christmas.
 * *4 hours*: Fixed positioning of canvas circles properly
 * *4 hours*: Making progress on edit preferences (lots of edge cases for hr-resident-egs)
 
-### 25 Feb 2020 (Wed) - 4.5 hours
+### 25 Feb 2020 (Thu) - 8.5 hours
 * *4.5 hours*: Implemented edit preferences that checks and automatically fills in dependant on group size
+* *1 hour*: General bug-fixing (implemented guards for inputs, autoplay videos, input locks during animations)
+* *3 hours*: Created evaluation sheet (Google Forms)
+
+### 26 Feb 2020 (Fri) - 8 hours
+* *4 hours*: Finalised edit preferences functionality (error checking and autocomplete)
+* *1 hour*: Fixed cards for algorithm content page
+* *1.5 hours*: General main page additions (about page text, font changes, finishing touches)
+* *1.5 hours*: Bug fixes (fixed app breaking bugs with going from hr to sm - some variables kept their state)
+* *0.5 hours*: Fixed e2e tests
+* *0.5 hours*: Deployed app using Github pages and sent email to supervisor with finished evaluation and project link
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 24 -->
+
+## Week 24 (1 Mar 2021 - 7 Mar 2021) - **x hours**
+
+Week spent on coursework and catching up with subjects.
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
+
+## Week 25 (8 Mar 2021 - 14 Mar 2021) - **x hours**
+
+Week spent on coursework and catching up with subjects.
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
+
+## Week 23 (15 Mar 2021 - 21 Mar 2021) - **x hours**
+
+### 15 Mar 2020 (Mon) - x hours
+* *0.5 hours*: Updated timelog for March
+* *0.5 hours*: Merged current branch into master
+
+<hr>
