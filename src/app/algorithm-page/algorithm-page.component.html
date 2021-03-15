@@ -32,60 +32,9 @@
 
 <!-- main content -->
 <div class="container-fluid main">
-  <div class="row h-100">
 
     <!-- sidebar -->
-    <nav class="d-none sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
-      <div class="sidebar-sticky shadow-lg">
-        <div class="grid-container-algorithm" id="sidebarContent">
-
-          <!-- Algorithm Description -->
-          <div class="row text-center border-bottom px-5" id="descriptionDiv">
-            <h3 class="col-12 h2 sidebarPopover my-auto text-center pr-4" id="algorithmDescription" data-toggle="popover" data-placement="left" title="Current Line Description" data-content="This gives you a description of what's happening in the algorithm at this step with reference to the variables involved." data-trigger="manual"
-            data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>{{ this.playback.description }}</h3>
-          </div>
-
-
-          <!-- Free Agents -->
-          <div class="border-bottom align-items-center">
-            <div class="row align-items-center mx-2" style="height: 100%">
-              <div class="col-4 pr-2" style="font-size: 22px;">
-                <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
-              </div>
-              <div class="col-8 text-center pr-5 py-3" style="font-size: 0.9vw;">
-                [
-                <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
-                  <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
-                </span>
-                ]
-              </div>
-            </div>
-          </div>
-
-
-          <!-- Code Display -->
-          <div class="border-bottom sidebarPopover mr-2" style="background-color: #1b1f23; max-width: 100%;" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
-            data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-            <code-display></code-display>            
-          </div>
-
-
-          <!-- Execution Log -->
-          <div class="sidebarPopover" id="executionTrace" style="overflow: auto;" data-toggle="popover" data-placement="left" title="Execution Trace" data-content="This will fill out as you play the algorithm with a log of all current line descriptions, so you can go back and get a better idea of what happens at certain parts in the algorithm!" data-trigger="manual"
-            data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" style="color:black" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-            <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0; font-size: 1.4vw;">
-              Execution Log
-            </h1>
-            <ol start=0 class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px; font-size: 0.8vw; line-height: 1.2vw;">
-              <li class="mb-4 pr-2" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
-                {{ line }}.
-              </li>
-            </ol>
-          </div>
-
-        </div>
-      </div>
-    </nav>
+    <sidebar [(showCode)]="showCode" [(tutorialStep)]="tutorialStep"></sidebar>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
       <div class="grid-container-algorithm ml-sm-auto" id="mainContent" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: #ffffff; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
@@ -103,9 +52,7 @@
 
 
         <div class="mainContentPopover" (resized)="this.drawService.redrawCanvas()" id="parent" style="min-height: 400px;"  data-toggle="popover" data-placement="left" title="Algorithm Display" data-content="This is where you can see the animation for the algorithm! Green lines mean there is a matching between 2 circles, and red lines mean there is a proposal currently being considered. If you want more information, click on the info button next to the tutorial button!" data-trigger="manual">
-          <canvas #canvas id="myCanvas" style="min-height: 280px; max-width: 100%; height: 100%">
-       
-          </canvas>
+          <canvas #canvas id="myCanvas" style="min-height: 280px; max-width: 100%; height: 100%"></canvas>
         </div>
 
         <div class="container-fluid py-3" style="background-color: rgb(241, 241, 241); border-top: 0.6px solid rgb(124, 124, 124); ">
@@ -118,5 +65,4 @@
           </div>
         </div>
       </div>
-  </div>
 </div>
