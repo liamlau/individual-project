@@ -1,3 +1,5 @@
+@import "_colors", "_fonts";
+
 :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
@@ -35,10 +37,6 @@
     opacity: 0;
 }
 
-// .test {
-//     position: absolute;
-//     transform: translate(-50%, -50%);
-// }
 
 .vertical-center {
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
@@ -73,8 +71,9 @@
   }
   
   .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
+    background-color: $sidebar-color;
+    color: $sidebar-text-color;
+    position: absolute;
     top: 48px; /* Height of navbar */
     height: calc(100vh - 48px);
     padding-top: .5rem;
@@ -105,11 +104,35 @@
     font-size: .75rem;
     text-transform: uppercase;
   }
+
+  #sidebarContent {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+  #descriptionDiv {
+    height:114px
+  }
   
+  #algorithmDescription {
+    font-weight: 400;
+    font-size: 1vw;
+    line-height: 1.5vw;
+  }
+
   /*
    * Navbar
    */
   
+  .alg-navbar {
+    background-color: $navbar-color;
+    height: 50px;
+    font-family: 'DM Sans';
+    z-index: 1000;
+  }
+
   .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
@@ -140,16 +163,16 @@
    */
   
   // .border-top { border-top: 1px solid #000000; }
-  .border-bottom { border-bottom: 1px solid #3d3d3d !important;}
+  .border-bottom { border-bottom: 1px solid $border-color !important;}
 
 
   #alg {
-    color: #ff3c00;
+    color: $logo-alg-color;
     transition: 200ms color;
 }
 
 #match {
-    color: #e100ff;
+    color: $logo-match-color;
     transition: 200ms color;
 }
 
@@ -158,22 +181,22 @@ a {
 }
 
 a:hover span #alg {
-    color: #ffae00;
+    color: $logo-alg-hover-algpage-color;
 }
 
 a:hover span #match {
-    color: #ff009d;
+    color: $logo-match-hover-algpage-color;
 }
 
 .navbarIconButton {
   cursor: pointer;
   vertical-align: middle;
-  color: rgb(153, 153, 153);
+  color: $icon-color;
   transition: 200ms color;
 }
 
 .navbarIconButton:hover {
-  color: rgb(194, 194, 194);
+  color: $icon-hover-color;
 }
 
 .highlight {
@@ -183,7 +206,7 @@ a:hover span #match {
   // top: 50px;
   // left: 50px;
   /* IE8 */
-  outline: 99999px solid rgba(0,0,0,.3);
+  outline: 99999px solid rgba(0, 0, 0, 0.3);
   /* IE9+ */
   outline: calc(100 * (1vw + 1vh - 1vmin)) solid rgba(0,0,0,.3);
   /* for other browsers */
@@ -212,10 +235,7 @@ a:hover span #match {
 .moveContentToTop {
   z-index: 599;
 }
- 
-// .matTooltip {
-//   z-index: 5000 !important;
-// }
+
 
 .mat-h3, .mat-subheading-2, .mat-typography h3 {
   margin: 0 0 0 px;
@@ -236,4 +256,10 @@ li::marker {
 .disabled {
   pointer-events: none;
   color: #616161;
+}
+
+.main {
+  height: calc(100% - 50px) !important;
+  overflow-x: hidden;
+  font-family: 'DM Sans';
 }

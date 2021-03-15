@@ -110,19 +110,19 @@ export class AlgorithmPageComponent implements OnInit {
 
     // debugging: use the following lines (70-78) to test individual algorithms
     // you can use this in conjunction with changing the routing in order to direct to the animation page (so you don't have to keep selecting an algorithm through the main page, etc.)
-    // let group1 = 9;
-    // let group2 = 9;
-    // let alg: string = "hr-resident-egs";
+    let group1 = 5;
+    let group2 = 5;
+    let alg: string = "smp-man-gs";
 
-    // this.algorithmService.numberOfGroup1Agents = group1;
-    // this.algorithmService.numberOfGroup2Agents = group2;
+    this.algorithmService.numberOfGroup1Agents = group1;
+    this.algorithmService.numberOfGroup2Agents = group2;
 
-    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
-    // this.playback.setAlgorithm(alg, group1, group2);
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
+    this.playback.setAlgorithm(alg, group1, group2);
 
     // (un)comment the line below to (disable)/enable working algorithm selection
     this.drawService.initialise();
-    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
 
     // initialise all of the popovers for the tutorial (they won't appear without this function)
