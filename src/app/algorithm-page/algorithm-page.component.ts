@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
+import { UtilsService } from '../utils/utils.service';
 import { AnimationGuideDialogComponent } from './animation-guide-dialog/animation-guide-dialog.component';
 import { AlgorithmAnimationService } from './animations/algorithm-animation.service';
 import { CanvasService } from './canvas/canvas.service';
@@ -26,6 +27,30 @@ Purpose:
 Flow:
   - When algorithm page is to be loaded, run the constructor, injecting all necessary services
   - ngOnInit() is then run, linking the global canvas variable for the canvasService (having a canvasService allows us to make calls to draw elements from anywhere)
+  - Set listener functions for the following actions:
+    - keypress down:
+        handleKeyboardEvent(event: KeyboardEvent): void
+    - home link (algmatch) clicked:
+        async goHome(): Promise<void>
+    - generate new preferences button clicked:
+        async generateNewPreferences(): Promise<void>
+    - toggle sidebar button clicked:
+        async toggleSidebar(): Promise<void>
+
+Functions in this file:
+  - ngOnInit(): void
+  - ngAfterViewInit(): void
+  - handleKeyboardEvent(event: KeyboardEvent): void
+  - openEditPreferencesDialog(): void
+  - openAnimationGuideDialog(): void
+  - async goHome(): Promise<void>
+  - async generateNewPreferences(): Promise<void>
+  - async toggleSidebar(): Promise<void>
+  - nextTutorialStep(): void
+  - startTutorial(): void
+  - sidebarTutorial(): void
+  - mainContentTutorial(): void
+  - stopTutorial(): void
 
 */
 
@@ -67,6 +92,7 @@ export class AlgorithmPageComponent implements OnInit {
     public algorithmService: AlgorithmRetrievalService,  // injecting the algorithm service
     public drawService: CanvasService,  // injecting the canvas service
     public animation: AlgorithmAnimationService,
+    public utils: UtilsService,
     public dialog: MatDialog,  // injecting the dialog component
     public router: Router  // injecting the router service (for programmatic route navigation)
   ) { }
@@ -119,7 +145,7 @@ export class AlgorithmPageComponent implements OnInit {
     // (r) or (#) == generate new preferences
     // (e) or (]) == open edit preferences dialog
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
+  handleKeyboardEvent(event: KeyboardEvent): void {
     if (!this.dialogOpen && this.tutorialStep == 0) {  // disable events on tutorial or edit preferences open
       if (event.key == "ArrowRight" || event.key == "d") {
         if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
@@ -142,9 +168,10 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  // --------------------------------------------------------------------------------- | FUNCTIONS
+  // --------------------------------------------------------------------------------- | GENERAL FUNCTIONS
 
 
+  // open the edit preferences dialog with a callback function
   openEditPreferencesDialog(): void {
     const dialogRef = this.dialog.open(EditPreferencesDialogComponent);
 
@@ -152,12 +179,11 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      // console.log(`Dialog result: ${result}`);
     });
 
   }
 
-
+  // open the animation guide dialog with a callback function
   openAnimationGuideDialog(): void {
     const dialogRef = this.dialog.open(AnimationGuideDialogComponent);
 
@@ -165,59 +191,113 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      // console.log(`Dialog result: ${result}`);
     });
 
   }
 
 
-  async goHome(page: string): Promise<void> {
-    if (!(this.router.url == page)) {
-
-      this.animation.goHome();
+  // --------------------------------------------------------------------------------- | ON CLICK FUNCTIONS
 
 
-      await this.delay(1000);
-
-      this.router.navigateByUrl(page);
-    }
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+  // function run when home link clicked
+  // start animation for going home, delay 1000ms, then change route to home
+  async goHome(): Promise<void> {
+    this.animation.goHome();
+    await this.utils.delay(1000);
+    this.router.navigateByUrl("/");
   }
 
 
-  async generateNewPreferences() {
-
+  // function run when generate new preferences button clicked
+  async generateNewPreferences(): Promise<void> {
+    // clears any code highlighting
     var command = this.playback.commandList[this.playback.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.backgroundColor = "";
     a.style.color = "";
 
+    // animates changing of preferences (fade in/out)
     this.animation.fadeCanvasOut();
-    await this.delay(300);
+    await this.utils.delay(300);
     this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
     this.animation.fadeCanvasIn();
   }
 
 
+  // function run when toggle sidebar button clicked (top left)
+  async toggleSidebar(): Promise<void> {
+
+    this.duringAnimation = true;
+
+    let mainContent = document.getElementById("mainContent");
+
+    if (!this.showCode) {
+
+      // hide sidebar and content
+      this.animation.hideSidebar();
+      this.animation.hideMainContent();
+
+      await this.utils.delay(700);
+  
+      // show sidebar and content
+      mainContent.style.position = "";
+      this.animation.showMainContent();
+      this.showCode = !this.showCode
+
+    } else {
+
+      // hide content
+      this.animation.hideMainContent();
+
+      await this.utils.delay(400);
+
+      // show sidebar
+      this.showCode = !this.showCode
+      this.animation.showSidebar();
+
+      await this.utils.delay(200);
+
+      // show content
+      this.animation.showMainContent();
+
+    }
+
+    await this.utils.delay(200);
+
+    this.duringAnimation = false;
+
+  }
+
+
+  // --------------------------------------------------------------------------------- | TUTORIAL FUNCTIONS
+  
+
+  // function run when ">" arrow clicked in tutorial
+  // progresses to next stage of tutorial
   nextTutorialStep(): void {
-    // console.log(this.tutorialStep);
+    // step 1 (shows sidebar so tutorial doesn't break)
     if (this.tutorialStep == 0) {
       if (this.showCode) {
         this.toggleSidebar();
       }
       this.startTutorial();
+    
+    // step 2
     } else if (this.tutorialStep == 1) {
       this.sidebarTutorial();
+
+    // step 3
     } else if (this.tutorialStep == 2) {
       this.mainContentTutorial();
+      
+    // step 4
     } else if (this.tutorialStep == 3) {
       this.stopTutorial();
     }
   }
 
+
+  // functions to hide/show appropriate popovers for tutorial steps
   startTutorial(): void {
     this.tutorialStep += 1;
     $('.navbarPopover').popover('show');
@@ -244,49 +324,5 @@ export class AlgorithmPageComponent implements OnInit {
     $('.mainContentPopover').popover('hide');
   }
 
-
-  async toggleSidebar() {
-
-    this.duringAnimation = true;
-
-    let mainContent = document.getElementById("mainContent");
-
-    if (!this.showCode) {
-
-      this.animation.hideSidebar();
-      
-      this.animation.hideMainContent();
-      
-      await this.delay(700);
-  
-      mainContent.style.position = "";
-  
-      this.animation.showMainContent();
-
-      this.showCode = !this.showCode
-
-    } else {
-
-      this.animation.hideMainContent();
-
-      await this.delay(400);
-
-      this.showCode = !this.showCode
-
-      this.animation.showSidebar();
-
-      await this.delay(200);
-
-      this.animation.showMainContent();
-
-    }
-
-    await this.delay(200);
-
-    this.duringAnimation = false;
-
-    // mainContent.style.display = "";
-
-  }
 
 }
