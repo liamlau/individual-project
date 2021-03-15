@@ -7,13 +7,31 @@ import { AnimationGuideDialogComponent } from './animation-guide-dialog/animatio
 import { CanvasService } from './canvas/canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { PlaybackService } from './playback/playback.service';
-declare var anime: any;
-declare var $: any;
+declare var anime: any;  // declaring the animejs animation library for use in this file
+declare var $: any;  // declaring jquery for use in this file
 
-export enum KEY_CODE {
-  RIGHT_ARROW = 39,
-  LEFT_ARROW = 37
-}
+
+// -------------------------------------------------- FILE DESCRIPTION
+
+/*
+
+algorithm-page.component.ts
+
+This is the Typescript file for the algorithm page (algorithm-page.component.html).
+
+Purpose:
+  - Acts as a "main" class for the algorithm page
+  - Mediates interaction between all other services
+
+Flow:
+  - When algorithm page is to be loaded, run the constructor, injecting all necessary services
+  - ngOnInit() is then run, linking the global canvas variable for the canvasService (having a canvasService allows us to make calls to draw elements from anywhere)
+
+*/
+
+
+// -------------------------------------------------- CODE
+
 
 @Component({
   selector: 'algorithm-page',
@@ -22,10 +40,12 @@ export enum KEY_CODE {
 })
 export class AlgorithmPageComponent implements OnInit {
 
+  // --------------------------------------------------------------------------------- | INSTANCE VARIABLES
+
+
+  // looks for the canvas element on the algorithm page and assigns it to the canvas variable
   @ViewChild('canvas', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
-
-  private ctx: CanvasRenderingContext2D;
 
   showCode: boolean = false;
   dialogOpen: boolean = false;
@@ -34,22 +54,32 @@ export class AlgorithmPageComponent implements OnInit {
 
   duringAnimation: boolean = false;
 
-  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public dialog: MatDialog, public router: Router) { }
+  firstSelection: boolean = true
+  algorithm = new FormControl('');
+  numPeople: number;
 
+
+  // --------------------------------------------------------------------------------- | INIT FUNCTIONS
+
+
+  constructor(
+    public playback: PlaybackService,  // injecting the playback service
+    public algorithmService: AlgorithmRetrievalService,  // injecting the algorithm service
+    public drawService: CanvasService,  // injecting the canvas service
+    public dialog: MatDialog,  // injecting the dialog component
+    public router: Router  // injecting the router service (for programmatic route navigation)
+  ) { }
+
+
+  // function that runs when page is created
   ngOnInit(): void {
 
+    // set the global canvas element (in the canvasService) to the canvas on this page
     this.drawService.canvas = this.canvas;
     this.drawService.ctx = this.canvas.nativeElement.getContext('2d');
 
-    // this.algorithm.setValue("Gale-Shapley Stable Marriage");
-
-    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
-    // this.playback.setAlgorithm("smp-man-gs", 5);
-
-    // smp-man-gs
-    // smp-man-egs
-    // hr-resident-egs
-
+    // debugging: use the following lines (70-78) to test individual algorithms
+    // you can use this in conjunction with changing the routing in order to direct to the animation page (so you don't have to keep selecting an algorithm through the main page, etc.)
     // let group1 = 9;
     // let group2 = 9;
     // let alg: string = "hr-resident-egs";
@@ -60,63 +90,55 @@ export class AlgorithmPageComponent implements OnInit {
     // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
     // this.playback.setAlgorithm(alg, group1, group2);
 
-    // uncomment the line below to enable working algorithm selection
+    // (un)comment the line below to (disable)/enable working algorithm selection
     this.drawService.initialise();
     this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
+
+    // initialise all of the popovers for the tutorial (they won't appear without this function)
     $(function () {
       $('[data-toggle="popover"]').popover()
     })
 
+    // initialise the tutorial to the beginning
     this.tutorialStep = 0;
-
-    // this.nextTutorialStep();
 
   }
 
+  // function that runs when page is visible to user
   ngAfterViewInit(): void {
 
-    // let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
-    // var parent = document.getElementById("parent");
-    // canvas.width = parent.offsetWidth - 20;
-    // canvas.height = parent.offsetHeight - 20;
-    // var yMid = window.innerHeight / 2;
-    // console.log(yMid);
-
-    // var yPos = document.querySelector('.option-box').getBoundingClientRect().y;
-    // console.log(yPos)
-
+    // animation for sliding the navbar down from Y-150 its position
     anime({
       targets: '.navbar',
       easing: 'easeOutQuint',
       translateY: [-150, 0],
-      // opacity: [0, 1],
       delay: 200,
       duration: 900
     })
 
+    // animation for sliding the sidebar right from X-500 its position
     anime({
       targets: '.sidebar',
       easing: 'easeInOutQuint',
       translateX: [-500, 0],
-      // opacity: [0, 1],
       delay: 270,
       duration: 1000
     })
 
+    // animation for fading the sidebar content in as the sidebar slides in
     anime({
       targets: '#sidebarContent',
       easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
       opacity: [0, 1],
       delay: 270,
       duration: 1500
     })
 
+    // animation for fading the main content in as the sidebar finishes sliding in
     anime({
       targets: '#mainContent',
       easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
       opacity: [0, 1],
       delay: 670,
       duration: 900
@@ -124,9 +146,15 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
+  // creating a listener function for keydown events
+  // Key:
+    // (< arrow) or (a) == backstep in algorithm
+    // (> arrow) or (d) == forward step in algorithm
+    // (r) or (#) == generate new preferences
+    // (e) or (]) == open edit preferences dialog
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (!this.dialogOpen && this.tutorialStep == 0) {
+    if (!this.dialogOpen && this.tutorialStep == 0) {  // disable events on tutorial or edit preferences open
       if (event.key == "ArrowRight" || event.key == "d") {
         if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
           this.playback.forwardStep();
@@ -148,9 +176,8 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  firstSelection: boolean = true
-  algorithm = new FormControl('');
-  numPeople: number;
+  // --------------------------------------------------------------------------------- | FUNCTIONS
+
 
   changeAlgorithm() {
 
@@ -181,40 +208,6 @@ export class AlgorithmPageComponent implements OnInit {
         duration: 400,
       });
     }
-  }
-
-  toggleExpansion() {
-    var terminalElement = document.getElementById("terminal");
-    if (this.showCode) {
-      terminalElement.style.display = "none";
-      terminalElement.style.visibility = "none";
-      // anime({
-      //   targets: '.terminal-header',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [0, 200],
-      //   duration: 400
-      // })
-      // anime({
-      //   targets: '.terminal',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [0, -50],
-      //   opacity: [1, 0],
-      //   duration: 400
-      // })
-    } else {
-      // maybe try animating the height?
-      terminalElement.style.display = "";
-      terminalElement.style.visibility = "visible";
-      // anime({
-      //   targets: '.terminal-header',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [200, 0],
-      //   duration: 400
-      // })
-    }
-
-    this.showCode = !this.showCode;
-
   }
 
 
