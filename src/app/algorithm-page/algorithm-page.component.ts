@@ -41,7 +41,7 @@ Functions in this file:
   - ngOnInit(): void
   - ngAfterViewInit(): void
   - handleKeyboardEvent(event: KeyboardEvent): void
-  
+
   - openEditPreferencesDialog(): void
   - openAnimationGuideDialog(): void
 
@@ -307,9 +307,7 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
   sidebarTutorial(): void {
-    // console.log(this.tutorialStep);
     this.tutorialStep += 1;
-    // console.log(this.tutorialStep);
     $('.navbarPopover').popover('hide');
     $('.sidebarPopover').popover('show');
   }
