@@ -139,8 +139,8 @@
    * Utilities
    */
   
-  .border-top { border-top: 1px solid #e5e5e5; }
-  .border-bottom { border-bottom: 1px solid #e5e5e5; }
+  // .border-top { border-top: 1px solid #000000; }
+  .border-bottom { border-bottom: 1px solid #3d3d3d !important;}
 
 
   #alg {
@@ -174,4 +174,66 @@ a:hover span #match {
 
 .navbarIconButton:hover {
   color: rgb(194, 194, 194);
+}
+
+.highlight {
+  // position: fixed;
+  // width: 200px;
+  // height: 200px;
+  // top: 50px;
+  // left: 50px;
+  /* IE8 */
+  outline: 99999px solid rgba(0,0,0,.3);
+  /* IE9+ */
+  outline: calc(100 * (1vw + 1vh - 1vmin)) solid rgba(0,0,0,.3);
+  /* for other browsers */
+  outline: 100vmax solid rgba(0,0,0,.3);
+  // pointer-events: none;
+}
+
+.dim {
+  box-shadow: 0 0 0 1000px rgba(0,0,0, 0.5); /* for IE */
+  box-shadow: 0 0 0 100vmax rgba(0,0,0, 0.5); /* for real browsers */
+  border-radius: 60px;
+}
+
+.covering-panel {
+  background: rgba(0,0,0, 0.6);  // opaque black
+  height: 100vh;                 // height of the viewport
+  position: fixed;               // always cover the screen
+  width: 100%;                   // width of the viewport
+  z-index: 500;                   // stay on top of other elements
+}
+
+.moveNavbarToTop {
+  z-index: 600;
+}
+
+.moveContentToTop {
+  z-index: 599;
+}
+ 
+// .matTooltip {
+//   z-index: 5000 !important;
+// }
+
+.mat-h3, .mat-subheading-2, .mat-typography h3 {
+  margin: 0 0 0 px;
+}
+
+div .bs-popover-left {
+  margin-left: 10rem !important;
+}
+
+.popoverPositioning {
+  margin-left: 10rem !important;
+}
+
+li::marker {
+  font-family: Roboto;
+}
+
+.disabled {
+  pointer-events: none;
+  color: #616161;
 }

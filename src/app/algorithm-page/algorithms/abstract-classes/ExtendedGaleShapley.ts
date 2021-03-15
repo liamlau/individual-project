@@ -32,9 +32,9 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
 
 
-                console.log("-------------");
-                console.log("resident: %o", currentAgent);
-                console.log("hospital: %o", potentialProposee);
+                // console.log("-------------");
+                // console.log("man: %o", currentAgent);
+                // console.log("woman: %o", potentialProposee);
 
 
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
@@ -45,13 +45,13 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 this.currentlySelectedAgents.push(proposeeLastChar);
                 this.relevantPreferences.push(proposeeLastChar);
 
-                this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, positionOfProposeeInAgentPrefs, "red");
-                this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, positionOfAgentInProposeePrefs, "red");
+                this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(woman => woman == this.getLastCharacter(potentialProposee.name)), "red");
+                this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(potentialProposee, currentAgent), "red");
 
                 let redLine = [agentLastChar, proposeeLastChar, "red"];
                 this.currentLines.push(redLine);
 
-                this.update(3, {"%potentialProposee%": potentialProposee.name});
+                this.update(3, {"%currentAgent%": currentAgent.name, "%potentialProposee%": potentialProposee.name});
 
                 // if h is fully subscribed, then break the assignment of the worst resident of that hospital
                 this.breakAssignment(currentAgent, potentialProposee);
@@ -66,9 +66,10 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
             }
         }
 
+        this.currentlySelectedAgents = [];
         this.relevantPreferences = [];
         // a stable matching has been found
-        this.update(12);
+        this.update(this.numberOfLines);
 
         // while some hospital h is undersubscribed
         // while (this.shouldContinueMatching(currentAgent)) {
@@ -77,7 +78,7 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         //     currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
         // }
 
-        // // console.log(this.algorithmData.commands);
+        // // // console.log(this.algorithmData.commands);
         return;
         // return "Extended Gale-Shapley!";
     }

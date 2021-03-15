@@ -1,3 +1,5 @@
+@import "../../../styles.scss";
+
 .startButton {
     background-color: #2058FF;
     transition: 200ms background-color;
@@ -7,24 +9,19 @@
     background-color: #1140ce;
 }
 
-.feedbackButton {
-    background-color: rgb(240, 240, 240);
-    transition: 200ms background-color;
+.title-text {
+    font-size: $base-font-size*3.2;
+    line-height: $base-font-size*1.6;
 }
-
-.feedbackButton:hover {
-    background-color: rgb(184, 184, 184)
-}
-
 
 // under small
 @media only screen and (max-width: 576px) {
-    .title-text {
-        padding-left: 40px;
-        padding-right: 40px;
-        font-size: 44px;
-        line-height: 60px;
-    }
+    // .title-text {
+    //     padding-left: 40px;
+    //     padding-right: 40px;
+    //     font-size: 44px;
+    //     line-height: 60px;
+    // }
 
     .video {
         height: 270px;
@@ -33,10 +30,10 @@
 
 // small
 @media only screen and (min-width: 576px) {
-    .title-text {
-        font-size: 60px;
-        line-height: 72px;
-    }
+    // .title-text {
+    //     font-size: 60px;
+    //     line-height: 72px;
+    // }
 
     .video {
         height: 300px;
@@ -45,10 +42,10 @@
 
 // medium
 @media only screen and (min-width: 768px) {
-    .title-text {
-        font-size: 70px;
-        line-height: 94px;
-    }
+    // .title-text {
+    //     font-size: 4.6rem;
+    //     line-height: 6rem;
+    // }
 
     .video {
         height: 410px;
@@ -56,14 +53,27 @@
 
 }
 
-// large
-@media only screen and (min-width: 992px) {
+@media #{$mq-xlarge} {
+    .title-text {
+        padding-top: 7vh;
+        font-size: $base-font-size*4;
+        line-height: $base-font-size*1.6;
+    }
+
     .video {
-        height: 490px;
+        height: 540px;
     }
 }
 
 // extra large
-@media only screen and (min-width: 1200px) {
+@media #{$mq-xxlarge} {
+    .title-text {
+        padding-top: 7vh;
+        font-size: $base-font-size*4.6;
+        line-height: $base-font-size*1.6;
+    }
 
+    .video {
+        height: 600px;
+    }
 }

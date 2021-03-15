@@ -38,3 +38,85 @@
 - Change the colour of the right hand side circles to purple (look on Figma for the hex)
 - Make functions for drawing circles and lines between circles
 - Made positions of circles more responsive
+
+-----------------------------
+
+# Todo (22/02/21)
+x Add pseudocode for smp-gs-man
+x Add pseudocode for hr-gs-resident
+x Fix bugs with smp-man-gs
+    x Only showing relevant preferences isn't working
+
+x Stopped user from clicking certain buttons during tutorial
+
+x Create Animation Guide
+
+x Show relevant preferences for smp-man-egs
+
+x Fix bug with edit preferences not appearing on top (allowing the user to click the button over and over again)
+
+x Link up "Give Feedback!" button
+
+x Plan for tomorrow's meeting
+x Get ethics checklist ready to be sent
+
+-----------------------------
+
+# Todo (23/02/21)
+
+x Fix bugs with hr-resident-egs
+    x Now highlights correct preferences
+    x Make sure it doesn't break on different input values
+    x Breaks with higher number of hospitals than residents
+    x Positioning of show relevant preferences was off
+
+x Implement auto fixing for edit preferences
+x Edit preferences breaks when just clicking on it and trying to generate for higher numbers (not 5)
+x Fix edit preferences not reading textarea value when number of agents changed
+x Fix edit preferences not resetting line background colour
+
+x URGENT: Fix bug with canvas auto sizing going off screen
+x Fix canvas not snapping back when sidebar expanded/retracted
+x Implement animations for closing sidebar panel
+
+x Fix formatting of canvas drawings
+    x Preferences don't show correctly
+
+-----------------------------
+
+# Todo (24/02/21)
+
+x Make the circles start from the middle (for 1 preference, it starts at the top)
+x Autoplay videos
+x Add descriptions when sidebar is hidden
+x Only let user enter correct input
+
+-----------------------------
+
+# Todo (25/02/21)
+
+x Implement error checking for edit preferences
+- Implement working edit preferences for hr-egs-resident
+x Make it so it the program doesn't break when inputting preferences of different sizes
+- Fix bug with program breaking if moving from hr-resident-egs to sm-man-egs
+- Create new cards for problems (or fix existing ones)
+
+- Write text for all content pages (main-page)
+
+- Finish evaluation script
+
+-----------------------------
+
+# Todo (26/02/21)
+
+- Make execution scroll to bottom on new commands being added
+- sort RHS on finish
+- Fix text sizing for main-page
+
+- Possibly make canvas responsive
+- Do evaluations
+
+- Documentation
+
+- Write plan for dissertation
+- Do dissertation

@@ -19,12 +19,12 @@
 
         <div class="row mt-4">
 
-            <div class="col-8">
+            <div class="col-7">
                 <form class="example-form pl-3">
                     <div class="row justify-content-start" *ngIf="algorithm.name == 'Stable Marriage Problem'">
                       <mat-form-field style="width: 200px;">
                         <mat-label>Number of Men and Women</mat-label>
-                        <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5">
+                        <input [formControl]="numberOfGroup1Agents" (keyup.enter)="(numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')) ? '' : this.onGeneratePreferences()" type="number" matInput placeholder="5" value="5" min="1" max="9" onkeydown="if(event.key==='.'){event.preventDefault();}" oninput="this.value = this.value > 0 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
                         <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
                           This field is <strong>required</strong>
                         </mat-error>
@@ -36,8 +36,8 @@
                 
                     <div class="row justify-content-center" *ngIf="algorithm.name == 'Hospital/Residents Problem'">
                       <mat-form-field style="width: 200px;" class="mr-1">
-                        <mat-label>Number of Hospitals</mat-label>
-                        <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5">
+                        <mat-label>Number of Residents</mat-label>
+                        <input [formControl]="numberOfGroup1Agents" (keyup.enter)="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min') ? '' :  this.onGeneratePreferences()" type="number" matInput placeholder="5" value="5" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
                         <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
                           This field is <strong>required</strong>
                         </mat-error>
@@ -47,8 +47,8 @@
                       </mat-form-field>
                 
                       <mat-form-field style="width: 200px;" class="ml-1">
-                        <mat-label>Number of Residents</mat-label>
-                        <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5">
+                        <mat-label>Number of Hospitals</mat-label>
+                        <input [formControl]="numberOfGroup2Agents" (keyup.enter)="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min') ? '' :  this.onGeneratePreferences()" type="number" matInput placeholder="5" value="5" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
                         <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
                           This field is <strong>required</strong>
                         </mat-error>
@@ -61,9 +61,9 @@
                   </form>
             </div>
 
-            <div clas="col-4">
-                <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Stable Marriage Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
-                <button class="feedbackButton" mat-flat-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Hospital/Residents Problem'" mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/algorithm" [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
+            <div class="col-5 text-right">
+                <button class="cardButton" mat-stroked-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Stable Marriage Problem' && !(numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min'))" cdkFocusInitial [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
+                <button class="cardButton" mat-stroked-button style="border-radius: 70px; width: 220px; height: 45px;" *ngIf="algorithm.name == 'Hospital/Residents Problem' && !(numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min'))" cdkFocusInitial [disabled]="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min')" (click)="this.onGeneratePreferences()"><span style="font-size: 18px; font-weight: 500; color: black;">Generate Preferences</span></button>
             </div>
         </div>
         

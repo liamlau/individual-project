@@ -1,41 +1,33 @@
 import { Injectable } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { CanvasService } from '../canvas.service';
-import { EgsResidentHSService } from './egs-resident-hs/egs-resident-hs.service';
-import { GaleShapleyService } from './gale-shapley/gale-shapley.service';
-import { SimpleService } from './simple/simple.service';
+import { MatchingAlgorithm } from './abstract-classes/MatchingAlgorithm';
+import { AlgorithmData } from './interfaces/AlgorithmData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExecutionService {
 
-  algorithm: string = "";
   commandMap = {}
   commandList = {};
-  serviceMap = {
-    "simple": this.simpleService,
-    "smp-man-gs": this.gsService,
-    "hr-resident-egs": this.egsResidentHsService
-  }
 
   // add the services for any new algorithms here
   constructor(
-    public simpleService: SimpleService,
-    public gsService: GaleShapleyService,
-    public egsResidentHsService: EgsResidentHSService,
-    public drawService: CanvasService,
     public algorithmRetrieval: AlgorithmRetrievalService
   ) { }
 
+  initialise(): void {
+    this.commandMap = {};
+    this.commandList = {};
+  }
 
-  getExecutionFlow(algorithm: string, numPeople: number): Object {
-    this.algorithm = algorithm;
-    let algorithmService = this.serviceMap[algorithm];
+  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): Object {
+    this.initialise();
+    let algorithmService: MatchingAlgorithm = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).service;
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
 
-    let commandList = algorithmService.run(numPeople);
-    commandList["descriptions"] = this.generateDescriptions(commandList);
+    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents, preferences);
+    commandList.descriptions = this.generateDescriptions(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);
 
@@ -46,7 +38,7 @@ export class ExecutionService {
 
   // --------------------------------------------------------- FUNCTIONS TO GENERATE LINE DESCRIPTIONS
 
-  generateDescriptions(commandList: Object): Object {
+  generateDescriptions(commandList: AlgorithmData): String[] {
     let descriptions = [];
 
     for (let step of commandList["commands"]) {

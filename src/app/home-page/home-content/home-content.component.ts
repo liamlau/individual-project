@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { simpleFadeAnimation } from 'src/app/animations';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { simpleFadeAnimation } from 'src/app/animations/fadeAnimation';
 
 declare var anime: any;
 
@@ -13,13 +13,26 @@ declare var anime: any;
 })
 export class HomeContentComponent implements OnInit {
 
+  @ViewChild('animationVid') animationVid: ElementRef;
+  @ViewChild('descriptionVid') descriptionVid: ElementRef;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit() {
+    let vid: HTMLVideoElement = this.animationVid.nativeElement;
+    vid.muted = true;
+    vid.play();
 
+    vid = this.descriptionVid.nativeElement;
+    vid.muted = true;
+    vid.play();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }

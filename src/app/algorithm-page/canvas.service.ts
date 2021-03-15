@@ -9,6 +9,9 @@ import { PlaybackService } from './playback.service';
 })
 export class CanvasService {
 
+  originalGroup1Preferences: Array<Array<string>>;
+  originalGroup2Preferences: Array<Array<string>>;
+
   // HTML drawing properties
   sizes = [];
   baseSize = undefined;
@@ -29,7 +32,7 @@ export class CanvasService {
   fontSize: number = 20;
 
 
-  alwaysShowPreferences: boolean = true;
+  alwaysShowPreferences: boolean = false;
 
   canvas: ElementRef<HTMLCanvasElement>;
 
@@ -38,6 +41,10 @@ export class CanvasService {
   public currentCommand: Object;
 
   public ctx: CanvasRenderingContext2D;
+
+  lineSizes: Map<string, number> = new Map();
+
+  firstRun: boolean = true;
 
   constructor(public algService: AlgorithmRetrievalService) { }
 
@@ -50,45 +57,224 @@ export class CanvasService {
     this.redrawCanvas();
   }
 
+  initialise() {
+    // this.lineSizes = new Map();
+    this.firstRun = true;
+  }
+
+  // Idea:
+  // Start from middle of canvas and 
   calculateEqualDistance() {
+
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
 
-    let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
+    let LHSHeightOffset = 0;
+    let RHSHeightOffset = 0;
 
-    let spaceBetweenCircles: number = effectiveHeight / this.algService.numberOfGroup1Agents;
-    let currentCirclePosition = (canvas.height * this.yMargin);
+    if (this.algService.numberOfGroup1Agents == 8) {
+      LHSHeightOffset = 8;
+      this.radiusOfCircles = 27;
+    } else if (this.algService.numberOfGroup1Agents == 9) {
+      LHSHeightOffset = 6;
+      this.radiusOfCircles = 21;
+    } else {
+      LHSHeightOffset = 0;
+      this.radiusOfCircles = 30;
+    }
+
+    if (this.algService.numberOfGroup2Agents == 8) {
+      RHSHeightOffset = 8;
+      this.radiusOfCircles = 27;
+    } else if (this.algService.numberOfGroup2Agents == 9) {
+      RHSHeightOffset = 6;
+      this.radiusOfCircles = 21;
+    } else {
+      RHSHeightOffset = 0;
+      this.radiusOfCircles = 30;
+    }
+
+    let effectiveHeight: number = canvas.height - (canvas.height * this.yMargin);
+    let spaceBetweenCircles: number = (effectiveHeight / this.algService.numberOfGroup1Agents) + LHSHeightOffset;
     
+    let canvasMiddle: number = (effectiveHeight / 2) + 40;
+
+    // console.log(canvasMiddle);
 
     this.positions = {}
 
     // LHS Positions
 
-    for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      this.positions["circle" + i] = {
+    if (this.algService.numberOfGroup1Agents % 2 == 1) {
+
+      // plot middle circle
+      this.positions["circle" + Math.floor((this.algService.numberOfGroup1Agents / 2) + 1)] = {
         positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
-        positionY: currentCirclePosition
+        positionY: canvasMiddle
       }
 
-      currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+      // plot circles above middle
+      // console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)); i > 0; i--) {
+        // console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle - ((Math.ceil((this.algService.numberOfGroup1Agents / 2)) - i) * spaceBetweenCircles)
+        }
+      }
+
+      // plot circles below middle
+      // console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+        // console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle + ((i - Math.ceil((this.algService.numberOfGroup1Agents / 2))) * spaceBetweenCircles)
+        }
+      }
+
+      // console.log(this.positions);
+
+    } else {
+
+      // plot middle circle
+      // console.log(Math.floor(this.algService.numberOfGroup1Agents / 2));
+      // console.log((Math.ceil(this.algService.numberOfGroup1Agents / 2)) + 1);
+      this.positions["circle" + Math.floor(this.algService.numberOfGroup1Agents / 2)] = {
+        positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+        positionY: canvasMiddle - spaceBetweenCircles / 2
+      }
+
+      // plot middle circle
+      this.positions["circle" + (Math.ceil(this.algService.numberOfGroup1Agents / 2) + 1)] = {
+        positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+        positionY: canvasMiddle + spaceBetweenCircles / 2
+      }
+
+      // plot circles above middle
+      // console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup1Agents / 2)) - 1; i > 0; i--) {
+        // console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle - (spaceBetweenCircles / 2) - ((Math.ceil((this.algService.numberOfGroup1Agents / 2)) - i) * spaceBetweenCircles)
+        }
+      }
+
+      // // plot circles below middle
+      // console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup1Agents / 2)) + 2; i < this.algService.numberOfGroup1Agents + 1; i++) {
+        // console.log(i);
+        this.positions["circle" + i] = {
+          positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+          positionY: canvasMiddle + (spaceBetweenCircles / 2) + ((i - Math.ceil((this.algService.numberOfGroup1Agents / 2) + 1)) * spaceBetweenCircles)
+        }
+      }
+
+      // console.log(this.positions);
     }
+
+
+    spaceBetweenCircles = (effectiveHeight / this.algService.numberOfGroup2Agents) + RHSHeightOffset;
+
+    // console.log(this.algService.numberOfGroup2Agents);
+
+    if (this.algService.numberOfGroup2Agents % 2 == 1) {
+
+      // plot middle circle
+      this.positions["circle" + String.fromCharCode(Math.floor((this.algService.numberOfGroup2Agents / 2) + 1 + 64))] = {
+        positionX: canvas.width - (canvas.width * this.xMargin),
+        positionY: canvasMiddle
+      }
+
+      // plot circles above middle
+      // console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup2Agents / 2)); i > 0; i--) {
+        // console.log(i);
+        this.positions["circle" + String.fromCharCode(i + 64)] = {
+          positionX: canvas.width - (canvas.width * this.xMargin),
+          positionY: canvasMiddle - ((Math.ceil((this.algService.numberOfGroup2Agents / 2)) - i) * spaceBetweenCircles)
+        }
+      }
+
+      // plot circles below middle
+      // console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup2Agents / 2)) + 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
+        // console.log(i);
+        this.positions["circle" + String.fromCharCode(i + 64)] = {
+          positionX: canvas.width - (canvas.width * this.xMargin),
+          positionY: canvasMiddle + ((i - Math.ceil((this.algService.numberOfGroup2Agents / 2))) * spaceBetweenCircles)
+        }
+      }
+
+      // console.log(this.positions);
+
+    } else {
+
+      // plot middle circle
+      // console.log(Math.floor(this.algService.numberOfGroup1Agents / 2));
+      // console.log((Math.ceil(this.algService.numberOfGroup1Agents / 2)) + 1);
+      // console.log(String.fromCharCode(Math.floor(this.algService.numberOfGroup2Agents / 2) + 64));
+      this.positions["circle" + String.fromCharCode(Math.floor(this.algService.numberOfGroup2Agents / 2) + 64)] = {
+        positionX: canvas.width - (canvas.width * this.xMargin),
+        positionY: canvasMiddle - spaceBetweenCircles / 2
+      }
+
+      // plot middle circle
+      this.positions["circle" + String.fromCharCode(Math.ceil(this.algService.numberOfGroup2Agents / 2) + 1 + 64)] = {
+        positionX: canvas.width - (canvas.width * this.xMargin),
+        positionY: canvasMiddle + spaceBetweenCircles / 2
+      }
+
+      // plot circles above middle
+      // console.log("above middle");
+      for (let i = Math.floor((this.algService.numberOfGroup2Agents / 2)) - 1; i > 0; i--) {
+        // console.log(i);
+        this.positions["circle" + String.fromCharCode(i + 64)] = {
+          positionX: canvas.width - (canvas.width * this.xMargin),
+          positionY: canvasMiddle - (spaceBetweenCircles / 2) - ((Math.ceil((this.algService.numberOfGroup2Agents / 2)) - i) * spaceBetweenCircles)
+        }
+      }
+
+      // // plot circles below middle
+      // console.log("below middle");
+      for (let i = Math.ceil((this.algService.numberOfGroup2Agents / 2)) + 2; i < this.algService.numberOfGroup2Agents + 1; i++) {
+        // console.log(i);
+        this.positions["circle" + String.fromCharCode(i + 64)] = {
+          positionX: canvas.width - (canvas.width * this.xMargin),
+          positionY: canvasMiddle + (spaceBetweenCircles / 2) + ((i - Math.ceil((this.algService.numberOfGroup2Agents / 2) + 1)) * spaceBetweenCircles)
+        }
+      }
+
+      // console.log(this.positions);
+    }
+
+    // console.log(this.positions);
+
+    // for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+    //   this.positions["circle" + i] = {
+    //     positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
+    //     positionY: currentCirclePosition
+    //   }
+
+    //   currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+    // }
 
 
     // RHS Circle positions
 
-    let lastLetter = 'A';
-    spaceBetweenCircles = effectiveHeight / this.algService.numberOfGroup2Agents;
-    currentCirclePosition = (canvas.height * this.yMargin);
 
-    for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
-      this.positions["circle" + lastLetter ] = {
-        positionX: canvas.width - (canvas.width * this.xMargin),
-        positionY: currentCirclePosition
-      }
+    // currentCirclePosition = (canvas.height * this.yMargin);
 
-      lastLetter = String.fromCharCode(((lastLetter.charCodeAt(0) + 1 - 65) % 25) + 65)
+    // for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
+    //   this.positions["circle" + lastLetter ] = {
+    //     positionX: canvas.width - (canvas.width * this.xMargin),
+    //     positionY: currentCirclePosition
+    //   }
 
-      currentCirclePosition = currentCirclePosition + spaceBetweenCircles
-    }
+    //   lastLetter = String.fromCharCode(((lastLetter.charCodeAt(0) + 1 - 65) % 25) + 65)
+
+    //   currentCirclePosition = currentCirclePosition + spaceBetweenCircles
+    // }
 
 
   }
@@ -206,9 +392,10 @@ export class CanvasService {
       group1PreferenceList = Array.from(this.currentCommand["group1CurrentPreferences"].values());
     }
 
+
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
       // got a bug here - text is displayed dodgy with different numbers than 5
-      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - 175, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - this.lineSizes.get(String(i)) * 2 - 65, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
     let group2PreferenceList: Array<Array<string>> = Object.values(this.currentCommand["group2CurrentPreferences"]);
@@ -219,7 +406,7 @@ export class CanvasService {
     }
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
-      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + currentLetter].positionY + 7, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
@@ -243,7 +430,7 @@ export class CanvasService {
       if (agent.match(/[A-Z]/i)) {
         this.drawText(this.ctx, group2PreferenceList[(((agent.charCodeAt(0)) - 65 ))].join(", "), this.positions["circle" + agent].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + agent].positionY + 7, this.fontSize);
       } else {
-        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - 175, this.positions["circle" + agent].positionY + 7, this.fontSize);
+        this.drawText(this.ctx, group1PreferenceList[agent - 1].join(", "), this.positions["circle" + agent].positionX - this.lineSizes.get(agent) * 2 - 65, this.positions["circle" + agent].positionY + 7, this.fontSize);
       }
     }
   }
@@ -259,7 +446,7 @@ export class CanvasService {
 
       let currentCapacity: number = hospitalCapacityMap[currentLetter];
 
-      this.drawText(this.ctx, "(" + String(currentCapacity) + ")", this.positions["circle" + currentLetter].positionX + 60, this.positions["circle" + i].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, "(" + String(currentCapacity) + ")", this.positions["circle" + currentLetter].positionX + 60, this.positions["circle" + currentLetter].positionY + 7, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
@@ -433,6 +620,18 @@ export class CanvasService {
     canvas.height = parent.offsetHeight - 20;
     // canvas.style.width = String(canvas.width / 2);
     // canvas.style.height = String(canvas.height / 2);
+
+    if (this.firstRun) {
+      this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values());
+      this.originalGroup2Preferences = Array.from(this.currentCommand["group2CurrentPreferences"].values());
+      this.firstRun = false;
+    }
+
+    this.lineSizes = new Map();
+    for (let i=1; i < this.algService.numberOfGroup1Agents + 1; i++) {
+      let lineSize = this.ctx.measureText(this.originalGroup1Preferences[i-1].join(", ")).width;
+      this.lineSizes.set(String(i), lineSize);
+    }
 
     this.setFont();
 

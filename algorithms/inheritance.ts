@@ -1,6 +1,6 @@
 import { Agent } from "./agents/Agent";
 import { Hospital } from "./agents/Hospital";
-import { Man } from "./agents/Man";
+import { Man } from "../src/app/algorithm-page/algorithms/interfaces/Man";
 import { AlgorithmData } from "./AlgorithmData";
 import { Step } from "./Step";
 

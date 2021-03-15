@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ftest": "npm run test -- --no-watch --browsers=ChromeHeadlessCI & npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --port 4201"
+    "ftest": "npm run test -- --no-watch --browsers=ChromeHeadlessCI & npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --port 4201",
+    "deploy": "ng build --prod --baseHref=\"https://liamlau.github.io/individual-project/\""
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^9.1.13",
     "@angular/router": "^9.1.13",
     "angular-resize-event": "^2.0.1",
+    "jquery": "^3.5.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.14.1",
     "zone.js": "~0.10.2"

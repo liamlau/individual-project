@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { simpleFadeAnimation } from 'src/app/animations';
+import { simpleFadeAnimation } from 'src/app/animations/fadeAnimation';
 
 @Component({
   selector: 'app-algorithm-content',

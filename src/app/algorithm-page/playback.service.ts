@@ -25,6 +25,12 @@ export class PlaybackService {
 
   constructor(public exeService: ExecutionService, public drawService: CanvasService) { }
 
+  initialise(): void {
+    this.algorithmData = {};
+    this.commandList = [];
+    this.currentCommand = {};
+  }
+
   resetPlaybackData(): void {
     this.firstRun = true;
     this.stepCounter = 0;
@@ -35,13 +41,15 @@ export class PlaybackService {
     this.description = "Click play to run the program below!";
   }
 
-  setAlgorithm(algorithm: string, numPeople: number): void { 
-    this.algorithmData = this.exeService.getExecutionFlow(algorithm, numPeople);
+  setAlgorithm(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>> = null): void {
+
+    this.initialise();
+    this.algorithmData = this.exeService.getExecutionFlow(algorithm, numberOfAgents, numberOfGroup2Agents, preferences);
     this.commandList = this.algorithmData["commands"];
     this.resetPlaybackData();
     this.numCommands = this.commandList.length-1;
 
-    console.log(this.algorithmData);
+    // console.log(this.algorithmData);
     this.updateCurrentCommand();
 
   }
@@ -92,6 +100,48 @@ export class PlaybackService {
     this.colourCurrentLine();
   }
 
+  async toggle() {
+    if (this.firstRun) {
+      // var yMid = ((window.innerHeight / 2) / 2) - 20;
+      // // console.log(yMid);
+
+      // anime({
+      //   targets: '.algorithm-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [-yMid, 0],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // anime({
+      //   targets: '.title-container',
+      //   easing: 'easeInOutQuint',
+      //   translateY: [40, 20],
+      //   // opacity: [0, 1],
+      //   duration: 400
+      // })
+      // this.playback.setAlgorithm(this.algorithm, this.numPeople);
+      // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
+      this.firstRun = false;
+      this.pause = false;
+
+
+      // await this.delay(400);
+      // anime({
+      //   targets: '.variable-block',
+      //   easing: 'easeInOutQuint',
+      //   opacity: [0, 1],
+      //   duration: 300
+      // })
+      this.play();
+    } else {
+      if (this.pause) {
+        this.pause = false;
+        this.play();
+      } else {
+        this.pause = true;
+      }
+    }
+  }
 
   async play(): Promise<void> {
     while (this.stepCounter < this.numCommands) {

@@ -10,20 +10,57 @@ describe('workspace-project App', () => {
 
   // // ---------------- initial e2e tests
 
-  // it('should display title', () => {
-  //   page.navigateTo();
-  //   expect(page.getTitleText()).toContain('Matching Algorithm Animator');
-  // });
+  it('should display title', () => {
+    page.navigateTo();
+    expect(page.getTitleText()).toContain('Learn, visualise and walk');
+  });
 
-  // it('should display subtitle', () => {
-  //   page.navigateTo();
-  //   expect(page.getTitleText()).toContain('Created by Liam Lau');
-  // });
+  it('should display logo', () => {
+    page.navigateTo();
+    expect(page.getLogoAlg()).toContain('alg');
+    expect(page.getLogoMatch()).toContain('match');
+  });
 
-  // it('algorithm dropdown appears', () => {
-  //   page.navigateTo();
-  //   expect(element(by.id('algorithmDropdown')).isPresent()).toBeTruthy();
-  // });
+  it('navbar links should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#homeLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#aboutLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#algorithmsLink')).isPresent()).toBeTruthy();
+    expect(element(by.css('#feedbackLink')).isPresent()).toBeTruthy();
+  });
+
+  it('video should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#animationVideo')).isPresent()).toBeTruthy();
+  });
+
+  it('home page text should appear', () => {
+    page.navigateTo();
+    expect(page.getHomePageRow1Text()).toContain('Perfect for beginners');
+    expect(page.getHomePageRow1Text()).toContain('With a simple, intuitive interface, learn how the Gale-Shapley and Extended Gale-Shapley matching algorithms work in different problems with step-by-step playback.');
+
+    expect(page.getHomePageRow2Text()).toContain('Learn visually');
+    expect(page.getHomePageRow2Text()).toContain('Decide to play each algorithm with pseudocode shown or not in conjunction with a visual representation of matching.');
+
+    expect(page.getHomePageRow3Text()).toContain('Control your learning');
+    expect(page.getHomePageRow3Text()).toContain('Use the playback controls for each algorithm to control the speed you learn.');
+  });
+
+  it('feedback banner should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#feedbackBanner')).isPresent()).toBeTruthy();
+  });
+
+  it('feedback banner text should appear', () => {
+    page.navigateTo();
+    expect(page.getFeedbackBannerText()).toContain('If you have any feedback for me, or anything you\'d like to see in this app, click the button below to be navigated to the feedback page');
+  });
+
+  it('social media icons should appear', () => {
+    page.navigateTo();
+    expect(element(by.css('#github-icon')).isPresent()).toBeTruthy();
+    expect(element(by.css('#linkedin-icon')).isPresent()).toBeTruthy();
+  });
 
   // // ---------------- simple e2e tests
 
@@ -38,10 +75,10 @@ describe('workspace-project App', () => {
   //   element(by.id('algorithmDropdown')).click();
   //   element(by.cssContainingText('span', 'Simple')).click();
 
-  //   expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
-  //   expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#restartButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#backButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#playButton')).isPresent()).toBeTruthy();
+    // expect(element(by.css('#forwardButton')).isPresent()).toBeTruthy();
   //   expect(element(by.css('#endButton')).isPresent()).toBeTruthy();
   // });
 

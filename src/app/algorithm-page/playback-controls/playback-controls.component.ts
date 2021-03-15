@@ -18,58 +18,6 @@ export class PlaybackControlsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key == " ") {
-      if (!(this.playback.stepCounter >= this.playback.numCommands)) {
-        this.toggle();
-      }
-    }
-  }
-
-  async toggle() {
-    if (this.playback.firstRun) {
-      // var yMid = ((window.innerHeight / 2) / 2) - 20;
-      // // console.log(yMid);
-
-      // anime({
-      //   targets: '.algorithm-container',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [-yMid, 0],
-      //   // opacity: [0, 1],
-      //   duration: 400
-      // })
-      // anime({
-      //   targets: '.title-container',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [40, 20],
-      //   // opacity: [0, 1],
-      //   duration: 400
-      // })
-      // this.playback.setAlgorithm(this.algorithm, this.numPeople);
-      // this.playback.setAlgorithm(this.algService.currentAlgorithm.id, 5);
-      this.playback.firstRun = false;
-      this.playback.pause = false;
-
-
-      // await this.delay(400);
-      // anime({
-      //   targets: '.variable-block',
-      //   easing: 'easeInOutQuint',
-      //   opacity: [0, 1],
-      //   duration: 300
-      // })
-      this.playback.play();
-    } else {
-      if (this.playback.pause) {
-        this.playback.pause = false;
-        this.playback.play();
-      } else {
-        this.playback.pause = true;
-      }
-    }
-  }
-
   formatLabel(value: number) {
 
     // pause

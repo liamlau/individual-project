@@ -27,7 +27,7 @@
         <mat-icon id="backButton" style="cursor: pointer;" class="playbackButton unselectable mr-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.backStep()" [ngClass]="{'disabled': !this.playback.pause || this.playback.stepCounter == 0}">fast_rewind</mat-icon>
         
         <!-- PLAY -->
-        <mat-animated-icon id="playButton" class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
+        <mat-animated-icon id="playButton" class="playbackButton unselectable" start="play_arrow" end="pause" colorStart="none" colorEnd="none" [animate]="!this.playback.pause" (click)="this.playback.toggle()" [ngClass]="{'disabled': this.playback.stepCounter >= this.playback.numCommands}"></mat-animated-icon>
 
         <!-- FORWARD ONE STEP -->
         <mat-icon id="forwardButton" style="cursor: pointer;" class="playbackButton unselectable ml-2" aria-hidden="false" aria-label="Example home icon" (click)="this.playback.forwardStep()" [ngClass]="{'disabled': !this.playback.pause || this.playback.stepCounter >= this.playback.numCommands}">fast_forward</mat-icon>
@@ -40,7 +40,7 @@
     <!-- STEP SLIDER -->
     <div>
         <div class="row justify-content-center">
-            <span style="padding-top: 4px;" class="mt-2 mr-2">{{ this.playback.stepCounter }}</span>
+            <div style="padding-top: 4px; width: 5px" class="mt-2 mr-3">{{ this.playback.stepCounter }}</div>
             <mat-slider style="width:80%; max-width: 600px;"
             #slider
             thumbLabel
@@ -49,7 +49,7 @@
             tickInterval="1"
             min="0"
             max={{this.playback.numCommands}}></mat-slider>
-            <span style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</span>
+            <div style="padding-top: 4px" class="mt-2 ml-2">{{ this.playback.numCommands }}</div>
         </div>
     </div>
 </div>

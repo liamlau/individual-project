@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 declare var anime: any;
@@ -11,53 +11,35 @@ declare var anime: any;
 })
 export class HomePageComponent implements OnInit {
 
-  currentPage: string = "";
-
-  componentMap: Object = {
-    "/": ".homeContent",
-    "/about": ".aboutContent",
-    "/algorithms": ".algorithmContent",
-    "/feedback": ".feedbackContent"
-  };
+  
 
   constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+
     anime({
-      targets: '.titleContent',
+      targets: '.navbar',
       easing: 'easeInOutQuint',
-      translateY: [-200, 0],
-      duration: 500
+      translateY: [-150, 0],
+      opacity: [0, 1],
+      delay: 100,
+      duration: 1000
     })
-  }
 
-  fadeCurrentPage(): void {
     anime({
-      targets: [this.componentMap[this.router.url]],
+      targets: '.main-page',
       easing: 'easeInOutQuint',
-      opacity: [1, 0],
-      duration: 400
+      opacity: [0, 1],
+      // translateY: [-100, 0],
+      delay: 550,
+      duration: 900
     })
+
+
   }
 
-  async goToPage(page: string): Promise<void> {
-    if (!(this.router.url == page)) {
-      this.currentPage = page;
-      this.fadeCurrentPage();
-      await this.delay(400);
-      this.router.navigateByUrl(page);
-    }
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
-  // prepareRoute(outlet: RouterOutlet) {
-  //   return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  // }
 
 }
