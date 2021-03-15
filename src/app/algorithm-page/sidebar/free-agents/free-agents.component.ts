@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
+import { PlaybackService } from '../../playback/playback.service';
 
 @Component({
   selector: 'free-agents',
   templateUrl: './free-agents.component.html',
-  styleUrls: ['./free-agents.component.scss']
+  styleUrls: ['./free-agents.component.scss', '../sidebar.component.scss']
 })
 export class FreeAgentsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public playback: PlaybackService,  // injecting the playback service
+    public algorithmService: AlgorithmRetrievalService) {}  // injecting the algorithm service) { }
 
   ngOnInit(): void {
   }

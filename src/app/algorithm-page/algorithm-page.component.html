@@ -37,7 +37,7 @@
     <sidebar [(showCode)]="showCode" [(tutorialStep)]="tutorialStep"></sidebar>
 
     <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-9" style="height: 100%"> -->
-      <div class="grid-container-algorithm ml-sm-auto" id="mainContent" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; background-color: #ffffff; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
+      <div class="grid-container-algorithm ml-sm-auto" id="mainContent" style="height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
 
         <div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center" style="height:120px; border-bottom: 1px solid rgba(184, 184, 184, 0.658);">
           <h1 class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
