@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
 import { AnimationGuideDialogComponent } from './animation-guide-dialog/animation-guide-dialog.component';
+import { AlgorithmAnimationService } from './animations/algorithm-animation.service';
 import { CanvasService } from './canvas/canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { PlaybackService } from './playback/playback.service';
-declare var anime: any;  // declaring the animejs animation library for use in this file
 declare var $: any;  // declaring jquery for use in this file
 
 
@@ -66,6 +66,7 @@ export class AlgorithmPageComponent implements OnInit {
     public playback: PlaybackService,  // injecting the playback service
     public algorithmService: AlgorithmRetrievalService,  // injecting the algorithm service
     public drawService: CanvasService,  // injecting the canvas service
+    public animation: AlgorithmAnimationService,
     public dialog: MatDialog,  // injecting the dialog component
     public router: Router  // injecting the router service (for programmatic route navigation)
   ) { }
@@ -107,42 +108,7 @@ export class AlgorithmPageComponent implements OnInit {
 
   // function that runs when page is visible to user
   ngAfterViewInit(): void {
-
-    // animation for sliding the navbar down from Y-150 its position
-    anime({
-      targets: '.navbar',
-      easing: 'easeOutQuint',
-      translateY: [-150, 0],
-      delay: 200,
-      duration: 900
-    })
-
-    // animation for sliding the sidebar right from X-500 its position
-    anime({
-      targets: '.sidebar',
-      easing: 'easeInOutQuint',
-      translateX: [-500, 0],
-      delay: 270,
-      duration: 1000
-    })
-
-    // animation for fading the sidebar content in as the sidebar slides in
-    anime({
-      targets: '#sidebarContent',
-      easing: 'easeInOutQuint',
-      opacity: [0, 1],
-      delay: 270,
-      duration: 1500
-    })
-
-    // animation for fading the main content in as the sidebar finishes sliding in
-    anime({
-      targets: '#mainContent',
-      easing: 'easeInOutQuint',
-      opacity: [0, 1],
-      delay: 670,
-      duration: 900
-    })
+    this.animation.loadPage();
   }
 
 
@@ -179,38 +145,6 @@ export class AlgorithmPageComponent implements OnInit {
   // --------------------------------------------------------------------------------- | FUNCTIONS
 
 
-  changeAlgorithm() {
-
-    this.playback.firstRun = true;
-    this.playback.resetPlaybackData();
-    this.numPeople = 5;
-    if (this.firstSelection) {
-      this.firstSelection = false;
-      anime({
-        targets: '.title-container',
-        easing: 'easeInOutQuint',
-        translateY: [400, 20],
-        opacity: [0, 1],
-        duration: 400
-      })
-      anime({
-        targets: '.code-block, .playback-block',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 400,
-        delay: 200
-      });
-    } else {
-      anime({
-        targets: '.code-block, .playback-block',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 400,
-      });
-    }
-  }
-
-
   openEditPreferencesDialog(): void {
     const dialogRef = this.dialog.open(EditPreferencesDialogComponent);
 
@@ -240,38 +174,8 @@ export class AlgorithmPageComponent implements OnInit {
   async goHome(page: string): Promise<void> {
     if (!(this.router.url == page)) {
 
-      anime({
-        targets: '.navbar',
-        easing: 'easeOutQuint',
-        translateY: [0, -150],
-        // opacity: [0, 1],
-        delay: 400,
-        duration: 900
-      })
-  
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [0, -500],
-        // opacity: [0, 1],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#sidebarContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [1, 0],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [1, 0],
-        duration: 600
-      })
+      this.animation.goHome();
+
 
       await this.delay(1000);
 
@@ -291,22 +195,10 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.backgroundColor = "";
     a.style.color = "";
 
-    anime({
-      targets: '#myCanvas',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [1, 0],
-      duration: 300
-    })
+    this.animation.fadeCanvasOut();
     await this.delay(300);
     this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
-    anime({
-      targets: '#myCanvas',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [0, 1],
-      duration: 300
-    })
+    this.animation.fadeCanvasIn();
   }
 
 
@@ -360,69 +252,32 @@ export class AlgorithmPageComponent implements OnInit {
     let mainContent = document.getElementById("mainContent");
 
     if (!this.showCode) {
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [0, -800],
-        delay: 200,
-        duration: 700
-      })
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [1, 0],
-        duration: 500
-      })
+
+      this.animation.hideSidebar();
       
-  
+      this.animation.hideMainContent();
+      
       await this.delay(700);
   
       mainContent.style.position = "";
   
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 500
-      })
+      this.animation.showMainContent();
+
       this.showCode = !this.showCode
 
     } else {
 
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [1, 0],
-        duration: 500
-      })
+      this.animation.hideMainContent();
 
       await this.delay(400);
 
       this.showCode = !this.showCode
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [-500, 0],
-        // opacity: [0, 1],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#sidebarContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [0, 1],
-        duration: 600
-      })
+
+      this.animation.showSidebar();
 
       await this.delay(200);
 
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 500
-      })
+      this.animation.showMainContent();
 
     }
 
