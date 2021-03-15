@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { PlaybackService } from '../../playback/playback.service';
 
 @Component({
   selector: 'alg-description',
   templateUrl: './alg-description.component.html',
-  styleUrls: ['./alg-description.component.scss']
+  styleUrls: ['./alg-description.component.scss', '../sidebar.component.scss']
 })
 export class AlgDescriptionComponent implements OnInit {
 
-  constructor() { }
+  constructor(public playback: PlaybackService) { }
 
   ngOnInit(): void {
   }
