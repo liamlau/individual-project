@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { CanvasService } from '../../canvas/canvas.service';
-import { PlaybackService } from '../../playback/playback.service';
+import { CanvasService } from '../../services/canvas/canvas.service';
+import { PlaybackService } from '../../services/playback/playback.service';
 
 @Component({
   selector: 'app-edit-preferences-dialog',

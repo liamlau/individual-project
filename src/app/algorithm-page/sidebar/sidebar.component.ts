@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { UtilsService } from 'src/app/utils/utils.service';
 import { AlgorithmAnimationService } from '../animations/algorithm-animation.service';
-import { CanvasService } from '../canvas/canvas.service';
-import { PlaybackService } from '../playback/playback.service';
+import { CanvasService } from '../services/canvas/canvas.service';
+import { PlaybackService } from '../services/playback/playback.service';
 
 @Component({
   selector: 'sidebar',

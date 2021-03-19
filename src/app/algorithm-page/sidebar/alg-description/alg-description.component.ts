@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaybackService } from '../../playback/playback.service';
+import { PlaybackService } from '../../services/playback/playback.service';
 
 @Component({
   selector: 'alg-description',

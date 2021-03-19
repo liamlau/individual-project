@@ -1,6 +1,6 @@
 import { ElementRef, ViewChild } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { AlgorithmRetrievalService } from '../../algorithm-retrieval.service';
+import { AlgorithmRetrievalService } from '../../../algorithm-retrieval.service';
 
 @Injectable({
   providedIn: 'root'

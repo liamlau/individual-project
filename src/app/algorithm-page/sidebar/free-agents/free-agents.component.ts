@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { PlaybackService } from '../../playback/playback.service';
+import { PlaybackService } from '../../services/playback/playback.service';
 
 @Component({
   selector: 'free-agents',
