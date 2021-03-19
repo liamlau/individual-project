@@ -9,18 +9,22 @@
     <smp-man-egs-code  *ngIf="this.algorithm == 'smp-man-egs'"></smp-man-egs-code>
     <egs-resident-hs-code *ngIf="this.algorithm == 'hr-resident-egs'"></egs-resident-hs-code>
 </div> -->
-<h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0; font-size: 1.4vw;">
-    Pseudocode
-</h1>
 
-<div style="white-space: pre; height: 100%; vertical-align: middle; font-size: 0.8vw; line-height: 1.2vw; margin: 0; color:rgb(231, 231, 231); width: 100%">
-    <ol class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px;">
-        <div style="display: table-row; width: 100%; vertical-align: middle; margin: 0; " *ngFor="let line of this.algService.currentAlgorithm.code; let i = index" id="line{{i+1}}">
-            <li class="pl-2" style="vertical-align: middle; width: 100%; tab-size: 0.8vw; word-wrap: break-word; white-space: pre-wrap">
-                {{ line }}
-            </li>
-        </div>
-    </ol>
+<div class="border-bottom sidebarPopover mr-2" style="background-color: #1b1f23; max-width: 100%;" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
+data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
+    <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0; font-size: 1.4vw;">
+        Pseudocode
+    </h1>
+
+    <div style="white-space: pre; height: 100%; vertical-align: middle; font-size: 0.8vw; line-height: 1.2vw; margin: 0; color:rgb(231, 231, 231); width: 100%">
+        <ol class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px;">
+            <div style="display: table-row; width: 100%; vertical-align: middle; margin: 0; " *ngFor="let line of this.algService.currentAlgorithm.code; let i = index" id="line{{i+1}}">
+                <li class="pl-2" style="vertical-align: middle; width: 100%; tab-size: 0.8vw; word-wrap: break-word; white-space: pre-wrap">
+                    {{ line }}
+                </li>
+            </div>
+        </ol>
+    </div>   
 </div>
 
 <!-- <div style="position: absolute; opacity: 0;"><gs-code *ngIf="this.algorithm == 'gale-shapley'"></gs-code></div> -->

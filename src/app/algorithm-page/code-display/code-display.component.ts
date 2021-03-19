@@ -7,7 +7,7 @@ declare var anime: any;
 @Component({
   selector: 'code-display',
   templateUrl: './code-display.component.html',
-  styleUrls: ['./code-display.component.scss']
+  styleUrls: ['./code-display.component.scss', '../sidebar/sidebar.component.scss']
 })
 export class CodeDisplayComponent implements OnInit {
 

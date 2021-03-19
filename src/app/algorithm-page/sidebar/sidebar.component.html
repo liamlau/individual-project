@@ -11,24 +11,11 @@
 
 
         <!-- Code Display -->
-        <div class="border-bottom sidebarPopover mr-2" style="background-color: #1b1f23; max-width: 100%;" data-toggle="popover" data-placement="left" title="Code Display" data-content="This highlights the current line that's being executed in the algorithm as you play or drag the playback slider." data-trigger="manual"
-          data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-          <code-display></code-display>            
-        </div>
+        <code-display></code-display>
 
 
         <!-- Execution Log -->
-        <div class="sidebarPopover" id="executionTrace" style="overflow: auto;" data-toggle="popover" data-placement="left" title="Execution Trace" data-content="This will fill out as you play the algorithm with a log of all current line descriptions, so you can go back and get a better idea of what happens at certain parts in the algorithm!" data-trigger="manual"
-          data-template='<div class="popover fade show bs-popover-right popoverPositioning blackText" style="color:black" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'>
-          <h1 class="pt-4 pl-3" style="color:rgb(231, 231, 231); font-weight: 300; margin-bottom: 0; padding-bottom: 0; font-size: 1.4vw;">
-            Execution Log
-          </h1>
-          <ol start=0 class="pt-3 pb-4" style="width: 100%; display: table; margin: 0; vertical-align: middle; background-color: #1b1f23; padding-left: 30px; font-size: 0.8vw; line-height: 1.2vw;">
-            <li class="mb-4 pr-2" *ngFor="let line of this.playback.algorithmData['descriptions'].slice(0, this.playback.stepCounter + 1)">
-              {{ line }}.
-            </li>
-          </ol>
-        </div>
+        <execution-log></execution-log>
 
       </div>
     </div>

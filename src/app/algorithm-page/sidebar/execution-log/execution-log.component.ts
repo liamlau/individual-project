@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { PlaybackService } from '../../playback/playback.service';
 
 @Component({
   selector: 'execution-log',
   templateUrl: './execution-log.component.html',
-  styleUrls: ['./execution-log.component.scss']
+  styleUrls: ['./execution-log.component.scss', '../sidebar.component.scss']
 })
 export class ExecutionLogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public playback: PlaybackService) { }
 
   ngOnInit(): void {
   }
