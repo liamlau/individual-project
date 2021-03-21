@@ -8,7 +8,7 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  // // ---------------- initial e2e tests
+  // // ---------------- Home Page e2e Tests
 
   it('should display title', () => {
     page.navigateTo();
