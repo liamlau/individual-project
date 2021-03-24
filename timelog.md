@@ -430,7 +430,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 24 -->
 
-## Week 24 (1 Mar 2021 - 7 Mar 2021) - **x hours**
+## Week 24 (1 Mar 2021 - 7 Mar 2021) - **0 hours**
 
 Week spent on coursework and catching up with subjects.
 
@@ -438,18 +438,44 @@ Week spent on coursework and catching up with subjects.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
 
-## Week 25 (8 Mar 2021 - 14 Mar 2021) - **x hours**
+## Week 25 (8 Mar 2021 - 14 Mar 2021) - **0 hours**
 
 Week spent on coursework and catching up with subjects.
 
 <hr>
 
-<!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 26 -->
 
-## Week 23 (15 Mar 2021 - 21 Mar 2021) - **x hours**
+## Week 26 (15 Mar 2021 - 21 Mar 2021) - **13 hours**
 
-### 15 Mar 2020 (Mon) - x hours
+### 15 Mar 2020 (Mon) - 1 hours
 * *0.5 hours*: Updated timelog for March
 * *0.5 hours*: Merged current branch into master
 
+### 21 Mar 2020 (Sun) - 12 hours
+* *2 hours*: Writing up testing framework, making sure everything has been covered
+* *4 hours*: Writing unit tests
+* *6 hours*: Writing dissertation
+
 <hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 27 -->
+
+## Week 23 (22 Mar 2021 - 28 Mar 2021) - **x hours**
+
+### 22 Mar 2020 (Mon) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 22 Mar 2020 (Tue) - 12 hours
+* *0.5 hours*: Supervisor meeting
+* *11.5 hours*: Writing dissertation
+
+<hr>
+
+
+22/03/21: 10 hours
+- dissertation
+
+23/03/21: 12 hours
+- meeting
+- dissertation

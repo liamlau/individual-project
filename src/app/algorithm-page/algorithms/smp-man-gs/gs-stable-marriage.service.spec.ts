@@ -13,4 +13,10 @@ describe('GsStableMarriageService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('test correctness (smp-man-gs)', () => {
+    let algData = service.run(5, 5, undefined);
+    expect(algData).toBeDefined();
+  });
+
 });

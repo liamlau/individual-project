@@ -13,4 +13,11 @@ describe('EgsResidentHSService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('test correctness (hr-resident-egs)', () => {
+    let algData = service.run(5, 5, undefined);
+    console.log(algData);
+    expect(algData).toBeDefined();
+  });
+
 });
