@@ -461,14 +461,20 @@ Week spent on coursework and catching up with subjects.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 27 -->
 
-## Week 23 (22 Mar 2021 - 28 Mar 2021) - **x hours**
+## Week 23 (22 Mar 2021 - 28 Mar 2021) - **38 hours**
 
 ### 22 Mar 2020 (Mon) - 10 hours
 * *10 hours*: Writing dissertation
 
-### 22 Mar 2020 (Tue) - 12 hours
+### 23 Mar 2020 (Tue) - 12 hours
 * *0.5 hours*: Supervisor meeting
 * *11.5 hours*: Writing dissertation
+
+### 24 Mar 2020 (Wed) - 8 hours
+* *8 hours*: Writing dissertation
+
+### 25 Mar 2020 (Thu) - 8 hours
+* *8 hours*: Writing dissertation
 
 <hr>
 
