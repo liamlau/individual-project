@@ -35,6 +35,8 @@ export abstract class MatchingAlgorithm {
 
     relevantPreferences: Array<string> = [];
 
+    stable: boolean = false;
+
     constructor() { }
 
     initialise(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents) {
@@ -61,6 +63,8 @@ export abstract class MatchingAlgorithm {
 
         this.numberOfAgents = numberOfAgents;
         this.numberOfGroup2Agents = numberOfGroup2Agents;
+
+        this.stable = false;
     }
 
     generateAgents() {
@@ -212,9 +216,9 @@ export abstract class MatchingAlgorithm {
     getMatches(): Map<String, Array<String>> {
         let matches: Map<String, Array<String>> = new Map();
 
-        for (let i = 1; i < this.numberOfAgents + 1; i++) {
-            let agentName: string = this.group1Name + i;
-            let agent: Agent = this.group1Agents.get(agentName);
+        for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
+            let agentName: string = this.group2Name + String.fromCharCode(i + 64);
+            let agent: Agent = this.group2Agents.get(agentName);
 
             let matchList: Array<String> = new Array();
 
@@ -233,6 +237,12 @@ export abstract class MatchingAlgorithm {
 
     findPositionInMatches(currentAgent: Agent, agentToFind: Agent): number {
         let position: number = currentAgent.ranking.findIndex((agent: { name: string; }) => agent.name == agentToFind.name);
+        return position;
+    }
+
+    findPositionInOriginalMatches(currentAgent: Agent, agentToFind: Agent) {
+        let originalPreferences = this.originalGroup1CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
+        let position: number = originalPreferences.indexOf(agentToFind.name[agentToFind.name.length - 1]);
         return position;
     }
 
@@ -290,6 +300,43 @@ export abstract class MatchingAlgorithm {
     }
 
 
+    // check if no unmatched pair like each other more than their current partners
+    checkStability(allMatches: Map<String, Array<String>>): boolean {
+        let stability = true;
+        for (let agent of allMatches.keys()) {
+            let agentMatches = allMatches.get(agent);
+
+            if (agentMatches.length > 0) {
+                let lastAgentPosition = this.getLastMatch(agent, agentMatches);
+
+                let agentPreferences: Array<Agent> = this.group2Agents.get(agent).ranking;
+
+                for (let i = lastAgentPosition - 1; i >= 0; i--) {
+                    if (!agentMatches.includes(agentPreferences[i].name)) {
+                        let matchPosition = this.findPositionInOriginalMatches(agentPreferences[i], agentPreferences[i].match[0]);
+                        let currentAgentPosition = this.findPositionInOriginalMatches(agentPreferences[i], this.group2Agents.get(agent));
+                        if (currentAgentPosition < matchPosition) {
+                            stability = false;
+                        }
+                    }
+                }
+            }
+        }
+        return stability;
+    }
+
+    getLastMatch(currentAgent: String, agentMatches: Array<String>): number {
+        let furthestIndex: number = 0;
+        for (let matchAgent of agentMatches) {
+            let matchPosition = this.findPositionInMatches(this.group2Agents.get(currentAgent), this.group1Agents.get(matchAgent));
+            if (matchPosition > furthestIndex) {
+                furthestIndex = matchPosition;
+            }
+        }
+        return furthestIndex;
+    }
+
+
     abstract match(): AlgorithmData;
 
     run(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): AlgorithmData {
@@ -318,7 +365,14 @@ export abstract class MatchingAlgorithm {
 
         this.match();
 
-        // this.getMatches();
+        // console.log(this.originalGroup1CurrentPreferences);
+        // console.log(this.originalGroup2CurrentPreferences);
+        this.stable = this.checkStability(this.getMatches());
+
+        if (!this.stable) {
+            console.log("Matching is not stable!");
+            return undefined;
+        }
 
         return this.algorithmData;
 

@@ -15,9 +15,17 @@ describe('EgsResidentHSService', () => {
   });
 
   it('test correctness (hr-resident-egs)', () => {
-    let algData = service.run(5, 5, undefined);
-    console.log(algData);
-    expect(algData).toBeDefined();
+    let stable: boolean = true;
+    for (let i = 0; i < 500; i++) {
+      let agent1Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      let agent2Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      service.run(agent1Count, agent2Count, undefined);
+      if (!service.stable) {
+        stable = false;
+      }
+    }
+    
+    expect(stable).toBeTrue();
   });
 
 });

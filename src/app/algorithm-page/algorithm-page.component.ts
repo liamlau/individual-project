@@ -110,21 +110,22 @@ export class AlgorithmPageComponent implements OnInit {
 
     // debugging: use the following lines (113-121) to test individual algorithms
     // you can use this in conjunction with changing the routing in order to direct to the animation page (so you don't have to keep selecting an algorithm through the main page, etc.)
-    // let group1 = 5;
-    // let group2 = 5;
-    // let alg: string = "smp-man-gs";
+    let group1 = 5;
+    let group2 = 5;
+    let alg: string = "smp-man-gs";
+    // let alg: string = "hr-resident-egs";
 
-    // this.algorithmService.numberOfGroup1Agents = group1;
-    // this.algorithmService.numberOfGroup2Agents = group2;
+    this.algorithmService.numberOfGroup1Agents = group1;
+    this.algorithmService.numberOfGroup2Agents = group2;
 
-    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
-    // this.playback.setAlgorithm(alg, group1, group2);
+    this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
+    this.playback.setAlgorithm(alg, group1, group2);
 
 
     this.drawService.initialise();
 
     // (un)comment the line below to (disable)/enable working algorithm selection
-    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
 
     // initialise all of the popovers for the tutorial (they won't appear without this function)
@@ -224,7 +225,12 @@ export class AlgorithmPageComponent implements OnInit {
     // animates changing of preferences (fade in/out)
     this.animation.fadeCanvasOut();
     await this.utils.delay(300);
-    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    for (let i = 0; i < 100; i++) {
+      // let agent1Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      // let agent2Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, agent1Count, agent2Count);
+      this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    }
     this.animation.fadeCanvasIn();
   }
 

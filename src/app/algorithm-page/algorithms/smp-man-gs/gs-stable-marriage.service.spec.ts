@@ -15,8 +15,16 @@ describe('GsStableMarriageService', () => {
   });
 
   it('test correctness (smp-man-gs)', () => {
-    let algData = service.run(5, 5, undefined);
-    expect(algData).toBeDefined();
+    let stable: boolean = true;
+    for (let i = 0; i < 500; i++) {
+      let agentCount: number = Math.floor(Math.random() * (9 - 2) + 2);
+      service.run(agentCount, agentCount, undefined);
+      if (!service.stable) {
+        stable = false;
+      }
+    }
+    
+    expect(stable).toBeTrue();
   });
 
 });
