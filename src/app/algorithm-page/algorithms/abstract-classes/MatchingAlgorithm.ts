@@ -303,14 +303,23 @@ export abstract class MatchingAlgorithm {
     // check if no unmatched pair like each other more than their current partners
     checkStability(allMatches: Map<String, Array<String>>): boolean {
         let stability = true;
+
+        // for all women
         for (let agent of allMatches.keys()) {
             let agentMatches = allMatches.get(agent);
 
+            // if agent has matches
             if (agentMatches.length > 0) {
-                let lastAgentPosition = this.getLastMatch(agent, agentMatches);
 
+                // find the position of the last ranked match (for Stable Marriage this will be the only match)
+                let lastAgentPosition = this.getLastMatch(agent, agentMatches);
                 let agentPreferences: Array<Agent> = this.group2Agents.get(agent).ranking;
 
+                // for every agent, x, better than match, check:
+                //   - if x isn't one of the matches (for HR), then
+                //      - check if x likes currentAgent more than their match
+                //          - if yes, stability = false
+                //          - if no, stability = true
                 for (let i = lastAgentPosition - 1; i >= 0; i--) {
                     if (!agentMatches.includes(agentPreferences[i].name)) {
                         let matchPosition = this.findPositionInOriginalMatches(agentPreferences[i], agentPreferences[i].match[0]);
@@ -360,13 +369,8 @@ export abstract class MatchingAlgorithm {
         this.group2CurrentPreferences = this.getGroupRankings(this.group2Agents);
         this.originalGroup2CurrentPreferences = this.getGroupRankings(this.group2Agents);
 
-        // console.log("Group 1 Preferences: %o", this.group1CurrentPreferences);
-        // console.log("Group 2 Preferences: %o", this.group2CurrentPreferences);
-
         this.match();
 
-        // console.log(this.originalGroup1CurrentPreferences);
-        // console.log(this.originalGroup2CurrentPreferences);
         this.stable = this.checkStability(this.getMatches());
 
         if (!this.stable) {
