@@ -228,7 +228,7 @@ Holiday taken for Christmas.
 * *0.5 hours*: Created more in-depth plan for the next few weeks
 
 ### 3 Jan 2020 (Sat) - 2 hours
-* *2 hours*: Learned how the Hospital/Residents problem works, and wrote up documentation on how I am to implement it into the application
+* *2 hours*: Learned how the Hospitals/Residents Problem works, and wrote up documentation on how I am to implement it into the application
 
 <hr>
 
@@ -270,7 +270,7 @@ Holiday taken for Christmas.
 
 ## Week 18 (18 Jan 2021 - 24 Jan 2021) - **11 hours**
 ### 19 Jan 2020 (Tue) - 4 hours
-* *4 hours*: Refinement of design (specifically hospital/residents problem)
+* *4 hours*: Refinement of design (specifically Hospitals/Residents Problem)
 
 ### 24 Jan 2020 (Sun) - 7 hours
 * *3 hours*: Implementation of design wireframes (layout)
@@ -312,7 +312,7 @@ Holiday taken for Christmas.
 * *4 hours*: Implementing hospital residents into app (halfway done)
 
 ### 3 Feb 2020 (Wed) - 2 hours
-* *2 hours*: Adding finishing touches to hospital/residents problem
+* *2 hours*: Adding finishing touches to Hospitals/Residents Problem
 
 ### 4 Feb 2020 (Thu) - 2 hours
 * *2 hours*: Refining hospital/residents algorithm

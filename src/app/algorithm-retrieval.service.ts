@@ -116,12 +116,12 @@ export class AlgorithmRetrievalService {
     [
       "hr-resident-egs", {
         id: "hr-resident-egs",
-        name: "Hospital/Residents Problem",
+        name: "Hospitals/Residents Problem",
         orientation: ["Resident", "Hospital"],
         equalGroups: false,
         algorithm: "Extended Gale-Shapley Stable Matching",
         service: this.egsResidentHsService,
-        description: "The hospital/residents problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+        description: "The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
           1: "Clear the matches of all residents and hospitals",
           2: "The next resident who doesn't have a match and still has some hospitals in their preference list is selected (%currentAgent%\)",
