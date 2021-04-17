@@ -143,7 +143,6 @@ export class EditPreferencesDialogComponent implements OnInit {
       }
 
     } else {
-      console.log(":(");
       for (let agent of this.group1Preferences) {
         currentLine = "";
   

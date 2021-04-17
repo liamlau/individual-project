@@ -14,9 +14,9 @@ describe('EgsStableMarriageService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('test correctness (smp-man-egs)', () => {
+  it('test correctness x10000 (smp-man-egs)', () => {
     let stable: boolean = true;
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 10000; i++) {
       let agentCount: number = Math.floor(Math.random() * (9 - 2) + 2);
       service.run(agentCount, agentCount, undefined);
       if (!service.stable) {
