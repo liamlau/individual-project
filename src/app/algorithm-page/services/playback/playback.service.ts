@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ExecutionService } from '../../algorithms/execution.service';
+import { ExecutionService } from '../execution/execution.service';
 import { CanvasService } from '../canvas/canvas.service';
 
 @Injectable({

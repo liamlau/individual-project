@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Algorithm } from './Algorithm';
-import { EgsResidentHSService } from './algorithm-page/algorithms/hr-resident-egs/hr-resident-egs.service';
-import { EgsStableMarriageService } from './algorithm-page/algorithms/smp-man-egs/egs-stable-marriage.service';
-import { GsStableMarriageService } from './algorithm-page/algorithms/smp-man-gs/gs-stable-marriage.service';
+import { HrResidentEgsService } from './algorithm-page/algorithms/algorithm-services/hr-resident-egs/hr-resident-egs.service';
+import { EgsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-egs/egs-stable-marriage.service';
+import { GsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-gs/gs-stable-marriage.service';
 
 
 // ------------------------------------------------------- ALGORITHM TEMPLATE
@@ -120,7 +120,7 @@ export class AlgorithmRetrievalService {
         orientation: ["Resident", "Hospital"],
         equalGroups: false,
         algorithm: "Extended Gale-Shapley Stable Matching",
-        service: this.egsResidentHsService,
+        service: this.HrResidentEgsService,
         description: "The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
           1: "Clear the matches of all residents and hospitals",
@@ -167,7 +167,7 @@ export class AlgorithmRetrievalService {
   constructor(
     public gsStableMarriageService: GsStableMarriageService,
     public egsStableMarriageService: EgsStableMarriageService,
-    public egsResidentHsService: EgsResidentHSService,
+    public HrResidentEgsService: HrResidentEgsService,
   ) { }
 
   getListOfAlgorithms(): Array<Algorithm> {

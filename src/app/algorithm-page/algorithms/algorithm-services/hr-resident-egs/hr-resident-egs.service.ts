@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ExtendedGaleShapley } from '../abstract-classes/ExtendedGaleShapley';
-import { Agent } from '../interfaces/Agent';
-import { Hospital } from '../interfaces/Hospital';
+import { ExtendedGaleShapley } from '../../abstract-classes/ExtendedGaleShapley';
+import { Agent } from '../../interfaces/Agent';
+import { Hospital } from '../../interfaces/Hospital';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EgsResidentHSService extends ExtendedGaleShapley {
+export class HrResidentEgsService extends ExtendedGaleShapley {
 
   group1Name = "resident";
   group2Name = "hospital";

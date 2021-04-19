@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EgsOneToMany } from '../abstract-classes/EgsOneToMany';
-import { Agent } from '../interfaces/Agent';
+import { EgsOneToMany } from '../../abstract-classes/EgsOneToMany';
+import { Agent } from '../../interfaces/Agent';
 
 @Injectable({
   providedIn: 'root'

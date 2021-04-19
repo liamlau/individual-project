@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EgsResidentHSService } from './hr-resident-egs.service';
+import { HrResidentEgsService } from './hr-resident-egs.service';
 
-describe('EgsResidentHSService', () => {
-  let service: EgsResidentHSService;
+describe('HrResidentEgsService', () => {
+  let service: HrResidentEgsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EgsResidentHSService);
+    service = TestBed.inject(HrResidentEgsService);
   });
 
   it('should be created', () => {
