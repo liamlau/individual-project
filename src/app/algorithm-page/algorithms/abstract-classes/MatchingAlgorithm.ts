@@ -6,7 +6,6 @@ export abstract class MatchingAlgorithm {
 
     abstract group1Name: string;
     abstract group2Name: string;
-    abstract numberOfLines: number;
 
     numberOfAgents: number;
     numberOfGroup2Agents: number;

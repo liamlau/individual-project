@@ -10,8 +10,6 @@ export class EgsStableMarriageService extends EgsOneToMany {
   group1Name = "man";
   group2Name = "woman";
 
-  numberOfLines = 12;
-
   shouldContinueMatching(currentAgent: Agent): boolean {
       return true;
   }

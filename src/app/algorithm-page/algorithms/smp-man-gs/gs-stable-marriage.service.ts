@@ -14,8 +14,6 @@ export class GsStableMarriageService extends GaleShapley {
 
   group1Agents: Map<String, Man> = new Map();
 
-  numberOfLines = 11;
-
 
   generateAgents() {
       for (let i = 1; i < this.numberOfAgents + 1; i++) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Algorithm } from './Algorithm';
-import { EgsResidentHSService } from './algorithm-page/algorithms/egs-resident-hs/egs-resident-hs.service';
+import { EgsResidentHSService } from './algorithm-page/algorithms/hr-resident-egs/hr-resident-egs.service';
 import { EgsStableMarriageService } from './algorithm-page/algorithms/smp-man-egs/egs-stable-marriage.service';
 import { GsStableMarriageService } from './algorithm-page/algorithms/smp-man-gs/gs-stable-marriage.service';
 

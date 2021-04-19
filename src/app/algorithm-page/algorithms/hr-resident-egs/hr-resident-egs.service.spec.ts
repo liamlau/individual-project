@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EgsResidentHSService } from './egs-resident-hs.service';
+import { EgsResidentHSService } from './hr-resident-egs.service';
 
 describe('EgsResidentHSService', () => {
   let service: EgsResidentHSService;
