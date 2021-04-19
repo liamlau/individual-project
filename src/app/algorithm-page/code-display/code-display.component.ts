@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { PlaybackService } from '../playback.service';
+import { PlaybackService } from '../services/playback/playback.service';
 
 declare var anime: any;
 
 @Component({
   selector: 'code-display',
   templateUrl: './code-display.component.html',
-  styleUrls: ['./code-display.component.scss']
+  styleUrls: ['./code-display.component.scss', '../sidebar/sidebar.component.scss']
 })
 export class CodeDisplayComponent implements OnInit {
 

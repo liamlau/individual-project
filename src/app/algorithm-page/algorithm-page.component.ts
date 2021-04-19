@@ -3,17 +3,63 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlgorithmRetrievalService } from '../algorithm-retrieval.service';
+import { UtilsService } from '../utils/utils.service';
 import { AnimationGuideDialogComponent } from './animation-guide-dialog/animation-guide-dialog.component';
-import { CanvasService } from './canvas.service';
+import { AlgorithmAnimationService } from './animations/algorithm-animation.service';
+import { CanvasService } from './services/canvas/canvas.service';
 import { EditPreferencesDialogComponent } from './edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
-import { PlaybackService } from './playback.service';
-declare var anime: any;
-declare var $: any;
+import { PlaybackService } from './services/playback/playback.service';
+declare var $: any;  // declaring jquery for use in this file
 
-export enum KEY_CODE {
-  RIGHT_ARROW = 39,
-  LEFT_ARROW = 37
-}
+
+// -------------------------------------------------- FILE DESCRIPTION
+
+/*
+
+algorithm-page.component.ts
+
+This is the Typescript file for the algorithm page (algorithm-page.component.html).
+
+Purpose:
+  - Acts as a "main" class for the algorithm page
+  - Mediates interaction between all other services
+
+Flow:
+  - When algorithm page is to be loaded, run the constructor, injecting all necessary services
+  - ngOnInit() is then run, linking the global canvas variable for the canvasService (having a canvasService allows us to make calls to draw elements from anywhere)
+  - Set listener functions for the following actions:
+    - keypress down:
+        handleKeyboardEvent(event: KeyboardEvent): void
+    - home link (algmatch) clicked:
+        async goHome(): Promise<void>
+    - generate new preferences button clicked:
+        async generateNewPreferences(): Promise<void>
+    - toggle sidebar button clicked:
+        async toggleSidebar(): Promise<void>
+
+Functions in this file:
+  - ngOnInit(): void
+  - ngAfterViewInit(): void
+  - handleKeyboardEvent(event: KeyboardEvent): void
+
+  - openEditPreferencesDialog(): void
+  - openAnimationGuideDialog(): void
+
+  - async goHome(): Promise<void>
+  - async generateNewPreferences(): Promise<void>
+  - async toggleSidebar(): Promise<void>
+
+  - nextTutorialStep(): void
+  - startTutorial(): void
+  - sidebarTutorial(): void
+  - mainContentTutorial(): void
+  - stopTutorial(): void
+
+*/
+
+
+// -------------------------------------------------- CODE
+
 
 @Component({
   selector: 'algorithm-page',
@@ -22,10 +68,12 @@ export enum KEY_CODE {
 })
 export class AlgorithmPageComponent implements OnInit {
 
+  // --------------------------------------------------------------------------------- | INSTANCE VARIABLES
+
+
+  // looks for the canvas element on the algorithm page and assigns it to the canvas variable
   @ViewChild('canvas', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
-
-  private ctx: CanvasRenderingContext2D;
 
   showCode: boolean = false;
   dialogOpen: boolean = false;
@@ -34,24 +82,37 @@ export class AlgorithmPageComponent implements OnInit {
 
   duringAnimation: boolean = false;
 
-  constructor(public playback: PlaybackService, public algorithmService: AlgorithmRetrievalService, public drawService: CanvasService, public dialog: MatDialog, public router: Router) { }
+  firstSelection: boolean = true
+  algorithm = new FormControl('');
+  numPeople: number;
 
+
+  // --------------------------------------------------------------------------------- | INIT FUNCTIONS
+
+
+  constructor(
+    public playback: PlaybackService,  // injecting the playback service
+    public algorithmService: AlgorithmRetrievalService,  // injecting the algorithm service
+    public drawService: CanvasService,  // injecting the canvas service
+    public animation: AlgorithmAnimationService,
+    public utils: UtilsService,
+    public dialog: MatDialog,  // injecting the dialog component
+    public router: Router  // injecting the router service (for programmatic route navigation)
+  ) { }
+
+
+  // function that runs when page is created
   ngOnInit(): void {
 
+    // set the global canvas element (in the canvasService) to the canvas on this page
     this.drawService.canvas = this.canvas;
     this.drawService.ctx = this.canvas.nativeElement.getContext('2d');
 
-    // this.algorithm.setValue("Gale-Shapley Stable Marriage");
-
-    // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get("smp-man-gs");
-    // this.playback.setAlgorithm("smp-man-gs", 5);
-
-    // smp-man-gs
-    // smp-man-egs
-    // hr-resident-egs
-
-    // let group1 = 9;
-    // let group2 = 9;
+    // debugging: use the following lines (113-121) to test individual algorithms
+    // you can use this in conjunction with changing the routing in order to direct to the animation page (so you don't have to keep selecting an algorithm through the main page, etc.)
+    // let group1 = 5;
+    // let group2 = 5;
+    // // let alg: string = "smp-man-gs";
     // let alg: string = "hr-resident-egs";
 
     // this.algorithmService.numberOfGroup1Agents = group1;
@@ -60,73 +121,38 @@ export class AlgorithmPageComponent implements OnInit {
     // this.algorithmService.currentAlgorithm = this.algorithmService.mapOfAvailableAlgorithms.get(alg);
     // this.playback.setAlgorithm(alg, group1, group2);
 
-    // uncomment the line below to enable working algorithm selection
+
     this.drawService.initialise();
+
+    // (un)comment the line below to (disable)/enable working algorithm selection
     this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
 
+
+    // initialise all of the popovers for the tutorial (they won't appear without this function)
     $(function () {
       $('[data-toggle="popover"]').popover()
     })
 
+    // initialise the tutorial to the beginning
     this.tutorialStep = 0;
 
-    // this.nextTutorialStep();
-
   }
 
+  // function that runs when page is visible to user
   ngAfterViewInit(): void {
-
-    // let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myCanvas");
-    // var parent = document.getElementById("parent");
-    // canvas.width = parent.offsetWidth - 20;
-    // canvas.height = parent.offsetHeight - 20;
-    // var yMid = window.innerHeight / 2;
-    // console.log(yMid);
-
-    // var yPos = document.querySelector('.option-box').getBoundingClientRect().y;
-    // console.log(yPos)
-
-    anime({
-      targets: '.navbar',
-      easing: 'easeOutQuint',
-      translateY: [-150, 0],
-      // opacity: [0, 1],
-      delay: 200,
-      duration: 900
-    })
-
-    anime({
-      targets: '.sidebar',
-      easing: 'easeInOutQuint',
-      translateX: [-500, 0],
-      // opacity: [0, 1],
-      delay: 270,
-      duration: 1000
-    })
-
-    anime({
-      targets: '#sidebarContent',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [0, 1],
-      delay: 270,
-      duration: 1500
-    })
-
-    anime({
-      targets: '#mainContent',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [0, 1],
-      delay: 670,
-      duration: 900
-    })
+    this.animation.loadPage();
   }
 
 
+  // creating a listener function for keydown events
+  // Key:
+    // (< arrow) or (a) == backstep in algorithm
+    // (> arrow) or (d) == forward step in algorithm
+    // (r) or (#) == generate new preferences
+    // (e) or (]) == open edit preferences dialog
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (!this.dialogOpen && this.tutorialStep == 0) {
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (!this.dialogOpen && this.tutorialStep == 0) {  // disable events on tutorial or edit preferences open
       if (event.key == "ArrowRight" || event.key == "d") {
         if (!(!this.playback.pause || this.playback.stepCounter >= this.playback.numCommands)) {
           this.playback.forwardStep();
@@ -148,76 +174,10 @@ export class AlgorithmPageComponent implements OnInit {
   }
 
 
-  firstSelection: boolean = true
-  algorithm = new FormControl('');
-  numPeople: number;
-
-  changeAlgorithm() {
-
-    this.playback.firstRun = true;
-    this.playback.resetPlaybackData();
-    this.numPeople = 5;
-    if (this.firstSelection) {
-      this.firstSelection = false;
-      anime({
-        targets: '.title-container',
-        easing: 'easeInOutQuint',
-        translateY: [400, 20],
-        opacity: [0, 1],
-        duration: 400
-      })
-      anime({
-        targets: '.code-block, .playback-block',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 400,
-        delay: 200
-      });
-    } else {
-      anime({
-        targets: '.code-block, .playback-block',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 400,
-      });
-    }
-  }
-
-  toggleExpansion() {
-    var terminalElement = document.getElementById("terminal");
-    if (this.showCode) {
-      terminalElement.style.display = "none";
-      terminalElement.style.visibility = "none";
-      // anime({
-      //   targets: '.terminal-header',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [0, 200],
-      //   duration: 400
-      // })
-      // anime({
-      //   targets: '.terminal',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [0, -50],
-      //   opacity: [1, 0],
-      //   duration: 400
-      // })
-    } else {
-      // maybe try animating the height?
-      terminalElement.style.display = "";
-      terminalElement.style.visibility = "visible";
-      // anime({
-      //   targets: '.terminal-header',
-      //   easing: 'easeInOutQuint',
-      //   translateY: [200, 0],
-      //   duration: 400
-      // })
-    }
-
-    this.showCode = !this.showCode;
-
-  }
+  // --------------------------------------------------------------------------------- | GENERAL FUNCTIONS
 
 
+  // open the edit preferences dialog with a callback function
   openEditPreferencesDialog(): void {
     const dialogRef = this.dialog.open(EditPreferencesDialogComponent);
 
@@ -225,12 +185,11 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      // console.log(`Dialog result: ${result}`);
     });
 
   }
 
-
+  // open the animation guide dialog with a callback function
   openAnimationGuideDialog(): void {
     const dialogRef = this.dialog.open(AnimationGuideDialogComponent);
 
@@ -238,110 +197,125 @@ export class AlgorithmPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      // console.log(`Dialog result: ${result}`);
     });
 
   }
 
 
-  async goHome(page: string): Promise<void> {
-    if (!(this.router.url == page)) {
+  // --------------------------------------------------------------------------------- | ON CLICK FUNCTIONS
 
-      anime({
-        targets: '.navbar',
-        easing: 'easeOutQuint',
-        translateY: [0, -150],
-        // opacity: [0, 1],
-        delay: 400,
-        duration: 900
-      })
-  
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [0, -500],
-        // opacity: [0, 1],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#sidebarContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [1, 0],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [1, 0],
-        duration: 600
-      })
 
-      await this.delay(1000);
-
-      this.router.navigateByUrl(page);
-    }
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+  // function run when home link clicked
+  // start animation for going home, delay 1000ms, then change route to home
+  async goHome(): Promise<void> {
+    this.animation.goHome();
+    await this.utils.delay(1000);
+    this.router.navigateByUrl("/");
   }
 
 
-  async generateNewPreferences() {
-
+  // function run when generate new preferences button clicked
+  async generateNewPreferences(): Promise<void> {
+    // clears any code highlighting
     var command = this.playback.commandList[this.playback.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
     a.style.backgroundColor = "";
     a.style.color = "";
 
-    anime({
-      targets: '#myCanvas',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [1, 0],
-      duration: 300
-    })
-    await this.delay(300);
-    this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
-    anime({
-      targets: '#myCanvas',
-      easing: 'easeInOutQuint',
-      // translateX: [-1500, 0],
-      opacity: [0, 1],
-      duration: 300
-    })
+    // animates changing of preferences (fade in/out)
+    this.animation.fadeCanvasOut();
+    await this.utils.delay(300);
+    for (let i = 0; i < 100; i++) {
+      // let agent1Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      // let agent2Count: number = Math.floor(Math.random() * (9 - 2) + 2);
+      // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, agent1Count, agent2Count);
+      this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+    }
+    this.animation.fadeCanvasIn();
   }
 
 
+  // function run when toggle sidebar button clicked (top left)
+  async toggleSidebar(): Promise<void> {
+
+    this.duringAnimation = true;
+
+    let mainContent = document.getElementById("mainContent");
+
+    if (!this.showCode) {
+
+      // hide sidebar and content
+      this.animation.hideSidebar();
+      this.animation.hideMainContent();
+
+      await this.utils.delay(700);
+  
+      // show sidebar and content
+      mainContent.style.position = "";
+      this.animation.showMainContent();
+      this.showCode = !this.showCode
+
+    } else {
+
+      // hide content
+      this.animation.hideMainContent();
+
+      await this.utils.delay(400);
+
+      // show sidebar
+      this.showCode = !this.showCode
+      this.animation.showSidebar();
+
+      await this.utils.delay(200);
+
+      // show content
+      this.animation.showMainContent();
+
+    }
+
+    await this.utils.delay(200);
+
+    this.duringAnimation = false;
+
+  }
+
+
+  // --------------------------------------------------------------------------------- | TUTORIAL FUNCTIONS
+  
+
+  // function run when ">" arrow clicked in tutorial
+  // progresses to next stage of tutorial
   nextTutorialStep(): void {
-    // console.log(this.tutorialStep);
+    // step 1 (shows sidebar so tutorial doesn't break)
     if (this.tutorialStep == 0) {
       if (this.showCode) {
         this.toggleSidebar();
       }
       this.startTutorial();
+    
+    // step 2
     } else if (this.tutorialStep == 1) {
       this.sidebarTutorial();
+
+    // step 3
     } else if (this.tutorialStep == 2) {
       this.mainContentTutorial();
+      
+    // step 4
     } else if (this.tutorialStep == 3) {
       this.stopTutorial();
     }
   }
 
+
+  // functions to hide/show appropriate popovers for tutorial steps
   startTutorial(): void {
     this.tutorialStep += 1;
     $('.navbarPopover').popover('show');
   }
 
   sidebarTutorial(): void {
-    // console.log(this.tutorialStep);
     this.tutorialStep += 1;
-    // console.log(this.tutorialStep);
     $('.navbarPopover').popover('hide');
     $('.sidebarPopover').popover('show');
   }
@@ -359,86 +333,5 @@ export class AlgorithmPageComponent implements OnInit {
     $('.mainContentPopover').popover('hide');
   }
 
-
-  async toggleSidebar() {
-
-    this.duringAnimation = true;
-
-    let mainContent = document.getElementById("mainContent");
-
-    if (!this.showCode) {
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [0, -800],
-        delay: 200,
-        duration: 700
-      })
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [1, 0],
-        duration: 500
-      })
-      
-  
-      await this.delay(700);
-  
-      mainContent.style.position = "";
-  
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 500
-      })
-      this.showCode = !this.showCode
-
-    } else {
-
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [1, 0],
-        duration: 500
-      })
-
-      await this.delay(400);
-
-      this.showCode = !this.showCode
-      anime({
-        targets: '.sidebar',
-        easing: 'easeInOutQuint',
-        translateX: [-500, 0],
-        // opacity: [0, 1],
-        duration: 600
-      })
-  
-      anime({
-        targets: '#sidebarContent',
-        easing: 'easeInOutQuint',
-        // translateX: [-1500, 0],
-        opacity: [0, 1],
-        duration: 600
-      })
-
-      await this.delay(200);
-
-      anime({
-        targets: '#mainContent',
-        easing: 'easeInOutQuint',
-        opacity: [0, 1],
-        duration: 500
-      })
-
-    }
-
-    await this.delay(200);
-
-    this.duringAnimation = false;
-
-    // mainContent.style.display = "";
-
-  }
 
 }

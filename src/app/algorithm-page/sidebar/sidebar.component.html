@@ -1,0 +1,22 @@
+<nav class="d-none sidebar" [ngClass]="{'col-md-3 d-md-block': !this.showCode, 'moveContentToTop': this.tutorialStep == 2}">
+    <div class="sidebar-sticky shadow-lg">
+      <div class="grid-container-algorithm" id="sidebarContent">
+
+        <!-- Algorithm Description -->
+        <alg-description></alg-description>
+
+
+        <!-- Free Agents -->
+        <free-agents></free-agents>
+
+
+        <!-- Code Display -->
+        <pseudocode></pseudocode>
+
+
+        <!-- Execution Log -->
+        <execution-log style="overflow: auto;"></execution-log>
+
+      </div>
+  </div>
+</nav>

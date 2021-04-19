@@ -12,11 +12,12 @@
 
 <hr>
 
-## Total Time Spent (so far): **265 hours**
+## Total Time Spent: **522 hours**
 
 <br><br>
 
 # Semester 1 - 86.5 hours
+# Semester 2 - 435.5 hours
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 1 -->
 
@@ -228,7 +229,7 @@ Holiday taken for Christmas.
 * *0.5 hours*: Created more in-depth plan for the next few weeks
 
 ### 3 Jan 2020 (Sat) - 2 hours
-* *2 hours*: Learned how the Hospital/Residents problem works, and wrote up documentation on how I am to implement it into the application
+* *2 hours*: Learned how the Hospitals/Residents Problem works, and wrote up documentation on how I am to implement it into the application
 
 <hr>
 
@@ -270,7 +271,7 @@ Holiday taken for Christmas.
 
 ## Week 18 (18 Jan 2021 - 24 Jan 2021) - **11 hours**
 ### 19 Jan 2020 (Tue) - 4 hours
-* *4 hours*: Refinement of design (specifically hospital/residents problem)
+* *4 hours*: Refinement of design (specifically Hospitals/Residents Problem)
 
 ### 24 Jan 2020 (Sun) - 7 hours
 * *3 hours*: Implementation of design wireframes (layout)
@@ -312,7 +313,7 @@ Holiday taken for Christmas.
 * *4 hours*: Implementing hospital residents into app (halfway done)
 
 ### 3 Feb 2020 (Wed) - 2 hours
-* *2 hours*: Adding finishing touches to hospital/residents problem
+* *2 hours*: Adding finishing touches to Hospitals/Residents Problem
 
 ### 4 Feb 2020 (Thu) - 2 hours
 * *2 hours*: Refining hospital/residents algorithm
@@ -430,7 +431,7 @@ Holiday taken for Christmas.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 24 -->
 
-## Week 24 (1 Mar 2021 - 7 Mar 2021) - **x hours**
+## Week 24 (1 Mar 2021 - 7 Mar 2021) - **0 hours**
 
 Week spent on coursework and catching up with subjects.
 
@@ -438,18 +439,139 @@ Week spent on coursework and catching up with subjects.
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
 
-## Week 25 (8 Mar 2021 - 14 Mar 2021) - **x hours**
+## Week 25 (8 Mar 2021 - 14 Mar 2021) - **0 hours**
 
 Week spent on coursework and catching up with subjects.
 
 <hr>
 
-<!-- ------------------------------------------------------------------------------------------------------- WEEK 25 -->
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 26 -->
 
-## Week 23 (15 Mar 2021 - 21 Mar 2021) - **x hours**
+## Week 26 (15 Mar 2021 - 21 Mar 2021) - **13 hours**
 
-### 15 Mar 2020 (Mon) - x hours
+### 15 Mar 2020 (Mon) - 1 hours
 * *0.5 hours*: Updated timelog for March
 * *0.5 hours*: Merged current branch into master
 
+### 21 Mar 2020 (Sun) - 12 hours
+* *2 hours*: Writing up testing framework, making sure everything has been covered
+* *4 hours*: Writing unit tests
+* *6 hours*: Writing dissertation
+
 <hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 27 -->
+
+## Week 27 (22 Mar 2021 - 28 Mar 2021) - **55 hours**
+
+### 22 Mar 2020 (Mon) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 23 Mar 2020 (Tue) - 12 hours
+* *0.5 hours*: Supervisor meeting
+* *11.5 hours*: Writing dissertation
+
+### 24 Mar 2020 (Wed) - 8 hours
+* *8 hours*: Writing dissertation
+
+### 25 Mar 2020 (Thu) - 8 hours
+* *8 hours*: Writing dissertation
+
+### 26 Mar 2020 (Fri) - 5 hours
+* *5 hours*: Writing e2e tests
+
+### 27 Mar 2020 (Sat) - 9 hours
+* *9 hours*: Writing dissertation
+
+### 28 Mar 2020 (Sun) - 3 hours
+* *3 hours*: Writing dissertation
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 28 -->
+
+## Week 28 (29 Mar 2021 - 4 Apr 2021) - **38 hours**
+
+### 29 Mar 2020 (Mon) - 4 hours
+* *4 hours*: Writing dissertation
+
+### 30 Mar 2020 (Tue) - 6 hours
+* *6 hours*: Writing dissertation
+
+### 31 Mar 2020 (Wed) - 3 hours
+* *3 hours*: Writing dissertation
+
+### 1 Apr 2020 (Thu) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 2 Apr 2020 (Fri) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 3 Apr 2020 (Sat) - 1 hour
+* *1 hour*: Writing dissertation
+
+### 4 Apr 2020 (Sun) - 4 hours
+* *4 hours*: Writing dissertation
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 29 -->
+
+## Week 29 (5 Apr 2021 - 11 Apr 2021) - **36 hours**
+
+### 5 Apr 2020 (Mon) - 2 hours
+* *2 hours*: Writing dissertation
+
+### 6 Apr 2020 (Tue) - 2 hours
+* *2 hours*: Writing dissertation
+
+### 7 Apr 2020 (Wed) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 8 Apr 2020 (Thu) - 12 hours
+* *6 hours*: Writing dissertation
+* *6 hours*: Writing documentation
+
+### 9 Apr 2020 (Fri) - 3 hours
+* *3 hours*: Writing dissertation
+
+### 10 Apr 2020 (Sat) - 1 hour
+* *1 hour*: Writing dissertation
+
+### 11 Apr 2020 (Sun) - 6 hours
+* *6 hours*: Writing dissertation
+
+<hr>
+
+<!-- ------------------------------------------------------------------------------------------------------- WEEK 30: FINAL WEEK -->
+
+## Week 30 (12 Apr 2021 - 19 Apr 2021) - **66.5 hours**
+
+### 12 Apr 2020 (Mon) - 6.5 hours
+* *6.5 hours*: Writing dissertation
+* *2 hours*: Presentation
+
+### 13 Apr 2020 (Tue) - 5.5 hours
+* *0.5 hours*: Supervisor meeting
+* *5 hours*: Writing dissertation
+
+### 14 Apr 2020 (Wed) - 10 hours
+* *10 hours*: Writing dissertation
+
+### 15 Apr 2020 (Thu) - 12 hours
+* *12 hours*: Writing dissertation
+
+### 16 Apr 2020 (Fri) - 11 hours
+* *5 hours*: Writing dissertation
+* *6 hours*: Presentation
+
+### 17 Apr 2020 (Sat) - 2.5 hours
+* *2.5 hours*: Writing dissertation
+
+### 18 Apr 2020 (Sun) - 11 hours
+* *1 hours*: Writing dissertation
+* *2 hours*: Cleaning application tests
+* *8 hours*: Finishing presentation
+
+### 19 Apr 2020 (Mon) - 8 hours
+* *8 hours*: Finishing dissertation

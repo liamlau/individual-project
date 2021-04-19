@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { CanvasService } from '../../canvas.service';
-import { PlaybackService } from '../../playback.service';
+import { CanvasService } from '../../services/canvas/canvas.service';
+import { PlaybackService } from '../../services/playback/playback.service';
 
 @Component({
   selector: 'app-edit-preferences-dialog',
@@ -143,7 +143,6 @@ export class EditPreferencesDialogComponent implements OnInit {
       }
 
     } else {
-      console.log(":(");
       for (let agent of this.group1Preferences) {
         currentLine = "";
   

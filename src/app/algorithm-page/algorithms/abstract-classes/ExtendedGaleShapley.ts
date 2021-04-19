@@ -32,15 +32,8 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
                 let potentialProposee: Agent = this.getNextPotentialProposee(currentAgent);
 
 
-                // console.log("-------------");
-                // console.log("man: %o", currentAgent);
-                // console.log("woman: %o", potentialProposee);
-
-
                 let agentLastChar = this.getLastCharacter(currentAgent.name);
                 let proposeeLastChar = this.getLastCharacter(potentialProposee.name);
-                let positionOfProposeeInAgentPrefs = this.findPositionInMatches(currentAgent, potentialProposee);
-                let positionOfAgentInProposeePrefs = this.findPositionInMatches(potentialProposee, currentAgent);
 
                 this.currentlySelectedAgents.push(proposeeLastChar);
                 this.relevantPreferences.push(proposeeLastChar);
@@ -69,18 +62,9 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         this.currentlySelectedAgents = [];
         this.relevantPreferences = [];
         // a stable matching has been found
-        this.update(this.numberOfLines);
+        this.update(12);
 
-        // while some hospital h is undersubscribed
-        // while (this.shouldContinueMatching(currentAgent)) {
-        //     let potentialProposee: Agent = currentAgent.ranking[0];
-            
-        //     currentAgent = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
-        // }
-
-        // // // console.log(this.algorithmData.commands);
         return;
-        // return "Extended Gale-Shapley!";
     }
 
 

@@ -33,6 +33,15 @@ import { FeedbackBannerComponent } from './home-page/feedback-banner/feedback-ba
 import { NavbarComponent } from './home-page/navbar/navbar.component';
 import { EditPreferencesDialogComponent } from './algorithm-page/edit-preferences-dialog/edit-preferences-dialog/edit-preferences-dialog.component';
 import { AnimationGuideDialogComponent } from './algorithm-page/animation-guide-dialog/animation-guide-dialog.component';
+import { SidebarComponent } from './algorithm-page/sidebar/sidebar.component';
+import { AlgDescriptionComponent } from './algorithm-page/sidebar/alg-description/alg-description.component';
+import { FreeAgentsComponent } from './algorithm-page/sidebar/free-agents/free-agents.component';
+import { PseudocodeComponent } from './algorithm-page/sidebar/pseudocode/pseudocode.component';
+import { ExecutionLogComponent } from './algorithm-page/sidebar/execution-log/execution-log.component';
+import { AlgorithmNavbarComponent } from './algorithm-page/algorithm-navbar/algorithm-navbar.component';
+import { AnimationContainerComponent } from './algorithm-page/animation-container/animation-container.component';
+import { AgentTitlesComponent } from './algorithm-page/animation-container/agent-titles/agent-titles.component';
+import { CanvasDisplayComponent } from './algorithm-page/animation-container/canvas-display/canvas-display.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +60,16 @@ import { AnimationGuideDialogComponent } from './algorithm-page/animation-guide-
     FeedbackBannerComponent,
     NavbarComponent,
     EditPreferencesDialogComponent,
-    AnimationGuideDialogComponent
+    AnimationGuideDialogComponent,
+    SidebarComponent,
+    AlgDescriptionComponent,
+    FreeAgentsComponent,
+    PseudocodeComponent,
+    ExecutionLogComponent,
+    AlgorithmNavbarComponent,
+    AnimationContainerComponent,
+    AgentTitlesComponent,
+    CanvasDisplayComponent
   ],
   imports: [
     BrowserModule,

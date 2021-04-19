@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
-import { PlaybackService } from '../playback.service';
+import { PlaybackService } from '../services/playback/playback.service';
 
 declare var anime: any;
 

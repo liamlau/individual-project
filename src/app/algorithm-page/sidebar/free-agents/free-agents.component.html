@@ -1,0 +1,14 @@
+<div class="border-bottom align-items-center">
+    <div class="row align-items-center mx-2" style="height: 100%">
+      <div class="col-4 pr-2" style="font-size: 22px;">
+        <span style="font-size: 0.9vw;">Free {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}:</span>
+      </div>
+      <div class="col-8 text-center pr-5 py-3" style="font-size: 0.9vw;">
+        [
+        <span *ngFor="let item of this.playback.commandList[this.playback.stepCounter]['freeAgents']; let lastItem = last;">
+          <span class="{{ item }}">{{ item.slice(item.length - 1) }}</span><span *ngIf="!lastItem">, </span>
+        </span>
+        ]
+      </div>
+    </div>
+</div>
