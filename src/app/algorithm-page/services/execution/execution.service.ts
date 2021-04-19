@@ -31,7 +31,7 @@ export class ExecutionService {
 
     commandList.descriptions = this.generateDescriptions(commandList);
 
-    // console.log(commandList);
+    console.log(commandList);
 
     // this.drawService.redrawCanvas(commandList["commands"][0]);
 
