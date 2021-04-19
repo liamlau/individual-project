@@ -157,18 +157,6 @@ export class GsStableMarriageService extends GaleShapley {
       this.relevantPreferences = [];
 
       this.update(11);
-  
-      // // console.log(this.men);
-  
-      // this.generateChanges();
-  
-      // console.log("------- COMMAND LIST")
-      // console.log(this.commandList);
-  
-      // console.log("------- MATCHES")
-      // console.log(this.generateMatches());
-      // console.log(this.men);
-      // console.log(this.women);
 
       for (let woman of Array.from(this.group2Agents.values())) {
           woman.match[0].match[0] = woman;

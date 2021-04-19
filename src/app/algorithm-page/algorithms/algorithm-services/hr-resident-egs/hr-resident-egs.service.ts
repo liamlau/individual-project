@@ -85,23 +85,15 @@ export class HrResidentEgsService extends ExtendedGaleShapley {
         let worstResident = this.getWorstResident(hospital);
         this.update(5, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
 
-        // console.log(worstResident + " chosen as the worst resident in " + hospital + "\'s matches");
 
         let matchPosition = this.findPositionInMatches(hospital, worstResident);
-        // console.log("Position of %o: %o", worstResident, matchPosition);
 
-        // console.log("worst resident: %o", worstResident);
-        // console.log("current hospital: %o", hospital);
-
-        // this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.findPositionInMatches(resident, hospital), "green");
-        // this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, matchPosition, "green");
         this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(worstResident.name), this.getLastCharacter(hospital.name), "green"]);
 
         this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(worstResident.name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(worstResident.name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
         this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition, "grey");
 
         this.freeAgentsOfGroup1.push(worstResident.name);
-        // console.log(worstResident.match);
 
         hospital.match.splice(hospital.match.findIndex((agent: { name: string; }) => agent.name == worstResident.name), 1);
         hospital.ranking.splice(matchPosition, 1);
@@ -135,7 +127,6 @@ export class HrResidentEgsService extends ExtendedGaleShapley {
 
       if (hospital.match.length >= hospital.availableSpaces - 1) {
         this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
-        // console.log(this.algorithmSpecificData);
       }
 
       this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
@@ -166,19 +157,16 @@ export class HrResidentEgsService extends ExtendedGaleShapley {
               this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 
               this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
-            //   this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), i+1, "grey");
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
   
               // remove h' and r from each other's lists
               this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
 
-            //   console.log("%o removed from " + hospital.name + "\'s rankings", hospital.ranking[i]);
               hospital.ranking.splice(i, 1);
               i -= 1;
               
               hospitalRankingClearCounter++;
 
-            //   console.log("Selected: " + this.getLastCharacter(hospital.ranking[i].name));
               this.relevantPreferences.pop();
 
           }
@@ -189,9 +177,6 @@ export class HrResidentEgsService extends ExtendedGaleShapley {
 
 
   shouldContinueMatching(hospital: Hospital): boolean {
-      // let residentList: Array<Agent> = hospital.ranking.filter(agent => agent.match[0] != hospital);
-
-      // return (hospital.match.length >= hospital.availableSpaces || residentList.length == 0);
       return true;
   }
 

@@ -256,6 +256,8 @@ export abstract class MatchingAlgorithm {
         return true;
       }
 
+
+    // used to remove elements from currentLines
     removeArrayFromArray(a: Array<Array<string>>, b: Array<string>) {
         let arrayPositionCounter: number = 0;
         for (let subArray of a) {
@@ -273,10 +275,6 @@ export abstract class MatchingAlgorithm {
     changePreferenceStyle(preferenceList: Map<String, Array<String>>, person: string, position: number, style: string) {
 
         let currentAgent: string = "";
-
-        // console.log(preferenceList);
-        // console.log(person);
-        // console.log(position);
 
         if (preferenceList.get(person)[position].includes("#")) {
         currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);

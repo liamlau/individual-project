@@ -242,39 +242,7 @@ export class CanvasService {
           positionY: canvasMiddle + (spaceBetweenCircles / 2) + ((i - Math.ceil((this.algService.numberOfGroup2Agents / 2) + 1)) * spaceBetweenCircles)
         }
       }
-
-      // console.log(this.positions);
     }
-
-    // console.log(this.positions);
-
-    // for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-    //   this.positions["circle" + i] = {
-    //     positionX: (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? canvas.width * this.xMargin - 35 : canvas.width * this.xMargin),
-    //     positionY: currentCirclePosition
-    //   }
-
-    //   currentCirclePosition = currentCirclePosition + spaceBetweenCircles
-    // }
-
-
-    // RHS Circle positions
-
-
-    // currentCirclePosition = (canvas.height * this.yMargin);
-
-    // for (let i = 0; i < this.algService.numberOfGroup2Agents; i++) {
-    //   this.positions["circle" + lastLetter ] = {
-    //     positionX: canvas.width - (canvas.width * this.xMargin),
-    //     positionY: currentCirclePosition
-    //   }
-
-    //   lastLetter = String.fromCharCode(((lastLetter.charCodeAt(0) + 1 - 65) % 25) + 65)
-
-    //   currentCirclePosition = currentCirclePosition + spaceBetweenCircles
-    // }
-
-
   }
 
   drawLHSCircles() {
@@ -307,17 +275,6 @@ export class CanvasService {
       this.ctx.fillText(String(i), posX - 8, posY + 10, 20);
 
     }
-
-
-    // this.ctx.fillText('1', 192, 85, 20);
-
-    // this.ctx.fillText('2', 192, 204.8, 20);
-
-    // this.ctx.fillText('3', 192, 324.6, 20);
-
-    // this.ctx.fillText('4', 192, 444.4, 20);
-
-    // this.ctx.fillText('5', 192, 564.2, 20);
 
   }
 
@@ -392,7 +349,6 @@ export class CanvasService {
 
 
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-      // got a bug here - text is displayed dodgy with different numbers than 5
       this.drawText(this.ctx, group1PreferenceList[i-1].join(", "), this.positions["circle" + i].positionX - this.lineSizes.get(String(i)) * 2 - 65, this.positions["circle" + i].positionY + 7, this.fontSize);
     }
 
@@ -405,7 +361,6 @@ export class CanvasService {
 
     for (let i = 1; i < this.algService.numberOfGroup2Agents + 1; i++) {
       this.drawText(this.ctx, group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + (this.currentCommand["algorithmSpecificData"]["hospitalCapacity"] ? 115 : 65), this.positions["circle" + currentLetter].positionY + 7, this.fontSize);
-      // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
   }
@@ -513,6 +468,7 @@ export class CanvasService {
 
 
 // FROM: https://stackoverflow.com/questions/43904201/how-can-i-colour-different-words-in-the-same-line-with-html5-canvas
+// adapted for use in this project
   drawText(context,text,x,y,size){
     var i,len,subText;
     var w,scale;
@@ -570,19 +526,9 @@ export class CanvasService {
                     })
                     i += 1;
                     var t = text[i];
-                    if(t === "+"){  // Increase size
-                        size *= 1/(3/4);
-                    }else if(t === "-"){  // decrease size
-                        size *= 3/4;
-                    }else if(t === "s"){ // sub script
-                        y += size * (1/3);
-                        size  *= (2/3);
-                    }else if(t === "S"){ // super script
-                        y -= size * (1/3);
-                        size  *= (2/3);
-                    }else if(t === "#"){
-                        colour = text.substr(i,7);
-                        i+= 6;
+                    if(t === "#"){
+                      colour = text.substr(i,7);
+                      i+= 6;
                     }
                 }else if(c  === "}"){
                     var s = state.pop();
@@ -616,8 +562,6 @@ export class CanvasService {
     var parent = document.getElementById("parent");
     canvas.width = parent.offsetWidth - 20;
     canvas.height = parent.offsetHeight - 20;
-    // canvas.style.width = String(canvas.width / 2);
-    // canvas.style.height = String(canvas.height / 2);
 
     if (this.firstRun) {
       this.originalGroup1Preferences = Array.from(this.currentCommand["group1CurrentPreferences"].values());

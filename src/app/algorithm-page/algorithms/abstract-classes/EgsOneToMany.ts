@@ -2,6 +2,8 @@
 import { Agent } from "../interfaces/Agent";
 import { ExtendedGaleShapley } from "./ExtendedGaleShapley";
 
+// this file is the implementation for SM - EGS
+
 export abstract class EgsOneToMany extends ExtendedGaleShapley {
   
 
