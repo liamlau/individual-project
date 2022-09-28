@@ -4,4 +4,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Wiki
 
-Go check out the [wiki](https://github.com/liamlau/individual-project/wiki) for more information on the project, and my current progress!
+
