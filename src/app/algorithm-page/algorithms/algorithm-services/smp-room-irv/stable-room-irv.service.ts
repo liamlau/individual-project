@@ -9,5 +9,19 @@ import { Man } from '../../interfaces/Man';
 })
 export class StableRoomIrvService extends StableRoomMates {
 
-  constructor() { }
+  group1Name = "man";
+  group2Name = "woman";
+
+
+  constructor() { 
+    
+    super();
+    console.log("Hello");
+  }
+
+  match(): AlgorithmData {
+
+    return;
+
+   }
 }

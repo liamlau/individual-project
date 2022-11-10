@@ -3,6 +3,7 @@ import { Algorithm } from './Algorithm';
 import { HrResidentEgsService } from './algorithm-page/algorithms/algorithm-services/hr-resident-egs/hr-resident-egs.service';
 import { EgsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-egs/egs-stable-marriage.service';
 import { GsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-gs/gs-stable-marriage.service';
+import { StableRoomIrvService } from './algorithm-page/algorithms/algorithm-services/smp-room-irv/stable-room-irv.service';
 
 
 // ------------------------------------------------------- ALGORITHM TEMPLATE
@@ -153,6 +154,46 @@ export class AlgorithmRetrievalService {
       }
     ],
 
+    [
+      "smp-room-irv", {
+        id: "smp-room-irv",
+        name: "Stable Roommates Problem",
+        orientation: ["Man", "Man"],
+        equalGroups: true,
+        algorithm: "Stable Roommates Problem",
+        service: this.StableRoomIrvService,
+        description: "Match Roommates",
+        helpTextMap: {
+          1: "Clear the matches of all residents and hospitals",
+          2: "The next resident who doesn't have a match and still has some hospitals in their preference list is selected (%currentAgent%\)",
+          3: "The first hospital on %currentAgent%\'s preference list is selected (%potentialProposee%)",
+          4: "Check if %hospital% is currently full: is it already matched with %capacity% resident(s)? If not, provisionally assign %resident% to %hospital%",
+          5: "%hospital%'s number of residents is equal to its max capacity, so choose the worst resident assigned to %hospital% (%worstResident%)",
+          6: "Clear the match between %hospital% and %worstResident%",
+          7: "Assign %resident% to %hospital%",
+          8: "Check if %hospital% is full after assigning %resident% to %hospital%",
+          9: "%hospital% is fully subscribed, so choose the worst resident assigned to them (%worstResident%) and remove each successor from %hospital%'s preference list",
+          10: "%nextResident% is chosen as the next resident to be removed from %hospital%'s list",
+          11: "Remove %nextResident% from %hospital%'s list",
+          12: "A stable matching between residents and hospitals has been found",
+        },
+        code: [
+          "set each hospital and resident to be completely free;",
+          "while (some resident r is free) and (r has a nonempty list)",
+          "\th := first hospital on r's list",
+          "\tif h is fully subscribed then",
+          "\t\tr' := worst resident provisionally assigned to h",
+          "\t\tassign r' to be free (clear match)",
+          "\tprovisionally assign r to h",
+          "\tif h is fully subscribed (after assigning r to h) then",
+          "\t\ts := worst resident provisionally assigned to h",
+          "\t\tfor each successor s' of s on h's list",
+          "\t\t\tremove s' and h from each other's lists",
+          "the stable matching consists of all n engagements"
+        ]
+      }
+    ],
+
     // ADD NEW ALGORITHMS UNDER HERE
 
   ]);
@@ -168,6 +209,7 @@ export class AlgorithmRetrievalService {
     public gsStableMarriageService: GsStableMarriageService,
     public egsStableMarriageService: EgsStableMarriageService,
     public HrResidentEgsService: HrResidentEgsService,
+    public StableRoomIrvService: StableRoomIrvService,
   ) { }
 
   getListOfAlgorithms(): Array<Algorithm> {
