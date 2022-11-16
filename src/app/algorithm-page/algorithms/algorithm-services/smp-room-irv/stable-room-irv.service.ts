@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { type } from 'os';
 import { StableRoomMates } from '../../abstract-classes/StableRoomMates';
 import { Agent } from '../../interfaces/Agent';
 import { AlgorithmData } from '../../interfaces/AlgorithmData';
 import { Man } from '../../interfaces/Man';
+import { Person } from '../../interfaces/Person';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class StableRoomIrvService extends StableRoomMates {
   group1Name = "People";
   group2Name = "Other";
 
-  group1Agents: Map<String, Man> = new Map();
+  group1Agents: Map<String, Person> = new Map();
 
   generateAgents() {
 
@@ -24,7 +27,7 @@ export class StableRoomIrvService extends StableRoomMates {
           name: group1AgentName,
           match: new Array(),
           ranking: new Array(),
-          lastProposed: 0
+          lastProposed: null
       });
 
       this.freeAgentsOfGroup1.push(group1AgentName);
@@ -66,7 +69,7 @@ export class StableRoomIrvService extends StableRoomMates {
       
       // loop over all agents 
       for (let i = 0 ; i < this.freeAgentsOfGroup1.length ; i++){
-        let person: Man = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+        let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
 
         // if person assigned to param person - then return index
         if (person.lastProposed == assinged){
@@ -78,13 +81,20 @@ export class StableRoomIrvService extends StableRoomMates {
     function free(person_free){
       //loop over all agents 
       for (let i = 0 ; i < this.freeAgentsOfGroup1.length ; i++){
-        let person: Man = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+        let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
 
         // if person assigned to param persin - then set assign to null
         if (person.lastProposed == person_free){
           person.lastProposed = null;
         }
       }
+    }
+
+    function delete_pair(agent1, agent2){
+      let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+      
+
+
     }
 
     this.update(1);
@@ -106,8 +116,14 @@ export class StableRoomIrvService extends StableRoomMates {
         //loop through each agent in the list 
         for (let agent = 0 ; agent < this.freeAgentsOfGroup1.length; agent++){
              
-          let person: Man = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+          let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
+          console.log("------------------")
           console.log(person);
+          console.log(person.name);
+          console.log(person.ranking);
+          console.log(person.match);
+          console.log(person.lastProposed);
+
           
           // if there is no more preferances for a agent - no stable matchong exists
           if (person.ranking.length < 1){
@@ -122,7 +138,38 @@ export class StableRoomIrvService extends StableRoomMates {
           //if someone is assigned to their most prefered person, then unassign them and assign current agent to them 
           let check = assign_check(pref);
           if (check != null){
+            free(pref);
+          }
+          person.lastProposed = pref;
+
+
+          // preferances = pref.ranking[i]; = the preferacens of the current agents preferance 
+          // loop through preferance list in data 
+
+          
+          for (let i = 0 ; i < pref.ranking.length ; i++){
             
+            //check for preferacen in list, the ones after this in the list are the ones to remove
+            if (pref.ranking[i] == person){
+              // remove remaining preferances, in each list 
+              // remove (pref, p)
+
+              // pref = index of current preferance for the current agent 
+              // p = an index of a person tp remove 
+
+              // need to get splice of list 
+              for (let j = i; j < pref.ranking.length ; i++){
+                delete_pair(pref.ranking[j], pref);
+
+                break;
+
+              }
+
+            }
+            
+
+
+
           }
 
         }
