@@ -351,6 +351,10 @@ export abstract class MatchingAlgorithm {
         } else {
             this.initialise(numberOfAgents);
         }
+
+        if (numberOfGroup2Agents == 0){
+            console.log("0 agents in group 2");
+        }
         
         this.generateAgents();
 
