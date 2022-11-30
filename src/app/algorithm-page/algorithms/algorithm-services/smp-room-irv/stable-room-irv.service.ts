@@ -182,6 +182,17 @@ export class StableRoomIrvService extends StableRoomMates {
     return;
 
    }
+
+
+  //  while there are gaents with more than one preferance left
+
+  // loop through remaining agents 
+
+  // find rotations in tge preferances and remove using delete_pair
+
+  
 }
+
+
 
 }
