@@ -39,7 +39,7 @@ data2 = [[1,3,5,2,4],
         [5,2,3,1,0],
         [0,1,3,2,4]]
 
-data = format_data(data1)
+data = format_data(data2)
 
 
 
@@ -163,7 +163,10 @@ def match():
                     #pref = index of current preferance for the current agent 
                     #p = an index of a person tp remove 
                     for p in data[pref][0][list_cut_off_index + 1:]:
+                        print("del", p, pref)
                         delete_pair(p, pref)
+                        print(p , "---", data[p][0])
+                        print(pref , "---", data[pref][0])
 
 
 
@@ -174,6 +177,8 @@ def match():
             free_agents = check_free_agents()
 
             #print(data, "\n")   #Print the data at each step of assinging 
+
+    print("data", data)
 
     #PHASE 2 - FIND ROATATION AND REDUCE LISTS
 

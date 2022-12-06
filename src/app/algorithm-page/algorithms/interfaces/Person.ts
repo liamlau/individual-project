@@ -1,5 +1,8 @@
 import { Agent } from "./Agent";
 
 export interface Person extends Agent {
-    lastProposed: Agent;
+    
+    match: Array<Person>;
+    ranking: Array<Person>;
+    lastProposed: Person;
 }

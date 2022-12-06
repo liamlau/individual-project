@@ -1,4 +1,5 @@
 import { Agent } from "../interfaces/Agent";
+import { Person } from '../interfaces/Person';
 import { AlgorithmData } from "../interfaces/AlgorithmData";
 import { Step } from "../interfaces/Step";
 
@@ -382,5 +383,7 @@ export abstract class MatchingAlgorithm {
         return this.algorithmData;
 
     }
+
+    
 
 }
