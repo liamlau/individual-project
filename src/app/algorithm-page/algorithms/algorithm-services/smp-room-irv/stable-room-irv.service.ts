@@ -205,6 +205,7 @@ export class StableRoomIrvService extends StableRoomMates {
         let check = this.assign_check(pref.name);
         //console.log("check check --- ", check);
 
+
         if (check != null){
           this.free(pref.name);
         }
@@ -261,5 +262,6 @@ export class StableRoomIrvService extends StableRoomMates {
 
   }
 }
+
 
 
