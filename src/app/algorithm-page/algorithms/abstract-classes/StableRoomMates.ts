@@ -42,7 +42,7 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
         for (let [key, person] of this.group1Agents.entries()){   
             for (let i = 0 ; i < this.group1Agents.size - 1 ; i++){
                 //console.log(this.group1Agents.get(data2[count][i]), data2[count][i]);
-                person.ranking[i] = this.group1Agents.get(data2[count][i]);
+                person.ranking[i] = this.group1Agents.get(data1[count][i]);
             }
             count++;
 

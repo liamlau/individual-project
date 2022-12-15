@@ -63,9 +63,7 @@ export class StableRoomIrvService extends StableRoomMates {
   ///////////////////////////////////////////////////
 
 
-  //functions dont update mamny data structure, del not working 
-
-  
+  // checks is anyone is assigned to a person, returns assigned person if true, null otherwise 
   assign_check(assinged: String) {
 
     console.log("---Assing Check---")
@@ -107,25 +105,15 @@ export class StableRoomIrvService extends StableRoomMates {
   // del agent2 from agent1 ranking 
   delete_pair(agent1, agent2){
 
-    //need to fix this 
-   
     console.log("---Delete---");
-
-    // if (agent1 in agent2.ranking){
-
-    // this.print_rankings(agent2)
 
     let agent1index = agent2.ranking.indexOf(agent1);
     if (agent1index != -1){
       console.log("Delete --- ", agent1.name, " From ", agent2.name);
       agent2.ranking.splice(agent1index, 1);
     
-
     }
-
-    // if (agent2 in agent1.ranking){
-
-      
+  
     let agent2index = agent1.ranking.indexOf(agent2);
     if (agent2index != -1){
       console.log("Delete --- ", agent2.name, " From ", agent1.name);
@@ -141,7 +129,7 @@ export class StableRoomIrvService extends StableRoomMates {
   }
 
   
-
+  // returns a map of agents that are free - not assigned to anyone 
   check_free_agents(){
 
     let free_agents: Map<String, Person> = new Map();
@@ -155,12 +143,43 @@ export class StableRoomIrvService extends StableRoomMates {
     }
     return free_agents;
   }
+
+  // returns a list of the agent keys that have more than one preferance 
+  check_pref_count(){
+
+    let agents_multiple_prefs: Map<String, Person> = new Map();
+
+    for (let [key, person] of this.group1Agents.entries()){
+
+      // if person has more than one person in their ranking 
+      if (person.ranking.length > 1){
+        agents_multiple_prefs.set(key, person);
+        console.log("Agent with multiple prefs", key, person.ranking.length)
+      }
+    }
+    return agents_multiple_prefs;
+  }
+
+  // checks if any preferance lists are empty
+  check_pref_list_empty(){
+
+    let free_agents: Map<String, Person> = new Map();
+    
+
+    for (let [key, person] of this.group1Agents.entries()){
+
+      if (person.ranking.length < 1){
+        return true
+      }
+    }
+    return false;
+
+  }
   
 
   match(): AlgorithmData {
 
 
-    
     let free_agents: Map<String, Person> = new Map();
     free_agents = this.check_free_agents();
 
@@ -174,8 +193,6 @@ export class StableRoomIrvService extends StableRoomMates {
       console.log("match.irv");
       console.log(this.freeAgentsOfGroup1);
       console.log(this.group1Agents);
-
-      // data = this.freeAgentsOfGroup1 
 
     
 
@@ -258,10 +275,106 @@ export class StableRoomIrvService extends StableRoomMates {
       }
   }
 
+
+  let agents_multiple_prefs = this.check_pref_count()
+
+  // while there are agents that have more than 1 person in their prefrance list 
+
+  console.log("length --- ", agents_multiple_prefs.size)
+
+  while (agents_multiple_prefs.size > 0){
+    console.log("There is agents with multiple prefs")
+    console.log(agents_multiple_prefs)
+    
+
+    //loop through those^ agents
+    for (let [key, person] of agents_multiple_prefs.entries() ){
+      console.log("looping these agents")
+
+      let rotation_pairs = []
+
+      let starting_agent = person                               // starting person
+      let second_pref = person.ranking[1]                       //the starting persons second prefered person
+      let last_pref = second_pref.ranking.slice(-1)[0]          //the second preferned persons last preferd person
+
+      // list of pairs to call delete on
+      rotation_pairs.push([last_pref, second_pref])
+
+
+      // Loop until there is a loop through people until back to the starting person
+
+      let counter = 0
+      while (starting_agent != last_pref){
+        console.log("adding pairs ")  
+        counter++
+
+        // stops infinite loops - break if there is no cycle through all the people 
+        if (counter > agents_multiple_prefs.size){
+          break;
+        }
+
+        // console.log("HERE")
+        // console.log(second_pref)
+        // console.log(last_pref)
+
+        // console.log("last_pref", last_pref)
+
+        second_pref = agents_multiple_prefs.get(last_pref.name).ranking[1]    // update to be second pref of last_pref
+        last_pref = second_pref.ranking.slice(-1)[0]                          // update like above with new second_pref
+
+        // add to list 
+        rotation_pairs.push([last_pref, second_pref])         
+
+      }
+
+      console.log("Found rotation", rotation_pairs)
+
+      let deleted_pairs = []
+      for (let pair = 0  ; pair < rotation_pairs.length ; pair++ ){
+        console.log("looping dels")
+
+        // if pair not already deleted 
+        if (!deleted_pairs.includes(rotation_pairs[pair])){
+          console.log("deleting", rotation_pairs[pair])
+          
+          this.delete_pair(rotation_pairs[pair][0], rotation_pairs[pair][1])
+          deleted_pairs.push(rotation_pairs[pair])
+        } else {
+
+          break;
+        }
+
+      }
+
+
+      // conditions to end if no stable matching is found 
+      agents_multiple_prefs = this.check_pref_count()
+      console.log("checking number of agents with multiple preferances")
+      console.log(agents_multiple_prefs)
+      if (agents_multiple_prefs.size < 1) {
+        break;
+      }
+
+      if (this.check_pref_list_empty() == true) {
+        console.log("No Stable matching")
+        break;
+      }
+
+    }
+
+    // printing 
+    console.log("ENDEST")
+    
+      for (let data of this.group1Agents.values()){
+
+        console.log(data.name, " ---> ", data.ranking[0].name)
+      }
+
+    break;
+
+  }
+
   return;
 
   }
 }
-
-
-

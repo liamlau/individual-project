@@ -39,7 +39,7 @@ data2 = [[1,3,5,2,4],
         [5,2,3,1,0],
         [0,1,3,2,4]]
 
-data = format_data(data2)
+data = format_data(data1)
 
 
 
