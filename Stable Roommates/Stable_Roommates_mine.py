@@ -13,6 +13,27 @@
 # 8:
 #          delete the pair {pmpj);
 
+import random
+
+def generate_data(n):
+
+    data = []
+
+    for i in range(n):
+
+        inner_data = []
+        for j in range(n):
+            if j != i:
+                inner_data.append(j)
+
+        random.shuffle(inner_data)
+        
+        data.append(inner_data)
+    
+    return data
+
+
+print(generate_data(6))
 
 
 

@@ -179,6 +179,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
   match(): AlgorithmData {
 
+    return
 
     let free_agents: Map<String, Person> = new Map();
     free_agents = this.check_free_agents();
