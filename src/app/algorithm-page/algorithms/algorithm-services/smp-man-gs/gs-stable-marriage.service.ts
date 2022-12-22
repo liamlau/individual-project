@@ -51,6 +51,9 @@ export class GsStableMarriageService extends GaleShapley {
       this.update(1);
   
       // console.log("\n\nAlgorithm Steps:");
+
+      console.log("Here", this.group1Agents)
+      console.log(this.getGroupRankings(this.group1Agents))
   
       // 2: while some man m is free do
       while (this.freeAgentsOfGroup1.length > 0) {
@@ -61,6 +64,9 @@ export class GsStableMarriageService extends GaleShapley {
           let man: Man = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
           this.relevantPreferences.push(man["name"].substring(3));
           this.currentlySelectedAgents.push(man["name"].substring(3));
+
+          console.log("in loop", man.name)
+
           this.update(2, {"%man%": man.name});
           // console.log("-------");
 
@@ -75,6 +81,8 @@ export class GsStableMarriageService extends GaleShapley {
     
           let greenLine = [];
     
+          console.log("change...", woman["name"].substring(5), this.findPositionInMatches(woman, man), "red")
+
           this.changePreferenceStyle(this.group2CurrentPreferences, woman["name"].substring(5), this.findPositionInMatches(woman, man), "red");
           this.changePreferenceStyle(this.group1CurrentPreferences, man["name"].substring(3), this.findPositionInMatches(man, woman), "red");
 

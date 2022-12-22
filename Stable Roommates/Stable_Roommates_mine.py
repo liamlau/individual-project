@@ -60,7 +60,7 @@ data2 = [[1,3,5,2,4],
         [5,2,3,1,0],
         [0,1,3,2,4]]
 
-data = format_data(data1)
+data = format_data(data2)
 
 
 
@@ -164,6 +164,8 @@ def match():
 
             #get their most prefered person
             pref = data[index][0][0]
+
+            print("pref check ---", index, pref, data[index][0])
             
             #if someone is assigned to their most prefered person, then unassign them and assign current agent to them 
             check = assigned_check(pref)
@@ -183,11 +185,13 @@ def match():
 
                     #pref = index of current preferance for the current agent 
                     #p = an index of a person tp remove 
+
+                    print(index, pref)
                     for p in data[pref][0][list_cut_off_index + 1:]:
-                        print("del", p, pref)
+                        print(index, "del", p, pref, data[pref][0])
                         delete_pair(p, pref)
-                        print(p , "---", data[p][0])
-                        print(pref , "---", data[pref][0])
+                        # print(p , "---", data[p][0])
+                        # print(pref , "---", data[pref][0])
 
 
 

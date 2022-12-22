@@ -167,9 +167,40 @@ export class AlgorithmRetrievalService {
         description: "Match Roommates",
         helpTextMap: {
            1: "Clear the matches of all residents and hospitals",
+           2 : "Third line",
+           3 : "next line",
         },
         code: [
-          "firstline of code",
+          "Set each person to be free",
+          "While some person p is free (not assigned to someone)",
+          "\t if person p has a empty preferance list",
+          "\t\t end - no stable matching",
+
+          "\t person b := first preferance on p's list",
+           "\t assign p to b",
+
+          "\t if any person a is assigned to person b",
+          "\t\t free a",
+
+          "\t for each person c less preferded than p on b's, preferance list",
+          "\t\t remove c from p's list and remove p from c's list",
+          // 10 lines so far 
+
+          // PAHSE 2
+          "While some person p has more than 1 preferance left",
+          "look for rotations in perosn p's preferance list",
+          "if rotation r is found",
+          "\t delete pairs in rotation r",
+
+          "if any people have empty preferance lists",
+          "\t end - no stable matching",
+          "\t if a person b has 1 perferance left",
+          "\t\t person b := last preferance",
+
+          "done"
+          // 11 ---> 17 lines 
+          
+          
         ]
       }
     ],

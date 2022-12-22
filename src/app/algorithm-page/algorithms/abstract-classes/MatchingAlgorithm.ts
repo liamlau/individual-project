@@ -269,6 +269,28 @@ export abstract class MatchingAlgorithm {
         }
       }
 
+      // remove all lines in array that start at person
+      removePersonFromArray(a: Array<Array<string>>, person: String) {
+        let arrayPositionCounter: number = 0;
+        for (let subArray of a) {
+            if (subArray[0] == person) {
+                a.splice(arrayPositionCounter, 1);
+            }
+            arrayPositionCounter++;
+        }
+      }
+
+      // remove all lines leeding to a person from the array
+      removeTargetFromArray(a: Array<Array<string>>, person: String) {
+        let arrayPositionCounter: number = 0;
+        for (let subArray of a) {
+            if (subArray[1] == person) {
+                a.splice(arrayPositionCounter, 1);
+            }
+            arrayPositionCounter++;
+        }
+      }
+
 
     // #53D26F (green)
     // #C4C4C4 (grey)
@@ -276,6 +298,8 @@ export abstract class MatchingAlgorithm {
     changePreferenceStyle(preferenceList: Map<String, Array<String>>, person: string, position: number, style: string) {
 
         let currentAgent: string = "";
+
+        console.log("inner", preferenceList, preferenceList.get(person), preferenceList.get(person)[position], person, position, style)
 
         if (preferenceList.get(person)[position].includes("#")) {
         currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);
