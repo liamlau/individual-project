@@ -166,9 +166,33 @@ export class AlgorithmRetrievalService {
         service: this.StableRoomIrvService,
         description: "Match Roommates",
         helpTextMap: {
-           1: "Clear the matches of all residents and hospitals",
-           2 : "Third line",
-           3 : "next line",
+          1: "Set all people to be free",
+          2 : "While some person %person% has not been assigned to a anyone and has a non-empty preferance list",
+          3 : "check if %person%\'s preferance list is empty",
+          4 : "end the algorithm, there is no stable matching",
+
+          5 : "the first person on %person%\'s preferance list is selected - %selected%",
+          6 : "set %person%\ to be provisonally assigned to selected person %selected%",
+
+          7 : "check if any other person, other than %person% is assigned to %selected% ",
+          8 : "If they are, then unassign them. unassign %old_person% from %selected%",
+
+          9 : "look through %selected%\'s preferance list - %list%, for each person less prefered than %person",
+          10 : "remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
+
+          11 : "While some person %person% has more then 1 person left in their preferance list - %list%",
+          12 : "look for rotations within %person%\'s preferance list, that is {rotation explanation}",
+          13 : "if rotation %rotation% is found",
+          14 : "delete pairs in rotation - remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
+
+          15 : "check if any person has only 1 preferance left",
+          16 : "assign %person% to the last person in their preferance list - %preferance%",
+          17 : "check if %person%\'s preferance list is empty",
+          18 : "end the algorithm, there is no stable matching",
+         
+          19 : "Stable mathcing found.",
+
+
         },
         code: [
           "Set each person to be free",
@@ -192,10 +216,13 @@ export class AlgorithmRetrievalService {
           "if rotation r is found",
           "\t delete pairs in rotation r",
 
-          "if any people have empty preferance lists",
-          "\t end - no stable matching",
+
           "\t if a person b has 1 perferance left",
           "\t\t person b := last preferance",
+
+          "if any people have empty preferance lists",
+          "\t end - no stable matching",
+         
 
           "done"
           // 11 ---> 17 lines 

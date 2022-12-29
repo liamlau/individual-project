@@ -99,6 +99,9 @@ export class StableRoomIrvService extends StableRoomMates {
       if (person.lastProposed != null){
         if (person.lastProposed.name == person_free){
 
+          //free a 
+          this.update(8, {"%old_person%" : person.name, "%selected%" : person_free})
+
           this.removePersonFromArray(this.currentLines, this.getLastCharacter(person.name))
           // add new free person to list 
           this.freeAgentsOfGroup1.push(this.getLastCharacter(person.name))
@@ -220,13 +223,11 @@ export class StableRoomIrvService extends StableRoomMates {
     // console.log(this.group1Agents)
     // console.log(this.group2Agents)
 
-// HERHERHEHRHEHREHRHEHRHEH 
 
     let last_person = null
     let last_pref = null
     
-    //While some person p is free (not assigned to someone)
-    this.update(2)
+    
     while (free_agents.size > 0) {
 
       this.currentlySelectedAgents = [];
@@ -240,6 +241,9 @@ export class StableRoomIrvService extends StableRoomMates {
 
       //loop through each agent in the list 
       for (let [key, person] of free_agents.entries()){
+
+        //While some person p is free (not assigned to someone)
+        this.update(2, {"%person%" : person.name})
             
         //let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
         console.log("------------------")
@@ -251,7 +255,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
         
         //if person p has a empty preferance list
-        this.update(3)
+        this.update(3, {"%person%" : person.name})
 
         // if there is no more preferances for a agent - no stable matchong exists
         if (person.ranking.length < 1){
@@ -286,7 +290,7 @@ export class StableRoomIrvService extends StableRoomMates {
           "red")
 
         //person b := first preferance on p's list
-        this.update(5)
+        this.update(5, {"%person%" : person.name, "%selected%" : person.ranking[0].name})
 
         let pref = person.ranking[0];
         console.log("Pref check --- ", person.name, pref.name, person.ranking)
@@ -298,25 +302,27 @@ export class StableRoomIrvService extends StableRoomMates {
         this.freeAgentsOfGroup1.shift()
 
         //assign p to b
-        this.update(6)
+        this.update(6, {"%person%" : person.name, "%selected%" : pref.name})
 
         //if someone is assigned to their most prefered person, then unassign them and assign current agent to them 
         let check = this.assign_check(pref.name);
 
         // if any person a is assigned to person b
-        this.update(7)
+        this.update(7, {"%person%" : person.name, "%selected%" : pref.name})
         
 
         if (check != null){
           this.free(pref.name);
 
           //free a 
-          this.update(8)
+          //this.update(8) -- done in function 
         
         }
 
         person.lastProposed = pref;
         
+
+        this.update(9, {"%person%" : person.name, "%selected%" : pref.name, "%list%" : pref.ranking})
         // loop through ranking 
         while (true){
 
@@ -337,7 +343,7 @@ export class StableRoomIrvService extends StableRoomMates {
           
 
            // for each person c less preferded than p on b's, preferance list
-          this.update(9)
+          this.update(10, {"%person%" : person.name, "%removee%" : remove.name})
 
 
         }
@@ -378,8 +384,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
   console.log("length --- ", agents_multiple_prefs.size)
 
-  // While some person p has more than 1 preferance left
-  this.update(11)
+  
 
   let finished_people = []
 
@@ -391,8 +396,11 @@ export class StableRoomIrvService extends StableRoomMates {
     //loop through those^ agents
     for (let [key, person] of agents_multiple_prefs.entries()){
 
+      // While some person p has more than 1 preferance left
+      this.update(11, {"%person%" : person.name, "%list%" : person.ranking})
+
       // look for rotations in perosn p's preferance list 
-      this.update(12)
+      this.update(12, {"%person%" : person.name})
 
       let rotation_pairs = []
 
@@ -431,10 +439,7 @@ export class StableRoomIrvService extends StableRoomMates {
       }
 
       // if rotation r is found
-      this.update(13)
-
-      // delete pairs in rotation r
-      this.update(14)
+      this.update(13, {"%rotation%" : rotation_pairs})
 
       console.log("Found rotation", rotation_pairs)
 
@@ -450,7 +455,7 @@ export class StableRoomIrvService extends StableRoomMates {
           deleted_pairs.push(rotation_pairs[pair])
 
           // delete pairs in rotation r
-          this.update(14)
+          this.update(14, {"%person%" : rotation_pairs[pair][1], "%removee%" : rotation_pairs[pair][0]})
 
           // update lines 
 
@@ -461,12 +466,12 @@ export class StableRoomIrvService extends StableRoomMates {
               // remove lines starting from person_inner
               this.removePersonFromArray(this.currentLines, this.getLastCharacter(person_inner.name))
 
-              this.free(person_inner.lastProposed.name)
+              // this.free(person_inner.lastProposed.name)
 
               // HERE ^^^ WORKIGN ON UPDATEING FREE LIST IN PHASE 2 - ISSUE: DONT KNOW WHO GETS UNASSIGNED WHEN SOMEONE IS SET TO FREE, COULD LOOP AND CHECK ALL, 
 
               // add the 
-              this.freeAgentsOfGroup1.push(person_inner.lastProposed.name)
+              // this.freeAgentsOfGroup1.push(person_inner.lastProposed.name)
 
               // let person_inner propose to their last remaining person
               person_inner.lastProposed = person_inner.ranking.slice(0)[0]
@@ -493,14 +498,10 @@ export class StableRoomIrvService extends StableRoomMates {
     
           }
 
-
-
         } else {
-
           // everything deleted 
           // update 
-            
-
+         
           break;
         }
 
@@ -509,20 +510,32 @@ export class StableRoomIrvService extends StableRoomMates {
 
       // conditions to end if stable matching is found 
       agents_multiple_prefs = this.check_pref_count()
-      console.log("checking number of agents with multiple preferances")
-      console.log(agents_multiple_prefs)
+      // console.log("checking number of agents with multiple preferances")
+      // console.log(agents_multiple_prefs)
+
       if (agents_multiple_prefs.size < 1) {
         break;
       }
 
-      // HOLD
+      // if a person b has 1 perferance left
+      this.update(15)
+
+      // update preferancees 
       for (let [key_inner, person_inner] of this.group1Agents.entries()){
 
         if (person_inner.ranking.length == 1){
+
+         
+
           person_inner.lastProposed = person_inner.ranking.slice(0)[0]
           let line = [this.getLastCharacter(person_inner.name), this.personkey[this.getLastCharacter(person_inner.lastProposed.name)], "green"]
           // let line = ["1", "B", "green"]
           // this.currentLines.push(line)
+
+          // person b := last preferance
+          this.update(16, {"%person%" : person_inner.name, "%preferance%" : person_inner.lastProposed.name})
+
+
         }
 
 
@@ -530,12 +543,12 @@ export class StableRoomIrvService extends StableRoomMates {
 
 
       // if any people have empty preferance lists - no mathcong
-      this.update(15)
+      this.update(17, {"%person%" : person.name})
 
       if (this.check_pref_list_empty() == true) {
 
         // end - no stable matching
-        this.update(16)
+        this.update(18)
 
         console.log("No Stable matching")
         break;
@@ -554,10 +567,12 @@ export class StableRoomIrvService extends StableRoomMates {
 
   }
 
-  this.update(17)
+  this.update(19)
   console.log("group1agents at end", this.group1Agents, agents_multiple_prefs)
 
   return;
 
   }
 }
+
+//end text + viz not quite right, text not mathcing with viz but still is with what is happening 
