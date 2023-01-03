@@ -51,6 +51,18 @@ export class HrResidentEgsService extends ExtendedGaleShapley {
       this.algorithmSpecificData["hospitalCapacity"] = this.hospitalCapacity;
   }
 
+  print_matches(){
+
+	for (let [key, resident] of this.group1Agents.entries()){
+		console.log(key, resident.match)
+	}
+
+	for (let [key, hospital] of this.group2Agents.entries()){
+		console.log(key, hospital.match)
+
+	}
+}
+
 
   getRandomInt(min: number, max: number): number {
       min = Math.ceil(min);

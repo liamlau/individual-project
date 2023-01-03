@@ -4,6 +4,7 @@ import { HrResidentEgsService } from './algorithm-page/algorithms/algorithm-serv
 import { EgsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-egs/egs-stable-marriage.service';
 import { GsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-gs/gs-stable-marriage.service';
 import { StableRoomIrvService } from './algorithm-page/algorithms/algorithm-services/smp-room-irv/stable-room-irv.service';
+import { HrHospitalEgsService } from './algorithm-page/algorithms/algorithm-services/hr-hospital-egs/hr-hospital-egs.service';
 
 
 // ------------------------------------------------------- ALGORITHM TEMPLATE
@@ -232,6 +233,27 @@ export class AlgorithmRetrievalService {
       }
     ],
 
+    
+    [
+      "hr-hospital-egs", {
+        id: "hr-hospital-egs",
+        name: "Hospitals/Residents Problem",
+        orientation: ["Resident", "Hospital"],
+        equalGroups: false,
+        algorithm: "Extended Gale-Shapley Stable Matching",
+        service: this.HrHospitalEgsService,
+        description: "/", //"The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+        helpTextMap: {
+          1 : "yo",
+          
+        },
+        code: [
+          "yo",
+         
+        ]
+      }
+    ],
+
 
   ]);
 
@@ -249,6 +271,7 @@ export class AlgorithmRetrievalService {
     public egsStableMarriageService: EgsStableMarriageService,
     public HrResidentEgsService: HrResidentEgsService,
     public StableRoomIrvService: StableRoomIrvService,
+    public HrHospitalEgsService: HrHospitalEgsService,
   ) { }
 
   getListOfAlgorithms(): Array<Algorithm> {
