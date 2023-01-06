@@ -103,6 +103,9 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	console.log("break Assignment")
 	console.log(resident.match, resident.ranking)
 
+	// unassign r and h'
+	this.update(5, {"%oldhospital%": resident.match[0].name, "%resident%": resident.name});
+
 
 	// get pos in each rankings lists to remove later 
 	let matchPosition_resident = this.findPositionInMatches(hospital, resident);
@@ -129,8 +132,6 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 
 	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length - 2);
 
-	// this.update(6, {"%hospital%": hospital.name, "%worstResident%": resident.name});
-	this.update(1)
 
 
 
@@ -174,8 +175,7 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 
 removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
-    // this.update(8, {"%resident%": resident.name, "%hospital%": hospital.name});
-	this.update(1);
+    
  
       if (hospital.match.length >= hospital.availableSpaces) {
           let worstResident: Agent = this.getWorstResident(hospital);
@@ -192,17 +192,15 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
               let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
               this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
-            //   this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
-			this.update(1);
+
+			  // remove r' and h from each others preferance list
+              this.update(8, {"%hospital%": hospital.name, "%resident%": hospital.ranking[i].name});
 
               this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 
               this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
   
-              // remove h' and r from each other's lists
-            //   this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
-			this.update(1);
 
               hospital.ranking.splice(i, 1);
               i -= 1;
@@ -278,6 +276,7 @@ checkFreeHospitals(){
 	console.log("groups")
 	console.log(this.group1Agents, this.group1Agents)
 
+	// "Set each hospital and resident to be completely free",
 	this.update(1)
 
 
@@ -288,35 +287,46 @@ checkFreeHospitals(){
 
 	while (this.freeAgentsOfGroup2.length > 0){
 
+
+		
+
 		// get first hospital on list 
 		let currentHospital = this.group2Agents.get(this.freeAgentsOfGroup2[0]);
 		
+		// "While some hospital h is - undersubscibed, 
+		// and has a resident r on h's preferance list that is no assigned to h",
+		this.update(2, {"%hospital%" : currentHospital.name, "%list%" : currentHospital.ranking});
+
 		console.log(currentHospital)
 
 		if (currentHospital.ranking.length <= 0 || !this.getNextPotentialProposee(currentHospital)){
 			this.freeAgentsOfGroup2.shift();
 		} else {
 
-			// a RESIDENT r that is not assigned to h, but is on its pref list 
 			let potentialProposee: Agent = this.getNextPotentialProposee(currentHospital);
 
+			// a RESIDENT r that is not assigned to h, but is on its pref list 
+			// "r := first resident on h's prefernace list not assigned to h",
+			this.update(3, {"%resident%" : potentialProposee.name})
+			
 			console.log("potentialProposee", potentialProposee)
 			
 			// if proposee is assigned to a different hospital then un assign
+			
+			// if r is assigned to another hospital h
+			this.update(4, {"%resident%" : potentialProposee})
+			
 			if (potentialProposee.match[0] != null){
 				this.breakAssignment(potentialProposee, potentialProposee.match[0]);
 			}
 
-			// ALL ABOVE SHOULD BE RIGHT NOT CHECKED
-			// GET RIGHT PERSON 
-			// BREAKS ASSIGNEMENT BETWEEN PERSON AND HOSPITAL - PERSON.MATCH AND HOSPITAL.MATCH 
+			
+			// MATHCING MIGHT NOT STABLE 
+			// VIZ HAS BEEN WORKED ON WITH COMMENTS NEEDS TESTING 
+			// UPDATES MAY BE IN WRONG PLACE TO ACCOMADATE THE CHNAGING VIZ LINES - NEEDS TESTING 
 
-			// TEST NEXT
-
-			// ISSUE - NO CHECK LOOP END --- THE UPDATED LIST SHOULD WORK WITH THIS.checkFreeHospitals()
-
-			// MATHCING IS NOT STABLE 
-
+			// provisionally assign r to h
+			this.update(6, {"%resident%" : potentialProposee.name, "%hospital%" : currentHospital.name})
 			this.provisionallyAssign(potentialProposee, currentHospital);
 
 			this.removeRuledOutPreferences(potentialProposee, currentHospital);
@@ -332,6 +342,8 @@ checkFreeHospitals(){
 			if (this.shouldContinueMatching(currentHospital)) {
 				this.freeAgentsOfGroup1.shift();
 			}
+
+			
 		}
 
 
@@ -347,6 +359,9 @@ checkFreeHospitals(){
 		console.log("Done ---- Done ----")
 		break;
 	}
+
+	// stable matching found 
+	this.update(9)
 
 	}
 
