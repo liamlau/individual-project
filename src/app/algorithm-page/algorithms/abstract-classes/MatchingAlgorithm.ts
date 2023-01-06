@@ -234,7 +234,7 @@ export abstract class MatchingAlgorithm {
 
     }
 
-
+    // 
     findPositionInMatches(currentAgent: Agent, agentToFind: Agent): number {
         let position: number = currentAgent.ranking.findIndex((agent: { name: string; }) => agent.name == agentToFind.name);
         return position;

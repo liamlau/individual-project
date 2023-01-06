@@ -68,7 +68,8 @@ export class HrHospitalEgsService extends GaleShapley{
 }
 
 
-// returns next possible resident for a hospital - null if none 
+// returns next possible resident for a hospital - null if none
+// one that is not assigned to the hospital and is on the hospitals preferance list
 getNextPotentialProposee(hospital: Hospital){
 
 	// for each resident in ranking 
@@ -97,7 +98,7 @@ getWorstResident(hospital: Hospital): Agent {
 	return positionMap.get(Math.max(...Array.from(positionMap.keys())));
 }
 
-breakAssignment(resident: Agent, hospital: Hospital): void {
+breakAssignment(resident: Agent, hospital: Agent): void {
 
 	console.log("break Assignment")
 	console.log(resident.match, resident.ranking)
@@ -108,7 +109,27 @@ breakAssignment(resident: Agent, hospital: Hospital): void {
 	// remove resident from hospital match 
 	hospital.match.splice(hospital.match.findIndex((agent: { name: string; }) => agent.name == resident.name), 1);
 
-	this.freeAgentsOfGroup1
+	// REMOVE EACH OTHER FROM RANKING LIST 
+
+	console.log("rankings before - h / r")
+	console.log(hospital, resident)
+
+	// HOSPITAL 
+	let matchPosition = this.findPositionInMatches(hospital, resident);
+	hospital.ranking.splice(matchPosition, 1);
+
+	//RESIDENT 
+	matchPosition = this.findPositionInMatches(resident, hospital);
+	resident.ranking.splice(matchPosition, 1)
+
+	console.log("rankings after - h / r")
+	console.log(hospital.ranking, resident.ranking)
+
+
+
+
+
+
 	
 	console.log("After")
 	console.log(resident.match, resident.ranking)
@@ -123,10 +144,10 @@ breakAssignment(resident: Agent, hospital: Hospital): void {
 	let agentLastChar = this.getLastCharacter(resident.name);
 	let proposeeLastChar = this.getLastCharacter(hospital.name);
 
-	this.removeArrayFromArray(this.currentLines, [agentLastChar, proposeeLastChar, "red"]);
+	// this.removeArrayFromArray(this.currentLines, [agentLastChar, proposeeLastChar, "red"]);
 
-	let greenLine = [agentLastChar, proposeeLastChar, "green"];
-	this.currentLines.push(greenLine);
+	// let greenLine = [agentLastChar, proposeeLastChar, "green"];
+	// this.currentLines.push(greenLine);
 
 	// this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(h => h == this.getLastCharacter(hospital.name)), "green");
 	// this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
@@ -135,20 +156,20 @@ breakAssignment(resident: Agent, hospital: Hospital): void {
 	  this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
 	}
 
-	this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
+	// this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
 	resident.match[0] = hospital;
 	hospital.match.push(resident);
 }
 
 removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
-    this.update(8, {"%resident%": resident.name, "%hospital%": hospital.name});
-
+    // this.update(8, {"%resident%": resident.name, "%hospital%": hospital.name});
+ 
       if (hospital.match.length >= hospital.availableSpaces) {
           let worstResident: Agent = this.getWorstResident(hospital);
           let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
-          this.update(9, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
+        //   this.update(9, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
 
           let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
@@ -158,15 +179,15 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
               let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
               this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
-              this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
+            //   this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
 
-              this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+            //   this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 
-              this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
+            //   this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
   
               // remove h' and r from each other's lists
-              this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
+            //   this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
 
               hospital.ranking.splice(i, 1);
               i -= 1;
@@ -248,7 +269,7 @@ checkFreeHospitals(){
 	// while a HOSPITAL h is under-subscribed and 
 	// h's list contains a a RESIDENT r not assigned to h
 
-	
+	let counter_break = 0
 
 	while (this.freeAgentsOfGroup2.length > 0){
 
@@ -267,8 +288,19 @@ checkFreeHospitals(){
 			console.log("potentialProposee", potentialProposee)
 			
 			// if proposee is assigned to a different hospital then un assign
+			if (potentialProposee.match[0] != null){
+				this.breakAssignment(potentialProposee, potentialProposee.match[0]);
+			}
 
-			this.breakAssignment(potentialProposee, currentHospital);
+			// ALL ABOVE SHOULD BE RIGHT NOT CHECKED
+			// GET RIGHT PERSON 
+			// BREAKS ASSIGNEMENT BETWEEN PERSON AND HOSPITAL - PERSON.MATCH AND HOSPITAL.MATCH 
+
+			// TEST NEXT
+
+			// ISSUE - NO CHECK LOOP END --- THE UPDATED LIST SHOULD WORK WITH THIS.checkFreeHospitals()
+
+			// MATHCING IS NOT STABLE 
 
 			this.provisionallyAssign(potentialProposee, currentHospital);
 
@@ -279,12 +311,27 @@ checkFreeHospitals(){
 			// continous loop as guessed + not clear way to define/get free hospitals
 			// rankings should be deleted until convergence?
 
+			this.freeAgentsOfGroup2 = this.checkFreeHospitals()
+			console.log("free Agents on iteration", counter_break, this.freeAgentsOfGroup2)
+
 			if (this.shouldContinueMatching(currentHospital)) {
 				this.freeAgentsOfGroup1.shift();
 			}
 		}
 
-	break;
+
+	// breaking to stop infinite loop 
+	// break;
+
+	counter_break = counter_break + 1;
+	console.log(counter_break > 20)
+
+	
+	 
+	if (counter_break > 200){
+		console.log("Done ---- Done ----")
+		break;
+	}
 
 	}
 

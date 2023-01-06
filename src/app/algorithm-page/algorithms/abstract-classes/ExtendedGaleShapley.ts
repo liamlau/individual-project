@@ -64,13 +64,9 @@ export abstract class ExtendedGaleShapley extends MatchingAlgorithm {
         // a stable matching has been found
         this.update(12);
 
-        this.print_matches()
-
 
         return;
     }
-
-    abstract print_matches()
 
     abstract getNextPotentialProposee(currentAgent: Agent): Agent;
 
