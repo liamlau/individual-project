@@ -103,36 +103,45 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	console.log("break Assignment")
 	console.log(resident.match, resident.ranking)
 
+
+	// get pos in each rankings lists to remove later 
+	let matchPosition_resident = this.findPositionInMatches(hospital, resident);
+	let matchPosition_hospital = this.findPositionInMatches(resident, hospital);
+
+	
+	this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(resident.name), this.getLastCharacter(hospital.name), "green"]);
+
+	this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(resident.name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident, "grey");
+
+
 	// remove hospital from resident match 
 	resident.match.splice(0, 1);
-
 	// remove resident from hospital match 
 	hospital.match.splice(hospital.match.findIndex((agent: { name: string; }) => agent.name == resident.name), 1);
 
 	// REMOVE EACH OTHER FROM RANKING LIST 
+	hospital.ranking.splice(matchPosition_resident, 1); 	// HOSPITAL 
+	resident.ranking.splice(matchPosition_hospital, 1) 		//RESIDENT 
 
-	console.log("rankings before - h / r")
-	console.log(hospital, resident)
+	let hospitalLastChar = this.getLastCharacter(hospital.name);
+	let currentHospitalCapacity: string = this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar];
 
-	// HOSPITAL 
-	let matchPosition = this.findPositionInMatches(hospital, resident);
-	hospital.ranking.splice(matchPosition, 1);
+	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length - 2);
 
-	//RESIDENT 
-	matchPosition = this.findPositionInMatches(resident, hospital);
-	resident.ranking.splice(matchPosition, 1)
+	// this.update(6, {"%hospital%": hospital.name, "%worstResident%": resident.name});
+	this.update(1)
+
+
+
+
+
 
 	console.log("rankings after - h / r")
 	console.log(hospital.ranking, resident.ranking)
 
 
 
-
-
-
-	
-	console.log("After")
-	console.log(resident.match, resident.ranking)
 
 	
 
@@ -144,19 +153,21 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	let agentLastChar = this.getLastCharacter(resident.name);
 	let proposeeLastChar = this.getLastCharacter(hospital.name);
 
-	// this.removeArrayFromArray(this.currentLines, [agentLastChar, proposeeLastChar, "red"]);
+	this.removeArrayFromArray(this.currentLines, [agentLastChar, proposeeLastChar, "red"]);
 
-	// let greenLine = [agentLastChar, proposeeLastChar, "green"];
-	// this.currentLines.push(greenLine);
+	let greenLine = [agentLastChar, proposeeLastChar, "green"];
+	this.currentLines.push(greenLine);
 
-	// this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(h => h == this.getLastCharacter(hospital.name)), "green");
-	// this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
+	this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(h => h == this.getLastCharacter(hospital.name)), "green");
+	this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
 
 	if (hospital.match.length >= hospital.availableSpaces - 1) {
 	  this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
 	}
 
 	// this.update(7, {"%resident%": resident.name, "%hospital%": hospital.name});
+	this.update(1);
+
 	resident.match[0] = hospital;
 	hospital.match.push(resident);
 }
@@ -164,12 +175,14 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
     // this.update(8, {"%resident%": resident.name, "%hospital%": hospital.name});
+	this.update(1);
  
       if (hospital.match.length >= hospital.availableSpaces) {
           let worstResident: Agent = this.getWorstResident(hospital);
           let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
         //   this.update(9, {"%hospital%": hospital.name, "%worstResident%": worstResident.name});
+		this.update(1);
 
           let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
@@ -180,14 +193,16 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
               this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
             //   this.update(10, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
+			this.update(1);
 
-            //   this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+              this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 
-            //   this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
+              this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
               hospital.ranking[i].ranking.splice(hospitalPosition, 1);
   
               // remove h' and r from each other's lists
             //   this.update(11, {"%hospital%": hospital.name, "%nextResident%": hospital.ranking[i].name});
+			this.update(1);
 
               hospital.ranking.splice(i, 1);
               i -= 1;
