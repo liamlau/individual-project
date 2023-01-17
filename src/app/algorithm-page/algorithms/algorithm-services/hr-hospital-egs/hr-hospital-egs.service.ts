@@ -284,8 +284,6 @@ checkFreeHospitals(){
 	let counter_break = 0
 
 	while (this.freeAgentsOfGroup2.length > 0){
-
-
 		
 
 		// get first hospital on list 
@@ -293,7 +291,7 @@ checkFreeHospitals(){
 		
 		// "While some hospital h is - undersubscibed, 
 		// and has a resident r on h's preferance list that is no assigned to h",
-		this.update(2, {"%hospital%" : currentHospital.name, "%list%" : currentHospital.ranking.toString()});
+		this.update(2, {"%hospital%" : currentHospital.name});
 
 		console.log(currentHospital)
 
@@ -369,5 +367,7 @@ checkFreeHospitals(){
 }
 
 // MAY PRODUCE UNSTABLE MATCHINGS DUE TO BLOCKING PAIRS - CHECKED BY WEBAPP
-// OTHER ISSUES - SOME HOSPITALS/RESIDENTS ARE NOT MACTHED DUE TI TAKEN BY OTHER HOSPITALS
+// OTHER ISSUES - SOME HOSPITALS/RESIDENTS ARE NOT MACTHED DUE To TAKEN BY OTHER HOSPITALS
 // AND THEIR PREFERANCE LIST BEING EMPTYED BY PREVOUIS STEPS 
+
+// NEEDS RESEARCJ TO FIX - I THINK I PRODUCES 

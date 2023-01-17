@@ -245,12 +245,12 @@ export class AlgorithmRetrievalService {
         description: "/", //"The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
           1 : "Set all hospitals and residents to be completely free",
-          2 : "While some hospital %hospital% is undersubscribed and has a resident on their preferance list - %list% - that is not assigned to them",
+          2 : "While some hospital (%hospital%) is undersubscribed and has a resident on their preferance list that is not assigned to them",
           3 : "Set r to %resident% from hospital's preferance list",
-          4 : "if %resident% is assigned to another hospital, unassign them from each other",
+          4 : "If %resident% is assigned to another hospital, unassign them from each other",
           5 : "Unassign %resident% and %oldHospital% from each other",
           6 : "Assign %resident% and %hospital% to each other",
-          7 : "from each resident r' after %resident% on %hospital%'s preferance list, remove them from each others preferance list",
+          7 : "For each resident r' after %resident% on %hospital%'s preferance list, remove them from each others preferance list",
           8 : "remove %resident% from %hospital%'s preferance list and %hospital% from %resident%'s preferance list",
           9 : "Stable matching is found",
 
@@ -258,7 +258,7 @@ export class AlgorithmRetrievalService {
         },
         code: [
           "Set each hospital and resident to be completely free",
-          "While some hospital h is - undersubscibed, and has a resident r on h's preferance list that is no assigned to h",
+          "While some hospital h is undersubscibed, and has a resident on their preferance list",
           "\t r := first resident on h's prefernace list not assigned to h",
           "\t if r is assigned to another hospital h'",
           "\t\t unassign r and h'",
