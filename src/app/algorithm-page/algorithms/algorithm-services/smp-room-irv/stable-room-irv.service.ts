@@ -202,11 +202,28 @@ export class StableRoomIrvService extends StableRoomMates {
     return false;
 
   }
-  
+
+  // returns a persons ranking as a string 
+  objs_toString(ranking){
+    let s = "";
+
+    // go through each ranking and add to string 
+    for (let person of ranking){
+      s = s + person.name;
+      s = s + ", ";
+    }
+
+    // remove extra comma added before 
+    s = s.slice(0 , -2)
+    return s 
+  }
 
   match(): AlgorithmData {
 
 
+    console.log("Start")
+    console.log(this.group1Agents)
+    this.objs_toString(this.group1Agents.get("p1").ranking)
     
 
     let free_agents: Map<String, Person> = new Map();
@@ -322,7 +339,7 @@ export class StableRoomIrvService extends StableRoomMates {
         person.lastProposed = pref;
         
 
-        this.update(9, {"%person%" : person.name, "%selected%" : pref.name, "%list%" : pref.ranking})
+        this.update(9, {"%person%" : person.name, "%selected%" : pref.name, "%list%" : this.objs_toString(pref.ranking)})
         // loop through ranking 
         while (true){
 
@@ -397,7 +414,7 @@ export class StableRoomIrvService extends StableRoomMates {
     for (let [key, person] of agents_multiple_prefs.entries()){
 
       // While some person p has more than 1 preferance left
-      this.update(11, {"%person%" : person.name, "%list%" : person.ranking})
+      this.update(11, {"%person%" : person.name, "%list%" : this.objs_toString(person.ranking)}) 
 
       // look for rotations in perosn p's preferance list 
       this.update(12, {"%person%" : person.name})
@@ -439,7 +456,7 @@ export class StableRoomIrvService extends StableRoomMates {
       }
 
       // if rotation r is found
-      this.update(13, {"%rotation%" : rotation_pairs})
+      this.update(13, {"%rotation%" : this.objs_toString(rotation_pairs)}) // temp remove %rotation%
 
       console.log("Found rotation", rotation_pairs)
 
@@ -455,7 +472,7 @@ export class StableRoomIrvService extends StableRoomMates {
           deleted_pairs.push(rotation_pairs[pair])
 
           // delete pairs in rotation r
-          this.update(14, {"%person%" : rotation_pairs[pair][1], "%removee%" : rotation_pairs[pair][0]})
+          this.update(14, {"%person%" : rotation_pairs[pair][1].name, "%removee%" : rotation_pairs[pair][0].name})
 
           // update lines 
 

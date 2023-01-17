@@ -178,12 +178,12 @@ export class AlgorithmRetrievalService {
           7 : "check if any other person, other than %person% is assigned to %selected% ",
           8 : "If they are, then unassign them. unassign %old_person% from %selected%",
 
-          9 : "look through %selected%\'s preferance list - %list%, for each person less prefered than %person",
+          9 : "look through %selected%\'s preferance list - %list%, for each person less prefered than %person%",
           10 : "remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
 
           11 : "While some person %person% has more then 1 person left in their preferance list - %list%",
           12 : "look for rotations within %person%\'s preferance list, that is {rotation explanation}",
-          13 : "if rotation %rotation% is found",
+          13 : "if a rotation is found", //%rotation%
           14 : "delete pairs in rotation - remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
 
           15 : "check if any person has only 1 preferance left",
