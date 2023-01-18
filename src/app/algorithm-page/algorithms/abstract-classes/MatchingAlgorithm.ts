@@ -234,7 +234,7 @@ export abstract class MatchingAlgorithm {
 
     }
 
-    // 
+
     findPositionInMatches(currentAgent: Agent, agentToFind: Agent): number {
         let position: number = currentAgent.ranking.findIndex((agent: { name: string; }) => agent.name == agentToFind.name);
         return position;
@@ -242,9 +242,23 @@ export abstract class MatchingAlgorithm {
 
     findPositionInOriginalMatches(currentAgent: Agent, agentToFind: Agent) {
         let originalPreferences = this.originalGroup1CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
+        console.log("Group1", originalPreferences)
         let position: number = originalPreferences.indexOf(agentToFind.name[agentToFind.name.length - 1]);
         return position;
     }
+
+    findPositionInOriginalMatchesGroup2(currentAgent: Agent, agentToFind: Agent) {
+        let originalPreferences = this.originalGroup2CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
+        console.log("Group2", originalPreferences)
+        let position: number = originalPreferences.indexOf(agentToFind.name[agentToFind.name.length - 1]);
+        return position;
+    }
+
+    // findPositionInOriginalMatches(currentAgent: Agent, agentToFind: Agent) {
+    //     let originalPreferences = this.originalGroup1CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
+    //     console.log("originalPreferences", originalPreferences)
+    //     return 0
+    // }
 
     getLastCharacter(name: string) {
         return name.slice(name.length - 1);
@@ -299,7 +313,7 @@ export abstract class MatchingAlgorithm {
 
         let currentAgent: string = "";
 
-        console.log("inner", preferenceList, preferenceList.get(person), preferenceList.get(person)[position], person, position, style)
+        // console.log("inner", preferenceList, preferenceList.get(person), preferenceList.get(person)[position], person, position, style)
 
         if (preferenceList.get(person)[position].includes("#")) {
         currentAgent = preferenceList.get(person)[position].charAt(preferenceList.get(person)[position].length - 2);

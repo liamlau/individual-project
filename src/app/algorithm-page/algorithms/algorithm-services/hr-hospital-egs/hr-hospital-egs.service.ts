@@ -101,7 +101,7 @@ getWorstResident(hospital: Hospital): Agent {
 breakAssignment(resident: Agent, hospital: Agent): void {
 
 	console.log("break Assignment")
-	console.log(resident.match, resident.ranking)
+	console.log(resident.name, resident.match[0].name, hospital.name)
 
 	
 
@@ -109,14 +109,23 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	let matchPosition_resident = this.findPositionInMatches(hospital, resident);
 	let matchPosition_hospital = this.findPositionInMatches(resident, hospital);
 
+	let matchPosition_resident_original = this.findPositionInOriginalMatchesGroup2(hospital, resident);
+
+	console.log(matchPosition_resident, matchPosition_hospital)
+	console.log(hospital.ranking)
 	
 	this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(resident.name), this.getLastCharacter(hospital.name), "green"]);
 
 	this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(resident.name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
-	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident, "grey");
+	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident_original, "red");
 
 	// unassign r and h'
 	this.update(5, {"%oldHospital%": resident.match[0].name, "%resident%": resident.name});
+
+	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident_original, "grey");
+
+
+	this.update(1)
 
 
 	// remove hospital from resident match 
@@ -131,7 +140,7 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	let hospitalLastChar = this.getLastCharacter(hospital.name);
 	let currentHospitalCapacity: string = this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar];
 
-	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length - 2);
+	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length);
 
 
 
