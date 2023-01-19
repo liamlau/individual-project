@@ -242,14 +242,14 @@ export abstract class MatchingAlgorithm {
 
     findPositionInOriginalMatches(currentAgent: Agent, agentToFind: Agent) {
         let originalPreferences = this.originalGroup1CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
-        console.log("Group1", originalPreferences)
+        // console.log("Group1", originalPreferences)
         let position: number = originalPreferences.indexOf(agentToFind.name[agentToFind.name.length - 1]);
         return position;
     }
 
     findPositionInOriginalMatchesGroup2(currentAgent: Agent, agentToFind: Agent) {
         let originalPreferences = this.originalGroup2CurrentPreferences.get(currentAgent.name[currentAgent.name.length - 1]);
-        console.log("Group2", originalPreferences)
+        // console.log("Group2", originalPreferences)
         let position: number = originalPreferences.indexOf(agentToFind.name[agentToFind.name.length - 1]);
         return position;
     }
