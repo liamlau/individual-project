@@ -38,8 +38,6 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
                     ["6","3","4","2","1"],
                     ["1","2","4","3","5"]];
 
-        console.log("HEREHRHERHERKAHLSJHDK:AHSDK:AJSDa")
-        console.log(this.group1Agents)
 
         let count = 0;
         let name = "p"
@@ -54,9 +52,7 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
 
         }
 
-        console.log("INSIDE FUNC")
-        console.log(this.group1Agents);
-        console.log(this.group2Agents);
+    
 
     }
 

@@ -13,4 +13,19 @@ describe('StableRoomIrvService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  // added test from smp
+  it("test correctness x 10 (smp-room-irv)", () => {
+    let stable: boolean = true;
+    for (let i = 0; i < 10; i++) {
+      let agentCount: number = Math.floor(Math.random() * (9 - 2) + 2);
+      service.run(agentCount, agentCount, undefined);
+      if (!service.stable) {
+        stable = false;
+      }
+    }
+
+    expect(stable).toBeTrue();
+  })
+
 });
