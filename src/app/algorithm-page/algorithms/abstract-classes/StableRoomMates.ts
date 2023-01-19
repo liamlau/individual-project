@@ -7,12 +7,12 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
 
     constructor() {
         super();
-        console.log("StableRoomMates Class");
+        // console.log("StableRoomMates Class");
     }
 
     generatePreferences(): void {
         
-        console.log("Gen Preferances ")
+        // console.log("Gen Preferances ")
 
         // for (let agent of Array.from(this.group1Agents.values())) {
         //     let agent1Rankings = Array.from((new Map(this.group1Agents)).values());

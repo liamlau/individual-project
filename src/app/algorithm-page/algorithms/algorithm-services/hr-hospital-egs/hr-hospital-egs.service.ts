@@ -49,8 +49,8 @@ export class HrHospitalEgsService extends GaleShapley{
               availableSpaces: availableSpaces
           });
 
-		  console.log(group2AgentName)
-		  console.log(this.freeAgentsOfGroup2)
+		//   console.log(group2AgentName)
+		//   console.log(this.freeAgentsOfGroup2)
 
 		  this.freeAgentsOfGroup2.push(group2AgentName);
 
@@ -100,8 +100,8 @@ getWorstResident(hospital: Hospital): Agent {
 
 breakAssignment(resident: Agent, hospital: Agent): void {
 
-	console.log("break Assignment")
-	console.log(resident.name, resident.match[0].name, hospital.name)
+	// console.log("break Assignment")
+	// console.log(resident.name, resident.match[0].name, hospital.name)
 
 	
 
@@ -111,8 +111,8 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 
 	let matchPosition_resident_original = this.findPositionInOriginalMatchesGroup2(hospital, resident);
 
-	console.log(matchPosition_resident, matchPosition_hospital)
-	console.log(hospital.ranking)
+	// console.log(matchPosition_resident, matchPosition_hospital)
+	// console.log(hospital.ranking)
 	
 	this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(resident.name), this.getLastCharacter(hospital.name), "green"]);
 
@@ -148,8 +148,8 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 
 
 
-	console.log("rankings after - h / r")
-	console.log(hospital.ranking, resident.ranking)
+	// console.log("rankings after - h / r")
+	// console.log(hospital.ranking, resident.ranking)
 
 
 
@@ -225,11 +225,11 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
   print_matches(){
 
 	for (let [key, resident] of this.group1Agents.entries()){
-		console.log(key, resident.match)
+		// console.log(key, resident.match)
 	}
 
 	for (let [key, hospital] of this.group2Agents.entries()){
-		console.log(key, hospital.match)
+		// console.log(key, hospital.match)
 
 	}
 
@@ -280,8 +280,8 @@ checkFreeHospitals(){
 	// this.group1Agents - residents 
 	// this.group2Agents - hospitals
 
-	console.log("groups")
-	console.log(this.group1Agents, this.group1Agents)
+	// console.log("groups")
+	// console.log(this.group1Agents, this.group1Agents)
 
 	// "Set each hospital and resident to be completely free",
 	this.update(1)
@@ -302,7 +302,7 @@ checkFreeHospitals(){
 		// and has a resident r on h's preferance list that is no assigned to h",
 		this.update(2, {"%hospital%" : currentHospital.name});
 
-		console.log(currentHospital)
+		// console.log(currentHospital)
 
 		if (currentHospital.ranking.length <= 0 || !this.getNextPotentialProposee(currentHospital)){
 			this.freeAgentsOfGroup2.shift();
@@ -314,7 +314,7 @@ checkFreeHospitals(){
 			// "r := first resident on h's prefernace list not assigned to h",
 			this.update(3, {"%resident%" : potentialProposee.name})
 			
-			console.log("potentialProposee", potentialProposee)
+			// console.log("potentialProposee", potentialProposee)
 			
 			// if proposee is assigned to a different hospital then un assign
 			
@@ -343,7 +343,7 @@ checkFreeHospitals(){
 			// rankings should be deleted until convergence?
 
 			this.freeAgentsOfGroup2 = this.checkFreeHospitals()
-			console.log("free Agents on iteration", counter_break, this.freeAgentsOfGroup2)
+			// console.log("free Agents on iteration", counter_break, this.freeAgentsOfGroup2)
 
 			if (this.shouldContinueMatching(currentHospital)) {
 				this.freeAgentsOfGroup1.shift();
@@ -357,12 +357,12 @@ checkFreeHospitals(){
 	// break;
 
 	counter_break = counter_break + 1;
-	console.log(counter_break > 20)
+	// console.log(counter_break > 20)
 
 	
 	 
 	if (counter_break > 200){
-		console.log("Done ---- Done ----")
+		// console.log("Done ---- Done ----")
 		break;
 		}
 	}

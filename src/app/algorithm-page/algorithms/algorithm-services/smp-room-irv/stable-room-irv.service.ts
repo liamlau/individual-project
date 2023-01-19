@@ -63,7 +63,8 @@ export class StableRoomIrvService extends StableRoomMates {
   constructor() { 
     
     super();
-    console.log("Super call");
+    // console.log("Super call");
+
 
   }
   ///////////////////////////////////////////////////
@@ -151,7 +152,7 @@ export class StableRoomIrvService extends StableRoomMates {
   print_rankings(agent){
 
     for (let i = 0 ; i < agent.ranking.length ; i++){
-      console.log("Element", i, agent.ranking[i])
+      // console.log("Element", i, agent.ranking[i])
     }
   }
 
@@ -221,8 +222,8 @@ export class StableRoomIrvService extends StableRoomMates {
   match(): AlgorithmData {
 
 
-    console.log("Start")
-    console.log(this.group1Agents)
+    // console.log("Start")
+    // console.log(this.group1Agents)
     this.objs_toString(this.group1Agents.get("p1").ranking)
     
 
@@ -263,7 +264,7 @@ export class StableRoomIrvService extends StableRoomMates {
         this.update(2, {"%person%" : person.name})
             
         //let person: Person = this.group1Agents.get(this.freeAgentsOfGroup1[0]);
-        console.log("------------------")
+        // console.log("------------------")
         // console.log(person);
         // console.log(person.name);
         // console.log(person.ranking);
@@ -310,7 +311,7 @@ export class StableRoomIrvService extends StableRoomMates {
         this.update(5, {"%person%" : person.name, "%selected%" : person.ranking[0].name})
 
         let pref = person.ranking[0];
-        console.log("Pref check --- ", person.name, pref.name, person.ranking)
+        // console.log("Pref check --- ", person.name, pref.name, person.ranking)
 
         redLine = [this.getLastCharacter(person.name), this.personkey[this.getLastCharacter(pref.name)], "red"]
         this.currentLines.push(redLine)
@@ -353,7 +354,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
           //delele elm from pref ranking list
           // delete perd from elm ranking list 
-          console.log("del", remove.name, pref.name)
+          // console.log("del", remove.name, pref.name)
           this.delete_pair(pref, remove)
 
 
@@ -373,10 +374,10 @@ export class StableRoomIrvService extends StableRoomMates {
 
       }
       
-      console.log("ENDER")
-      for (let data of this.group1Agents.values()){
-        console.log(data.name, " ---> ", data.lastProposed, data.ranking)
-      }
+      // console.log("ENDER")
+      // for (let data of this.group1Agents.values()){
+      //   console.log(data.name, " ---> ", data.lastProposed, data.ranking)
+      // }
   }
 
 
@@ -399,15 +400,15 @@ export class StableRoomIrvService extends StableRoomMates {
   
   // while there are agents that have more than 1 person in their prefrance list 
 
-  console.log("length --- ", agents_multiple_prefs.size)
+  // console.log("length --- ", agents_multiple_prefs.size)
 
   
 
   let finished_people = []
 
   while (agents_multiple_prefs.size > 0){
-    console.log("There is agents with multiple prefs")
-    console.log(agents_multiple_prefs)
+    // console.log("There is agents with multiple prefs")
+    // console.log(agents_multiple_prefs)
     
 
     //loop through those^ agents
@@ -433,7 +434,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
       let counter = 0
       while (starting_agent != last_pref){
-        console.log("adding pairs ")  
+        // console.log("adding pairs ")  
         counter++
 
         // stops infinite loops - break if there is no cycle through all the people 
@@ -458,15 +459,15 @@ export class StableRoomIrvService extends StableRoomMates {
       // if rotation r is found
       this.update(13, {"%rotation%" : this.objs_toString(rotation_pairs)}) // temp remove %rotation%
 
-      console.log("Found rotation", rotation_pairs)
+      // console.log("Found rotation", rotation_pairs)
 
       let deleted_pairs = []
       for (let pair = 0  ; pair < rotation_pairs.length ; pair++ ){
-        console.log("looping dels")
+        // console.log("looping dels")
 
         // if pair not already deleted 
         if (!deleted_pairs.includes(rotation_pairs[pair])){
-          console.log("deleting", rotation_pairs[pair])
+          // console.log("deleting", rotation_pairs[pair])
           
           this.delete_pair(rotation_pairs[pair][0], rotation_pairs[pair][1])
           deleted_pairs.push(rotation_pairs[pair])
@@ -574,18 +575,18 @@ export class StableRoomIrvService extends StableRoomMates {
     }
 
     // printing 
-    console.log("ENDEST")
+    // console.log("ENDEST")
     
-      for (let data of this.group1Agents.values()){
-        console.log(data.name, " ---> ", data.ranking[0].name)
-      }
+      // for (let data of this.group1Agents.values()){
+      //   console.log(data.name, " ---> ", data.ranking[0].name)
+      // }
 
     break;
 
   }
 
   this.update(19)
-  console.log("group1agents at end", this.group1Agents, agents_multiple_prefs)
+  // console.log("group1agents at end", this.group1Agents, agents_multiple_prefs)
 
   return;
 
