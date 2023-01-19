@@ -163,9 +163,9 @@ export class AlgorithmRetrievalService {
         name: "Stable Roommates Problem",
         orientation: ["Person"],
         equalGroups: true,
-        algorithm: "Stable Roommates Problem",
+        algorithm: "Stable Roommates - Irving's Algorithm",
         service: this.StableRoomIrvService,
-        description: "Match Roommates",
+        description: "The stable roommates problem is the problem of finding a stable matching between 1 group of elements. In this case <b>people</b>.<br> <br>To do this the Irving’s algorithm is used ",
         helpTextMap: {
           1: "Set all people to be free",
           2 : "While some person %person% has not been assigned to a anyone and has a non-empty preferance list",
@@ -238,11 +238,11 @@ export class AlgorithmRetrievalService {
       "hr-hospital-egs", {
         id: "hr-hospital-egs",
         name: "Hospitals/Residents Problem",
-        orientation: ["Resident", "Hospital"],
+        orientation: ["Hospital", "Resident"],
         equalGroups: false,
         algorithm: "Extended Gale-Shapley Stable Matching",
         service: this.HrHospitalEgsService,
-        description: "/", //"The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>resident-oriented</b> version of the algorithm, so <b>residents will propose to hospitals</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+        description: "The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
         helpTextMap: {
           1 : "Set all hospitals and residents to be completely free",
           2 : "While some hospital (%hospital%) is undersubscribed and has a resident on their preferance list that is not assigned to them",
