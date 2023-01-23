@@ -91,10 +91,6 @@ import { CanvasDisplayComponent } from './algorithm-page/animation-container/can
     AngularResizedEventModule
   ],
 
-  exports: [
-    PseudocodeComponent,
-    
-  ],
 
   providers: [],
   bootstrap: [AppComponent]
