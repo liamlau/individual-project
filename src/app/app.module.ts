@@ -90,6 +90,12 @@ import { CanvasDisplayComponent } from './algorithm-page/animation-container/can
     ReactiveFormsModule,
     AngularResizedEventModule
   ],
+
+  exports: [
+    PseudocodeComponent,
+    
+  ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
