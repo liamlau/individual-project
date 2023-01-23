@@ -15,6 +15,8 @@ describe('StableRoomIrvService', () => {
   });
 
   // added test from smp
+
+  // tests dont work cause there is no pref generation - fixed at 6 - this tried to make different sizes 
   it("test correctness x 10 (smp-room-irv)", () => {
     let stable: boolean = true;
     for (let i = 0; i < 10; i++) {

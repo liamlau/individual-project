@@ -51,10 +51,13 @@ export class StableRoomIrvService extends StableRoomMates {
         ranking: new Array(),
     });
 
-    this.personkey[String(i)] = currentLetter
+    this.personkey[String(i)] = String(i);
 
     currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
+
+    this.algorithmSpecificData["SR"] = true;
+
   }
 
   ///////////////////////////////////////////////////
