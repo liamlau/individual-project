@@ -182,7 +182,7 @@ export class AlgorithmRetrievalService {
           10 : "remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
 
           11 : "While some person %person% has more then 1 person left in their preferance list - %list%",
-          12 : "look for rotations within %person%\'s preferance list, that is {rotation explanation}",
+          12 : "look for rotations within %person%\'s preferance list, that is a cycle of ordered pairs through preferance lists",
           13 : "if a rotation is found", //%rotation%
           14 : "delete pairs in rotation - remove %removee% from %person%\'s preferance list and remove %person% from %removee%\'s preferance list",
 
