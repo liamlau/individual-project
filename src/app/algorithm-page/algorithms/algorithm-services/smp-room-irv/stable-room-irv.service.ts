@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { type } from 'os';
-import { runInThisContext } from 'vm';
 import { StableRoomMates } from '../../abstract-classes/StableRoomMates';
 import { Agent } from '../../interfaces/Agent';
 import { AlgorithmData } from '../../interfaces/AlgorithmData';
@@ -155,7 +153,7 @@ export class StableRoomIrvService extends StableRoomMates {
   print_rankings(agent){
 
     for (let i = 0 ; i < agent.ranking.length ; i++){
-      // console.log("Element", i, agent.ranking[i])
+      console.log("Element", i, agent.ranking[i])
     }
   }
 
@@ -227,7 +225,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
     // console.log("Start")
     // console.log(this.group1Agents)
-    this.objs_toString(this.group1Agents.get("p1").ranking)
+    
     
 
     let free_agents: Map<String, Person> = new Map();
@@ -236,19 +234,24 @@ export class StableRoomIrvService extends StableRoomMates {
     // Set each person to be free
     this.update(1);
 
-    // console.log("--- new info ---")
+    console.log("--- new info ---")
+    console.log("Matches")
+    for (let [key, person] of free_agents.entries()){
+      let x = [];
+      for (let p of person.ranking){
+        x.push(p.name)
+      }
+      console.log(x)
+    }
 
-    // console.log(this.getGroupRankings(this.group1Agents))
-    // console.log(this.group1CurrentPreferences)
-
-    // console.log(this.group1Agents)
-    // console.log(this.group2Agents)
+    
 
 
     let last_person = null
     let last_pref = null
     
     
+
     while (free_agents.size > 0) {
 
       this.currentlySelectedAgents = [];
@@ -284,7 +287,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
           //end - no stable mathcing
           this.update(4)
-          break;
+          return;
         }
 
        
@@ -572,7 +575,7 @@ export class StableRoomIrvService extends StableRoomMates {
         this.update(18)
 
         console.log("No Stable matching")
-        break;
+        return;
       }
 
     }

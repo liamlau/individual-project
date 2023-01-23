@@ -406,11 +406,8 @@ export class CanvasService {
 
     // number to rotated the circle, so that numbering looks more natural 
     let offset = 1;
-    console.log("1 group draw positions", this.positions)
     // Draw LHS circles in orange
     for (let i = 1; i < this.algService.numberOfGroup1Agents + 1; i++) {
-
-      console.log("positions", this.positions["circle" + i].positionX, this.positions["circle" + i].positionY)
 
       let posX: number = this.positions["circle" + i].positionX;
       let posY: number = this.positions["circle" + i].positionY;
@@ -505,8 +502,6 @@ export class CanvasService {
     }
 
     let num = this.algService.numberOfGroup1Agents
-
-    console.log("linesizes", this.lineSizes)
 
     for (let i = 1; i < num / 2 + 1; i++) {
       this.drawText(this.ctx, 
@@ -784,7 +779,6 @@ export class CanvasService {
 
     
 
-    console.log("current command", this.currentCommand)
 
     this.selectCircles(this.currentCommand["currentlySelectedAgents"]);
 

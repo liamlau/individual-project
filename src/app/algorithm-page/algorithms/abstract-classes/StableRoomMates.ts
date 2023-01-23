@@ -42,41 +42,30 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
         let count = 0;
         let name = "p"
 
-        for (let [key, person] of this.group1Agents.entries()){   
-            for (let i = 0 ; i < this.group1Agents.size - 1 ; i++){
-                //console.log(this.group1Agents.get(data2[count][i]), data2[count][i]);
-                person.ranking[i] = this.group1Agents.get(name + String(data2[count][i]));
-            }
-            count++;
+        // for (let [key, person] of this.group1Agents.entries()){   
+        //     for (let i = 0 ; i < this.group1Agents.size - 1 ; i++){
+        //         //console.log(this.group1Agents.get(data2[count][i]), data2[count][i]);
+        //         person.ranking[i] = this.group1Agents.get(name + String(data2[count][i]));
+        //     }
+        //     count++;
+        // }
 
+        for (let agent of Array.from(this.group1Agents.values())) {
+            let agent1Rankings = Array.from((new Map(this.group1Agents)).values());
 
+            let selfIndex = agent1Rankings.indexOf(agent)
+
+            agent1Rankings.splice(selfIndex, 1)
+
+            this.shuffle(agent1Rankings);
+            this.group1Agents.get(agent.name).ranking = agent1Rankings;
         }
+
+    }
+
+   
 
     
-
-    }
-
-    getGroupRankings(agents: Map<String, Person>): Map<String, Array<String>> {
-
-        let matches: Map<String, Array<String>> = new Map();
-
-        for (let agent of Array.from(agents.values())) {
-            let preferenceList = [];
-            
-            for (let match of agent.ranking) {
-                preferenceList.push(match.name.slice(match.name.length - 1));
-            }
-
-            let identifier: string = agent.name.slice(agent.name.length - 1);
-            // console.log()
-
-            matches.set(identifier, preferenceList);
-
-        }
-
-        return matches;
-
-    }
 
     abstract match(): AlgorithmData;
 
