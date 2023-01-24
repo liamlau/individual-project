@@ -584,6 +584,7 @@ export class StableRoomIrvService extends StableRoomMates {
 
       // needed to rest the for loop for the new values within the many_pref_list
       // this list is updated to remove people that no longer have many preferances 
+      // ^ 
       break;
 
     }
