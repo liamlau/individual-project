@@ -77,10 +77,16 @@ data3 = [["6","2","4","5","3",],
 
 data3 = fix_data(data3)
 
+
+data4 = [[1,2,3],
+        [2,0,3],
+        [0,1,3],
+        [0,1,2]]
+
 # dataG = generate_data(6)
 dataG = [[4, 2, 5, 1, 3], [3, 5, 2, 4, 0], [4, 1, 5, 3, 0], [0, 2, 4, 1, 5], [3, 0, 2, 1, 5], [0, 4, 2, 1, 3]]
-print("dataG", dataG)
-data = format_data(dataG)
+# print("dataG", dataG)
+data = format_data(data4)
 
 
 print(data, "data")
@@ -183,6 +189,7 @@ def match():
     for index in range(len(data)):
         free_agents.append(index)
 
+    count = 0
 
     #while there are free agents
     while free_agents != []:
@@ -233,9 +240,15 @@ def match():
             #update list of people waiting to be assigned 
             free_agents = check_free_agents()
 
-            #print(data, "\n")   #Print the data at each step of assinging 
 
+            #print(data, "\n")   #Print the data at each step of assinging 
+        count = count + 1
+        if count > 100:
+            print("No Stable Mathcing")
+            return
     # print("data", data)
+
+    print("PHASE 1 DONE")
 
     #PHASE 2 - FIND ROATATION AND REDUCE LISTS
 

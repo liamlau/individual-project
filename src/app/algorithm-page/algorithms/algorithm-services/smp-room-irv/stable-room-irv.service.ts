@@ -249,9 +249,9 @@ export class StableRoomIrvService extends StableRoomMates {
 
     let last_person = null
     let last_pref = null
-    
-    
 
+    let count = 0
+    
     while (free_agents.size > 0) {
 
       this.currentlySelectedAgents = [];
@@ -384,6 +384,18 @@ export class StableRoomIrvService extends StableRoomMates {
       // for (let data of this.group1Agents.values()){
       //   console.log(data.name, " ---> ", data.lastProposed, data.ranking)
       // }
+
+
+      // Place holder 
+      // need to re-generate smaples to give stable mathcing 
+      // OR leave in, in some form to show not everything has a stable matching 
+      count++;
+      if (count > 100){
+        console.log("No Stable Mathcing")
+        return;
+      }
+
+
   }
 
 
