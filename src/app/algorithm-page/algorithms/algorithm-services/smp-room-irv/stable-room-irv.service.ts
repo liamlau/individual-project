@@ -249,9 +249,9 @@ export class StableRoomIrvService extends StableRoomMates {
 
     let last_person = null
     let last_pref = null
-    
-    
 
+    let count = 0
+    
     while (free_agents.size > 0) {
 
       this.currentlySelectedAgents = [];
@@ -384,6 +384,18 @@ export class StableRoomIrvService extends StableRoomMates {
       // for (let data of this.group1Agents.values()){
       //   console.log(data.name, " ---> ", data.lastProposed, data.ranking)
       // }
+
+
+      // Place holder 
+      // need to re-generate smaples to give stable mathcing 
+      // OR leave in, in some form to show not everything has a stable matching 
+      count++;
+      if (count > 100){
+        console.log("No Stable Mathcing")
+        return;
+      }
+
+
   }
 
 
@@ -428,9 +440,15 @@ export class StableRoomIrvService extends StableRoomMates {
 
       let rotation_pairs = []
 
+      console.log("Checking poeple left", agents_multiple_prefs)        
+
+      console.log(person.name)
+      console.log(person.ranking)
+
       let starting_agent = person                               // starting person
       let second_pref = person.ranking[1]                       //the starting persons second prefered person
       let last_pref = second_pref.ranking.slice(-1)[0]          //the second preferned persons last preferd person
+
 
       // list of pairs to call delete on
       rotation_pairs.push([last_pref, second_pref])
@@ -559,9 +577,7 @@ export class StableRoomIrvService extends StableRoomMates {
           // person b := last preferance
           this.update(16, {"%person%" : person_inner.name, "%preferance%" : person_inner.lastProposed.name})
 
-
         }
-
 
       }
 
@@ -578,16 +594,14 @@ export class StableRoomIrvService extends StableRoomMates {
         return;
       }
 
+      // needed to rest the for loop for the new values within the many_pref_list
+      // this list is updated to remove people that no longer have many preferances 
+      // ^ 
+      break;
+
     }
 
-    // printing 
-    // console.log("ENDEST")
-    
-      // for (let data of this.group1Agents.values()){
-      //   console.log(data.name, " ---> ", data.ranking[0].name)
-      // }
-
-    break;
+    // break;
 
   }
 

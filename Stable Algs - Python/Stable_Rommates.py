@@ -110,7 +110,7 @@ def match():
 
 
     
-    print(data)
+    # print(data)
 
 
     #while there are free agents
@@ -154,7 +154,6 @@ def match():
                 
             #update list of people waiting to be assigned 
             free_agents = check_free_agents()
-            print(data, "\n")   
 
     #PHASE 2 - FIND ROATATION AND REDUCE LISTS
 
@@ -187,7 +186,7 @@ def match():
                 delete_pair(pair[0], pair[1])
 
 
-            print("Pairs", agent, rotation_pairs)
+            # print("Pairs", agent, rotation_pairs)
 
             many_pref_agents = check_pref_count()
             if many_pref_agents == []:

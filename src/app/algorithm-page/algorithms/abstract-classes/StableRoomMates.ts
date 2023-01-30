@@ -38,28 +38,39 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
                     ["6","3","4","2","1"],
                     ["1","2","4","3","5"]];
 
+        let data3 = [["5","3","6","2","4",],
+        ["4","6","3","5","1",],
+        ["5","2","6","4","1",],
+        ["1","3","5","2","6",],
+        ["4","1","3","2","6",],
+        ["1","5","3","2","4",]]
+
+        let data4 = [["2","3","4",],
+                    ["3","1","4",],
+                    ["1","2","4",],
+                    ["1","2","3",]]
 
         let count = 0;
         let name = "p"
 
-        // for (let [key, person] of this.group1Agents.entries()){   
-        //     for (let i = 0 ; i < this.group1Agents.size - 1 ; i++){
-        //         //console.log(this.group1Agents.get(data2[count][i]), data2[count][i]);
-        //         person.ranking[i] = this.group1Agents.get(name + String(data2[count][i]));
-        //     }
-        //     count++;
-        // }
-
-        for (let agent of Array.from(this.group1Agents.values())) {
-            let agent1Rankings = Array.from((new Map(this.group1Agents)).values());
-
-            let selfIndex = agent1Rankings.indexOf(agent)
-
-            agent1Rankings.splice(selfIndex, 1)
-
-            this.shuffle(agent1Rankings);
-            this.group1Agents.get(agent.name).ranking = agent1Rankings;
+        for (let [key, person] of this.group1Agents.entries()){   
+            for (let i = 0 ; i < this.group1Agents.size - 1 ; i++){
+                //console.log(this.group1Agents.get(data2[count][i]), data2[count][i]);
+                person.ranking[i] = this.group1Agents.get(name + String(data4[count][i]));
+            }
+            count++;
         }
+
+        // for (let agent of Array.from(this.group1Agents.values())) {
+        //     let agent1Rankings = Array.from((new Map(this.group1Agents)).values());
+
+        //     let selfIndex = agent1Rankings.indexOf(agent)
+
+        //     agent1Rankings.splice(selfIndex, 1)
+
+        //     this.shuffle(agent1Rankings);
+        //     this.group1Agents.get(agent.name).ranking = agent1Rankings;
+        // } 
 
     }
 

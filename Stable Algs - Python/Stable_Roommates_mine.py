@@ -33,8 +33,6 @@ def generate_data(n):
     return data
 
 
-print(generate_data(6))
-
 
 
 
@@ -46,6 +44,16 @@ def format_data(data_list):
             
 
     return data
+
+def fix_data(d):
+    l = [] 
+    for row in d:
+        inner = []
+        for s in row:
+            inner.append(int(s))
+        l.append(inner)
+
+    return l
 
 
 data1 = [[2,1,3],
@@ -60,7 +68,37 @@ data2 = [[1,3,5,2,4],
         [5,2,3,1,0],
         [0,1,3,2,4]]
 
-data = format_data(data2)
+data3 = [["6","2","4","5","3",],
+        ["5","4","1","3","6",],
+        ["1","2","5","6","4",],
+        ["1","2","6","3","5",],
+        ["4","2","1","3","6",],
+        ["2","3","5","1","4",]]
+
+data3 = fix_data(data3)
+
+
+data4 = [[1,2,3],
+        [2,0,3],
+        [0,1,3],
+        [0,1,2]]
+
+# dataG = generate_data(6)
+dataG = [[4, 2, 5, 1, 3], [3, 5, 2, 4, 0], [4, 1, 5, 3, 0], [0, 2, 4, 1, 5], [3, 0, 2, 1, 5], [0, 4, 2, 1, 3]]
+# print("dataG", dataG)
+data = format_data(data4)
+
+
+print(data, "data")
+
+for d in data:
+    print("[", end='')
+    for i in d[0]:
+        print('"{s}",'.format(s = i + 1), end='')
+    print("],")
+
+
+
 
 
 
@@ -151,6 +189,7 @@ def match():
     for index in range(len(data)):
         free_agents.append(index)
 
+    count = 0
 
     #while there are free agents
     while free_agents != []:
@@ -165,7 +204,7 @@ def match():
             #get their most prefered person
             pref = data[index][0][0]
 
-            print("pref check ---", index, pref, data[index][0])
+            # print("pref check ---", index, pref, data[index][0])
             
             #if someone is assigned to their most prefered person, then unassign them and assign current agent to them 
             check = assigned_check(pref)
@@ -186,9 +225,9 @@ def match():
                     #pref = index of current preferance for the current agent 
                     #p = an index of a person tp remove 
 
-                    print(index, pref)
+                    # print(index, pref)
                     for p in data[pref][0][list_cut_off_index + 1:]:
-                        print(index, "del", p, pref, data[pref][0])
+                        # print(index, "del", p, pref, data[pref][0])
                         delete_pair(p, pref)
                         # print(p , "---", data[p][0])
                         # print(pref , "---", data[pref][0])
@@ -201,9 +240,15 @@ def match():
             #update list of people waiting to be assigned 
             free_agents = check_free_agents()
 
-            #print(data, "\n")   #Print the data at each step of assinging 
 
-    print("data", data)
+            #print(data, "\n")   #Print the data at each step of assinging 
+        count = count + 1
+        if count > 100:
+            print("No Stable Mathcing")
+            return
+    # print("data", data)
+
+    print("PHASE 1 DONE")
 
     #PHASE 2 - FIND ROATATION AND REDUCE LISTS
 
@@ -217,6 +262,16 @@ def match():
         for agent in many_pref_agents:
             
             rotation_pairs = []
+
+            print(1, data)
+            print(2, agent)
+            print(3, data[agent])
+            print(4, many_pref_agents)
+
+            # ISSUE IS LOOK LIST IS UPDATED IN THE LIST, BUT UPDATE IS NOT REFLECTED IN LOOP 
+
+            if data[agent] not in many_pref_agents:
+                pass
 
             starting_agent = agent                  #A - Starting Agent
             second_pref = data[agent][0][1]         #X - Second preferance of A
@@ -266,6 +321,8 @@ def match():
             if check_pref_empty == True:
                 print("No Stable Matchig")
                 break
+            
+            break
             
     #print(data)
 
