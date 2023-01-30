@@ -418,13 +418,10 @@ export class StableRoomIrvService extends StableRoomMates {
   
   // while there are agents that have more than 1 person in their prefrance list 
 
-  // console.log("length --- ", agents_multiple_prefs.size)
-
-  
 
   let finished_people = []
 
-  while (agents_multiple_prefs.size > 0){
+  while (agents_multiple_prefs.size > 0) {
     // console.log("There is agents with multiple prefs")
     // console.log(agents_multiple_prefs)
     
@@ -581,7 +578,6 @@ export class StableRoomIrvService extends StableRoomMates {
 
       }
 
-
       // if any people have empty preferance lists - no mathcong
       this.update(17, {"%person%" : person.name})
 
@@ -600,9 +596,26 @@ export class StableRoomIrvService extends StableRoomMates {
       break;
 
     }
+  }
 
-    // break;
+  // if PHASE 2 is not done - update viz
+  if (agents_multiple_prefs.size == 0) {
+    for (let [key_inner, person_inner] of this.group1Agents.entries()){
+      if (person_inner.ranking.length == 1){
 
+       // update value in list 
+       this.changePreferenceStyle(
+        this.group1CurrentPreferences,
+        this.getLastCharacter(person_inner.name), 
+        this.originalGroup1CurrentPreferences.get(this.getLastCharacter(person_inner.name)).indexOf(this.getLastCharacter(person_inner.ranking[0].name)), 
+        "green")
+
+        person_inner.lastProposed = person_inner.ranking.slice(0)[0]
+        let line = [this.getLastCharacter(person_inner.name), this.personkey[this.getLastCharacter(person_inner.lastProposed.name)], "green"]
+        // let line = ["1", "B", "green"]
+        this.currentLines.push(line)
+      }
+    }
   }
 
   this.update(19)
