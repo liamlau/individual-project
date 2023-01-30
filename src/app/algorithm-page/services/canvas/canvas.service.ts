@@ -437,6 +437,88 @@ export class CanvasService {
   }
 
 
+  drawLine1Group(line: Array<string>): void {
+
+    let color: string = line[2];
+
+    if (color == "red") {
+      this.ctx.strokeStyle = "#EB2A2A";
+    } else if (color == "green") {
+      this.ctx.strokeStyle = "#53D26F";
+    }
+
+    this.ctx.lineWidth = 3;
+
+    
+    let xLen = (this.positions["circle" + line[1]].positionX) - (this.positions["circle" + line[0]].positionX)
+    let yLen = (this.positions["circle" + line[1]].positionY) - (this.positions["circle" + line[0]].positionY)
+
+
+    // halfX = this.positions["circle" + line[0]].positionX + (xLen * (1 - Math.abs(this.radiusOfCircles / yLen)))
+    // halfY = this.positions["circle" + line[0]].positionY + (yLen * (1 - Math.abs(this.radiusOfCircles / yLen))) 
+
+    let halfX = this.positions["circle" + line[0]].positionX + (xLen * 0.8)
+    let halfY = this.positions["circle" + line[0]].positionY + (yLen * 0.8) 
+
+
+
+    let angle = Math.atan(yLen / xLen)
+
+  
+    let newX = 0
+    let newY = 0
+
+    let right = false;
+
+    // if starting < ending - pointing right- canvas in bottum right quadrent
+    if (this.positions["circle" + line[0]].positionX < this.positions["circle" + line[1]].positionX) {
+      right = true
+    } else {
+      right = false
+    }
+
+    // draw arrow 
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.positions["circle" + line[0]].positionX, this.positions["circle" + line[0]].positionY);
+    
+    this.ctx.lineTo(halfX, halfY);
+
+
+    
+    if (right) {
+
+      newX = halfX + 20 * Math.cos(angle + (3 * Math.PI / 4))
+      newY = halfY + 20 * Math.sin(angle + (3 * Math.PI / 4))
+
+    } else {
+
+       newX = halfX + 20 * Math.cos(angle + (Math.PI / 4))
+       newY = halfY + 20 * Math.sin(angle + (Math.PI / 4))
+    }
+
+    this.ctx.lineTo(newX, newY)
+    this.ctx.lineTo(halfX, halfY);
+
+
+    if (right) {
+
+      newX = halfX + 20 * Math.cos(angle - (3 * Math.PI / 4))
+      newY = halfY + 20 * Math.sin(angle - (3 * Math.PI / 4))
+
+    } else {
+
+       newX = halfX + 20 * Math.cos(angle - (Math.PI / 4))
+       newY = halfY + 20 * Math.sin(angle - (Math.PI / 4))
+    }
+
+    this.ctx.lineTo(newX, newY)
+    this.ctx.stroke();
+
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = 1;
+
+  }
+
   drawLine(line: Array<string>): void {
 
     let color: string = line[2];
@@ -732,10 +814,7 @@ export class CanvasService {
     this.setFont();
 
     
-     // draw lines between circles (matches and relations)
-     for (let line of this.currentCommand["currentLines"]) {
-      this.drawLine(line);
-    }
+    
 
    
     // this.drawLineBetween("circle1", "circleE", "red")
@@ -745,11 +824,23 @@ export class CanvasService {
 
     // if SR Algorithm
     if (this.currentCommand["algorithmSpecificData"]["SR"]) {
+
+      // draw lines between circles (matches and relations)
+      for (let line of this.currentCommand["currentLines"]) {
+        this.drawLine1Group(line);
+      }
+
       // update positions of all canvas elements
       this.calculateEqualDistance1Group();
       this.drawCircles1Group();
 
     } else {
+
+      // draw lines between circles (matches and relations)
+      for (let line of this.currentCommand["currentLines"]) {
+        this.drawLine(line);
+      }
+
       // update positions of all canvas elements
       this.calculateEqualDistance();
 
