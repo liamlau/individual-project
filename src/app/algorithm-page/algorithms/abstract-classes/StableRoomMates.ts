@@ -1,7 +1,8 @@
 import { AlgorithmData } from "../interfaces/AlgorithmData";
 import { MatchingAlgorithm } from "./MatchingAlgorithm";
 import { Person } from '../interfaces/Person';
-import { Agent } from "http";
+import { Agent } from "../interfaces/Agent";
+
 
 export abstract class StableRoomMates extends MatchingAlgorithm {
 
@@ -71,6 +72,33 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
             this.shuffle(agent1Rankings);
             this.group1Agents.get(agent.name).ranking = agent1Rankings;
         } 
+
+    }
+
+    populatePreferences(preferences: Map<String, Array<String>>): void {
+        console.log("preferences", preferences);
+        let tempCopyList: Agent[];
+
+        for (let agent of Array.from(this.group1Agents.keys())) {
+            tempCopyList = [];
+            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
+            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
+                tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
+            }
+            this.group1Agents.get(agent).ranking = tempCopyList;
+        }
+
+        for (let agent of Array.from(this.group2Agents.keys())) {
+            tempCopyList = [];
+            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
+            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
+                tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
+            }
+            this.group2Agents.get(agent).ranking = tempCopyList;
+        }
+    
+        console.log(this.group1Agents);
+        console.log(this.group2Agents);
 
     }
 

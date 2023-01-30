@@ -168,36 +168,42 @@ export class EditPreferencesDialogComponent implements OnInit {
   
       }
   
-      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
-  
-      counter = 0;
-  
+      // console.log(this.algorithmService, "name here")
 
-  
-      for (let agent of this.group2Preferences) {
-        currentLine = "";
-  
-        if (counter < this.numberOfGroup2Agents.value) {
-          let id: string = agent[0];
-          let currentPreferences: string[] = agent[1];
-  
-          let newPreferences: string[] = [];
-  
-          for (let preference of currentPreferences) {
-            if (Number(preference) <= this.numberOfGroup1Agents.value) {
-              newPreferences.push(preference);
+      if (this.algorithmService.currentAlgorithm.name != "Stable Roommates Problem" || true) {
+
+    
+        preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
+    
+        counter = 0;
+    
+
+    
+        for (let agent of this.group2Preferences) {
+          currentLine = "";
+    
+          if (counter < this.numberOfGroup2Agents.value) {
+            let id: string = agent[0];
+            let currentPreferences: string[] = agent[1];
+    
+            let newPreferences: string[] = [];
+    
+            for (let preference of currentPreferences) {
+              if (Number(preference) <= this.numberOfGroup1Agents.value) {
+                newPreferences.push(preference);
+              }
             }
+    
+            currentLine = id + ": " + newPreferences.join(", ");
+    
+    
+            currentLine += "\n";
+            preferenceString += currentLine;
           }
-  
-          currentLine = id + ": " + newPreferences.join(", ");
-  
-  
-          currentLine += "\n";
-          preferenceString += currentLine;
+    
+          counter++;
+    
         }
-  
-        counter++;
-  
       }
     }
     
@@ -226,11 +232,19 @@ export class EditPreferencesDialogComponent implements OnInit {
           let agentId: string = line.slice(0, line.indexOf(":"));
           let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
           
+          if (agentPreferences.slice().length == 1){
+            agentPreferences = Array<string>(this.numberOfGroup1Agents.value - 1).fill("1")
+          }
+
           newPreferences.set(agentId, agentPreferences.slice());
+
+          console.log(agentPreferences.slice())
 
         }
       }
     }
+
+    
 
     var command = this.playbackService.commandList[this.playbackService.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
@@ -265,6 +279,12 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     let newPreferences: Map<string, Array<string>> = new Map();
     this.missingPreferences = [];
+
+
+    // dont check for SR
+    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem"){
+      return;
+    }
 
     for (let line of preferenceString.split("\n")) {
       if (this.checkIfPreference(line)) {

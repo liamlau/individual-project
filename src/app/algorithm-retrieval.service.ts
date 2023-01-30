@@ -161,7 +161,7 @@ export class AlgorithmRetrievalService {
       "smp-room-irv", {
         id: "smp-room-irv",
         name: "Stable Roommates Problem",
-        orientation: ["Person"],
+        orientation: ["Person", "Person"],
         equalGroups: true,
         algorithm: "Stable Roommates - Irving's Algorithm",
         service: this.StableRoomIrvService,

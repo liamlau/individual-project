@@ -117,7 +117,7 @@ export abstract class MatchingAlgorithm {
     }
 
     populatePreferences(preferences: Map<String, Array<String>>): void {
-        // console.log(preferences);
+        // console.log("preferences", preferences);
         let tempCopyList: Agent[];
 
         for (let agent of Array.from(this.group1Agents.keys())) {
@@ -164,7 +164,6 @@ export abstract class MatchingAlgorithm {
 
         for (let agent of Array.from(agents.values())) {
             let preferenceList = [];
-            
             for (let match of agent.ranking) {
                 preferenceList.push(match.name.slice(match.name.length - 1));
             }
@@ -402,6 +401,7 @@ export abstract class MatchingAlgorithm {
         } else {
             this.generatePreferences();
         }
+
 
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
         this.originalGroup1CurrentPreferences = this.getGroupRankings(this.group1Agents);

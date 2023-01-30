@@ -33,8 +33,6 @@ export class StableRoomIrvService extends StableRoomMates {
 
       this.freeAgentsOfGroup1.push(group1AgentName);
 
-      
-
   }
 
   // fill data structures for group2 - Other - might not be used
