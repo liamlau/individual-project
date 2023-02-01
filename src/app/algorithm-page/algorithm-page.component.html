@@ -17,15 +17,27 @@
     <span style="color: white; font-size: 0.98rem; font-weight: 350;">{{ this.algorithmService.currentAlgorithm.name }} / {{ this.algorithmService.currentAlgorithm.algorithm }} / {{ this.algorithmService.currentAlgorithm.orientation[0] }}-Oriented</span>
   </div>
 
+  
+
   <div class="col-3 text-right">
+
+    <div class="col" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Roommates Problem'">
+      
+      <span style="color: white; font-size: 0.98rem; font-weight: 350;">{{ this.SRstableText }}</span>
+    </div>
+
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="New" mat-button (click)="this.ChangeStableSR()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
+
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Stop Tutorial" *ngIf="this.tutorialStep != 0" (click)="this.stopTutorial()">cancel</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Generate New Random Preferences" (click)="this.generateNewPreferences()" [ngClass]="{'disabled': this.tutorialStep != 0}">refresh</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}" [ngClass]="{'disabled': this.tutorialStep != 0}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.openAnimationGuideDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">info</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: stop this tutorial, generate new preferences, edit preferences, toggle all preferences or only relevant preferences, see an animation guide, or advance the tutorial." data-trigger="manual" matTooltip="{{this.tutorialStep == 0 ? 'Tutorial' : 'Advance Tutorial'}}" (click)="this.nextTutorialStep()" [ngClass]="{'disabled': this.duringAnimation}">{{this.tutorialStep == 0 ? "help_outline" : "arrow_forward_ios"}}</mat-icon>
+    
   </div>
 
+  
 
 </nav>
 

@@ -86,6 +86,10 @@ export class AlgorithmPageComponent implements OnInit {
   algorithm = new FormControl('');
   numPeople: number;
 
+  // where SR is going to generate a stable matching or a unstable matching
+  SRstable: boolean = true;
+  SRstableText: string = "Generating Stable Matchings"
+
 
   // --------------------------------------------------------------------------------- | INIT FUNCTIONS
 
@@ -222,14 +226,25 @@ export class AlgorithmPageComponent implements OnInit {
     a.style.backgroundColor = "";
     a.style.color = "";
 
+
     // animates changing of preferences (fade in/out)
     this.animation.fadeCanvasOut();
     await this.utils.delay(300);
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1; i++) {
       // let agent1Count: number = Math.floor(Math.random() * (9 - 2) + 2);
       // let agent2Count: number = Math.floor(Math.random() * (9 - 2) + 2);
       // this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, agent1Count, agent2Count);
-      this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+
+      console.log(this.algorithmService.currentAlgorithm.name)
+
+      if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+        console.log("yes", this.SRstable)
+        this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, null, this.SRstable);
+
+      } else {
+        this.playback.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents);
+      }
+
     }
     this.animation.fadeCanvasIn();
   }
@@ -277,6 +292,20 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.duringAnimation = false;
 
+  }
+
+  ChangeStableSR(): void {
+    
+    if (this.SRstable == true) {
+      this.SRstable = false
+      this.SRstableText = "Generating Unstable Matchings"
+    } else {
+      this.SRstable = true
+      this.SRstableText = "Generating Stable Matchings"
+
+    }
+
+    console.log("New SR setting", this.SRstable)
   }
 
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CombineLatestSubscriber } from 'rxjs/internal/observable/combineLatest';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { MatchingAlgorithm } from '../../algorithms/abstract-classes/MatchingAlgorithm';
 import { AlgorithmData } from '../../algorithms/interfaces/AlgorithmData';
@@ -21,13 +22,14 @@ export class ExecutionService {
     this.commandList = {};
   }
 
-  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): Object {
+  getExecutionFlow(algorithm: string, numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>, SRstable: boolean = true): Object {
     this.initialise();
     let algorithmService: MatchingAlgorithm = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).service;
     this.commandMap = this.algorithmRetrieval.mapOfAvailableAlgorithms.get(algorithm).helpTextMap;
     // console.log(this.commandMap);
 
-    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents, preferences);
+    console.log("get execution flow", SRstable)
+    let commandList: AlgorithmData = algorithmService.run(numberOfAgents, numberOfGroup2Agents, preferences, SRstable);
 
     commandList.descriptions = this.generateDescriptions(commandList);
 

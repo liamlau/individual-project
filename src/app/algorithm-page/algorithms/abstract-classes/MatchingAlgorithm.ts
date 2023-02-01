@@ -21,6 +21,8 @@ export abstract class MatchingAlgorithm {
         descriptions: new Array()
     };
 
+    SRstable: boolean = true
+
     currentLine: Array<string> = [];
 
     originalGroup1CurrentPreferences: Map<String, Array<String>> = new Map();
@@ -65,6 +67,8 @@ export abstract class MatchingAlgorithm {
         this.numberOfGroup2Agents = numberOfGroup2Agents;
 
         this.stable = false;
+
+        
     }
 
     generateAgents() {
@@ -383,7 +387,7 @@ export abstract class MatchingAlgorithm {
 
     abstract match(): AlgorithmData;
 
-    run(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>): AlgorithmData {
+    run(numberOfAgents: number, numberOfGroup2Agents: number = numberOfAgents, preferences: Map<String, Array<String>>, SRstable: boolean = true): AlgorithmData {
         if (numberOfGroup2Agents != numberOfAgents) {
             this.initialise(numberOfAgents, numberOfGroup2Agents);
         } else {
@@ -393,7 +397,17 @@ export abstract class MatchingAlgorithm {
         if (numberOfGroup2Agents == 0){
             console.log("0 agents in group 2");
         }
+
+        console.log("run", SRstable)
         
+        if (SRstable) {
+            console.log(SRstable, "true")
+            this.SRstable = true
+        } else {
+            console.log(SRstable, "false")
+            this.SRstable = false
+        }
+
         this.generateAgents();
 
         if (preferences) {
@@ -402,6 +416,8 @@ export abstract class MatchingAlgorithm {
             this.generatePreferences();
         }
 
+
+       
 
         this.group1CurrentPreferences = this.getGroupRankings(this.group1Agents);
         this.originalGroup1CurrentPreferences = this.getGroupRankings(this.group1Agents);

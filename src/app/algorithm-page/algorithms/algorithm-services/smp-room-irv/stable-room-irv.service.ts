@@ -284,7 +284,15 @@ export class StableRoomIrvService extends StableRoomMates {
           console.log("NO STABLE MATHCING - empty preferance list")
 
           //end - no stable mathcing
-          this.update(4)
+                    this.update(4)
+
+          // if stable == true then regenerate 
+          if (this.SRstable){
+            console.log("ReRun")
+            this.run(this.numberOfAgents, this.numberOfGroup2Agents, null, this.SRstable)
+          }
+
+         
           return;
         }
 
@@ -515,6 +523,8 @@ export class StableRoomIrvService extends StableRoomMates {
               
               // remove lines going to their new proposal
               this.removeTargetFromArray(this.currentLines, this.personkey[this.getLastCharacter(person_inner.lastProposed.name)])
+              // with lines are green early, without overlapping reds 
+              this.removePersonFromArray(this.currentLines, this.personkey[this.getLastCharacter(person_inner.lastProposed.name)])
 
               // update value in list 
               this.changePreferenceStyle(
@@ -523,7 +533,7 @@ export class StableRoomIrvService extends StableRoomMates {
                 this.originalGroup1CurrentPreferences.get(this.getLastCharacter(person_inner.name)).indexOf(this.getLastCharacter(person_inner.ranking[0].name)), 
                 "green")
 
-              // draw line to new proposal
+              // draw line to new proposal from, to, colour
               let line = [this.getLastCharacter(person_inner.name), this.personkey[this.getLastCharacter(person_inner.lastProposed.name)], "green"]
               this.currentLines.push(line)
 
@@ -585,6 +595,14 @@ export class StableRoomIrvService extends StableRoomMates {
         this.update(18)
 
         console.log("No Stable matching")
+        
+        // if stable == true then regenerate 
+        if (this.SRstable){
+          console.log("ReRun")
+          this.run(this.numberOfAgents, this.numberOfGroup2Agents, null, this.SRstable)
+        }
+
+       
         return;
       }
 
@@ -607,6 +625,11 @@ export class StableRoomIrvService extends StableRoomMates {
         this.getLastCharacter(person_inner.name), 
         this.originalGroup1CurrentPreferences.get(this.getLastCharacter(person_inner.name)).indexOf(this.getLastCharacter(person_inner.ranking[0].name)), 
         "green")
+        
+        this.removePersonFromArray(this.currentLines, this.getLastCharacter(person_inner.name))
+
+        this.removeTargetFromArray(this.currentLines, this.personkey[this.getLastCharacter(person_inner.lastProposed.name)])
+
 
         person_inner.lastProposed = person_inner.ranking.slice(0)[0]
         let line = [this.getLastCharacter(person_inner.name), this.personkey[this.getLastCharacter(person_inner.lastProposed.name)], "green"]
@@ -618,6 +641,11 @@ export class StableRoomIrvService extends StableRoomMates {
 
   this.update(19)
   // console.log("group1agents at end", this.group1Agents, agents_multiple_prefs)
+  
+  // if stable == false then regenerate - until a unstable instance is found  
+  // if (!this.SRstable){
+  //   this.run(this.numberOfAgents, this.numberOfGroup2Agents, null, this.SRstable)
+  // }
 
   return;
 

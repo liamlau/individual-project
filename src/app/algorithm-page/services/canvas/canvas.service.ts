@@ -481,37 +481,43 @@ export class CanvasService {
     this.ctx.beginPath();
     this.ctx.moveTo(this.positions["circle" + line[0]].positionX, this.positions["circle" + line[0]].positionY);
     
-    this.ctx.lineTo(halfX, halfY);
 
+    if (color != "green") {
 
+      this.ctx.lineTo(halfX, halfY);
     
-    if (right) {
+      if (right) {
 
-      newX = halfX + 20 * Math.cos(angle + (3 * Math.PI / 4))
-      newY = halfY + 20 * Math.sin(angle + (3 * Math.PI / 4))
+        newX = halfX + 20 * Math.cos(angle + (3 * Math.PI / 4))
+        newY = halfY + 20 * Math.sin(angle + (3 * Math.PI / 4))
+
+      } else {
+
+        newX = halfX + 20 * Math.cos(angle + (Math.PI / 4))
+        newY = halfY + 20 * Math.sin(angle + (Math.PI / 4))
+      }
+
+      this.ctx.lineTo(newX, newY)
+      this.ctx.lineTo(halfX, halfY);
+
+
+      if (right) {
+
+        newX = halfX + 20 * Math.cos(angle - (3 * Math.PI / 4))
+        newY = halfY + 20 * Math.sin(angle - (3 * Math.PI / 4))
+
+      } else {
+
+        newX = halfX + 20 * Math.cos(angle - (Math.PI / 4))
+        newY = halfY + 20 * Math.sin(angle - (Math.PI / 4))
+      }
+
+      this.ctx.lineTo(newX, newY)
 
     } else {
-
-       newX = halfX + 20 * Math.cos(angle + (Math.PI / 4))
-       newY = halfY + 20 * Math.sin(angle + (Math.PI / 4))
+      this.ctx.lineTo(this.positions["circle" + line[1]].positionX, this.positions["circle" + line[1]].positionY);
     }
-
-    this.ctx.lineTo(newX, newY)
-    this.ctx.lineTo(halfX, halfY);
-
-
-    if (right) {
-
-      newX = halfX + 20 * Math.cos(angle - (3 * Math.PI / 4))
-      newY = halfY + 20 * Math.sin(angle - (3 * Math.PI / 4))
-
-    } else {
-
-       newX = halfX + 20 * Math.cos(angle - (Math.PI / 4))
-       newY = halfY + 20 * Math.sin(angle - (Math.PI / 4))
-    }
-
-    this.ctx.lineTo(newX, newY)
+    
     this.ctx.stroke();
 
     this.ctx.strokeStyle = "#000000";
