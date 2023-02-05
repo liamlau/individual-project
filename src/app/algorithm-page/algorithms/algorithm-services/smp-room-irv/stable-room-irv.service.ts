@@ -232,18 +232,6 @@ export class StableRoomIrvService extends StableRoomMates {
     // Set each person to be free
     this.update(1);
 
-    console.log("--- new info ---")
-    console.log("Matches")
-    for (let [key, person] of free_agents.entries()){
-      let x = [];
-      for (let p of person.ranking){
-        x.push(p.name)
-      }
-      console.log(x)
-    }
-
-    
-
 
     let last_person = null
     let last_pref = null
@@ -443,10 +431,10 @@ export class StableRoomIrvService extends StableRoomMates {
 
       let rotation_pairs = []
 
-      console.log("Checking poeple left", agents_multiple_prefs)        
+      // console.log("Checking poeple left", agents_multiple_prefs)        
 
-      console.log(person.name)
-      console.log(person.ranking)
+      // console.log(person.name)
+      // console.log(person.ranking)
 
       let starting_agent = person                               // starting person
       let second_pref = person.ranking[1]                       //the starting persons second prefered person

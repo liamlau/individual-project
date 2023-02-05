@@ -253,7 +253,7 @@ Coding, Finished SR
 (7hr) - Coding, SR Viz, small issues
 
 ### 5th Feb
-(4hr) - Work Log Refinement, Coding
+(4hr) - Work Log Refinement, Coding, Deployment 
 
 <hr>
 

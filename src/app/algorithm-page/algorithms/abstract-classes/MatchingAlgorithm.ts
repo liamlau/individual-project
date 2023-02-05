@@ -397,9 +397,7 @@ export abstract class MatchingAlgorithm {
         if (numberOfGroup2Agents == 0){
             console.log("0 agents in group 2");
         }
-
-        console.log("run", SRstable)
-        
+                
         if (SRstable) {
             console.log(SRstable, "true")
             this.SRstable = true
