@@ -353,13 +353,9 @@ export class StableRoomIrvService extends StableRoomMates {
   ////// PAHSE 2
   
   // while there are agents that have more than 1 person in their prefrance list 
-
   let finished_people = []
 
   while (agents_multiple_prefs.size > 0) {
-    // console.log("There is agents with multiple prefs")
-    // console.log(agents_multiple_prefs)
-    
 
     //loop through those^ agents
     for (let [key, person] of agents_multiple_prefs.entries()){
@@ -371,11 +367,6 @@ export class StableRoomIrvService extends StableRoomMates {
       this.update(12, {"%person%" : person.name})
 
       let rotation_pairs = []
-
-      // console.log("Checking poeple left", agents_multiple_prefs)        
-
-      // console.log(person.name)
-      // console.log(person.ranking)
 
       let starting_agent = person                               // starting person
       let second_pref = person.ranking[1]                       //the starting persons second prefered person
@@ -397,12 +388,6 @@ export class StableRoomIrvService extends StableRoomMates {
         if (counter > agents_multiple_prefs.size){
           break;
         }
-
-        // console.log("HERE")
-        // console.log(second_pref)
-        // console.log(last_pref)
-
-        // console.log("last_pref", last_pref)
 
         if (agents_multiple_prefs.get(last_pref.name) == null){
           break;
@@ -444,13 +429,6 @@ export class StableRoomIrvService extends StableRoomMates {
               // remove lines starting from person_inner
               this.removePersonFromArray(this.currentLines, this.getLastCharacter(person_inner.name))
 
-              // this.free(person_inner.lastProposed.name)
-
-              // HERE ^^^ WORKIGN ON UPDATEING FREE LIST IN PHASE 2 - ISSUE: DONT KNOW WHO GETS UNASSIGNED WHEN SOMEONE IS SET TO FREE, COULD LOOP AND CHECK ALL, 
-
-              // add the 
-              // this.freeAgentsOfGroup1.push(person_inner.lastProposed.name)
-
               // let person_inner propose to their last remaining person
               person_inner.lastProposed = person_inner.ranking.slice(0)[0]
               
@@ -472,26 +450,17 @@ export class StableRoomIrvService extends StableRoomMates {
 
               // add person to finished person list 
               finished_people.push(person)
-
-
             }
-    
           }
 
         } else {
-          // everything deleted 
-          // update 
-         
+          // everything deleted  
           break;
         }
-
       }
-
 
       // conditions to end if stable matching is found 
       agents_multiple_prefs = this.check_pref_count()
-      // console.log("checking number of agents with multiple preferances")
-      // console.log(agents_multiple_prefs)
 
       if (agents_multiple_prefs.size < 1) {
         break;
@@ -505,12 +474,8 @@ export class StableRoomIrvService extends StableRoomMates {
 
         if (person_inner.ranking.length == 1){
 
-         
-
           person_inner.lastProposed = person_inner.ranking.slice(0)[0]
           let line = [this.getLastCharacter(person_inner.name), this.personkey[this.getLastCharacter(person_inner.lastProposed.name)], "green"]
-          // let line = ["1", "B", "green"]
-          // this.currentLines.push(line)
 
           // person b := last preferance
           this.update(16, {"%person%" : person_inner.name, "%preferance%" : person_inner.lastProposed.name})
@@ -538,10 +503,8 @@ export class StableRoomIrvService extends StableRoomMates {
        
         return;
       }
-
       // needed to rest the for loop for the new values within the many_pref_list
       // this list is updated to remove people that no longer have many preferances 
-      // ^ 
       break;
 
     }
@@ -573,16 +536,7 @@ export class StableRoomIrvService extends StableRoomMates {
   }
 
   this.update(19)
-  // console.log("group1agents at end", this.group1Agents, agents_multiple_prefs)
-  
-  // if stable == false then regenerate - until a unstable instance is found  
-  // if (!this.SRstable){
-  //   this.run(this.numberOfAgents, this.numberOfGroup2Agents, null, this.SRstable)
-  // }
-
   return;
 
   }
 }
-
-//end text + viz not quite right, text not mathcing with viz but still is with what is happening 
