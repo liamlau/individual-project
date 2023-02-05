@@ -31,7 +31,7 @@ describe('StableRoomIrvService', () => {
       if (!service.stable) {
         stable = false;
       }
-      console.log(service.stable)
+      // console.log(service.stable)
 
     }
 

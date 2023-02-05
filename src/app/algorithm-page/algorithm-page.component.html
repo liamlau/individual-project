@@ -21,14 +21,17 @@
 
   <div class="col-3 text-right">
 
+    <!-- If stable roommates then show these  -->
     <div class="col" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Roommates Problem'">
-      
       <span style="color: white; font-size: 0.98rem; font-weight: 350;">{{ this.SRstableText }}</span>
     </div>
 
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="New" mat-button (click)="this.ChangeStableSR()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
 
-    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Stop Tutorial" *ngIf="this.tutorialStep != 0" (click)="this.stopTutorial()">cancel</mat-icon>
+    <div *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Roommates Problem'">
+      <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Stable/Unstable" mat-button (click)="this.ChangeStableSR()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
+    </div>
+
+    <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Stop Tutorial" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Roommates Problem'" (click)="this.stopTutorial()">cancel</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Generate New Random Preferences" (click)="this.generateNewPreferences()" [ngClass]="{'disabled': this.tutorialStep != 0}">refresh</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Edit Preferences" mat-button (click)="this.openEditPreferencesDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">edit</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-4" (click)="this.drawService.alwaysShowPreferences = !this.drawService.alwaysShowPreferences; this.drawService.redrawCanvas(); $event.stopImmediatePropagation()" matTooltip="{{this.drawService.alwaysShowPreferences ? 'Show All Preferences' : 'Only Show Relevant Preferences'}}" [ngClass]="{'disabled': this.tutorialStep != 0}">{{this.drawService.alwaysShowPreferences ? "visibility_off" : "visibility"}}</mat-icon>
