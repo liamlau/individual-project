@@ -13,7 +13,7 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
 
     generatePreferences(): void {
 
-        console.log("Gen Pref", this.SRstable)
+        // console.log("Gen Pref", this.SRstable)
         
 
         let data2 = [["2","4","6","3","5"],
@@ -91,7 +91,7 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
        
         // generate a random SR instance 
         if (this.SRstable) {
-            console.log("Generating Stable")
+            // console.log("Generating Stable")
 
             for (let agent of Array.from(this.group1Agents.values())) {
             let agent1Rankings = Array.from((new Map(this.group1Agents)).values());
@@ -107,7 +107,7 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
 
         // pick a non-stable instance 
         } else {
-            console.log("Generating UnStable")
+            // console.log("Generating UnStable")
 
             if (this.numberOfAgents == 2){
                 this.SRstable = true
