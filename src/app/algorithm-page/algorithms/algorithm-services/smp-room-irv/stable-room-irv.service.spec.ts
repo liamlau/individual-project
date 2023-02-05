@@ -17,10 +17,11 @@ describe('StableRoomIrvService', () => {
   // added test from smp
 
   // tests dont work cause there is no pref generation - fixed at 6 - this tried to make different sizes 
-  it("test correctness x 10 (smp-room-irv)", () => {
+  it("test correctness x 100 (smp-room-irv)", () => {
     let stable: boolean = true;
     for (let i = 0; i < 10; i++) {
       let agentCount: number = Math.floor(Math.random() * (9 - 2) + 2);
+      console.log(agentCount)
       service.run(agentCount, agentCount, undefined);
       if (!service.stable) {
         stable = false;
@@ -30,6 +31,7 @@ describe('StableRoomIrvService', () => {
     }
 
     expect(stable).toBeTrue();
+    console.log("SR Tests Done")
   })
 
 });
