@@ -21,6 +21,8 @@ describe('StableRoomIrvService', () => {
     let stable: boolean = true;
     for (let i = 0; i < 10; i++) {
       let agentCount: number = Math.floor(Math.random() * (9 - 2) + 2);
+      let array = [2,4,6,8]
+      // let agentCount: number = array[Math.floor(Math.random() * array.length)];
       console.log(agentCount)
       service.run(agentCount, agentCount, undefined);
       if (!service.stable) {
