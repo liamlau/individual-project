@@ -399,10 +399,8 @@ export abstract class MatchingAlgorithm {
         }
                 
         if (SRstable) {
-            console.log(SRstable, "true")
             this.SRstable = true
         } else {
-            console.log(SRstable, "false")
             this.SRstable = false
         }
 
