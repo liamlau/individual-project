@@ -404,6 +404,10 @@ export class StableRoomIrvService extends StableRoomMates {
 
         // console.log("last_pref", last_pref)
 
+        if (agents_multiple_prefs.get(last_pref.name) == null){
+          break;
+        }
+
         second_pref = agents_multiple_prefs.get(last_pref.name).ranking[1]    // update to be second pref of last_pref
         last_pref = second_pref.ranking.slice(-1)[0]                          // update like above with new second_pref
 
