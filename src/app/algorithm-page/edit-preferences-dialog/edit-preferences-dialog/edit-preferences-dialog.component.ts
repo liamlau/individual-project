@@ -42,6 +42,11 @@ export class EditPreferencesDialogComponent implements OnInit {
   formString: string;
   missingPreferences: Array<Array<string>>;
 
+
+  testString = ["0asd","0","0","0","0","0","0","0","0","0"];
+  size = [1,2,3,4]
+  preferenceText = []
+
   valid: boolean = true;
 
   @HostListener('document:keydown.enter') 
@@ -52,8 +57,13 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    console.log("before" ,this.group1Preferences)
+
     this.group1Preferences = this.playbackService.commandList[0]["group1CurrentPreferences"];
     this.group2Preferences = this.playbackService.commandList[0]["group2CurrentPreferences"];
+
+    console.log("after", this.group1Preferences)
 
     this.preferencesForm = new FormControl(this.preferences);
 
@@ -61,12 +71,51 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.equalGroups = true;
     }
 
+    // this.generatePreferenceStringOld();
     this.generatePreferenceString();
-    // console.log(this.formString)
+
+    // console.log("formString", this.group1Preferences.keys())
+
+  }
+
+  generatePreferenceStringNew(): void {
+
+    this.preferenceText = []
+
+    console.log("____________________________")
+    console.log(this.group1Preferences)
+
+    this.missingPreferences = [];
+
+    if (this.equalGroups) {
+      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+    }
+
+    // does current preference 
+    for (let agent of this.group1Preferences.values()) {
+      this.preferenceText.push(agent)
+      // console.log("agent", agent)
+    }
+
+    for (let i = this.algorithmService.numberOfGroup1Agents ; i <= this.numberOfGroup1Agents.value - 1; i++) {
+      for (let index = 0 ; index < this.preferenceText.length ; index++) {
+        this.preferenceText[index][i] = String(i + 1)
+      }
+    }
+
+ 
+
+    console.log(this.group1Preferences, this.preferenceText)
 
   }
 
   generatePreferenceString(): void {
+
+    console.log("here", this.group1Preferences)
+    console.log("value", this.numberOfGroup1Agents.value)
+    console.log("preferenceList", this.preferenceText)
+
+    this.preferenceText = []
 
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
     let currentLine: string = "";
@@ -81,6 +130,8 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     if (this.algorithmService.numberOfGroup1Agents < this.numberOfGroup1Agents.value || this.algorithmService.numberOfGroup2Agents < this.numberOfGroup2Agents.value) {
 
+      // if value has been changed
+
       let numbersToAdd: Array<string> = [];
       let lettersToAdd: Array<string> = [];
 
@@ -91,6 +142,11 @@ export class EditPreferencesDialogComponent implements OnInit {
       for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
         numbersToAdd.push(String(i));
       }
+
+
+      // deals with old prefs 
+
+      // this.group1Preferences - old prefs 
 
       for (let agent of this.group1Preferences) {
         if (Number(agent[0]) <= this.numberOfGroup1Agents.value) {
@@ -104,8 +160,12 @@ export class EditPreferencesDialogComponent implements OnInit {
     
           currentLine += "\n";
           preferenceString += currentLine;
+
+          // this.preferenceText.push(agent[1])
         }
       }
+
+      // deals with new prefs
 
       for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
         let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd).filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value);
@@ -113,7 +173,40 @@ export class EditPreferencesDialogComponent implements OnInit {
         currentLine = i + ": " + newPreferences.join(", ");
         currentLine += "\n";
         preferenceString += currentLine;
+
+        // this.preferenceText.push(["A", "B", "C"])
       }
+    
+    ///////////////////////// addes everything to new text to show in boxes 
+
+      // read what is already there
+
+      for (let agent of this.group1Preferences) {
+
+        let agentCopy = Object.assign([], agent[1])
+        console.log("copy", agentCopy)
+        this.preferenceText.push(agentCopy)
+      }
+
+      for (let i = this.algorithmService.numberOfGroup1Agents; i <= this.numberOfGroup1Agents.value - 1; i++){
+        let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd).filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value);
+        this.shuffle(newPreferences);
+
+        console.log(newPreferences)
+
+        this.preferenceText.push(newPreferences)
+      }
+
+
+      // adds new to end of all 
+      for (let index = 0 ; index < this.group1Preferences.size ; index++) {
+        console.log(lettersToAdd)
+        this.preferenceText[index] = this.preferenceText[index].concat(lettersToAdd)
+      }
+
+      /////////////////////////
+
+
 
       preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
 
@@ -143,6 +236,9 @@ export class EditPreferencesDialogComponent implements OnInit {
       }
 
     } else {
+
+      // if value has not been changed
+
       for (let agent of this.group1Preferences) {
         currentLine = "";
   
@@ -212,6 +308,10 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
   generateAlgorithmPreferences(): void {
+
+    console.log("--------------------------")
+    console.log(this.testString)
+
     let preferenceString: string = this.formString;
 
     console.log("---");
@@ -276,6 +376,10 @@ export class EditPreferencesDialogComponent implements OnInit {
 
 
   generateMissingPreferences(preferenceString) {
+
+
+    console.log("---------------------")
+    console.log(preferenceString)
 
     let newPreferences: Map<string, Array<string>> = new Map();
     this.missingPreferences = [];

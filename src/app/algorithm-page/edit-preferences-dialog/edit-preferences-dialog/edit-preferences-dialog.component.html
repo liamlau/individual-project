@@ -1,6 +1,8 @@
 <div style="min-width: 300px">
     <h1>Edit Preferences</h1>
 
+    <!-- heading -->
+
     <p>
       Click on the number below and use arrow keys to change the number of {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
       <br><br>
@@ -8,6 +10,8 @@
       <br>
       <{{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}}/{{this.algorithmService.currentAlgorithm.orientation[1].toLowerCase()}} number>: &lt;preferences separated by commas>
     </p>
+
+    <!-- input size -->
 
     <form class="example-form pl-3">
       <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Marriage Problem'">
@@ -62,6 +66,9 @@
   
     </form>
 
+
+    <!-- input values -->
+
     <h2 class="mt-2">Input New Preferences</h2>
 
     <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
@@ -74,10 +81,40 @@
       <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
     </span>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12 text-right">
             <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)">Generate!</button>
         </div>
+    </div> -->
+
+
+    <!-- NEW  -->
+
+
+    <div>
+      <p> {{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}} </p>
+      <p> {{this.group1Preferences}} </p>
+      <br>
+
+          <div *ngFor="let item of this.preferenceText; let i = index;">
+            <div>
+
+              
+              {{ i + 1 }}
+
+              <input type="text" [(ngModel)]="this.preferenceText[i]" placeholder="5" value="this.preferenceText[i]" (ngModelChange)="this.generateMissingPreferences($event)">
+
+            </div>
+          </div>
+
+
     </div>
+
+    <div class="row">
+      <div class="col-12 text-right">
+          <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)">Generate!</button>
+      </div>
+    </div>
+
 
 </div>
