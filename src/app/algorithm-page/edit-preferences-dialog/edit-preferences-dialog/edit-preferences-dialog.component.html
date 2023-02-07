@@ -96,13 +96,13 @@
       <p> {{this.group1Preferences}} </p>
       <br>
 
-          <div *ngFor="let item of this.preferenceText; let i = index;">
+          <div *ngFor="let item of this.preferenceText; let i = index; trackBy: trackByFn">
             <div>
 
               
               {{ i + 1 }}
 
-              <input type="text" [(ngModel)]="this.preferenceText[i]" placeholder="5" value="this.preferenceText[i]" (ngModelChange)="this.generateMissingPreferences($event)">
+              <input id="{{i}}" type="text" [(ngModel)]="this.preferenceText[i]" value="this.preferenceText[i]" (ngModelchange)="this.generateMissingPreferences($event)">
 
             </div>
           </div>
@@ -112,7 +112,8 @@
 
     <div class="row">
       <div class="col-12 text-right">
-          <button mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)">Generate!</button>
+        <!-- [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)" -->
+          <button  mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.generateAlgorithmPreferences()" >Generate!</button>
       </div>
     </div>
 
