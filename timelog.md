@@ -254,6 +254,13 @@ Coding, Finished SR
 ### 5th Feb
 (4hr) - Work Log Refinement, Coding, Deployment 
 
+### 6th Feb 
+(6Hr) - Designing new preference input/coding
+
+### 7th Feb 
+(5Hr) - Designing new preference input/coding
+
+
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->

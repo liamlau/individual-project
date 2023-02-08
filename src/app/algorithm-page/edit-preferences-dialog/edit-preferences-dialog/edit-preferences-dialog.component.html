@@ -71,7 +71,7 @@
 
     <h2 class="mt-2">Input New Preferences</h2>
 
-    <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
+    <!-- <mat-form-field class="example-full-width" style="width: 100%; height:fit-content">
         <mat-label>Enter your custom preferences here (separated by commas)!</mat-label>
         <textarea matInput placeholder="1: A, B, C, D, E" [(ngModel)]="this.formString" cdkTextareaAutosize #autosize="cdkTextareaAutosize" style="overflow: hidden;" value="{{ this.formString }}" (ngModelChange)="this.generateMissingPreferences($event)"></textarea>
     </mat-form-field>
@@ -79,7 +79,7 @@
     <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
     <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
       <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
-    </span>
+    </span> -->
 
     <!-- <div class="row">
         <div class="col-12 text-right">
@@ -91,31 +91,48 @@
     <!-- NEW  -->
 
 
-    <div>
-      <p> {{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}} </p>
-      <p> {{this.group1Preferences}} </p>
-      <br>
 
-          <div *ngFor="let item of this.preferenceText; let i = index; trackBy: trackByFn">
-            <div>
-
-              
-              {{ i + 1 }}
-
-              <input id="{{i}}" type="text" [(ngModel)]="this.preferenceText[i]" value="this.preferenceText[i]" (ngModelchange)="this.generateMissingPreferences($event)">
-
+    <div class="parent">
+      <!-- group 1 -->
+      <div class="child">
+        <p> {{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}} </p>
+        <br>
+            <div *ngFor="let item of this.preferenceTextGroup1; let i = index; trackBy: trackByFn">
+              <div class="parent">
+                <p class="child">{{ i + 1 }} yoyo</p>
+                <input class="child" type="text" [(ngModel)]="this.preferenceTextGroup1[i]" value="this.preferenceTextGroup1[i]" (ngModelchange)="this.generateMissingPreferences($event)">
+                
+              </div>
             </div>
-          </div>
+      </div>
 
-
+      <!-- group 2 -->
+      <div class="child">
+        <p> {{this.algorithmService.currentAlgorithm.orientation[1].toLowerCase()}} </p>
+        <br>
+            <div *ngFor="let item of this.preferenceTextGroup2; let i = index; trackBy: trackByFn">
+              <div class="parent">
+                <p class="child">{{ i + 1 }}</p>
+                <input class="child" type="text" [(ngModel)]="this.preferenceTextGroup2[i]" value="this.preferenceTextGroup2[i]" (ngModelchange)="this.generateMissingPreferences($event)">
+             
+              </div>
+            </div>
+      </div>
     </div>
+
+
+    <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
+    <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+      <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
+    </span>
 
     <div class="row">
       <div class="col-12 text-right">
         <!-- [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)" -->
-          <button  mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.generateAlgorithmPreferences()" >Generate!</button>
+          <button  mat-stroked-button (click)="generateAlgorithmPreferences()" [disabled]="this.currentInputCheck()" >Generate!</button>
       </div>
     </div>
 
 
 </div>
+

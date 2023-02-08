@@ -2,6 +2,7 @@ import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Agent } from 'http';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
 import { CanvasService } from '../../services/canvas/canvas.service';
@@ -43,9 +44,10 @@ export class EditPreferencesDialogComponent implements OnInit {
   missingPreferences: Array<Array<string>>;
 
 
-  testString = ["0asd","0","0","0","0","0","0","0","0","0"];
-  size = [1,2,3,4]
-  preferenceText = []
+  numToString = {1 : "A", 2 : "B", 3 : "C", 4 : "D"}
+
+  preferenceTextGroup1 = []
+  preferenceTextGroup2 = []
 
   valid: boolean = true;
 
@@ -54,6 +56,14 @@ export class EditPreferencesDialogComponent implements OnInit {
     if (!(this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)) {
       this.generateAlgorithmPreferences();
     }
+  }
+
+  test(id) {
+    let a = document.getElementById("lbl").innerHTML
+    document.getElementById("lbl").innerHTML = "newlbl"
+
+    console.log("id", a)
+    return "hi"
   }
 
   ngOnInit(): void {
@@ -78,49 +88,17 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   }
 
-  generatePreferenceStringNew(): void {
-
-    this.preferenceText = []
-
-    console.log("____________________________")
-    console.log(this.group1Preferences)
-
-    this.missingPreferences = [];
-
-    if (this.equalGroups) {
-      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
-    }
-
-    // does current preference 
-    for (let agent of this.group1Preferences.values()) {
-      this.preferenceText.push(agent)
-      // console.log("agent", agent)
-    }
-
-    for (let i = this.algorithmService.numberOfGroup1Agents ; i <= this.numberOfGroup1Agents.value - 1; i++) {
-      for (let index = 0 ; index < this.preferenceText.length ; index++) {
-        this.preferenceText[index][i] = String(i + 1)
-      }
-    }
-
- 
-
-    console.log(this.group1Preferences, this.preferenceText)
-
-  }
 
   generatePreferenceString(): void {
 
     console.log("here", this.group1Preferences)
     console.log("value", this.numberOfGroup1Agents.value)
-    console.log("preferenceList", this.preferenceText)
+    console.log("preferenceList", this.preferenceTextGroup1)
 
-    this.preferenceText = []
+    this.preferenceTextGroup1 = []
+    this.preferenceTextGroup2 = []
 
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
-    let currentLine: string = "";
-
-    let counter: number = 0;
 
     this.missingPreferences = [];
 
@@ -128,12 +106,11 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
     }
 
-
-
-
     if (this.algorithmService.numberOfGroup1Agents < this.numberOfGroup1Agents.value || this.algorithmService.numberOfGroup2Agents < this.numberOfGroup2Agents.value) {
 
       // if value has been changed
+
+      console.log("value chnaged")
 
       let numbersToAdd: Array<string> = [];
       let lettersToAdd: Array<string> = [];
@@ -146,108 +123,89 @@ export class EditPreferencesDialogComponent implements OnInit {
         numbersToAdd.push(String(i));
       }
 
+      // ADDS TEXT TO TEXT BOXES
 
-    ///////////////////////// addes everything to new text to show in boxes - group 1
-
-      // read what is already there
-
+      // GROUP 1 //
+      // addes pre-generated rankings
       for (let agent of this.group1Preferences) {
 
         let agentCopy = Object.assign([], agent[1])
-        console.log("copy", agentCopy)
-        this.preferenceText.push(agentCopy)
+        this.preferenceTextGroup1.push(agentCopy)
       }
-
+      // adds new rankings to end of pre-generated rankings
+      for (let index = 0 ; index < this.group1Preferences.size ; index++) {
+       
+        this.preferenceTextGroup1[index] = this.preferenceTextGroup1[index].concat(lettersToAdd)
+      }
+      // adds new rankings
       for (let i = this.algorithmService.numberOfGroup1Agents; i <= this.numberOfGroup1Agents.value - 1; i++){
+        
         let newPreferences = Array.from(this.group1Preferences.values())[0].concat(lettersToAdd).filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value);
         this.shuffle(newPreferences);
+        this.preferenceTextGroup1.push(newPreferences)
+      }
 
-        console.log(newPreferences)
+      // GROUP 2 //
+      // addes pre-generated rankings
+      for (let agent of this.group2Preferences) {
 
-        this.preferenceText.push(newPreferences)
+        let agentCopy = Object.assign([], agent[1])
+        this.preferenceTextGroup2.push(agentCopy)
+      }
+      // adds new rankings to end of pre-generated rankings
+      for (let index = 0 ; index < this.group2Preferences.size ; index++) {
+
+        this.preferenceTextGroup2[index] = this.preferenceTextGroup2[index].concat(numbersToAdd)
+      }
+      // adds new rankings
+      for (let i = this.algorithmService.numberOfGroup2Agents; i <= this.numberOfGroup2Agents.value - 1; i++){
+       
+        let newPreferences = Array.from(this.group2Preferences.values())[0].concat(numbersToAdd).filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value);
+        this.shuffle(newPreferences);
+        this.preferenceTextGroup2.push(newPreferences)
       }
 
 
-      // adds new to end of all 
-      for (let index = 0 ; index < this.group1Preferences.size ; index++) {
-        console.log(lettersToAdd)
-        this.preferenceText[index] = this.preferenceText[index].concat(lettersToAdd)
-      }
-
-      /////////////////////////
-
-
-
-      preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
-
-
-      // for (let agent of this.group2Preferences) {
-      //   if (Number(agent[0].charCodeAt(0) - 64) <= this.numberOfGroup2Agents.value) {
-      //     currentLine = "";
-      //     this.shuffle(numbersToAdd);
-
-      //     let id: string = agent[0];
-      //     let newPreferences: string[] = agent[1].filter(pref => pref <= this.numberOfGroup1Agents.value).concat(numbersToAdd);
-
-      //     currentLine = id + ": " + newPreferences.join(", ");
-    
-      //     currentLine += "\n";
-      //     preferenceString += currentLine;
-      //   }
-      // }
-
-      // // console.log(this.numberOfGroup2Agents.value);
-      // for (let i = this.algorithmService.numberOfGroup2Agents + 1; i <= this.numberOfGroup2Agents.value; i++) {
-      //   let newPreferences = (Array.from(this.group2Preferences.values())[0].concat(numbersToAdd)).filter(pref => pref <= this.numberOfGroup1Agents.value);
-      //   this.shuffle(newPreferences);
-      //   currentLine = String.fromCharCode(i + 64) + ": " + newPreferences.join(", ");
-      //   currentLine += "\n";
-      //   preferenceString += currentLine;
-      // }
 
     } else {
+      // ADDS TEXT TO THE TEXT BOXES - if value has not been changed or is lower 
 
-      // if value has not been changed
-
-      // for (let agent of this.group1Preferences) {
-      //   currentLine = "";
-  
-      //   if (counter < this.numberOfGroup1Agents.value) {
-      //     let id: string = agent[0];
-      //     let currentPreferences: string[] = agent[1];
-  
-      //     let newPreferences: string[] = [];
-  
-      //     for (let preference of currentPreferences) {
-      //       if (preference.charCodeAt(0) - 65 < this.numberOfGroup2Agents.value) {
-      //         newPreferences.push(preference);
-      //       }
-      //     }
-    
-      //     currentLine = id + ": " + newPreferences.join(", ");
-  
-      //     currentLine += "\n";
-      //     preferenceString += currentLine;
-      //   }
-  
-      //   counter++;
-
-      // }
-
+      // GROUP 1 //
       let counter = 0;
-
+      // for each ranking 
       for (let agent of this.group1Preferences) {
 
-        if (counter < this.numberOfGroup1Agents.value){
-          let agentCopy = Object.assign([], agent[1].sort())
-
-          agentCopy = agentCopy.slice(0, this.numberOfGroup1Agents.value)
-          this.shuffle(agentCopy)
-
-          this.preferenceText.push(agentCopy)
+        // stop adding rankings if the number added is equal to the number needed 
+        if (counter >= this.numberOfGroup1Agents.value) {
+          break;
         }
-        counter++;
+        // filter out values in the ranking which are too large 
+        let agentCopy = Object.assign([], agent[1]) //.sort()
+        let safe_values = agentCopy.filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value)
+        // add rankning 
+        this.preferenceTextGroup1.push(safe_values)
+        counter++
+        }
+
+      // GROUP 2 //
+      counter = 0;
+      // for each ranking 
+      for (let agent of this.group2Preferences) {
+
+        // stop adding rankings if the number added is equal to the number needed 
+        if (counter >= this.numberOfGroup2Agents.value) {
+          break;
+        }
+        // filter out values in the ranking which are too large 
+        let agentCopy = Object.assign([], agent[1]) //.sort()
+        let safe_values = agentCopy.filter(pref => pref <= this.numberOfGroup1Agents.value)
+        // add rankning 
+        this.preferenceTextGroup2.push(safe_values)
+        counter++
+        }
       }
+        
+      
   
       // console.log(this.algorithmService, "name here")
 
@@ -286,92 +244,107 @@ export class EditPreferencesDialogComponent implements OnInit {
     
     //     }
     //   }
-    }
+    
     
     this.formString = preferenceString.slice(0, -1);
 
   }
 
-  generateAlgorithmPreferences(): boolean {
-    
-
-     // ISSUE - PREFERANCE TEXT IS BEING FORMATED THEN THE VALUE IN THE TEXT BOX IS BEING SET TO PREFERANCE TEXT
-     // USE DIFFERENT VAR HERE TO THEN UPDATE PREFERANCE TEXT WHEN APPROPRITE 
+  currentInputCheck(): boolean {
 
     console.log("--------------------------")
-    console.log(this.preferenceText)
+    console.log(this.preferenceTextGroup1)
 
-    for (let index = 0 ; index < this.preferenceText.length ; index++) {
-      if (typeof this.preferenceText[index] != typeof []) {
-        let arr = this.preferenceText[index].split(",")
+    // CREATES ARRAYS FROM THE STRING
+    // GROUP 1 
+    for (let index = 0 ; index < this.preferenceTextGroup1.length ; index++) {
+      // if input is new/a string - split by comma 
+      if (typeof this.preferenceTextGroup1[index] != typeof []) {
 
-        console.log("before white space", arr)
-
-
-        arr = arr.filter(function(str) {
-          return /\S/.test(str);
-        });
-
-        console.log("after white space", arr)
-        
-        console.log(arr)
-        this.preferenceText[index] = arr
-
+        let arr = this.preferenceTextGroup1[index].split(",")
+        this.preferenceTextGroup1[index] = arr
       }
     }
-    console.log("After")
-    console.log(this.preferenceText)
 
+    // GROUP 2
+    for (let index = 0 ; index < this.preferenceTextGroup2.length ; index++) {
+      // if input is new/a string - split by comma 
+      if (typeof this.preferenceTextGroup2[index] != typeof []) {
+
+        let arr = this.preferenceTextGroup2[index].split(",")
+        this.preferenceTextGroup2[index] = arr
+      }
+    }
+
+   
     //// VALIDATION 
 
     /// button is only clickable if this function returns false, if true is returned then button not clickable 
-
     let valid = true 
-
     valid = this.isValid()
-
-    
+    console.log(valid)
 
     return !valid
 
-    //// UPDATE REAL PREFERANCES 
+  }
 
+  generateAlgorithmPreferences(): void {
+    
+      //// UPDATE REAL PREFERANCES 
 
+    console.log("updatating real prefs")
 
-
+  
     let preferenceString: string = this.formString;
 
     console.log("---");
     console.log(preferenceString);
 
+    // fill out new preferences 
     let newPreferences: Map<String, Array<String>> = new Map();
 
-    console.log(preferenceString.split("\n"));
+    // console.log(preferenceString.split("\n"));
 
-    for (let line of preferenceString.split("\n")) {
-      if (this.checkIfPreference(line)) {
-        if (this.checkValidity) {
-          line = line.replace(/:\s+,/g, ':');
-          line = line.replace(/,\s+,/g, ',');
-          line = line.replace(/, $/g, '');
-          line = line.replace(/,$/g, '');
-          line = line.replace(/\s+/g, '');    // remove whitespace from line from https://stackoverflow.com/questions/24580912/trim-all-white-space-from-string-javascript
-          let agentId: string = line.slice(0, line.indexOf(":"));
-          let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
+    // for (let line of preferenceString.split("\n")) {
+    //   if (this.checkIfPreference(line)) {
+    //     if (this.checkValidity) {
+    //       line = line.replace(/:\s+,/g, ':');
+    //       line = line.replace(/,\s+,/g, ',');
+    //       line = line.replace(/, $/g, '');
+    //       line = line.replace(/,$/g, '');
+    //       line = line.replace(/\s+/g, '');    // remove whitespace from line from https://stackoverflow.com/questions/24580912/trim-all-white-space-from-string-javascript
+    //       let agentId: string = line.slice(0, line.indexOf(":"));
+    //       let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
           
-          if (agentPreferences.slice().length == 1){
-            agentPreferences = Array<string>(this.numberOfGroup1Agents.value - 1).fill("1")
-          }
+    //       if (agentPreferences.slice().length == 1){
+    //         agentPreferences = Array<string>(this.numberOfGroup1Agents.value - 1).fill("1")
+    //       }
 
-          newPreferences.set(agentId, agentPreferences.slice());
+    //       newPreferences.set(agentId, agentPreferences.slice());
 
-          console.log(agentPreferences.slice())
+    //       console.log("here", agentPreferences.slice())
 
-        }
-      }
+    //     }
+    //   }
+    // }
+
+    // GROUP 1
+    let num = 1
+    for (let agent of this.preferenceTextGroup1){
+      newPreferences.set(num.toString(), agent)
+      num++
     }
 
-    
+    //GROUP 2
+    num = 1
+    for (let agent of this.preferenceTextGroup2){
+      newPreferences.set(String.fromCharCode(64 + num), agent)
+      num++
+    }
+
+
+    console.log("new prefs", newPreferences)
+
 
     var command = this.playbackService.commandList[this.playbackService.previousStepCounter];
     let a = document.getElementById("line" + command["lineNumber"]);
@@ -382,13 +355,14 @@ export class EditPreferencesDialogComponent implements OnInit {
     this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
 
     this.canvasService.initialise();
-    // this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
+    this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
 
     this.dialogRef.close();
 
     this._snackBar.open("Preferences changed", "Dismiss", {
       duration: 2000,
     });
+
 
   }
 
@@ -398,35 +372,58 @@ export class EditPreferencesDialogComponent implements OnInit {
     // values that should be in each list 
     // letters 
 
+
     let numbers= []
     let letters = []
+    this.missingPreferences = []
 
+    let lettersValid = true
+    let numbersValid = true
+
+    // Gets all letters/numbers that should be in each preference 
     for (let i = 1; i <= this.numberOfGroup2Agents.value; i++) {
       letters.push(String.fromCharCode(i + 64));
     }
-
     for (let i = 1; i <= this.numberOfGroup1Agents.value; i++) {
       numbers.push(String(i));
     }
 
-    console.log(letters, numbers, "TO ADD")
+    // GROUP 1
+    for (let [key, ranking] of this.preferenceTextGroup1.entries()) {
+      for (let char of letters) {
+        if (!ranking.includes(char)){
+          // letter in ranking that is not supposed to be 
+          lettersValid =  false
 
-    let lettersValid = true
-
-    for (let ranking of this.preferenceText) {
-      if (ranking.sort().toString() != letters.toString() ) {
-        lettersValid = false 
-        console.log("Letters Invalid")
-        return false 
+          //input missing preferences 
+          this.missingPreferences.push([key + 1, char])
+        }
+      }
+      // checks for smae size 
+      if (ranking.length != letters.length) {
+        lettersValid = false
       }
     }
 
-    // numbers 
-    /// mermermerm
+    // GROUP 2
+    for (let [key, ranking] of this.preferenceTextGroup2.entries()) {
+      for (let num of numbers) {
+        if (!ranking.includes(num)){
+          // letter in ranking that is not supposed to be 
+          numbersValid =  false
+
+          //input missing preferences 
+          this.missingPreferences.push([String.fromCharCode(65 + key), num]) //
+        }
+      }
+      // checks for smae size 
+      if (ranking.length != letters.length) {
+        numbersValid = false
+      }
+    }
 
 
-
-    return true 
+    return (lettersValid && numbersValid)
   }
   
   checkIfPreference(str: string): boolean {
