@@ -247,29 +247,28 @@ Coding, Finished SR
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 20 -->
 
-## Week 20 (30 Jan 2021 - 5 Feb 2021) - **7 hours**
+## Week 20 (30 Jan 2021 - 5 Feb 2021) - **11 hours**
 ### 30th Jan 2021 (Mon) - 7 hours
 (7hr) - Coding, SR Viz, small issues
 
 ### 5th Feb
 (4hr) - Work Log Refinement, Coding, Deployment 
 
-### 6th Feb 
-(6Hr) - Designing new preference input/coding
 
-### 7th Feb 
-(5Hr) - Designing new preference input/coding
 
 
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
 
-## Week 21 (6 Feb 2021 - 12 Feb 2021) - **0 hours**
+## Week 21 (6 Feb 2021 - 12 Feb 2021) - **15 hours**
 ### 6th Feb 2023 (Mon) - 5 hours 
 (5Hr) - Coding/Designing New preference input
 
 ### 7th Feb
+(5Hr) - Coding New preference input
+
+### 8th Feb
 (5Hr) - Coding New preference input
 
 

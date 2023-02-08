@@ -44,8 +44,6 @@ export class EditPreferencesDialogComponent implements OnInit {
   missingPreferences: Array<Array<string>>;
 
 
-  numToString = {1 : "A", 2 : "B", 3 : "C", 4 : "D"}
-
   preferenceTextGroup1 = []
   preferenceTextGroup2 = []
 
