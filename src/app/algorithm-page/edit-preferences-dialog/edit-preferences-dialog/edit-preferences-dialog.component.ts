@@ -52,7 +52,7 @@ export class EditPreferencesDialogComponent implements OnInit {
   @HostListener('document:keydown.enter') 
   onEnter() {
     if (!(this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)) {
-      this.generateAlgorithmPreferences();
+      this.callGenerateAlgorithmPreferences();
     }
   }
 
@@ -79,11 +79,36 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.equalGroups = true;
     }
 
-    // this.generatePreferenceStringOld();
-    this.generatePreferenceString();
+    // call function to fill textboxes with current preferences 
+    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+      this.generatePreferenceString1Group()
+    } else {
+      this.generatePreferenceString()
+    }
 
-    // console.log("formString", this.group1Preferences.keys())
+  }
 
+  // calls correct function to generate algoirhtm preferences - based on current alg
+  callGenerateAlgorithmPreferences(): void{
+
+    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+      console.log("input value", this.numberOfGroup1Agents.value)
+      if (this.numberOfGroup1Agents.value % 2 == 0){
+        this.generateAlgorithmPreferences1Group()
+      }
+    } else {
+      this.generateAlgorithmPreferences()
+    }
+  }
+
+  // calls correct function to generate preference string - based on current alg
+  callgeneratePreferenceString(): void{
+
+    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+      this.generatePreferenceString1Group()
+    } else {
+      this.generatePreferenceString()
+    }
   }
 
 
@@ -202,51 +227,101 @@ export class EditPreferencesDialogComponent implements OnInit {
         counter++
         }
       }
-        
-      
-  
-      // console.log(this.algorithmService, "name here")
-
-    //   if (this.algorithmService.currentAlgorithm.name != "Stable Roommates Problem" || true) {
-
-    
-    //     preferenceString += "\n" + this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) + "\n";
-    
-    //     counter = 0;
-    
-
-    
-    //     for (let agent of this.group2Preferences) {
-    //       currentLine = "";
-    
-    //       if (counter < this.numberOfGroup2Agents.value) {
-    //         let id: string = agent[0];
-    //         let currentPreferences: string[] = agent[1];
-    
-    //         let newPreferences: string[] = [];
-    
-    //         for (let preference of currentPreferences) {
-    //           if (Number(preference) <= this.numberOfGroup1Agents.value) {
-    //             newPreferences.push(preference);
-    //           }
-    //         }
-    
-    //         currentLine = id + ": " + newPreferences.join(", ");
-    
-    
-    //         currentLine += "\n";
-    //         preferenceString += currentLine;
-    //       }
-    
-    //       counter++;
-    
-    //     }
-    //   }
-    
-    
-    this.formString = preferenceString.slice(0, -1);
 
   }
+
+
+  generatePreferenceString1Group(): void {
+
+    console.log("here - 1 group", this.group1Preferences)
+    console.log("value", this.numberOfGroup1Agents.value)
+    console.log("preferenceList", this.preferenceTextGroup1)
+
+    this.preferenceTextGroup1 = []
+    this.missingPreferences = []
+
+
+    if (this.equalGroups) {
+      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+    }
+
+    if (this.algorithmService.numberOfGroup1Agents < this.numberOfGroup1Agents.value) {
+
+      // if value has been changed
+
+      console.log("value chnaged")
+
+      let numbersToAdd: Array<string> = [];
+
+      for (let i = this.algorithmService.numberOfGroup1Agents + 1; i <= this.numberOfGroup1Agents.value; i++) {
+        numbersToAdd.push(String(i));
+      }
+
+      // ADDS TEXT TO TEXT BOXES
+
+      // GROUP 1 //
+      // addes pre-generated rankings
+      for (let agent of this.group1Preferences) {
+
+        let agentCopy = Object.assign([], agent[1])
+        this.preferenceTextGroup1.push(agentCopy)
+      }
+      // adds new rankings to end of pre-generated rankings
+      for (let index = 0 ; index < this.group1Preferences.size ; index++) {
+       
+        this.preferenceTextGroup1[index] = this.preferenceTextGroup1[index].concat(numbersToAdd)
+      }
+      // adds new rankings
+      for (let i = this.algorithmService.numberOfGroup1Agents; i <= this.numberOfGroup1Agents.value - 1; i++){
+        
+        let newPreferences = Array.from(this.group1Preferences.values())[0].concat(numbersToAdd).filter(pref => pref.charCodeAt(0) - 64 != i);
+        
+        newPreferences = []
+
+        // loop through range number of agents - add number to list unless it is equal to the agent key/name
+        for (let j = 1 ; j < this.numberOfGroup1Agents.value + 1; j++){
+          if (j != i + 1){
+            newPreferences.push(String(j))
+          }
+        }
+        
+        this.shuffle(newPreferences);
+        this.preferenceTextGroup1.push(newPreferences)
+      }
+
+
+
+    } else {
+      // ADDS TEXT TO THE TEXT BOXES - if value has not been changed or is lower 
+
+      // GROUP 1 //
+      let counter = 0;
+      // for each ranking 
+      for (let agent of this.group1Preferences) {
+
+        // stop adding rankings if the number added is equal to the number needed 
+        if (counter >= this.numberOfGroup1Agents.value) {
+          break;
+        }
+        // filter out values in the ranking which are too large 
+        let agentCopy = Object.assign([], agent[1]) //.sort()
+        let safe_values = agentCopy.filter(pref => pref <= this.numberOfGroup1Agents.value)
+        // add rankning 
+        this.preferenceTextGroup1.push(safe_values)
+        counter++
+        }
+
+      }
+
+      console.log("END", this.preferenceTextGroup1)
+
+  }
+
+  
+  /////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+
 
   currentInputCheck(): boolean {
 
@@ -279,12 +354,22 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     /// button is only clickable if this function returns false, if true is returned then button not clickable 
     let valid = true 
-    valid = this.isValid()
-    console.log(valid)
+
+    // use correct validation based on current alg
+    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem"){ 
+      valid = this.isValid1Group()
+      if (this.numberOfGroup1Agents.value % 2 != 0){
+        valid = false
+      }
+    } else {
+      valid = this.isValid()
+    }
 
     return !valid
 
   }
+
+  
 
   generateAlgorithmPreferences(): void {
     
@@ -301,31 +386,7 @@ export class EditPreferencesDialogComponent implements OnInit {
     // fill out new preferences 
     let newPreferences: Map<String, Array<String>> = new Map();
 
-    // console.log(preferenceString.split("\n"));
-
-    // for (let line of preferenceString.split("\n")) {
-    //   if (this.checkIfPreference(line)) {
-    //     if (this.checkValidity) {
-    //       line = line.replace(/:\s+,/g, ':');
-    //       line = line.replace(/,\s+,/g, ',');
-    //       line = line.replace(/, $/g, '');
-    //       line = line.replace(/,$/g, '');
-    //       line = line.replace(/\s+/g, '');    // remove whitespace from line from https://stackoverflow.com/questions/24580912/trim-all-white-space-from-string-javascript
-    //       let agentId: string = line.slice(0, line.indexOf(":"));
-    //       let agentPreferences = line.slice(line.indexOf(":") + 1).split(",");
-          
-    //       if (agentPreferences.slice().length == 1){
-    //         agentPreferences = Array<string>(this.numberOfGroup1Agents.value - 1).fill("1")
-    //       }
-
-    //       newPreferences.set(agentId, agentPreferences.slice());
-
-    //       console.log("here", agentPreferences.slice())
-
-    //     }
-    //   }
-    // }
-
+    
     // GROUP 1
     let num = 1
     for (let agent of this.preferenceTextGroup1){
@@ -363,6 +424,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
 
   }
+
 
   // function to disable/enable button - false = enabled / true = disabled 
   isValid(): boolean {
@@ -415,14 +477,100 @@ export class EditPreferencesDialogComponent implements OnInit {
         }
       }
       // checks for smae size 
-      if (ranking.length != letters.length) {
+      if (ranking.length != numbers.length) {
         numbersValid = false
       }
     }
 
-
     return (lettersValid && numbersValid)
   }
+
+
+  generateAlgorithmPreferences1Group(): void {
+
+    //// UPDATE REAL PREFERANCES 
+
+    console.log("updatating real prefs - 1 group")
+    // fill out new preferences 
+    let newPreferences: Map<String, Array<String>> = new Map();
+
+    
+    // GROUP 1
+    let num = 1
+    for (let agent of this.preferenceTextGroup1){
+      newPreferences.set(num.toString(), agent)
+      num++
+    }
+
+    //GROUP 2
+    num = 1
+    for (let agent of this.preferenceTextGroup2){
+      newPreferences.set(String.fromCharCode(64 + num), agent)
+      num++
+    }
+
+
+    console.log("new prefs", newPreferences)
+
+
+    var command = this.playbackService.commandList[this.playbackService.previousStepCounter];
+    let a = document.getElementById("line" + command["lineNumber"]);
+    a.style.backgroundColor = "";
+    a.style.color = "";
+
+    this.algorithmService.numberOfGroup1Agents = Number(this.numberOfGroup1Agents.value);
+    this.algorithmService.numberOfGroup2Agents = Number(this.numberOfGroup2Agents.value);
+
+    this.canvasService.initialise();
+    this.playbackService.setAlgorithm(this.algorithmService.currentAlgorithm.id, this.algorithmService.numberOfGroup1Agents, this.algorithmService.numberOfGroup2Agents, newPreferences);
+
+    this.dialogRef.close();
+
+    this._snackBar.open("Preferences changed", "Dismiss", {
+      duration: 2000,
+    });
+
+  }
+
+  // Checks is instance of SR (1 group matchings) is valid
+  isValid1Group(): boolean {
+      
+    // values that should be in each list 
+    // letters 
+
+
+    let numbers= []
+    this.missingPreferences = []
+
+    let numbersValid = true
+
+    // Gets all letters/numbers that should be in each preference 
+    for (let i = 1; i <= this.numberOfGroup1Agents.value; i++) {
+      numbers.push(String(i));
+    }
+
+    // GROUP 1
+    for (let [key, ranking] of this.preferenceTextGroup1.entries()) {
+      for (let num of numbers) {
+        // ranking does not include value in numbers - 
+        if (!ranking.includes(num)){
+
+          // checks if the missing number is not the key, if its not the key then its a rouge number
+          if (num != key + 1){
+            numbersValid = false
+            //input missing preferences 
+            this.missingPreferences.push([key + 1, num])
+          }
+        }
+      }
+      // checks for correct length
+      if (ranking.length != numbers.length - 1) {
+        numbersValid = false
+      }
+    }
+
+    return numbersValid
+  } 
   
   checkIfPreference(str: string): boolean {
     let re = /^.:/;

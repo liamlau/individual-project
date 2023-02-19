@@ -155,15 +155,6 @@ export abstract class StableRoomMates extends MatchingAlgorithm {
             this.group1Agents.get(agent).ranking = tempCopyList;
         }
 
-        for (let agent of Array.from(this.group2Agents.keys())) {
-            tempCopyList = [];
-            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
-            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
-                tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
-            }
-            this.group2Agents.get(agent).ranking = tempCopyList;
-        }
-    
         console.log(this.group1Agents);
         console.log(this.group2Agents);
 

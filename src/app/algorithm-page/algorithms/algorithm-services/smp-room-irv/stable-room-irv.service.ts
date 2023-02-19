@@ -51,6 +51,9 @@ export class StableRoomIrvService extends StableRoomMates {
 
     currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
+
+    this.algorithmSpecificData["SR"] = true;
+
   }
 
   constructor() {  
