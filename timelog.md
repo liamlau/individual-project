@@ -261,7 +261,7 @@ Coding, Finished SR
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 21 -->
 
-## Week 21 (6 Feb 2021 - 12 Feb 2021) - **15 hours**
+## Week 21 (6 Feb 2021 - 12 Feb 2021) - **19 hours**
 ### 6th Feb 2023 (Mon) - 5 hours 
 (5Hr) - Coding/Designing New preference input
 
@@ -272,12 +272,26 @@ Coding, Finished SR
 (5Hr) - Coding New preference input
 
 
+### 12th Feb
+(4Hr) - Dissertation 
+
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
 
 ## Week 22 (13 Feb 2021 - 19 Feb 2021) - **51 hours**
+### 13th Feb 2023 (Mon) - 4 hours
+(4Hr) - Dissertation
 
+### 14th Feb 
+(2Hr) - Dissertation
+
+### 15th Feb
+(6Hr) - Dissertation
+
+
+### 19th Feb
+() - 
 
 
 <hr>
