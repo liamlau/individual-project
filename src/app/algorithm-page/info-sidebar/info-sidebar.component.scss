@@ -1,0 +1,46 @@
+@import "_colors", "_fonts";
+  
+  /*
+   * Sidebar
+   */
+  
+//    .sidebar {
+//     position: fixed;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 100; /* Behind the navbar */
+//     padding: 0;
+//     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+//   }
+
+// to put on right side of screen
+
+  .infosidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  }
+  
+  .infosidebar-sticky {
+    background-color: $sidebar-color;
+    color: $sidebar-text-color;
+    position: absolute;
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    width: 100%;
+  }
+
+  #infosidebarContent {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 0.2fr 0.15fr 0.1fr 2fr;
+    grid-auto-rows: minmax(100px, auto);
+  }

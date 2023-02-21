@@ -13,6 +13,18 @@
     padding: 0;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   }
+
+// to put on right side of screen
+
+  // .sidebar {
+  //   position: fixed;
+  //   top: 0;
+  //   bottom: 0;
+  //   right: 0;
+  //   z-index: 100; /* Behind the navbar */
+  //   padding: 0;
+  //   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  // }
   
   .sidebar-sticky {
     background-color: $sidebar-color;

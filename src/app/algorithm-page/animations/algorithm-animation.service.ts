@@ -27,6 +27,22 @@ export class AlgorithmAnimationService {
       duration: 1000
     })
 
+    anime({
+      targets: '.info-sidebar',
+      easing: 'easeInOutQuint',
+      translateX: [0, 5000],
+      // opacity: [0, 1],
+      duration: 600
+    })
+    
+    anime({
+      targets: '#infosidebarContent',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [0, 1],
+      duration: 600
+    })
+
     // animation for fading the sidebar content in as the sidebar slides in
     anime({
       targets: '#sidebarContent',
@@ -122,9 +138,39 @@ export class AlgorithmAnimationService {
       // opacity: [0, 1],
       duration: 600
     })
+    
 
     anime({
       targets: '#sidebarContent',
+      easing: 'easeInOutQuint',
+      // translateX: [-1500, 0],
+      opacity: [0, 1],
+      duration: 600
+    })
+  }
+
+  hideInfoSidebar(): void {
+    anime({
+      targets: '.info-sidebar',
+      easing: 'easeInOutQuint',
+      translateX: [0, -800],
+      delay: 200,
+      duration: 700
+    })
+  }
+
+  showInfoSidebar(): void {
+    anime({
+      targets: '.info-sidebar',
+      easing: 'easeInOutQuint',
+      translateX: [0, 5000],
+      // opacity: [0, 1],
+      duration: 600
+    })
+    
+
+    anime({
+      targets: '#infosidebarContent',
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
       opacity: [0, 1],

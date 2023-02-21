@@ -78,6 +78,8 @@ export class AlgorithmPageComponent implements OnInit {
   showCode: boolean = false;
   dialogOpen: boolean = false;
 
+  showInfo: boolean = false
+
   tutorialStep: number;
 
   duringAnimation: boolean = false;
@@ -292,8 +294,57 @@ export class AlgorithmPageComponent implements OnInit {
 
     this.duringAnimation = false;
 
+    console.log("current pannels", this.showInfo, this.showCode)
+
+
   }
 
+
+// function run when toggle sidebar button clicked (top left)
+async toggleInfoSidebar(): Promise<void> {
+
+  this.duringAnimation = true;
+
+  let mainContent = document.getElementById("mainContent");
+
+  if (!this.showInfo) {
+
+    // hide sidebar and content
+    this.animation.hideInfoSidebar();
+    this.animation.hideMainContent();
+
+    await this.utils.delay(700);
+
+    // show sidebar and content
+    mainContent.style.position = "";
+    this.animation.showMainContent();
+    this.showInfo = !this.showInfo
+
+  } else {
+
+    // hide content
+    this.animation.hideMainContent();
+
+    await this.utils.delay(400);
+
+    // show sidebar
+    this.showInfo = !this.showInfo
+    this.animation.showInfoSidebar();
+
+    await this.utils.delay(200);
+
+    // show content
+    this.animation.showMainContent();
+
+  }
+
+  await this.utils.delay(200);
+
+  this.duringAnimation = false;
+
+  console.log("current pannels", this.showInfo, this.showCode)
+
+}
   ChangeStableSR(): void {
     
     if (this.SRstable == true) {

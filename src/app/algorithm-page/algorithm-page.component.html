@@ -38,6 +38,11 @@
     <mat-icon class="navbarIconButton unselectable mr-4" matTooltip="Animation Guide" (click)="this.openAnimationGuideDialog()" [ngClass]="{'disabled': this.tutorialStep != 0}">info</mat-icon>
     <mat-icon class="navbarIconButton unselectable mr-2 navbarPopover" data-toggle="popover" data-placement="bottom" title="Actions" data-content="In order from left to right, you can: stop this tutorial, generate new preferences, edit preferences, toggle all preferences or only relevant preferences, see an animation guide, or advance the tutorial." data-trigger="manual" matTooltip="{{this.tutorialStep == 0 ? 'Tutorial' : 'Advance Tutorial'}}" (click)="this.nextTutorialStep()" [ngClass]="{'disabled': this.duringAnimation}">{{this.tutorialStep == 0 ? "help_outline" : "arrow_forward_ios"}}</mat-icon>
     
+    <!-- text explanation side bar  -->
+    <mat-icon class="navbarIconButton unselectable mr-4 navbarPopover" data-toggle="popover" data-placement="bottom" title="Menu button" data-content="Hover Info." data-trigger="manual" (click)="this.toggleInfoSidebar(); $event.stopImmediatePropagation()" matTooltip="{{this.showInfo ? 'Expand Panel' : 'Close Panel'}}" [ngClass]="{'disabled': this.tutorialStep != 0 || this.duringAnimation}">{{this.showCode ? "menu" : "menu_open"}}</mat-icon>
+
+
+
   </div>
 
   
@@ -51,10 +56,13 @@
   <!-- sidebar -->
   <sidebar [(showCode)]="showCode" [(tutorialStep)]="tutorialStep"></sidebar>
 
+  <app-info-sidebar [(showInfo)]="showInfo" [(tutorialStep)]="tutorialStep"></app-info-sidebar>
+
+
   <!-- <animation-container></animation-container> -->
 
 
-  <div class="grid-container-algorithm ml-sm-auto" id="mainContent" style="background-color: white; height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-9': !this.showCode, 'col-md-12': this.showCode, 'moveContentToTop': this.tutorialStep == 3}">
+  <div class="grid-container-algorithm" id="mainContent" style="background-color: white; height: 100%; display: grid; grid-template-rows: 0.39fr 3.4fr 0.8fr; padding-left: 0px; padding-right: 0px" [ngClass]="{'col-md-6 offset-md-3' : (!this.showCode && !this.showInfo), 'col-md-9 bg-dark': (!this.showCode && this.showInfo), 'col-md-9 offset-md-3' : (this.showCode && !this.showInfo)  , 'moveContentToTop': this.tutorialStep == 3}">
 
     <agent-titles [(showCode)]="showCode"></agent-titles>
 

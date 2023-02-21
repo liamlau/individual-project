@@ -42,6 +42,7 @@ import { AlgorithmNavbarComponent } from './algorithm-page/algorithm-navbar/algo
 import { AnimationContainerComponent } from './algorithm-page/animation-container/animation-container.component';
 import { AgentTitlesComponent } from './algorithm-page/animation-container/agent-titles/agent-titles.component';
 import { CanvasDisplayComponent } from './algorithm-page/animation-container/canvas-display/canvas-display.component';
+import { InfoSidebarComponent } from './algorithm-page/info-sidebar/info-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CanvasDisplayComponent } from './algorithm-page/animation-container/can
     AlgorithmNavbarComponent,
     AnimationContainerComponent,
     AgentTitlesComponent,
-    CanvasDisplayComponent
+    CanvasDisplayComponent,
+    InfoSidebarComponent
   ],
   imports: [
     BrowserModule,
