@@ -30,8 +30,8 @@ export class AlgorithmAnimationService {
     anime({
       targets: '.info-sidebar',
       easing: 'easeInOutQuint',
-      translateX: [0, 5000],
-      // opacity: [0, 1],
+      translateX: [0, 500],
+      opacity: [0, 1],
       duration: 600
     })
     
@@ -153,9 +153,11 @@ export class AlgorithmAnimationService {
     anime({
       targets: '.info-sidebar',
       easing: 'easeInOutQuint',
-      translateX: [0, -800],
+      // translateX: [0],
+      opacity: [1, 0],
+      direction: 'reverse',
       delay: 200,
-      duration: 700
+      duration: 3700
     })
   }
 
@@ -163,9 +165,10 @@ export class AlgorithmAnimationService {
     anime({
       targets: '.info-sidebar',
       easing: 'easeInOutQuint',
-      translateX: [0, 5000],
-      // opacity: [0, 1],
-      duration: 600
+      // translateX: [0, 500],
+      direction: 'reverse',
+      opacity: [0, 1],
+      duration: 1000
     })
     
 
@@ -173,7 +176,7 @@ export class AlgorithmAnimationService {
       targets: '#infosidebarContent',
       easing: 'easeInOutQuint',
       // translateX: [-1500, 0],
-      opacity: [0, 1],
+      opacity: [0.5, 1],
       duration: 600
     })
   }

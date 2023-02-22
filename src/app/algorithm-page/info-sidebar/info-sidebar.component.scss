@@ -4,15 +4,7 @@
    * Sidebar
    */
   
-//    .sidebar {
-//     position: fixed;
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     z-index: 100; /* Behind the navbar */
-//     padding: 0;
-//     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-//   }
+
 
 // to put on right side of screen
 
@@ -27,8 +19,8 @@
   }
   
   .infosidebar-sticky {
-    background-color: $sidebar-color;
-    color: $sidebar-text-color;
+    background-color: rgb(241, 241, 241);
+    color: black;
     position: absolute;
     top: 48px; /* Height of navbar */
     height: calc(100vh - 48px);
@@ -36,6 +28,12 @@
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     width: 100%;
+  }
+  
+  .infotext {
+    margin: 3%;
+
+
   }
 
   #infosidebarContent {

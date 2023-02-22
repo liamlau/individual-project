@@ -189,6 +189,10 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
           let worstResident: Agent = this.getWorstResident(hospital);
           let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
+		//   let worstHospital: Agent = this.getwo
+
+
+
 
           let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
@@ -221,6 +225,49 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
       }
 
   }
+
+//   removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
+
+    
+ 
+// 	if (hospital.match.length >= hospital.availableSpaces) {
+// 		let worstResident: Agent = this.getWorstResident(hospital);
+// 		let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
+
+		
+
+
+// 		let hospitalRankingClearCounter: number = worstResidentPosition + 1;
+
+// 		// for each successor h' of h on r's list 
+// 	  this.update(7, {"%resident%" : resident.name, "%hospital%" : hospital.name});
+	  
+// 		for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
+
+// 			let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
+// 			this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
+
+// 			this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+// 			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
+			
+// 			// remove r' and h from each others preferance list
+// 			this.update(8, {"%hospital%": hospital.name, "%resident%": hospital.ranking[i].name});
+
+// 			hospital.ranking[i].ranking.splice(hospitalPosition, 1);
+
+
+// 			hospital.ranking.splice(i, 1);
+// 			i -= 1;
+			
+// 			hospitalRankingClearCounter++;
+
+// 			this.relevantPreferences.pop();
+
+// 		}
+
+// 	}
+
+// }
 
   print_matches(){
 
@@ -341,9 +388,6 @@ checkFreeHospitals(){
 
 			// continous loop as guessed + not clear way to define/get free hospitals
 			// rankings should be deleted until convergence?
-
-			this.freeAgentsOfGroup2 = this.checkFreeHospitals()
-			// console.log("free Agents on iteration", counter_break, this.freeAgentsOfGroup2)
 
 			if (this.shouldContinueMatching(currentHospital)) {
 				this.freeAgentsOfGroup1.shift();

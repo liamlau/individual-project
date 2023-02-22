@@ -279,7 +279,7 @@ Coding, Finished SR
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 22 -->
 
-## Week 22 (13 Feb 2021 - 19 Feb 2021) - **51 hours**
+## Week 22 (13 Feb 2021 - 19 Feb 2021) - **18 hours**
 ### 13th Feb 2023 (Mon) - 4 hours
 (4Hr) - Dissertation
 
@@ -291,14 +291,23 @@ Coding, Finished SR
 
 
 ### 19th Feb
-() - here
+(6Hr) - SPA Research, Coding - preference input
 
 
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (20 Feb 2021 - 26 Feb 2021) - **48.5 hours** (overall: 313.5 hours)
+## Week 23 (20 Feb 2021 - 26 Feb 2021) - ** hours** 
+### 20 Feb 2023 (Mon) - 7 hours
+(7Hr) - Dissertation - Design, Implementation, Background
+
+### 21 Feb 
+(6Hr) - Dissertation, Coding - Text Exp
+
+### 22 Feb
+(6Hr) - Coding - Text Exp
+
 
 <hr>
 

@@ -207,7 +207,7 @@ export class AlgorithmRetrievalService {
           "\t if any person a is assigned to person b",
           "\t\t free a",
 
-          "\t for each person c less preferded than p on b's, preferance list",
+          "\t for each person c less preferded than p on b's preferance list",
           "\t\t remove c from p's list and remove p from c's list",
           // 10 lines so far 
 
