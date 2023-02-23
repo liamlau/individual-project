@@ -98,7 +98,7 @@ getWorstResident(hospital: Hospital): Agent {
 	return positionMap.get(Math.max(...Array.from(positionMap.keys())));
 }
 
-breakAssignment(resident: Agent, hospital: Hospital): void {
+breakAssignment(resident: Agent, hospital): void {
 
 	// console.log("break Assignment")
 	// console.log(resident.name, resident.match[0].name, hospital.name)
