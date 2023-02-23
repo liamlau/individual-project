@@ -98,7 +98,7 @@ getWorstResident(hospital: Hospital): Agent {
 	return positionMap.get(Math.max(...Array.from(positionMap.keys())));
 }
 
-breakAssignment(resident: Agent, hospital: Agent): void {
+breakAssignment(resident: Agent, hospital: Hospital): void {
 
 	// console.log("break Assignment")
 	// console.log(resident.name, resident.match[0].name, hospital.name)
@@ -119,14 +119,15 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(resident.name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
 	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident_original, "red");
 
+	let hospitalLastChar = this.getLastCharacter(hospital.name);
+	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = "{#000000" + String(hospital.availableSpaces) + "}";
+
 	// unassign r and h'
 	this.update(5, {"%oldHospital%": resident.match[0].name, "%resident%": resident.name});
 
 	this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), matchPosition_resident_original, "grey");
 
-
 	this.update(1)
-
 
 	// remove hospital from resident match 
 	resident.match.splice(0, 1);
@@ -137,10 +138,9 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	hospital.ranking.splice(matchPosition_resident, 1); 	// HOSPITAL 
 	resident.ranking.splice(matchPosition_hospital, 1) 		//RESIDENT 
 
-	let hospitalLastChar = this.getLastCharacter(hospital.name);
-	let currentHospitalCapacity: string = this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar];
+	
 
-	this.algorithmSpecificData["hospitalCapacity"][hospitalLastChar] = String(currentHospitalCapacity).charAt(currentHospitalCapacity.length);
+	
 
 
 
@@ -174,7 +174,7 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.originalGroup2CurrentPreferences.get(proposeeLastChar).findIndex(h => h == this.getLastCharacter(resident.name)), "green")
 
 	if (hospital.match.length >= hospital.availableSpaces - 1) {
-	  this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
+	  this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + String(hospital.availableSpaces) + "}";
 	}
 
 
