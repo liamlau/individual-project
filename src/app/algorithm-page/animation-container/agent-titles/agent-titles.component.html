@@ -1,9 +1,22 @@
-<div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center" style="height:120px; border-bottom: 1px solid rgba(184, 184, 184, 0.658);">
-    <h1 id="lhsName" class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
+<div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center" *ngIf="this.algorithmService.currentAlgorithm.id != 'hr-hospital-egs'" style="height:120px; border-bottom: 1px solid rgba(184, 184, 184, 0.658);">
+    
+    <h1 id="lhsName" *ngIf="(this.algorithmService.currentAlgorithm.id == 'smp-room-irv' && !this.showCode)" class="h2 mt-3 row text-center border-bottom mr-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
+    <h1 id="lhsName" *ngIf="(this.algorithmService.currentAlgorithm.id != 'smp-room-irv')" class="h2 mt-3 row text-center border-bottom mr-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
+
 
     <div class="row text-center border-bottom mr-3" style="position: fixed; height:114px; width: 350px;" *ngIf="this.showCode">
       <h3 class="col h2 sidebarPopover my-auto text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
     </div>
 
-    <h1 id="rhsName" class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
+    <h1 id="rhsName" *ngIf="this.algorithmService.currentAlgorithm.id != 'smp-room-irv'" class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
+</div>
+
+<div class="d-flex justify-content-around flex-wrap flex-md-nowrap align-items-center" *ngIf="this.algorithmService.currentAlgorithm.id == 'hr-hospital-egs'" style="height:120px; border-bottom: 1px solid rgba(184, 184, 184, 0.658);">
+  <h1 id="lhsName" class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }}</h1>
+
+  <div class="row text-center border-bottom mr-3" style="position: fixed; height:114px; width: 350px;" *ngIf="this.showCode">
+    <h3 class="col h2 sidebarPopover my-auto text-center" style="font-weight: 400; font-size: 1vw; line-height: 1.5vw;">{{ this.playback.description }}</h3>
+  </div>
+
+  <h1 id="rhsName" class="h2 mt-3">{{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }}</h1>
 </div>
