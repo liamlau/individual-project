@@ -158,6 +158,47 @@ export class AlgorithmRetrievalService {
     // ADD NEW ALGORITHMS UNDER HERE
 
     [
+      "hr-hospital-egs", {
+        id: "hr-hospital-egs",
+        name: "Hospitals/Residents Problem",
+        orientation: ["Hospital", "Resident"],
+        equalGroups: false,
+        algorithm: "Extended Gale-Shapley Stable Matching",
+        service: this.HrHospitalEgsService,
+        description: "The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
+        helpTextMap: {
+          1 : "Set all hospitals and residents to be completely free",
+          2 : "While some hospital (%hospital%) is undersubscribed and has a resident on their preferance list that is not assigned to them",
+          3 : "Set r to %resident% from hospital's preferance list",
+          4 : "If %resident% is assigned to another hospital, unassign them from each other",
+          5 : "Unassign %resident% and %oldHospital% from each other",
+          6 : "Assign %resident% and %hospital% to each other",
+          7 : "For each hospital h' after %hospital% on %resident%'s preferance list, remove them from each others preferance list",
+          8 : "remove %resident% from %hospital%'s preferance list and %hospital% from %resident%'s preferance list",
+          9 : "Stable matching is found",
+
+          
+        },
+        code: [
+          "Set each hospital and resident to be completely free",
+          "While some hospital h is undersubscibed, and has a resident on their preferance list",
+          "\t r := first resident on h's prefernace list not assigned to h",
+          "\t if r is assigned to another hospital h'",
+          "\t\t unassign r and h'",
+          
+          "\t provisionally assign r to h",
+          "\t for each successor h' of h on r's list",
+          "\t\t remove h' and r from each others preferance list",
+          "stable matching is found "
+          
+         
+        ]
+
+    
+      }
+    ],
+
+    [
       "smp-room-irv", {
         id: "smp-room-irv",
         name: "Stable Roommates Problem",
@@ -234,46 +275,7 @@ export class AlgorithmRetrievalService {
     ],
 
     
-    [
-      "hr-hospital-egs", {
-        id: "hr-hospital-egs",
-        name: "Hospitals/Residents Problem",
-        orientation: ["Hospital", "Resident"],
-        equalGroups: false,
-        algorithm: "Extended Gale-Shapley Stable Matching",
-        service: this.HrHospitalEgsService,
-        description: "The Hospitals/Residents Problem is the problem of finding a stable matching between a set of <b>hospitals and residents</b>, where a hospital can take multiple residents.<br><br>This is the <b>hospital-oriented</b> version of the algorithm, so <b>hospitals will propose to residents</b>.<br><br>To do this, the Extended Gale-Shapley Stable Marriage algorithm is used.",
-        helpTextMap: {
-          1 : "Set all hospitals and residents to be completely free",
-          2 : "While some hospital (%hospital%) is undersubscribed and has a resident on their preferance list that is not assigned to them",
-          3 : "Set r to %resident% from hospital's preferance list",
-          4 : "If %resident% is assigned to another hospital, unassign them from each other",
-          5 : "Unassign %resident% and %oldHospital% from each other",
-          6 : "Assign %resident% and %hospital% to each other",
-          7 : "For each resident r' after %resident% on %hospital%'s preferance list, remove them from each others preferance list",
-          8 : "remove %resident% from %hospital%'s preferance list and %hospital% from %resident%'s preferance list",
-          9 : "Stable matching is found",
-
-          
-        },
-        code: [
-          "Set each hospital and resident to be completely free",
-          "While some hospital h is undersubscibed, and has a resident on their preferance list",
-          "\t r := first resident on h's prefernace list not assigned to h",
-          "\t if r is assigned to another hospital h'",
-          "\t\t unassign r and h'",
-          
-          "\t provisionally assign r to h",
-          "\t for each successor r' of r on h's list",
-          "\t\t remove r' and h from each others preferance list",
-          "stable matching is found "
-          
-         
-        ]
-
-    
-      }
-    ],
+   
 
 
   ]);

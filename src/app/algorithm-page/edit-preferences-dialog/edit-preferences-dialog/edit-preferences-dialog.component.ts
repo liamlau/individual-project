@@ -20,6 +20,9 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   preferences: string = "";
 
+  // key list to convert number to letters inpit page display  
+  keyList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
   equalGroups: boolean = false;
 
   constructor(public algorithmService: AlgorithmRetrievalService, public playbackService: PlaybackService, public canvasService: CanvasService, public dialogRef: MatDialogRef<EditPreferencesDialogComponent>, private _snackBar: MatSnackBar) { }

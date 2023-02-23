@@ -40,7 +40,7 @@ export class HrHospitalEgsService extends GaleShapley{
       for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
           let group2AgentName = this.group2Name + currentLetter;
 
-          let availableSpaces = this.getRandomInt(1, this.numberOfAgents-2);
+          let availableSpaces = 2 //this.getRandomInt(1, this.numberOfAgents-2);
 
           this.group2Agents.set(group2AgentName, {
               name: group2AgentName,
@@ -186,20 +186,19 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
     // given h and r - remove h' of h on r's list 
 
+	let hospitalPosition: number = this.findPositionInMatches(resident, hospital)
 
-	if (true) {
-		let hospitalPosition: number = this.findPositionInMatches(resident, hospital)
+	if (hospitalPosition + 1 < resident.ranking.length) {
+		
 
-		console.log("Del Before")
-		console.log(this.group1Agents) //res 
-		console.log(this.group2Agents) // hos
-
-		let residentRankingClearCounter: number = hospitalPosition + 1;
+		// console.log("Del Before")
+		// console.log(this.group1Agents) //res 
+		// console.log(this.group2Agents) // hos
 
 		// for each successor h' of h on r's list 
 		this.update(7, {"%resident%" : resident.name, "%hospital%" : hospital.name});
 
-		for (let i: number = hospitalPosition + 1; i < resident.ranking.length ; i++){
+		for (let i = hospitalPosition + 1; i < resident.ranking.length ; i++){
 
 
 			// current hospital being removed 
@@ -207,24 +206,28 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 			
 			// resident index within hospital to be removed 
 			let residentIndex: number = this.findPositionInMatches(removedHospital, resident) 
+	
 
 			removedHospital.ranking.splice(residentIndex, 1)
 
 			// remove hsopital from resident 
 			resident.ranking.splice(i, 1)
 
-			console.log("Iteration", i)
-			console.log("Del", removedHospital.name, resident.name)
-			console.log(hospitalPosition, hospital.ranking.length)
-			console.log(resident.ranking, removedHospital.ranking)
+			// console.log("Iteration", i)
+			// console.log("Del", removedHospital.name, resident.name)
+			// console.log(hospitalPosition, hospital.ranking.length)
+			// console.log(resident.ranking, removedHospital.ranking)
 
-			console.log("new")
-			console.log(this.group1CurrentPreferences)
+			// console.log("new")
+			// console.log(this.group1CurrentPreferences)
+
+			// get index of resident in the removde hospitals og rankings 
+			let pos = this.originalGroup2CurrentPreferences.get(this.getLastCharacter(removedHospital.name)).findIndex(h => h == this.getLastCharacter(resident.name))
 
 			//  grey out hos from res 
 			this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), i, "grey")
 			// grey out res from hos 
-			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(removedHospital.name), residentIndex, "grey")
+			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(removedHospital.name), pos, "grey")
 
 			// remove h' and r from each others preferance list
 			this.update(8, {"%hospital%": removedHospital.name, "%resident%": resident.name});
@@ -233,7 +236,6 @@ removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 			// this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
 			
 
-			residentRankingClearCounter++
 
 		}
 	}

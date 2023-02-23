@@ -3,13 +3,35 @@
 
   <!-- heading -->
 
-  <p>
-    Click on the number below and use arrow keys to change the number of {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
+  <!-- <p>
+    Click on the number below and use arrow keys to change the number of 
+    {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} 
+    and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
     <br><br>
     Any preferences should be in the form:
     <br>
     <{{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}}/{{this.algorithmService.currentAlgorithm.orientation[1].toLowerCase()}} number>: &lt;preferences separated by commas>
-  </p>
+  </p> -->
+
+  <div *ngIf="this.algorithmService.currentAlgorithm.id != 'smp-room-irv'">
+    <p>
+      Click on the number below and use arrow keys to change the number of 
+      {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} 
+      and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
+
+    <p>
+      Each person is represented as a number or a letter, below you can change the preference <br>
+      list of the corresponding person.      
+
+  </div>
+
+  <div *ngIf="this.algorithmService.currentAlgorithm.id == 'smp-room-irv'">
+    <p>
+      Click on the number below and use arrow keys to change the number of 
+      {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} 
+      
+    
+  </div>
 
   <!-- input size -->
 
@@ -53,13 +75,13 @@
 
     <div class="row justify-content-start" *ngIf="this.algorithmService.currentAlgorithm.name == 'Stable Roommates Problem'">
       <mat-form-field style="width: 200px;">
-        <mat-label>Number of Men and Women</mat-label>
+        <mat-label>Number of People</mat-label>
         <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString1Group()" min="1" max="10" oninput="this.value = this.value > 0 && this.value < 11 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value))" onDrag="return false" onDrop="return false" onPaste="return false">
         <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
           This field is <strong>required</strong>
         </mat-error>
         <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
-          Please input an even number between 1 and 10
+          Please input an even number between 1 and 8
         </mat-error>
       </mat-form-field>
     </div>
@@ -76,12 +98,12 @@
   <div class="parent" >
     <!-- group 1 -->
     <div class="child">
-      <p> {{this.algorithmService.currentAlgorithm.orientation[0].toLowerCase()}} </p>
-      <br>
+      <p> <strong> {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }} </strong> </p>
+
           <div *ngFor="let item of this.preferenceTextGroup1; let i = index; trackBy: trackByFn">
-            <div class="parent">
-              <p class="child">{{ i + 1 }} yoyo</p>
-              <input class="child" type="text" [(ngModel)]="this.preferenceTextGroup1[i]" value="this.preferenceTextGroup1[i]" (ngModelchange)="this.generateMissingPreferences($event)">
+            <div class="parent row">
+              <span class="child labels">{{ i + 1 }}</span>
+              <input class="child custom-field" type="text" [(ngModel)]="this.preferenceTextGroup1[i]" value="this.preferenceTextGroup1[i]" (ngModelchange)="this.generateMissingPreferences($event)">
               
             </div>
           </div>
@@ -89,22 +111,45 @@
 
     <!-- group 2 -->
     <div class="child" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
-      <p> {{this.algorithmService.currentAlgorithm.orientation[1].toLowerCase()}} </p>
-      <br>
+      <p> <strong> {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }} </strong> </p>
+
           <div *ngFor="let item of this.preferenceTextGroup2; let i = index; trackBy: trackByFn">
-            <div class="parent">
-              <p class="child">{{ i + 1 }}</p>
-              <input class="child" type="text" [(ngModel)]="this.preferenceTextGroup2[i]" value="this.preferenceTextGroup2[i]" (ngModelchange)="this.generateMissingPreferences($event)">
+            <div class="parent row">
+              <span class="child labels">{{ this.keyList[i] }}</span>
+              <input class="child custom-field" type="text" [(ngModel)]="this.preferenceTextGroup2[i]" value="this.preferenceTextGroup2[i]" (ngModelchange)="this.generateMissingPreferences($event)">
            
             </div>
           </div>
     </div>
   </div>
 
+  <!-- <div class="parent" >
+    <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
+ -->
+
+  <!-- <div class="container">
+    <div class="row justify-content-around">
+
+      <div class="" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
+        <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+          <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
+        </span>
+      </div>
+
+    
+      <div class="" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
+        <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+          <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
+        </span>
+      </div>
+
+    </div>
+  </div> -->
+
 
   <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
   <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
-    <span>({{ item }})</span><span *ngIf="!lastItem">, </span>
+    <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
   </span>
 
   <div class="row">
