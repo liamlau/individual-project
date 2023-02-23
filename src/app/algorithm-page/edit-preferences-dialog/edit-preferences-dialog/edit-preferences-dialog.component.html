@@ -20,8 +20,11 @@
       and {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]).toLowerCase() }}
 
     <p>
-      Each person is represented as a number or a letter, below you can change the preference <br>
-      list of the corresponding person.      
+      Each person is represented as their ID, either a letter or a number, below you can change the  <br>
+      preference list of the corresponding person.   
+      
+    <p>
+      Missing preferances are shown as pairs - (Person ID , Missing person ID on preferance list).
 
   </div>
 
@@ -30,7 +33,13 @@
       Click on the number below and use arrow keys to change the number of 
       {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]).toLowerCase() }} 
       
-    
+      <p>
+        Each person is represented by their ID, in this case a number, below you can change the preference <br>
+        list of the  corresponding person. 
+        
+      <p>
+        Missing preferances are shown as pairs - (Person ID, Missing person ID on preferance list).
+
   </div>
 
   <!-- input size -->
@@ -123,34 +132,38 @@
     </div>
   </div>
 
-  <!-- <div class="parent" >
-    <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
- -->
+  <div class="parent" >
+    <h2 *ngIf="this.missingPreferences.length != 0">Missing Preferences</h2>
 
-  <!-- <div class="container">
+
+  <div class="container">
     <div class="row justify-content-around">
 
-      <div class="" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
-        <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+      <div class="col-6" *ngIf="this.missingPreferencesGroup1.length > 0">
+        <p> <strong> {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) }} </strong> </p>
+      
+        <span *ngFor="let item of this.missingPreferencesGroup1; let lastItem = last;">
           <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
         </span>
       </div>
 
     
-      <div class="" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
-        <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
+      <div class="col-6" *ngIf="(this.missingPreferencesGroup2.length > 0 && this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem')">
+        <p> <strong> {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }} </strong> </p>
+
+        <span *ngFor="let item of this.missingPreferencesGroup2; let lastItem = last;">
           <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
         </span>
       </div>
 
     </div>
-  </div> -->
+  </div>
 
 
-  <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
+  <!-- <h2 *ngIf="this.missingPreferences.length != 0">Preferences Missing</h2>
   <span *ngFor="let item of this.missingPreferences; let lastItem = last;">
     <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
-  </span>
+  </span> -->
 
   <div class="row">
     <div class="col-12 text-right">

@@ -46,6 +46,15 @@ export class EditPreferencesDialogComponent implements OnInit {
   formString: string;
   missingPreferences: Array<Array<string>>;
 
+  missingPreferencesGroup1: Array<Array<string>>;
+  missingPreferencesGroup2: Array<Array<string>>;
+
+
+
+  
+
+
+
 
   preferenceTextGroup1 = []
   preferenceTextGroup2 = []
@@ -127,6 +136,11 @@ export class EditPreferencesDialogComponent implements OnInit {
     let preferenceString: string = this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[0]) + "\n";
 
     this.missingPreferences = [];
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
+
+  
 
     if (this.equalGroups) {
       this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
@@ -242,6 +256,9 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     this.preferenceTextGroup1 = []
     this.missingPreferences = []
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
 
 
     if (this.equalGroups) {
@@ -440,6 +457,9 @@ export class EditPreferencesDialogComponent implements OnInit {
     let letters = []
     this.missingPreferences = []
 
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
+
     let lettersValid = true
     let numbersValid = true
 
@@ -460,6 +480,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
           //input missing preferences 
           this.missingPreferences.push([key + 1, char])
+          this.missingPreferencesGroup1.push([key + 1, char])
         }
       }
       // checks for smae size 
@@ -476,7 +497,8 @@ export class EditPreferencesDialogComponent implements OnInit {
           numbersValid =  false
 
           //input missing preferences 
-          this.missingPreferences.push([String.fromCharCode(65 + key), num]) //
+          this.missingPreferences.push([String.fromCharCode(65 + key), num]) 
+          this.missingPreferencesGroup2.push([String.fromCharCode(65 + key), num])
         }
       }
       // checks for smae size 
@@ -544,6 +566,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     let numbers= []
     this.missingPreferences = []
+    this.missingPreferencesGroup1 = [];
 
     let numbersValid = true
 
@@ -563,6 +586,7 @@ export class EditPreferencesDialogComponent implements OnInit {
             numbersValid = false
             //input missing preferences 
             this.missingPreferences.push([key + 1, num])
+            this.missingPreferencesGroup1.push([key + 1, num])
           }
         }
       }
@@ -585,6 +609,7 @@ export class EditPreferencesDialogComponent implements OnInit {
   }
 
 
+  // NOT USED - from old input preferenace system - needs updated in the form of a fix button or toggle 
   generateMissingPreferences(preferenceString) {
 
 
@@ -593,6 +618,9 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     let newPreferences: Map<string, Array<string>> = new Map();
     this.missingPreferences = [];
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
 
 
     // dont check for SR
