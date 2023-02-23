@@ -170,7 +170,8 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 	this.currentLines.push(greenLine);
 
 	this.changePreferenceStyle(this.group1CurrentPreferences, agentLastChar, this.originalGroup1CurrentPreferences.get(agentLastChar).findIndex(h => h == this.getLastCharacter(hospital.name)), "green");
-	this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
+	// this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.findPositionInMatches(hospital, resident), "green");
+	this.changePreferenceStyle(this.group2CurrentPreferences, proposeeLastChar, this.originalGroup2CurrentPreferences.get(proposeeLastChar).findIndex(h => h == this.getLastCharacter(resident.name)), "green")
 
 	if (hospital.match.length >= hospital.availableSpaces - 1) {
 	  this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] = "{#53D26F" + this.algorithmSpecificData["hospitalCapacity"][proposeeLastChar] + "}";
@@ -183,91 +184,110 @@ breakAssignment(resident: Agent, hospital: Agent): void {
 
 removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
 
-    
- 
-      if (hospital.match.length >= hospital.availableSpaces) {
-          let worstResident: Agent = this.getWorstResident(hospital);
-          let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
-
-		//   let worstHospital: Agent = this.getwo
+    // given h and r - remove h' of h on r's list 
 
 
+	if (true) {
+		let hospitalPosition: number = this.findPositionInMatches(resident, hospital)
 
+		console.log("Del Before")
+		console.log(this.group1Agents) //res 
+		console.log(this.group2Agents) // hos
 
-          let hospitalRankingClearCounter: number = worstResidentPosition + 1;
+		let residentRankingClearCounter: number = hospitalPosition + 1;
 
-     	 // for each successor h' of h on r's list 
+		// for each successor h' of h on r's list 
 		this.update(7, {"%resident%" : resident.name, "%hospital%" : hospital.name});
-		
-          for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
-              let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
-              this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
+		for (let i: number = hospitalPosition + 1; i < resident.ranking.length ; i++){
 
-              this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
-              this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
-              
-			  // remove r' and h from each others preferance list
-              this.update(8, {"%hospital%": hospital.name, "%resident%": hospital.ranking[i].name});
 
-			  hospital.ranking[i].ranking.splice(hospitalPosition, 1);
-  
+			// current hospital being removed 
+			let removedHospital = resident.ranking[i]
+			
+			// resident index within hospital to be removed 
+			let residentIndex: number = this.findPositionInMatches(removedHospital, resident) 
 
-              hospital.ranking.splice(i, 1);
-              i -= 1;
-              
-              hospitalRankingClearCounter++;
+			removedHospital.ranking.splice(residentIndex, 1)
 
-              this.relevantPreferences.pop();
+			// remove hsopital from resident 
+			resident.ranking.splice(i, 1)
 
-          }
+			console.log("Iteration", i)
+			console.log("Del", removedHospital.name, resident.name)
+			console.log(hospitalPosition, hospital.ranking.length)
+			console.log(resident.ranking, removedHospital.ranking)
 
-      }
+			console.log("new")
+			console.log(this.group1CurrentPreferences)
 
+			//  grey out hos from res 
+			this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(resident.name), i, "grey")
+			// grey out res from hos 
+			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(removedHospital.name), residentIndex, "grey")
+
+			// remove h' and r from each others preferance list
+			this.update(8, {"%hospital%": removedHospital.name, "%resident%": resident.name});
+
+			// this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+			// this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
+			
+
+			residentRankingClearCounter++
+
+		}
+	}
+
+	console.log("Del After")
+	console.log(this.group1Agents)
+	console.log(this.group2Agents)
+
+
+     
   }
 
-//   removeRuledOutPreferences(resident: Agent, hospital: Hospital): void {
+  removeRuledOutPreferencesOld(resident: Agent, hospital: Hospital): void {
 
     
  
-// 	if (hospital.match.length >= hospital.availableSpaces) {
-// 		let worstResident: Agent = this.getWorstResident(hospital);
-// 		let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
+	if (hospital.match.length >= hospital.availableSpaces) {
+		let worstResident: Agent = this.getWorstResident(hospital);
+		let worstResidentPosition: number = this.findPositionInMatches(hospital, worstResident);
 
 		
 
 
-// 		let hospitalRankingClearCounter: number = worstResidentPosition + 1;
+		let hospitalRankingClearCounter: number = worstResidentPosition + 1;
 
-// 		// for each successor h' of h on r's list 
-// 	  this.update(7, {"%resident%" : resident.name, "%hospital%" : hospital.name});
+		// for each successor h' of h on r's list 
+	  this.update(7, {"%resident%" : resident.name, "%hospital%" : hospital.name});
 	  
-// 		for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
+		for (let i = worstResidentPosition + 1; i < hospital.ranking.length; i++) {
 
-// 			let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
-// 			this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
+			let hospitalPosition: number = this.findPositionInMatches(hospital.ranking[i], hospital);
+			this.relevantPreferences.push(this.getLastCharacter(hospital.ranking[i].name));
 
-// 			this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
-// 			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
+			this.changePreferenceStyle(this.group1CurrentPreferences, this.getLastCharacter(hospital.ranking[i].name), this.originalGroup1CurrentPreferences.get(this.getLastCharacter(hospital.ranking[i].name)).findIndex(h => h == this.getLastCharacter(hospital.name)), "grey");
+			this.changePreferenceStyle(this.group2CurrentPreferences, this.getLastCharacter(hospital.name), hospitalRankingClearCounter, "grey");
 			
-// 			// remove r' and h from each others preferance list
-// 			this.update(8, {"%hospital%": hospital.name, "%resident%": hospital.ranking[i].name});
+			// remove r' and h from each others preferance list
+			this.update(8, {"%hospital%": hospital.name, "%resident%": hospital.ranking[i].name});
 
-// 			hospital.ranking[i].ranking.splice(hospitalPosition, 1);
+			hospital.ranking[i].ranking.splice(hospitalPosition, 1);
 
 
-// 			hospital.ranking.splice(i, 1);
-// 			i -= 1;
+			hospital.ranking.splice(i, 1);
+			i -= 1;
 			
-// 			hospitalRankingClearCounter++;
+			hospitalRankingClearCounter++;
 
-// 			this.relevantPreferences.pop();
+			this.relevantPreferences.pop();
 
-// 		}
+		}
 
-// 	}
+	}
 
-// }
+}
 
   print_matches(){
 
@@ -308,7 +328,8 @@ checkFreeHospitals(){
 	let freeHospitals = []
 	for (let [key, hospital] of this.group2Agents.entries()){
 
-		let hospitalCap = this.algorithmSpecificData["hospitalCapacity"][this.getLastCharacter(hospital.name)]
+		let hospitalCap = hospital.availableSpaces
+		let rankingsLeftLen = hospital.ranking.length
 
 		// if hospital in undersubbed and there is someone on the list that is not assigned to them 
 		if (hospital.match.length < hospitalCap && this.checkHospitalPreferanceList(hospital)){
@@ -373,10 +394,6 @@ checkFreeHospitals(){
 			}
 
 			
-			// MATHCING MIGHT NOT STABLE 
-			// VIZ HAS BEEN WORKED ON WITH COMMENTS NEEDS TESTING 
-			// UPDATES MAY BE IN WRONG PLACE TO ACCOMADATE THE CHNAGING VIZ LINES - NEEDS TESTING 
-
 			// provisionally assign r to h
 			this.provisionallyAssign(potentialProposee, currentHospital);
 			this.update(6, {"%resident%" : potentialProposee.name, "%hospital%" : currentHospital.name})
@@ -388,6 +405,8 @@ checkFreeHospitals(){
 
 			// continous loop as guessed + not clear way to define/get free hospitals
 			// rankings should be deleted until convergence?
+
+			// break;
 
 			if (this.shouldContinueMatching(currentHospital)) {
 				this.freeAgentsOfGroup1.shift();
@@ -406,9 +425,17 @@ checkFreeHospitals(){
 	
 	 
 	if (counter_break > 200){
-		// console.log("Done ---- Done ----")
-		break;
+		console.log("Done ---- Done ----")
+		// break;
 		}
+
+		console.log("END")
+		console.log(this.algorithmSpecificData["hospitalCapacity"])
+		console.log(this.group2Agents)
+		console.log(this.group1Agents)
+
+		
+
 	}
 
 	// stable matching found 

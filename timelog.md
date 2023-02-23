@@ -306,7 +306,9 @@ Coding, Finished SR
 (6Hr) - Dissertation, Coding - Text Exp
 
 ### 22 Feb
-(6Hr) - Coding - Text Exp
+(6Hr) - Coding - Text Exp, Dissertation
+
+### 23 Feb
 
 
 <hr>
