@@ -85,14 +85,70 @@ export class AlgorithmRetrievalService {
         algorithm: "Extended Gale-Shapley Stable Matching",
         service: this.SpaStudentEgsService,
         description: "SPA",
-        helpTextMap: { 1 : "line1",
+        helpTextMap: { 
+          
+          1 : "set each student, lecturer, and project to be free and unmatched",
+          2 : "While some student %student% is free and has a non-empty preferance list",
+          3 : "%project% is selected as %student%'s most prefered project",
+          4 : "The lecture %lecturer% offers that project",
+          5 : "The project %project% and the student %student% are assigned to each other",
+          6 : "If the project %project% is over-subscribed",
+          7 : "The worst (least preferable) student assigned to project %project% is %student%",
+          8 : "The provisional assigment between %project% and %student% is broken",
+          9 : "Else if the lecturer %lecturer% is over-subscribed",
+          10 : "The worst (least preferable) student assigned to the lecturer %lecturer% is %student%",
+          11 : "The project that %student% is assigned to is %project%",
+          12 : "The provisional assigment between %project% and %student% is broken",
+
+          13 : "If the project %project% is at capacity",
+          14 : "The worst (least preferable) student assigned to project %project% is %student%",
+          15 : "For each student less preferable that %student% on the %lecturer%'s prefernce list",
+          16 : "If the student %student% has the project %project% on their preferance list",
+          17 : "Remove %project% from %student%'s preference list",
+
+          18 : "If the lecturer %lecturer% is at capacity",
+          19 : "The worst (least preferable) student assigned to a project %project% run by %lecturer% is %student%",
+          20 : "For each student less preferable that %student% on the %lecturer%'s prefernce list",
+          21 : "For each project that %lecturer% offers",
+          22 : "Remove %project% from %student%'s preferance list",
+
+          23 : "Stable matching is found ",
       
         },
-        code: [ "line1",
-      
+        code: [ 
+          "set each student, lecturer, and project to be free",
+          "while some student s is free:",
+          "\t p = next most prefered project on s's list",
+          "\t l = lecturer who offers p",
+          "\t provisionally assign s to p",
+          "\t if p is over-subscribed:",
+          "\t\t Sw = worst student assigned to p",
+          "\t\t break provisional assignment between Sw and P",
+          "\t else if l is over-subscribed:",
+          "\t\t Sw = worst student assigned to l",
+          "\t\t Pw = project that Sw is assigned to",
+          "\t\t break provisional assignment between Sw and Pw",
+
+          "\t if p is full:",
+          "\t\t Sw = worst student assigned to p",
+          "\t\t for each student S_i less prefered than Sw on l's preference list:",
+          "\t\t\t if S_i finds project p acceptable:",
+          "\t\t\t\t remove p from S_i's preference list",
+
+          "\t if l is full:",
+          "\t\t Sw = worst student assigned to l",
+          "\t\t for each student S_i less prefered than Sw on l's preference list:",
+          "\t\t\t for each project P_i that l offers:",
+          "\t\t\t\t remove P_i from S_i's preference list",
+
+          "Stable matching is found"
+          // 23 lines 
         ]
       }
     ],
+
+    // "\t for each person c less preferded than p on b's preferance list",
+    // "\t\t remove c from p's list and remove p from c's list",
 
     [
       "smp-man-egs", {
