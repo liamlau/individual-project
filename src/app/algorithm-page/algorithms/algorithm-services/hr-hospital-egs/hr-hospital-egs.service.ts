@@ -40,7 +40,7 @@ export class HrHospitalEgsService extends GaleShapley{
       for (let i = 1; i < this.numberOfGroup2Agents + 1; i++) {
           let group2AgentName = this.group2Name + currentLetter;
 
-          let availableSpaces = 2 //this.getRandomInt(1, this.numberOfAgents-2);
+          let availableSpaces = this.getRandomInt(1, this.numberOfAgents-2);
 
           this.group2Agents.set(group2AgentName, {
               name: group2AgentName,

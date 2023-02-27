@@ -1,6 +1,5 @@
 import { AlgorithmData } from "../interfaces/AlgorithmData";
 import { MatchingAlgorithm } from "./MatchingAlgorithm";
-import { Person } from '../interfaces/Person';
 import { Agent } from "../interfaces/Agent";
 
 

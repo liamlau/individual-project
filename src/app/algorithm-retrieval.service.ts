@@ -5,6 +5,7 @@ import { EgsStableMarriageService } from './algorithm-page/algorithms/algorithm-
 import { GsStableMarriageService } from './algorithm-page/algorithms/algorithm-services/smp-man-gs/gs-stable-marriage.service';
 import { StableRoomIrvService } from './algorithm-page/algorithms/algorithm-services/smp-room-irv/stable-room-irv.service';
 import { HrHospitalEgsService } from './algorithm-page/algorithms/algorithm-services/hr-hospital-egs/hr-hospital-egs.service';
+import { SpaStudentEgsService } from './algorithm-page/algorithms/algorithm-services/spa-stu-egs/spa-student-egs.service';
 
 
 // ------------------------------------------------------- ALGORITHM TEMPLATE
@@ -71,6 +72,24 @@ export class AlgorithmRetrievalService {
           "\t\telse",
           "\t\t\tw rejects m’s proposal and remains with m';",
           "the stable matching consists of all n engagements"
+        ]
+      }
+    ],
+
+    [
+      "spa-stu-egs", {
+        id: "spa-stu-egs",
+        name: "Student Project Allocation",
+        orientation: ["Student", "Project"],
+        equalGroups: false,
+        algorithm: "Extended Gale-Shapley Stable Matching",
+        service: this.SpaStudentEgsService,
+        description: "SPA",
+        helpTextMap: { 1 : "line1",
+      
+        },
+        code: [ "line1",
+      
         ]
       }
     ],
@@ -274,6 +293,9 @@ export class AlgorithmRetrievalService {
       }
     ],
 
+
+   
+
     
    
 
@@ -285,7 +307,11 @@ export class AlgorithmRetrievalService {
     ["Woman", "Women"],
     ["Resident", "Residents"],
     ["Hospital", "Hospitals"],
+
     ["Person", "People"],
+    ["Student", "Students"],
+    ["Project", "Projects"],
+    ["Lecturer", "Lectures"],
 
   ]);
 
@@ -295,6 +321,7 @@ export class AlgorithmRetrievalService {
     public HrResidentEgsService: HrResidentEgsService,
     public StableRoomIrvService: StableRoomIrvService,
     public HrHospitalEgsService: HrHospitalEgsService,
+    public SpaStudentEgsService: SpaStudentEgsService,
   ) { }
 
   getListOfAlgorithms(): Array<Algorithm> {

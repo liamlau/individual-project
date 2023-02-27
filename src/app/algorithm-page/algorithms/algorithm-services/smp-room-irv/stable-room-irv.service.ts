@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StableRoomMates } from '../../abstract-classes/StableRoomMates';
-import { Agent } from '../../interfaces/Agent';
 import { AlgorithmData } from '../../interfaces/AlgorithmData';
-import { Man } from '../../interfaces/Man';
 import { Person } from '../../interfaces/Person';
 
 
@@ -11,7 +9,7 @@ import { Person } from '../../interfaces/Person';
 })
 export class StableRoomIrvService extends StableRoomMates {
 
-  group1Name = "p";
+  group1Name = "person";
   group2Name = "Other";
 
   group1Agents: Map<String, Person> = new Map();
@@ -205,6 +203,8 @@ export class StableRoomIrvService extends StableRoomMates {
   }
 
   match(): AlgorithmData {
+
+    console.log(this.group1Agents)
 
 
     let free_agents: Map<String, Person> = new Map();

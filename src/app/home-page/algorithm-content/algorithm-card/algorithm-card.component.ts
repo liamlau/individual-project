@@ -30,7 +30,6 @@ export class AlgorithmCardComponent implements OnInit {
     Validators.required,
     Validators.min(1),
     Validators.max(9),
-    Validators.pattern("[2|4|6|8|10]")
   ]);
 
   numberOfGroup2Agents = new FormControl('', [
@@ -38,6 +37,7 @@ export class AlgorithmCardComponent implements OnInit {
     Validators.min(1),
     Validators.max(9)
   ]);
+
 
   evenOnly(event): boolean {
 

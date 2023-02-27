@@ -71,6 +71,31 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
+
+
+                    <div class="row justify-content-center" *ngIf="algorithm.name == 'Student Project Allocation'">
+                      <mat-form-field style="width: 200px;" class="mr-1">
+                        <mat-label>Number of Students</mat-label>
+                        <input id="spa1" [formControl]="numberOfGroup1Agents" (keyup.enter)="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min') ? '' :  this.onGeneratePreferences()" type="number" matInput placeholder="5" value="5" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
+                        <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
+                          This field is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
+                          Please input a number between 1 and 9
+                        </mat-error>
+                      </mat-form-field>
+                
+                      <mat-form-field style="width: 200px;" class="ml-1">
+                        <mat-label>Number of Projects</mat-label>
+                        <input id="spa2" [formControl]="numberOfGroup2Agents" (keyup.enter)="numberOfGroup1Agents.hasError('required') || numberOfGroup1Agents.hasError('max') || numberOfGroup1Agents.hasError('min') || numberOfGroup2Agents.hasError('required') || numberOfGroup2Agents.hasError('max') || numberOfGroup2Agents.hasError('min') ? '' :  this.onGeneratePreferences()" type="number" matInput placeholder="5" value="5" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
+                        <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
+                          This field is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="numberOfGroup2Agents.hasError('min') || numberOfGroup2Agents.hasError('max')">
+                          Please input a number between 1 and 9
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
                 
                   </form>
             </div>
