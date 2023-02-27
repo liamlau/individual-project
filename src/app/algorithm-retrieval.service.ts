@@ -90,7 +90,7 @@ export class AlgorithmRetrievalService {
           1 : "set each student, lecturer, and project to be free and unmatched",
           2 : "While some student %student% is free and has a non-empty preferance list",
           3 : "%project% is selected as %student%'s most prefered project",
-          4 : "The lecture %lecturer% offers that project",
+          4 : "The lecturer %lecturer% offers that project",
           5 : "The project %project% and the student %student% are assigned to each other",
           6 : "If the project %project% is over-subscribed",
           7 : "The worst (least preferable) student assigned to project %project% is %student%",

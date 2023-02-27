@@ -164,6 +164,8 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
     //remove matching to student from project
     let studentIndex = project.match.indexOf(student)
     project.match.splice(studentIndex, 1)
+
+    this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(student.name), this.getLastCharacter(project.name), "red"])
   }
 
   
@@ -186,44 +188,41 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
   // dels successors of student from projects 
   deleteFullPairsProject(worstStudent: Student, project: Project, lecturer: Lecturer) {
 
-    
-
     // loop though the lectures rakning in revese - remove the project from the ranking if each one
     // stop once we get to the student passed in - worstStudent
+    this.update(15, {"%student%" : worstStudent.name, "%lecturer%" : lecturer.name})
     for (let i = lecturer.ranking.length - 1; i > -1 ; i--) {
       if (lecturer.ranking[i].name == worstStudent.name) {break} 
 
-      console.log(worstStudent.name == lecturer.ranking[i].name, worstStudent.name, lecturer.ranking[i].name)
-
+      // if S_i finds project p acceptable:
+      this.update(16, {"%student%" : lecturer.ranking[i].name, "%project%" : project.name})
       if (lecturer.ranking[i].ranking.includes(project)) {
         let projectIndex = lecturer.ranking[i].ranking.indexOf(project)
         lecturer.ranking[i].ranking.splice(projectIndex, 1)
-        console.log("removed", project.name, "from", lecturer.ranking[i].name, "pro")
+
+        this.changePreferenceStyle(
+          this.group1CurrentPreferences,
+          this.getLastCharacter(lecturer.ranking[i].name), 
+          this.originalGroup1CurrentPreferences.get(this.getLastCharacter(lecturer.ranking[i].name)).indexOf(this.getLastCharacter(project.name)),
+          "grey")
+
+        // remove p from S_i's preference list
+        this.update(17, {"%student%" : lecturer.ranking[i].name, "%project%" : project.name})
+        
       }
     }
-
-    // for (let student of lecturer.ranking.reverse()) {
-    //   if (student.name == worstStudent.name) {break} 
-
-    //   console.log(worstStudent.name == student.name, worstStudent.name, student.name)
-
-    //   if (student.ranking.includes(project)) {
-    //     let projectIndex = student.ranking.indexOf(project)
-    //     student.ranking.splice(projectIndex, 1)
-    //     console.log("removed", project.name, "from", student.name, "pro")
-    //   }
-    // }
-
   }
   
 
   deleteFullPairsLecturer(worstStudent: Student, lecturer: Lecturer) {
 
     // loop through lecturer rankings backwards - stop when we reach worst student
+    this.update(20, {"%student%" : worstStudent.name, "%lecturer%" : lecturer.name})
     for (let i = lecturer.ranking.length - 1; i > -1 ; i--) {
       if (lecturer.ranking[i].name == worstStudent.name) {break} 
 
       // for each project offered by the lecture 
+      this.update(21, {"%lecturer%" : lecturer.name})
       for (let project of lecturer.projects) {
         let projectObject = this.group2Agents.get(project)
         
@@ -231,27 +230,19 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
         if (lecturer.ranking[i].ranking.includes(projectObject)) {
           let projectIndex = lecturer.ranking[i].ranking.indexOf(projectObject)
           lecturer.ranking[i].ranking.splice(projectIndex, 1)
-          console.log("removed", projectObject.name, "from", lecturer.ranking[i].name, "lec")
+
+          this.changePreferenceStyle(
+            this.group1CurrentPreferences,
+            this.getLastCharacter(lecturer.ranking[i].name), 
+            this.originalGroup1CurrentPreferences.get(this.getLastCharacter(lecturer.ranking[i].name)).indexOf(this.getLastCharacter(projectObject.name)),
+            "grey")
+
+          // remove p from S_i's preference list
+          this.update(22, {"%student%" : lecturer.ranking[i].name, "%project%" : projectObject.name})
+
         }
       }  
     }
-
-    // for (let student of lecturer.ranking.reverse()) {
-    //   if (student.name == worstStudent.name) {break} 
-
-    //   // for each project offered by the lecture 
-    //   for (let project of lecturer.projects) {
-    //     let projectObject = this.group2Agents.get(project)
-        
-    //     // if the successor finds this project accesptable - remove the project from the ranking
-    //     if (student.ranking.includes(projectObject)) {
-    //       let projectIndex = student.ranking.indexOf(projectObject)
-    //       student.ranking.splice(projectIndex, 1)
-    //       console.log("removed", projectObject.name, "from", student.name, "lec")
-    //     }
-    //   }  
-    // }
-
   }
 
  
@@ -261,10 +252,160 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
       
     console.log("Here is SPA")
 
+    let redLine = []
+    let greenLine = []
+
     this.update(1);
 
-
     let availableStudents = this.availableStudents();
+
+    
+    // main loop check
+    while(availableStudents.length > 0){
+
+
+      // get first student on list
+      let student = availableStudents[0]
+      // while some student s is free
+      this.update(2, {"%student%" : student.name})
+
+
+      // get students most prefered project and its lecturer
+      let preferedProject = student.ranking[0]
+      let projectLecturer = this.getProjectLecturer(preferedProject)
+
+      // p = next most prefered project on s's list | l = lecturer who offers p
+      this.update(3, {"%student%" : student.name, "%project%" : preferedProject.name})
+      this.update(4, {"%lecturer%" : projectLecturer.name})
+
+      // highlight assinged
+      this.changePreferenceStyle(
+        this.group1CurrentPreferences,
+        this.getLastCharacter(student.name), 
+        this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(preferedProject.name)),
+        "red")
+
+      // provisionally assign student to project
+      student.match.push(preferedProject)
+      preferedProject.match.push(student)
+
+      redLine = [this.getLastCharacter(student.name), this.getLastCharacter(preferedProject.name), "red"]
+      this.currentLines.push(redLine)
+      // provisionally assign s to p
+      this.update(5, {"%student%" : student.name, "%project%" : preferedProject.name})
+      
+
+      // if p is over-subscribed
+      this.update(6, {"%project%" : preferedProject.name})
+
+      // if project is over-subbed - remove worst student assigned to project
+      if (preferedProject.match.length > preferedProject.capacity) {
+        // worst student on this project, ranked by the projects lecturer
+        let worstStudent = this.getWorstStudent(preferedProject)
+        this.update(7, {"%student%" : worstStudent.name, "%project%" : preferedProject.name})
+        this.breakMatch(worstStudent, preferedProject)
+        this.update(8, {"%student%" : worstStudent.name, "%project%" : preferedProject.name})
+
+
+      } else {
+         // else if the lecturer is over-subbed - remove overall worst student
+        this.update(9, {"%lecturer%" : projectLecturer.name})
+        if (projectLecturer.match.length > preferedProject.capacity) {
+          // worst student assigned to the lecture 
+          let worstStudentOverall = this.getWorstStudentOverall(projectLecturer);
+          let worstStudentProject = worstStudentOverall.match[0]
+
+          // Sw = worst student assigned to l | Pw = project that Sw is assigned to
+          this.update(10, {"%student%" : worstStudentOverall.name, "%lecturer%" : projectLecturer.name})
+          this.update(11, {"%student%" : student.name, "%project%" : worstStudentProject.name})
+
+          this.breakMatch(worstStudentOverall, worstStudentProject)
+          // break provisional assignment between Sw and Pw
+          this.update(12, {"%student%" : worstStudentOverall.name, "%project%" : worstStudentProject.name})
+        }
+      }
+      
+    
+
+      // if the project is full - then delete successors 
+      this.update(13, {"%project%" : preferedProject.name})
+      if (preferedProject.match.length == preferedProject.capacity) {
+        // worst student on this project, ranked by the projects lecturer
+        let worstStudent = this.getWorstStudent(preferedProject)
+        this.update(14, {"%student%" : worstStudent.name, "%project%" : preferedProject.name})
+        // for each successor st of sr on lecturer k's project - del pair (st, pj)
+        this.deleteFullPairsProject(worstStudent, preferedProject, projectLecturer);
+      }
+
+      // If the lecturer is at capacity
+      this.update(18, {"%lecturer%" : projectLecturer.name})
+      if (this.getLecturerCurrentCapacity(projectLecturer) == projectLecturer.capacity) {
+        // worst student ranked by the lecturer
+        let worstStudentOverall = this.getWorstStudentOverall(projectLecturer);
+        this.update(19, {"%student%" : worstStudentOverall.name, "%lecturer%" : projectLecturer.name})
+
+        // delete the project from worse students than ^
+        this.deleteFullPairsLecturer(worstStudentOverall, projectLecturer)
+      }
+
+      availableStudents = this.availableStudents();
+
+      // unhighlight assinged
+      this.changePreferenceStyle(
+        this.group1CurrentPreferences,
+        this.getLastCharacter(student.name), 
+        this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(preferedProject.name)),
+        "black")
+
+      // updates confirms 
+      for (let student of this.group1Agents.values()){
+        // if final match is found
+        if (student.ranking.length == 1 && student.match.length == 1) {
+
+          this.changePreferenceStyle(
+            this.group1CurrentPreferences,
+            this.getLastCharacter(student.name), 
+            this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(student.ranking[0].name)),
+            "green")
+
+          greenLine = [this.getLastCharacter(student.name), this.getLastCharacter(student.ranking[0].name), "green"]
+          this.currentLines.push(greenLine)
+          this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(student.name), this.getLastCharacter(student.ranking[0].name), "red"])
+        }
+      }
+
+    }
+
+    // updates confirms 
+    for (let student of this.group1Agents.values()){
+      // if the student has a matching - should 
+      if (student.match.length == 1) {
+        this.changePreferenceStyle(
+          this.group1CurrentPreferences,
+          this.getLastCharacter(student.name), 
+          this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(student.match[0].name)),
+          "green")
+  
+        greenLine = [this.getLastCharacter(student.name), this.getLastCharacter(student.match[0].name), "green"]
+        this.currentLines.push(greenLine)
+        this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(student.name), this.getLastCharacter(student.match[0].name), "red"])
+      
+      }
+    }
+
+    // END - Stable matching found
+    this.update(23);
+
+    console.log("--- End ---")
+    console.log(this.group1Agents)
+    console.log(this.group2Agents)
+    console.log(this.group3Agents)
+
+    return;
+  }
+
+}
+
 
 
     // let s1 = this.group1Agents.get("s1")
@@ -302,69 +443,3 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
     // a.reverse()
     // console.log(a)
 
-
-    
-
-    // main loop check
-    while(availableStudents.length > 0){
-  
-      // get first student on list
-      let student = availableStudents[0]
-
-      console.log("New Run", student)
-
-      // get students most prefered project and its lecturer
-      let preferedProject = student.ranking[0]
-      let projectLecturer = this.getProjectLecturer(preferedProject)
-
-      // provisionally assign student to project
-      student.match.push(preferedProject)
-      preferedProject.match.push(student)
-
-      // if project is over-subbed - remove worst student assigned to project
-      if (preferedProject.match.length > preferedProject.capacity) {
-        // worst student on this project, ranked by the projects lecturer
-        let worstStudent = this.getWorstStudent(preferedProject)
-        this.breakMatch(worstStudent, preferedProject)
-
-      // else if the lecturer is over-subbed - remove overall worst student
-      } else if (projectLecturer.match.length > preferedProject.capacity) {
-        // worst student assigned to the lecture 
-        let worstStudentOverall = this.getWorstStudentOverall(projectLecturer);
-        let worstStudentProject = worstStudentOverall.match[0]
-
-        this.breakMatch(worstStudentOverall, worstStudentProject)
-      }
-
-
-      // if the project is full - then delete successors 
-      if (preferedProject.match.length == preferedProject.capacity) {
-        // worst student on this project, ranked by the projects lecturer
-        let worstStudent = this.getWorstStudent(preferedProject)
-        // for each successor st of sr on lecturer k's project - del pair (st, pj)
-        this.deleteFullPairsProject(worstStudent, preferedProject, projectLecturer);
-      }
-
-      // mermermer
-      if (this.getLecturerCurrentCapacity(projectLecturer) == projectLecturer.capacity) {
-        // worst student ranked by the lecturer
-        let worstStudentOverall = this.getWorstStudentOverall(projectLecturer);
-        // delete the project from worse students than ^
-        this.deleteFullPairsLecturer(worstStudentOverall, projectLecturer)
-      }
-
-      availableStudents = this.availableStudents();
-    }
-
-
-    console.log("--- End ---")
-    console.log(this.group1Agents)
-    console.log(this.group2Agents)
-    console.log(this.group3Agents)
-
-
-    return;
-  }
-
-
-}
