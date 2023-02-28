@@ -19,9 +19,9 @@
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match two groups of people into pairs, where each agent has an ordered preferance of 
+              The goal of the algorithm is to match two groups of people into pairs, where each agent has an ordered preference of 
               the agents within the other group. This is done with the Extended Gale-Shapley Algorithm, where a stable matching 
-              is garanteed.
+              is guaranteed.
             </p>
 
             <p>
@@ -37,7 +37,7 @@
                 has the following properties. 
 
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the agent in the other group that they are proposed to.</li>
                 </ul>
               
@@ -57,24 +57,16 @@
               </p>
 
           </div>
-          
-          <div>
-            <h2>Example</h2>
-              <p>
-                Example...
-              </p>
-          </div>
         </div>
-
 
          <!-- STABLE MARRIAGE  -->
         <div *ngIf="this.algorithmService.currentAlgorithm.id == 'smp-man-egs'">   
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match two groups of people into pairs, where each agent has an ordered preferance of 
+              The goal of the algorithm is to match two groups of people into pairs, where each agent has an ordered preference of 
               the agents within the other group. This is done with the Extended Gale-Shapley Algorithm, where a stable matching 
-              is garanteed.
+              is guaranteed.
             </p>
 
             <p>
@@ -90,7 +82,7 @@
                 has the following properties. 
 
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the agent in the other group that they are proposed to.</li>
                 </ul>
               
@@ -105,7 +97,7 @@
                 proposes to their highest-ranked women, if that woman is free or the man is more preferable
                 to their current matching, then they are matched, and the man the woman was previously
                 matched with is set to be free (not matched). Then for each of the men on the newly matched woman's 
-                prefernace list that are less preferable than her current matching are passed to the delete function
+                preference list that are less preferable than her current matching are passed to the delete function
                 along with the woman.
                 
                 This is repeated until all men and women are matched.
@@ -113,8 +105,8 @@
 
               <p>
                 <h4><strong>Delete Function</strong></h4>
-                This takes a woman and a man, then it removes the woman from the man's <strong>Preferance Ranking</strong>, and the man
-                from the woamn's <strong>Preferance Ranking</strong>
+                This takes a woman and a man, then it removes the woman from the man's <strong>Preference Ranking</strong>, and the man
+                from the woamn's <strong>Preference Ranking</strong>
               
 
               <p>
@@ -125,13 +117,6 @@
               </p>
 
           </div>
-          
-          <div>
-            <h2>Example</h2>
-              <p>
-                Example...
-              </p>
-          </div>
         </div>
 
         <!-- HR/R -->
@@ -139,9 +124,9 @@
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match residents to hospitals, where each agent has an ordered preferance of 
+              The goal of the algorithm is match residents to hospitals, where each agent has an ordered preference of 
               the agents within the other group. This is done with the HR Extended Gale-Shapley Algorithm, where a stable matching 
-              is garanteed.
+              is guaranteed.
             </p>
 
             <p>
@@ -157,24 +142,24 @@
               </p>
 
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the agent in the other group that they are proposed to.</li>
                 </ul>
 
               <p>
-                Hospitals also have the additional propertity <strong>Capacity</strong> - this is the maximum number of 
+                Hospitals also have the additional property <strong>Capacity</strong> - this is the maximum number of 
                 residents they are allowed to be matched with. Note, they are allowed to be matched with less.
               </p>
                 
               <p>
                 The algorithm works by selecting a resident <strong>r</strong> that is not matched with a hospital, <strong>r</strong>
                 proposes to their highest-ranked hospital, if the hospital is at capacity, then
-                the least prefered resident is removed, and set to be free (not matched). now <strong>r</strong> is provisanally assigned 
+                the least preferred resident is removed, and set to be free (not matched). now <strong>r</strong> is provisionally assigned 
                 to the hospital.
               </p>
               <p>
-                If the hospital is now at capacity then <strong>s</strong> is set to the the least prefered resisent out of the hospitals 
-                assigned residents, and each resident less prefered than <strong>s</strong> on the hospitals preferance ranking is passed 
+                If the hospital is now at capacity then <strong>s</strong> is set to the least preferred resident out of the hospitals 
+                assigned residents, and each resident less preferred than <strong>s</strong> on the hospitals preference ranking is passed 
                 to the delete function along with the hospital.
                 
                 This is repeated until aa stable matching is found.
@@ -182,23 +167,16 @@
 
               <p>
                 <h4><strong>Delete Function</strong></h4>
-                This takes a resident and a hospital, then it removes the resident from the hospital's <strong>Preferance Ranking</strong>, 
-                and the hospital from the resident's <strong>Preferance Ranking</strong>
+                This takes a resident and a hospital, then it removes the resident from the hospital's <strong>Preference Ranking</strong>, 
+                and the hospital from the resident's <strong>Preference Ranking</strong>
               
 
               <p>
-                In this version, it is biased towards the residents and is known as resident-orientated, and the produced
-                matching is known as the resident-optimal matching, this version is shown in code. The hospital-orientaed 
+                In this version, it is biased towards the residents and is known as resident-oriented, and the produced
+                matching is known as the resident-optimal matching, this version is shown in code. The hospital-oriented 
                 version has a page of its own.
               </p>
 
-          </div>
-          
-          <div>
-            <h2>Example</h2>
-              <p>
-                Example...
-              </p>
           </div>
         </div>
 
@@ -207,9 +185,9 @@
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match residents to hospitals, where each agent has an ordered preferance of 
+              The goal of the algorithm is match residents to hospitals, where each agent has an ordered preference of 
               the agents within the other group. This is done with the HR Extended Gale-Shapley Algorithm, where a stable matching 
-              is garanteed.
+              is guaranteed.
             </p>
 
             <p>
@@ -225,27 +203,27 @@
               </p>
 
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the other group of people from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the agent in the other group that they are proposed to.</li>
                 </ul>
 
               <p>
-                Hospitals also have the additional propertity <strong>Capacity</strong> - this is the maximum number of 
+                Hospitals also have the additional property <strong>Capacity</strong> - this is the maximum number of 
                 residents they are allowed to be matched with. Note, they are allowed to be matched with less.
               </p>
                 
               <p>
-                The algorithm works by selecting a hospital <strong>h</strong> that us undersubscribbed and has a resident <strong>r</strong> on their preferance ranking
-                that they are not already assigned to. resident <strong>r</strong> is provisanally assined to hospital <strong>h</strong>
-                
+                The algorithm works by selecting a hospital <strong>h</strong> that us undersubscribed and has a resident <strong>r</strong> on their preference ranking
+                that they are not already assigned to. resident <strong>r</strong> is provisionally assigned to hospital <strong>h</strong>
                 that is not matched with a hospital, <strong>r</strong>
                 proposes to their highest-ranked hospital, if the hospital is at capacity, then
-                the least prefered resident is removed, and set to be free (not matched). now <strong>r</strong> is provisanally assigned 
+                the least preferred resident is removed and set to be free (not matched). now <strong>r</strong> is provisanally assigned 
                 to the hospital.
               </p>
+
               <p>
-                If the hospital is now at capacity then <strong>s</strong> is set to the the least prefered resisent out of the hospitals 
-                assigned residents, and each resident less prefered than <strong>s</strong> on the hospitals preferance ranking is passed 
+                If the hospital is now at capacity, then <strong>s</strong> is set to the least preferred resident out of the hospitals 
+                assigned residents, and each resident less preferred than <strong>s</strong> on the hospitals preference ranking is passed 
                 to the delete function along with the hospital.
                 
                 This is repeated until aa stable matching is found.
@@ -253,23 +231,16 @@
 
               <p>
                 <h4><strong>Delete Function</strong></h4>
-                This takes a resident and a hospital, then it removes the resident from the hospital's <strong>Preferance Ranking</strong>, 
-                and the hospital from the resident's <strong>Preferance Ranking</strong>
+                This takes a resident and a hospital, then it removes the resident from the hospital's <strong>Preference Ranking</strong>, 
+                and the hospital from the resident's <strong>Preference Ranking</strong>
               
 
               <p>
                 In this version, it is biased towards the residents and is known as resident-orientated, and the produced
-                matching is known as the resident-optimal matching, this version is shown in code. The hospital-orientaed 
+                matching is known as the resident-optimal matching, this version is shown in code. The hospital-oriented 
                 version has a page of its own.
               </p>
 
-          </div>
-          
-          <div>
-            <h2>Example</h2>
-              <p>
-                Example...
-              </p>
           </div>
         </div>
 
@@ -278,9 +249,9 @@
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match people into pairs, where each agent has an ordered preferance of 
+              The goal of the algorithm is to match people into pairs, where each agent has an ordered preference of 
               the other agents within the group. This is done with Irving's Algorithm. Instances of the SR Problem
-              are not garnteed to be stable, but if there are then it will be found.
+              are not guaranteed to be stable, but if there are then it will be found.
             </p>
 
             <p>
@@ -296,7 +267,7 @@
               </p>
 
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the other people from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the other people from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the agent that they are proposed to.</li>
                 </ul>
 
@@ -305,25 +276,25 @@
                 <h3>Phase 1</h3>
                 
                 Phase 1 is lines 1 - 10 in the code to the left. This phase is a version of Extended Gale-Shapley for 1 group.
-                A free agent <strong>p</strong> is provisanally assigned to the highest ranked person on their preferance list  
+                A free agent <strong>p</strong> is provisionally assigned to the highest ranked person on their preference list  
                 <strong>b</strong>, if someone else was assigned to <strong>b</strong> then remove this assignment. Then the Delete
-                Function is aclled on <strong>b</strong> and each person less prefered than <strong>p</strong> on their preference list.
+                Function is called on <strong>b</strong> and each person less preferred than <strong>p</strong> on their preference list.
 
               <p>
                 <h3>Phase 2</h3>
 
-                Phase 2 is lines 11 - 19. This phase <strong>rotations</strong> are removed. while some preferance rankings have more than
-                one ranking remaing, find a rotation in the preferance rankings, and call the delete function on the pairs within the rotation.
-                If at any point a preferance list is empty, then there is no stable matching. If each ranking only has 1 agent remaing this is 
+                Phase 2 is lines 11 - 19. This phase <strong>rotations</strong> are removed. while some preference rankings have more than
+                one ranking remaining, find a rotation in the preference rankings, and call the delete function on the pairs within the rotation.
+                If at any point a preference list is empty, then there is no stable matching. If each ranking only has 1 agent remaing this is 
                 is the stable matching.
 
               <p>
                 <h4><strong>Delete Function</strong></h4>
-                This takes a 2 people, and removes each person from the other person's preferance list.
+                This takes a 2 people, and removes each person from the other person's preference list.
               
               <p>
                 <h4><strong>Rotations</strong></h4>
-                Simply rotaitons are cycles of ordered pairs. However in practice this can be a bit tricky. but it can be done by following 
+                Simply rotations are cycles of ordered pairs. However, in practice this can be a bit tricky. but it can be done by following 
                 the steps below:
 
                 <ul>
@@ -334,8 +305,8 @@
                   <li>5 - Repeat step 2 onwards until S is the same agent as we started with, O</li>
                 </ul>
 
-                Once this is done we are left with a list of pairs, wher as mentions above these pairs are passed to the delete function where 
-                they are removed from each other's prefereance list.
+                Once this is done we are left with a list of pairs, where as mentions above these pairs are passed to the delete function where 
+                they are removed from each other's preference list.
 
               <p>
                 In this version, there is only one group of people and thus no biases.
@@ -349,15 +320,15 @@
           <div>       
             <h2>Set Up</h2>
             <p>
-              The goal of the algorithm is match students to projects, where each agent has an ordered preferance of 
+              The goal of the algorithm is match students to projects, where each agent has an ordered preference of 
               the agents within the other group. Also each project has a maximum number of students that can work on it 
-              and a supervirsing lecturer, this lecturer also has a maximum number of students over all their projects
+              and a supervising lecturer, this lecturer also has a maximum number of students over all their projects
               that they can supervise.
             </p>
 
             <p>
               The set up for this Algorithm is 3 groups, <strong>n</strong> students, <strong>m</strong> projects, and <strong>o</strong> lecturers.
-              This is solved with the SPA Extended Gale-Shapley Algorithm, where a stable matching is garanteed.
+              This is solved with the SPA Extended Gale-Shapley Algorithm, where a stable matching is guaranteed.
             </p> 
           </div>
 
@@ -368,7 +339,7 @@
                 has the following properties:
               </p>
                 <ul>
-                  <li><strong>Preferance Ranking - </strong>this is a list that orders the group of projects from most preferable to least preferable.</li>
+                  <li><strong>Preference Ranking - </strong>this is a list that orders the group of projects from most preferable to least preferable.</li>
                   <li><strong>Current Matching - </strong>this is the project in the other group that they are proposed to.</li>
                 </ul>
                 
@@ -376,7 +347,7 @@
                 Lecturers also have the following properties:
               </p>           
               <ul>
-                <li><strong>Preferance Ranking - </strong>this is a list that orders the group of students from most preferable to least preferable.</li>
+                <li><strong>aaaaaa Ranking - </strong>this is a list that orders the group of students from most preferable to least preferable.</li>
                 <li><strong>Projects - </strong>This is a list of projects that the lecturer runs.</li>
                 <li><strong>Capacity - </strong>This is the maximum number of students that the lecturer can supervise over all their projects.</li>
               </ul>
@@ -391,9 +362,9 @@
                 
               <h4><strong>Start</strong></h4>
               <p>
-                The algorithm works by initally seting all agents to be free and unmatched. It then selects a student <strong>s</strong>, that is 
-                free and has a non-empty preferance ranking. Next <strong>p</strong> is set to <strong>s</strong>'s most prefered project and <strong>l</strong>
-                is set to the lecturer that runs that project. Then <strong>s</strong> and <strong>p</strong> are provisanally assigned to each other. After this 
+                The algorithm works by initially setting all agents to be free and unmatched. It then selects a student <strong>s</strong>, that is 
+                free and has a non-empty preference ranking. Next <strong>p</strong> is set to <strong>s</strong>'s most preferred project and <strong>l</strong>
+                is set to the lecturer that runs that project. Then <strong>s</strong> and <strong>p</strong> are provisionally assigned to each other. After this 
                 3 more checks are done:
               </p>
 
@@ -410,7 +381,7 @@
               <p>
                 If <strong>p</strong> is at capacity, then <strong>Sw</strong> is set to the worst student assigned to <strong>p</strong> according to the 
                 lecturer that runs it. Then for each student <strong>Si</strong> that is ranked worse than <strong>Sw</strong> on the lecturers
-                rakning and also finds <strong>p</strong> an acceptable project is found, then the delete function is called with the pair (<strong>Si, p</strong>).
+                ranking and also finds <strong>p</strong> an acceptable project is found, then the delete function is called with the pair (<strong>Si, p</strong>).
               </p>
 
 
@@ -418,7 +389,7 @@
               <p>   
                 If <strong>l</strong> is at capacity, then <strong>Sw</strong> is set to the worst student assigned to <strong>p</strong> according to the 
                 lecturer that runs it. Then for each student <strong>Si</strong> that is ranked worse than <strong>Sw</strong> on the lecturers
-                rakning, the delete function is called with the pair (<strong>Si, pi</strong>), where <strong>pi</strong> is all the projects that <strong>l</strong>
+                ranking, the delete function is called with the pair (<strong>Si, pi</strong>), where <strong>pi</strong> is all the projects that <strong>l</strong>
                 offers and that <strong>Si</strong> finds acceptable.
               </p>
               
@@ -429,13 +400,13 @@
 
               <h4><strong>Delete Function</strong></h4>
               <p>
-                This takes a student and a project, then it removes the project from the student's <strong>Preferance Ranking</strong>.
-                Since projects don't have a preference ranking then the oppisite operation is not required.
+                This takes a student and a project, then it removes the project from the student's <strong>Preference Ranking</strong>.
+                Since projects don't have a preference ranking then the opposite operation is not required.
               </p>
 
               <p> 
                 In this version, it is biased towards the students and is known as student-orientated, and the produced
-                matching is known as the student-optimal matching, this version is shown in code. There also exists a lecturer-orientaed
+                matching is known as the student-optimal matching, this version is shown in code. There also exists a lecturer-oriented
                 version. 
               </p>
           </div>
