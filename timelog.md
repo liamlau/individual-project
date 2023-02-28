@@ -271,7 +271,6 @@ Coding, Finished SR
 ### 8th Feb
 (5Hr) - Coding New preference input
 
-
 ### 12th Feb
 (4Hr) - Dissertation 
 
@@ -289,7 +288,6 @@ Coding, Finished SR
 ### 15th Feb
 (6Hr) - Dissertation
 
-
 ### 19th Feb
 (6Hr) - SPA Research, Coding - preference input
 
@@ -298,24 +296,32 @@ Coding, Finished SR
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 23 -->
 
-## Week 23 (20 Feb 2021 - 26 Feb 2021) - ** hours** 
+## Week 23 (20 Feb 2021 - 26 Feb 2021) - **32 hours** 
 ### 20 Feb 2023 (Mon) - 7 hours
 (7Hr) - Dissertation - Design, Implementation, Background
 
-### 21 Feb 
+### 21th Feb 
 (6Hr) - Dissertation, Coding - Text Exp
 
-### 22 Feb
+### 22th Feb
 (6Hr) - Coding - Text Exp, Dissertation
 
-### 23 Feb
+### 23th Feb
+(8 Hr) - Codeing - HR/H Fixes, Preferance Input
 
+### 24th Feb
+(5 Hr) - Dissertation - Section 5 
 
 <hr>
 
 <!-- ------------------------------------------------------------------------------------------------------- WEEK 24 -->
 
 ## Week 24 (27 Mar 2021 - 5 Mar 2021) - **0 hours**
+### 27 Feb 2023 (Mon) - 10.5 hours
+(11Hr) - Coding - SPA implementaion + Viz
+
+
+
 
 <hr>
 

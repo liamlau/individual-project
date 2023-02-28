@@ -9,6 +9,7 @@
             HR/R
             HR/H
             SR 
+            SPA
         -->
 
         <h1 class="title center">{{ this.algorithmService.currentAlgorithm.name }}</h1>
@@ -133,8 +134,7 @@
           </div>
         </div>
 
-
-
+        <!-- HR/R -->
         <div *ngIf="this.algorithmService.currentAlgorithm.id == 'hr-resident-egs'">   
           <div>       
             <h2>Set Up</h2>
@@ -202,6 +202,7 @@
           </div>
         </div>
 
+        <!-- HR/H -->
         <div *ngIf="this.algorithmService.currentAlgorithm.id == 'hr-hospital-egs'">   
           <div>       
             <h2>Set Up</h2>
@@ -272,6 +273,7 @@
           </div>
         </div>
 
+        <!-- STABLE ROOMMATES -->
         <div *ngIf="this.algorithmService.currentAlgorithm.id == 'smp-room-irv'">   
           <div>       
             <h2>Set Up</h2>
@@ -340,9 +342,105 @@
               </p>
 
           </div>
-          
         </div>
 
-      </div>
-  </div>
+        <!-- SPA -->
+        <div *ngIf="this.algorithmService.currentAlgorithm.id == 'spa-stu-egs'">   
+          <div>       
+            <h2>Set Up</h2>
+            <p>
+              The goal of the algorithm is match students to projects, where each agent has an ordered preferance of 
+              the agents within the other group. Also each project has a maximum number of students that can work on it 
+              and a supervirsing lecturer, this lecturer also has a maximum number of students over all their projects
+              that they can supervise.
+            </p>
+
+            <p>
+              The set up for this Algorithm is 3 groups, <strong>n</strong> students, <strong>m</strong> projects, and <strong>o</strong> lecturers.
+              This is solved with the SPA Extended Gale-Shapley Algorithm, where a stable matching is garanteed.
+            </p> 
+          </div>
+
+          <div>
+            <h2>How it Works</h2>
+              <p>
+                To produce a stable matching, the algorithm works using the code to the left. Each student
+                has the following properties:
+              </p>
+                <ul>
+                  <li><strong>Preferance Ranking - </strong>this is a list that orders the group of projects from most preferable to least preferable.</li>
+                  <li><strong>Current Matching - </strong>this is the project in the other group that they are proposed to.</li>
+                </ul>
+                
+              <p> 
+                Lecturers also have the following properties:
+              </p>           
+              <ul>
+                <li><strong>Preferance Ranking - </strong>this is a list that orders the group of students from most preferable to least preferable.</li>
+                <li><strong>Projects - </strong>This is a list of projects that the lecturer runs.</li>
+                <li><strong>Capacity - </strong>This is the maximum number of students that the lecturer can supervise over all their projects.</li>
+              </ul>
+
+              <p>
+                Projects have the following properties:
+              </p>
+              <ul>
+                <li><strong>Current Matching - </strong>this is the student(s) that are currently matched with the project .</li>
+                <li><strong>Capacity - </strong>This is the maximum number of students that can be assigned to this project.</li>
+              </ul>
+                
+              <h4><strong>Start</strong></h4>
+              <p>
+                The algorithm works by initally seting all agents to be free and unmatched. It then selects a student <strong>s</strong>, that is 
+                free and has a non-empty preferance ranking. Next <strong>p</strong> is set to <strong>s</strong>'s most prefered project and <strong>l</strong>
+                is set to the lecturer that runs that project. Then <strong>s</strong> and <strong>p</strong> are provisanally assigned to each other. After this 
+                3 more checks are done:
+              </p>
+
+              <h4>1: Check for Over-Subscriptions</h4>
+              <p>
+                If <strong>p</strong> is over-subscribed, then the worst ranked student according to the lecturer that runs the project is unassigned 
+                from the project.
+                <br>
+                Else If <strong>l</strong> is over-subscribed, then the worst student ranked by <strong>l</strong> that is assigned to a project that <strong>l</strong>
+                runs, is unassigned from their project. 
+              </p>
+
+              <h4>2: Check If The Project is Full</h4>
+              <p>
+                If <strong>p</strong> is at capacity, then <strong>Sw</strong> is set to the worst student assigned to <strong>p</strong> according to the 
+                lecturer that runs it. Then for each student <strong>Si</strong> that is ranked worse than <strong>Sw</strong> on the lecturers
+                rakning and also finds <strong>p</strong> an acceptable project is found, then the delete function is called with the pair (<strong>Si, p</strong>).
+              </p>
+
+
+              <h4>3: Check If The Lecturer is Full</h4>
+              <p>   
+                If <strong>l</strong> is at capacity, then <strong>Sw</strong> is set to the worst student assigned to <strong>p</strong> according to the 
+                lecturer that runs it. Then for each student <strong>Si</strong> that is ranked worse than <strong>Sw</strong> on the lecturers
+                rakning, the delete function is called with the pair (<strong>Si, pi</strong>), where <strong>pi</strong> is all the projects that <strong>l</strong>
+                offers and that <strong>Si</strong> finds acceptable.
+              </p>
+              
+              <p>   
+                This then goes back to the start and is repeated until all students have a match, and a stable matching is found.
+              </p>
+
+
+              <h4><strong>Delete Function</strong></h4>
+              <p>
+                This takes a student and a project, then it removes the project from the student's <strong>Preferance Ranking</strong>.
+                Since projects don't have a preference ranking then the oppisite operation is not required.
+              </p>
+
+              <p> 
+                In this version, it is biased towards the students and is known as student-orientated, and the produced
+                matching is known as the student-optimal matching, this version is shown in code. There also exists a lecturer-orientaed
+                version. 
+              </p>
+          </div>
+        </div>
+
+        </div>
+    </div>
 </nav>
