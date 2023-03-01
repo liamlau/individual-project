@@ -2,6 +2,7 @@ import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { captureRejectionSymbol } from 'events';
 import { Agent } from 'http';
 import { element } from 'protractor';
 import { AlgorithmRetrievalService } from 'src/app/algorithm-retrieval.service';
@@ -49,13 +50,6 @@ export class EditPreferencesDialogComponent implements OnInit {
   missingPreferencesGroup1: Array<Array<string>>;
   missingPreferencesGroup2: Array<Array<string>>;
 
-
-
-  
-
-
-
-
   preferenceTextGroup1 = []
   preferenceTextGroup2 = []
 
@@ -79,11 +73,14 @@ export class EditPreferencesDialogComponent implements OnInit {
   ngOnInit(): void {
 
     console.log("before" ,this.group1Preferences)
+    console.log("before" ,this.group2Preferences)
 
     this.group1Preferences = this.playbackService.commandList[0]["group1CurrentPreferences"];
     this.group2Preferences = this.playbackService.commandList[0]["group2CurrentPreferences"];
 
     console.log("after", this.group1Preferences)
+    console.log("after", this.group2Preferences)
+
 
     this.preferencesForm = new FormControl(this.preferences);
 
@@ -150,7 +147,7 @@ export class EditPreferencesDialogComponent implements OnInit {
 
       // if value has been changed
 
-      console.log("value chnaged")
+      console.log("value changed")
 
       let numbersToAdd: Array<string> = [];
       let lettersToAdd: Array<string> = [];
@@ -169,14 +166,18 @@ export class EditPreferencesDialogComponent implements OnInit {
       // addes pre-generated rankings
       for (let agent of this.group1Preferences) {
 
-        let agentCopy = Object.assign([], agent[1])
-        this.preferenceTextGroup1.push(agentCopy)
+        // filter out value that are too large 
+        let agentCopy = Object.assign([], agent[1]) //.sort()
+        let safe_values = agentCopy.filter(pref => pref.charCodeAt(0) - 64 <= this.numberOfGroup2Agents.value)
+
+        this.preferenceTextGroup1.push(safe_values)
       }
       // adds new rankings to end of pre-generated rankings
       for (let index = 0 ; index < this.group1Preferences.size ; index++) {
-       
         this.preferenceTextGroup1[index] = this.preferenceTextGroup1[index].concat(lettersToAdd)
       }
+
+      console.log("lettersToAdd", lettersToAdd)
       // adds new rankings
       for (let i = this.algorithmService.numberOfGroup1Agents; i <= this.numberOfGroup1Agents.value - 1; i++){
         
@@ -242,8 +243,13 @@ export class EditPreferencesDialogComponent implements OnInit {
         // add rankning 
         this.preferenceTextGroup2.push(safe_values)
         counter++
+
+        console.log("Gen group2", agent, agentCopy, safe_values)
+
         }
       }
+
+      console.log("After Gen", this.group1Preferences, this.group2Preferences)
 
   }
 
@@ -345,8 +351,8 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   currentInputCheck(): boolean {
 
-    console.log("--------------------------")
-    console.log(this.preferenceTextGroup1)
+    // console.log("--------------------------")
+    // console.log(this.preferenceTextGroup1)
 
     // CREATES ARRAYS FROM THE STRING
     // GROUP 1 
@@ -378,9 +384,13 @@ export class EditPreferencesDialogComponent implements OnInit {
     // use correct validation based on current alg
     if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem"){ 
       valid = this.isValid1Group()
+      console.log("1 Group", valid)
       if (this.numberOfGroup1Agents.value % 2 != 0){
         valid = false
       }
+    } else if (this.algorithmService.currentAlgorithm.name == "Student Project Allocation") {
+      console.log("SPA")
+      valid = this.SPAisvalid()
     } else {
       valid = this.isValid()
     }
@@ -415,10 +425,19 @@ export class EditPreferencesDialogComponent implements OnInit {
     }
 
     //GROUP 2
-    num = 1
-    for (let agent of this.preferenceTextGroup2){
-      newPreferences.set(String.fromCharCode(64 + num), agent)
-      num++
+    
+    // num = 1
+    // for (let agent of this.preferenceTextGroup2){
+    //   newPreferences.set(String.fromCharCode(64 + num), agent)
+    //   num++
+    // }
+
+    if (this.algorithmService.currentAlgorithm.name != "Student Project Allocation") {
+      num = 1
+      for (let agent of this.preferenceTextGroup2){
+        newPreferences.set(String.fromCharCode(64 + num), agent)
+        num++
+      }
     }
 
 
@@ -508,6 +527,48 @@ export class EditPreferencesDialogComponent implements OnInit {
     }
 
     return (lettersValid && numbersValid)
+  }
+
+  SPAisvalid() {
+
+     // values that should be in each list 
+    // letters 
+
+    let letters = []
+    this.missingPreferences = []
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
+
+    let lettersValid = true
+
+
+    // Gets all letters/numbers that should be in each preference 
+    for (let i = 1; i <= this.numberOfGroup2Agents.value; i++) {
+      letters.push(String.fromCharCode(i + 64));
+    }
+
+
+    // GROUP 1
+    for (let [key, ranking] of this.preferenceTextGroup1.entries()) {
+      for (let char of letters) {
+        if (!ranking.includes(char)){
+          // letter in ranking that is not supposed to be 
+          lettersValid =  false
+
+          //input missing preferences 
+          this.missingPreferences.push([key + 1, char])
+          this.missingPreferencesGroup1.push([key + 1, char])
+        }
+      }
+      // checks for smae size 
+      if (ranking.length != letters.length) {
+        lettersValid = false
+      }
+    }
+
+    return (lettersValid)
+    
   }
 
 
@@ -607,6 +668,9 @@ export class EditPreferencesDialogComponent implements OnInit {
   checkValidity(str: string): boolean {
     return true;
   }
+
+
+ 
 
 
   // NOT USED - from old input preferenace system - needs updated in the form of a fix button or toggle 

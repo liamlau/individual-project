@@ -95,6 +95,32 @@
       </mat-form-field>
     </div>
 
+
+    <!-- SPA -->
+    <div class="row justify-content-center" *ngIf="this.algorithmService.currentAlgorithm.name == 'Student Project Allocation'">
+      <mat-form-field style="width: 200px;" class="mr-1">
+        <mat-label>Number of Students</mat-label>
+        <input [formControl]="numberOfGroup1Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
+        <mat-error *ngIf="numberOfGroup1Agents.hasError('required')">
+          This field is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="numberOfGroup1Agents.hasError('min') || numberOfGroup1Agents.hasError('max')">
+          Please input a number between 1 and 9
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="width: 200px;" class="ml-1">
+        <mat-label>Number of Projects</mat-label>
+        <input [formControl]="numberOfGroup2Agents" type="number" matInput placeholder="5" value="5" (ngModelChange)="this.generatePreferenceString()" min="2" max="9" oninput="this.value = this.value > 1 && this.value < 10 ? (!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null) : Number(String(this.value).charAt(1))" onDrag="return false" onDrop="return false" onPaste="return false">
+        <mat-error *ngIf="numberOfGroup2Agents.hasError('required')">
+          This field is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="numberOfGroup2Agents.hasError('min') || numberOfGroup2Agents.hasError('max')">
+          Please input a number between 1 and 9
+        </mat-error>
+      </mat-form-field>
+    </div>
+
   </form>
 
 
@@ -119,7 +145,7 @@
     </div>
 
     <!-- group 2 -->
-    <div class="child" *ngIf="this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem'">
+    <div class="child" *ngIf="(this.algorithmService.currentAlgorithm.name != 'Stable Roommates Problem' && this.algorithmService.currentAlgorithm.name != 'Student Project Allocation')">
       <p> <strong> {{ this.algorithmService.pluralMap.get(this.algorithmService.currentAlgorithm.orientation[1]) }} </strong> </p>
 
           <div *ngFor="let item of this.preferenceTextGroup2; let i = index; trackBy: trackByFn">

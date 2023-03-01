@@ -320,8 +320,11 @@ Coding, Finished SR
 ### 27 Feb 2023 (Mon) - 10.5 hours
 (11Hr) - Coding - SPA implementaion + Viz
 
-### 28th Feb - 
-(1.5 Hr) - Coding SPA, Explanation Page, ...
+### 28th Feb  
+(3 Hr) - Coding SPA, Explanation Page, SPA 
+
+### 1st Mar 
+(8Hr) - SPA Viz, Dis, SPA Preferance Input
 
 
 <hr>

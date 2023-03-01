@@ -153,23 +153,31 @@ export abstract class StudentProjectAllocation extends MatchingAlgorithm {
     }
     
 
-    // populatePreferences(preferences: Map<String, Array<String>>): void {
-    //     console.log("preferences", preferences);
-    //     let tempCopyList: Agent[];
+    populatePreferences(preferences: Map<String, Array<String>>): void {
+        console.log("preferences", preferences);
 
-    //     for (let agent of Array.from(this.group1Agents.keys())) {
-    //         tempCopyList = [];
-    //         // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
-    //         for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
-    //             tempCopyList.push(this.group1Agents.get(this.group1Name + preferenceAgent));
-    //         }
-    //         this.group1Agents.get(agent).ranking = tempCopyList;
-    //     }
+        this.generatePreferences()
 
-    //     console.log(this.group1Agents);
-    //     console.log(this.group2Agents);
+        let tempCopyList: Agent[];
 
-    // }
+        console.log("changes", Array.from(this.group1Agents.keys()))
+
+        for (let agent of Array.from(this.group1Agents.keys())) {
+            tempCopyList = [];
+            console.log(agent, preferences.get(this.getLastCharacter(String(agent))))
+            // this.group1Agents.get(agent).ranking = preferences.get(this.getLastCharacter(String(agent)));
+            for (let preferenceAgent of preferences.get(this.getLastCharacter(String(agent)))) {
+                console.log()
+                tempCopyList.push(this.group2Agents.get(this.group2Name + preferenceAgent));
+            }
+            this.group1Agents.get(agent).ranking = tempCopyList;
+        }
+
+        console.log(this.group1Agents);
+        console.log(this.group2Agents);
+        console.log(this.group3Agents)
+
+    }
 
 
     abstract match(): AlgorithmData;
