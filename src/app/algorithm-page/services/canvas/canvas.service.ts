@@ -330,7 +330,7 @@ export class CanvasService {
 
   drawLHSCircles() {
 
-    console.log("LHS draw positions", this.positions)
+    // console.log("LHS draw positions", this.positions)
 
     this.ctx.beginPath();
     this.ctx.fillStyle = "#FF6332";
@@ -641,10 +641,89 @@ export class CanvasService {
 
       let currentCapacity: number = hospitalCapacityMap[currentLetter];
 
-      this.drawText(this.ctx, "(" + String(currentCapacity) + ")", this.positions["circle" + currentLetter].positionX + 60, this.positions["circle" + currentLetter].positionY + 7, this.fontSize);
+      this.drawText(this.ctx, "(" + String(currentCapacity) + ")", this.positions["circle" + currentLetter].positionX + 45, this.positions["circle" + currentLetter].positionY + 7, this.fontSize);
       // this.ctx.fillText(group2PreferenceList[i-1].join(", "), this.positions["circle" + currentLetter].positionX + 65, this.positions["circle" + currentLetter].positionY + 7);
       currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
     }
+
+  }
+
+  
+  drawSPAlecturers() {
+    // console.log("drawSPAlecturers" , this.currentCommand["algorithmSpecificData"]["lecturerCapacity"]);
+
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = 1.5;
+
+    this.ctx.beginPath();
+    // this.ctx.fillStyle = "#FF6332";
+
+    // this.ctx.moveTo(this.positions["circleA"].positionX + 110, this.positions["circleA"].positionY);
+    // this.ctx.lineTo(this.positions["circleA"].positionX + 130, this.positions["circleA"].positionY);
+
+    // console.log("projects", this.currentCommand["algorithmSpecificData"]["lecturerProjects"])
+    // console.log("caps", this.currentCommand["algorithmSpecificData"]["lecturerCapacity"])
+
+    let count = 0
+    let text = ""
+    for (let projectList of this.currentCommand["algorithmSpecificData"]["lecturerProjects"]) {
+
+      
+
+      // > 1 project 
+      let first = projectList[0]
+      let last = projectList.slice(-1)[0]
+
+      let firstLetter = first.slice(-1)[0]
+      let lastLetter = last.slice(-1)[0]
+
+      let firstPos = this.positions["circle" + String(firstLetter)]
+      let lastPos = this.positions["circle" + String(lastLetter)]
+
+      let centerPos = {"positionX" : 0, "positionY" : 0}
+
+      if (firstLetter == lastLetter){
+        // console.log("middle")
+        centerPos = {"positionX" : firstPos.positionX, "positionY" : firstPos.positionY + 10}
+
+      } else {
+        // console.log("subtracted", firstLetter, firstPos)
+        // console.log( lastLetter, lastPos)
+        centerPos = {"positionX" : firstPos.positionX, "positionY" : ((lastPos.positionY - firstPos.positionY) / 2) + firstPos.positionY + 10}
+      }
+
+
+      // console.log("Pos Test", centerPos.positionX, centerPos.positionY)
+
+      // console.log(this.positions["circleA"], this.positions["circleC"])
+      // console.log(firstPos, lastPos)
+
+      // this.ctx.beginPath()
+      this.ctx.moveTo(firstPos.positionX + 85, firstPos.positionY - this.radiusOfCircles);
+      this.ctx.lineTo(firstPos.positionX + 100, firstPos.positionY - this.radiusOfCircles);
+      // this.ctx.stroke();
+
+      this.ctx.lineTo(lastPos.positionX + 100, lastPos.positionY + this.radiusOfCircles)
+
+      // this.ctx.beginPath()
+      this.ctx.moveTo(lastPos.positionX + 85, lastPos.positionY + this.radiusOfCircles);
+      this.ctx.lineTo(lastPos.positionX + 100, lastPos.positionY + this.radiusOfCircles);
+      // this.ctx.stroke();
+
+      text = "Lecturer" + String(count + 1) + " (" + this.currentCommand["algorithmSpecificData"]["lecturerCapacity"][count + 1] + ")"
+
+      this.drawText(this.ctx, text,centerPos.positionX + 120, centerPos.positionY, 14)
+      
+      
+      count++
+    }
+
+
+    this.ctx.stroke()
+   
+
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = 1;
 
   }
 
@@ -793,7 +872,6 @@ export class CanvasService {
   }
 
 
-
   redrawCanvas(command?: Object): void {
 
     if (command) {
@@ -818,10 +896,6 @@ export class CanvasService {
     }
 
     this.setFont();
-
-    
-    
-
    
     // this.drawLineBetween("circle1", "circleE", "red")
     // this.drawLineBetween("circle1", "circleB");
@@ -854,6 +928,12 @@ export class CanvasService {
       this.drawRHSCircles();
     }
     
+    // draw project lecturer Viz
+    if (this.currentCommand) {
+      if (this.currentCommand["algorithmSpecificData"]["lecturerCapacity"]) {
+        this.drawSPAlecturers();
+      }
+    }
     
 
     if (this.currentCommand) {

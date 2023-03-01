@@ -103,6 +103,8 @@ export abstract class StudentProjectAllocation extends MatchingAlgorithm {
 
     generatePreferences(): void {
 
+        let numberLectures = 0;
+        let projectLists = []
         // Students - Group 1
         for (let student of Array.from(this.group1Agents.values())) {
             let agent1Rankings = Array.from((new Map(this.group2Agents)).values());
@@ -112,8 +114,8 @@ export abstract class StudentProjectAllocation extends MatchingAlgorithm {
 
 
         // make lists that show each project that a lecturer runs
-        let numberLectures = Math.ceil(this.numberOfGroup2Agents / 3)
-        let projectLists = []
+        numberLectures = Math.ceil(this.numberOfGroup2Agents / 3)
+        projectLists = []
         for (let i = 0 ; i < numberLectures ; i++) {
             projectLists.push([])
         }
@@ -140,6 +142,9 @@ export abstract class StudentProjectAllocation extends MatchingAlgorithm {
             lecturer.projects = projectLists[count]
             count++
         }
+
+
+        this.algorithmSpecificData["lecturerProjects"] = projectLists
 
         console.log("SPA gen agents")
         console.log(this.group1Agents)

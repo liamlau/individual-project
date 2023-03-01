@@ -20,8 +20,13 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
   group2Agents: Map<String, Project> = new Map();
   group3Agents: Map<String, Lecturer> = new Map();
 
- 
+  hospitalCapacity: Map<string, number> = new Map();
+  lecturerCapacitys: Map<String, number> = new Map();
 
+  numberLectures: number;
+  lecturerCapacity: number;
+
+ 
   generateAgents() {
       for (let i = 1; i < this.numberOfAgents + 1; i++) {
           let group1AgentName = this.group1Name + i;
@@ -49,13 +54,23 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
               capacity: projectCapacity,
           });
 
+          this.hospitalCapacity[currentLetter] = projectCapacity;
+
           currentLetter = String.fromCharCode((((currentLetter.charCodeAt(0) + 1) - 65 ) % 26) + 65);
-      }
+        }
 
-      let numberLectures = Math.ceil(this.numberOfGroup2Agents / 3)
-      let lecturerCapacity = Math.ceil(this.numberOfAgents / 3) + 1
+      this.algorithmSpecificData["hospitalCapacity"] = this.hospitalCapacity
+      console.log(this.hospitalCapacity)
+     
 
-      for (let i = 1; i < numberLectures + 1; i++) {
+      this.numberLectures = Math.ceil(this.numberOfGroup2Agents / 3)
+      this.lecturerCapacity = Math.ceil(this.numberOfAgents / 3) + 1
+
+      // reset the group - if prevouis run had more projects/lecturers then they dont all get deleted - causes issues - index errors 
+      this.group3Agents = new Map();
+
+
+      for (let i = 1; i < this.numberLectures + 1; i++) {
         let group3AgentName = this.group3Name + i;
 
         this.group3Agents.set(group3AgentName, {
@@ -63,12 +78,17 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
             match: new Array(),
             ranking: new Array(),
             projects: new Array(),
-            capacity: lecturerCapacity
+            capacity: this.lecturerCapacity
         });
 
+        this.lecturerCapacitys[i] = this.lecturerCapacity
+        // this.lecturerProjects[i] = this.group3Agents.get(group3AgentName).projects
 
-    }    
-  }
+      }  
+    this.algorithmSpecificData["lecturerCapacity"] = this.lecturerCapacitys
+    // this.algorithmSpecificData["lecturerProjects"] = this.lecturerProjects
+
+  } 
 
   getRandomInt(min: number, max: number): number {
     min = Math.ceil(min);
@@ -166,6 +186,7 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
     project.match.splice(studentIndex, 1)
 
     this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(student.name), this.getLastCharacter(project.name), "red"])
+    this.updateCapacityVisualization();
   }
 
   
@@ -176,8 +197,6 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
     for (let project of lecturer.projects) {
       let projectObject = this.group2Agents.get(project)
 
-      console.log(projectObject, project, lecturer)
-    
       // sum number of people assigned to the project
       currentCapacity += projectObject.match.length
     }
@@ -245,6 +264,43 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
     }
   }
 
+  updateCapacityVisualization() {
+
+    let cap = 0
+
+    // lecturers 
+    for (let lecturer of this.group3Agents.values()) {
+      cap = this.getLecturerCurrentCapacity(lecturer)
+      if (cap == lecturer.capacity){
+        // turn green if at capacity
+        this.algorithmSpecificData["lecturerCapacity"][Number(this.getLastCharacter(lecturer.name))] = "{#53D26F" + lecturer.capacity + "}"
+      } else if (cap > lecturer.capacity){
+        // turn red if over capacity 
+        this.algorithmSpecificData["lecturerCapacity"][Number(this.getLastCharacter(lecturer.name))] = "{#EB2A2A" + lecturer.capacity + "}"
+      } else {
+        // turn black otherwise
+        this.algorithmSpecificData["lecturerCapacity"][Number(this.getLastCharacter(lecturer.name))] = "{#000000" + lecturer.capacity + "}"
+      }
+    }
+
+    //Projects 
+    for (let project of this.group2Agents.values()) {
+      console.log("check")
+      if (project.match.length == project.capacity) {
+        // turn green to show full
+        console.log("full")
+        this.algorithmSpecificData["hospitalCapacity"][this.getLastCharacter(project.name)] = "{#53D26F" + project.capacity + "}"
+      } else if (project.match.length > project.capacity) {
+        // turn red to show over full
+        console.log("over")
+        this.algorithmSpecificData["hospitalCapacity"][this.getLastCharacter(project.name)] = "{#EB2A2A" + project.capacity + "}"
+      } else {
+        // turn black otherwise
+        this.algorithmSpecificData["hospitalCapacity"][this.getLastCharacter(project.name)] = "{#000000" + project.capacity + "}"
+      }
+    }
+  }
+
  
   
 
@@ -259,6 +315,8 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
 
     let availableStudents = this.availableStudents();
 
+    let stopPoint = 0
+
     
     // main loop check
     while(availableStudents.length > 0){
@@ -269,6 +327,7 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
       // while some student s is free
       this.update(2, {"%student%" : student.name})
 
+      // console.log("Current Student", student.name, student)
 
       // get students most prefered project and its lecturer
       let preferedProject = student.ranking[0]
@@ -292,6 +351,7 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
       redLine = [this.getLastCharacter(student.name), this.getLastCharacter(preferedProject.name), "red"]
       this.currentLines.push(redLine)
       // provisionally assign s to p
+      this.updateCapacityVisualization()
       this.update(5, {"%student%" : student.name, "%project%" : preferedProject.name})
       
 
@@ -310,7 +370,7 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
       } else {
          // else if the lecturer is over-subbed - remove overall worst student
         this.update(9, {"%lecturer%" : projectLecturer.name})
-        if (projectLecturer.match.length > preferedProject.capacity) {
+        if (this.getLecturerCurrentCapacity(projectLecturer) > projectLecturer.capacity) {
           // worst student assigned to the lecture 
           let worstStudentOverall = this.getWorstStudentOverall(projectLecturer);
           let worstStudentProject = worstStudentOverall.match[0]
@@ -357,22 +417,15 @@ export class SpaStudentEgsService extends StudentProjectAllocation{
         this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(preferedProject.name)),
         "black")
 
-      // updates confirms 
-      for (let student of this.group1Agents.values()){
-        // if final match is found
-        if (student.ranking.length == 1 && student.match.length == 1) {
+    
+      // update viz
+      this.updateCapacityVisualization()
 
-          this.changePreferenceStyle(
-            this.group1CurrentPreferences,
-            this.getLastCharacter(student.name), 
-            this.originalGroup1CurrentPreferences.get(this.getLastCharacter(student.name)).indexOf(this.getLastCharacter(student.ranking[0].name)),
-            "green")
-
-          greenLine = [this.getLastCharacter(student.name), this.getLastCharacter(student.ranking[0].name), "green"]
-          this.currentLines.push(greenLine)
-          this.removeArrayFromArray(this.currentLines, [this.getLastCharacter(student.name), this.getLastCharacter(student.ranking[0].name), "red"])
-        }
-      }
+      // stopPoint++
+      // if (stopPoint > 200) {
+      //   console.log("OVERRUN - STOPPED")
+      //   break;
+      // }
 
     }
 
