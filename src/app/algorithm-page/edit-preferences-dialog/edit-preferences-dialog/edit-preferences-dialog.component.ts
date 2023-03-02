@@ -59,9 +59,13 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   @HostListener('document:keydown.enter') 
   onEnter() {
-    if (!(this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)) {
-      this.callGenerateAlgorithmPreferences();
+
+    if (!this.currentInputCheck()){
+      if (!(this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)) {
+            this.callGenerateAlgorithmPreferences();
+      }
     }
+
   }
 
   test(id) {
@@ -399,7 +403,6 @@ export class EditPreferencesDialogComponent implements OnInit {
     // use correct validation based on current alg
     if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem"){ 
       valid = this.isValid1Group()
-      console.log("1 Group", valid)
       if (this.numberOfGroup1Agents.value % 2 != 0){
         valid = false
       }
@@ -638,7 +641,6 @@ export class EditPreferencesDialogComponent implements OnInit {
     // values that should be in each list 
     // letters 
 
-
     let numbers= []
     this.missingPreferences = []
     this.missingPreferencesGroup1 = [];
@@ -830,18 +832,18 @@ export class EditPreferencesDialogComponent implements OnInit {
 
     // FIX GROUP 1
     // Add Missing
-    for (let ranking of preferenceTextGroup1Copy.values()) {
-      for (let char of letters) {
-        if (!ranking.includes(char)){
+    for (let [key, ranking] of preferenceTextGroup1Copy.entries()) {
+      for (let char of numbers) {
+        if (!ranking.includes(char) && Number(char) != key + 1){
           // letter in ranking that is not supposed to be 
           ranking.push(char)
         }
       }
     }
     // remove Extra
-    for (let ranking of preferenceTextGroup1Copy.values()) {
+    for (let [key, ranking] of preferenceTextGroup1Copy.entries()) {
       for (let char of ranking) {
-        if (!letters.includes(char)) {
+        if (!numbers.includes(char) || Number(char) == key + 1) {
           // remove from ranking
           let index = ranking.indexOf(char)
           ranking.splice(index, 1)
