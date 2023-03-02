@@ -159,7 +159,7 @@
   </div>
 
   <div class="parent" >
-    <h2 *ngIf="this.missingPreferences.length != 0">Missing Preferences</h2>
+    <h2 *ngIf="this.missingPreferencesGroup1.length != 0 || this.missingPreferencesGroup2.length != 0">Missing Preferences</h2>
 
 
   <div class="container">
@@ -181,8 +181,11 @@
           <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
         </span>
       </div>
+      
 
     </div>
+
+    <br>
   </div>
 
 
@@ -191,14 +194,21 @@
     <span class="labels">({{ item }})</span><span *ngIf="!lastItem">, </span>
   </span> -->
 
-  <div class="row">
-    <div class="col-12 text-right">
-      <!-- [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)" -->
-        <button  mat-stroked-button (click)="callGenerateAlgorithmPreferences()" [disabled]="this.currentInputCheck()" >Generate!</button>
-    </div>
-  </div>
+  <div class="container">
+    <div class="row justify-content-end">
+      <form> 
+        <div class="right-align">
+          <!-- [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)" -->
+          <button class="buttons" mat-stroked-button (click)="fixInputs()" >Fix!</button>
+        </div>
+      </form>
 
-  
+        <div class="col-3 ">
+          <!-- [disabled]="this.missingPreferences.length != 0 || (this.numberOfGroup1Agents.errors && this.numberOfGroup2Agents.errors)" -->
+            <button class="buttons" mat-stroked-button (click)="callGenerateAlgorithmPreferences()" [disabled]="this.currentInputCheck()" >Generate!</button>
+        </div>
+      </div>
+  </div>
 
 
 </div>

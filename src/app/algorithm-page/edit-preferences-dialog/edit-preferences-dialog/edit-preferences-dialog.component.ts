@@ -53,6 +53,8 @@ export class EditPreferencesDialogComponent implements OnInit {
   preferenceTextGroup1 = []
   preferenceTextGroup2 = []
 
+  fix: boolean = false
+
   valid: boolean = true;
 
   @HostListener('document:keydown.enter') 
@@ -72,6 +74,8 @@ export class EditPreferencesDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log("Fix", this.fix)
+
     console.log("before" ,this.group1Preferences)
     console.log("before" ,this.group2Preferences)
 
@@ -88,11 +92,22 @@ export class EditPreferencesDialogComponent implements OnInit {
       this.equalGroups = true;
     }
 
-    // call function to fill textboxes with current preferences 
-    if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
-      this.generatePreferenceString1Group()
+    if (this.fix){
+      // use existing letters and only add new ones 
+      if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+        this.fixPreferenceString1Group()
+      } else {
+        this.fixPreferenceString()
+      }
+
     } else {
-      this.generatePreferenceString()
+      
+       // call function to fill textboxes with current preferences 
+      if (this.algorithmService.currentAlgorithm.name == "Stable Roommates Problem") {
+        this.generatePreferenceString1Group()
+      } else {
+        this.generatePreferenceString()
+      }
     }
 
   }
@@ -471,7 +486,6 @@ export class EditPreferencesDialogComponent implements OnInit {
     // values that should be in each list 
     // letters 
 
-
     let numbers= []
     let letters = []
     this.missingPreferences = []
@@ -669,7 +683,193 @@ export class EditPreferencesDialogComponent implements OnInit {
     return true;
   }
 
+  fixInputs(){
 
+    this.fix = true;
+    this.ngOnInit()
+    this.fix = false
+    
+  }
+
+  fixPreferenceString() {
+
+    console.log("fixPreferenceString", this.preferenceTextGroup1)
+
+    let letters: Array<string> = [];
+    let numbers: Array<string> = [];
+
+    let preferenceTextGroup1Copy = Object.assign([], this.preferenceTextGroup1)
+    let preferenceTextGroup2Copy = Object.assign([], this.preferenceTextGroup2)
+
+    this.preferenceTextGroup1 = []
+    this.preferenceTextGroup2 = []
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
+
+
+    for (let i = 1; i <= this.numberOfGroup2Agents.value; i++) {
+      letters.push(String.fromCharCode(i + 64));
+    }
+
+    for (let i = 1; i <= this.numberOfGroup1Agents.value; i++) {
+      numbers.push(String(i));
+    }
+
+    // FIX GROUP 1
+    // Add Missing
+    for (let ranking of preferenceTextGroup1Copy.values()) {
+      for (let char of letters) {
+        if (!ranking.includes(char)){
+          // letter in ranking that is not supposed to be 
+          ranking.push(char)
+        }
+      }
+    }
+    // remove Extra
+    for (let ranking of preferenceTextGroup1Copy.values()) {
+      for (let char of ranking) {
+        if (!letters.includes(char)) {
+          // remove from ranking
+          let index = ranking.indexOf(char)
+          ranking.splice(index, 1)
+        }
+      }
+    }
+
+     // FIX GROUP 2
+    // Add Missing
+    for (let ranking of preferenceTextGroup2Copy.values()) {
+      for (let char of numbers) {
+        if (!ranking.includes(char)){
+          // letter in ranking that is not supposed to be 
+          ranking.push(char)
+        }
+      }
+    }
+    // remove Extra
+    for (let ranking of preferenceTextGroup2Copy.values()) {
+      for (let char of ranking) {
+        if (!numbers.includes(char)) {
+          // remove from ranking
+          let index = ranking.indexOf(char)
+          ranking.splice(index, 1)
+        }
+      }
+    }
+
+
+    if (this.equalGroups) {
+      this.numberOfGroup2Agents.setValue(this.numberOfGroup1Agents.value);
+    }
+
+   
+    // GROUP 1 //
+    let counter = 0;
+    // for each ranking 
+    for (let agent of preferenceTextGroup1Copy) {
+      // stop adding rankings if the number added is equal to the number needed 
+      if (counter >= this.numberOfGroup1Agents.value) {
+        break;
+      }
+      // build new ranking
+      let newRanking = []
+      for (let char of agent) {
+        newRanking.push(char)
+      }
+      // add new rankings 
+      this.preferenceTextGroup1.push(newRanking)
+      counter++
+      }
+
+
+      // GROUP 2 //
+    counter = 0;
+    // for each ranking 
+    for (let agent of preferenceTextGroup2Copy) {
+      // stop adding rankings if the number added is equal to the number needed 
+      if (counter >= this.numberOfGroup2Agents.value) {
+        break;
+      }
+      // build new ranking
+      let newRanking = []
+      for (let char of agent) {
+        newRanking.push(char)
+      }
+      // add new rankings 
+      this.preferenceTextGroup2.push(newRanking)
+      counter++
+    }
+
+  }
+
+  fixPreferenceString1Group() {
+
+    console.log("fixPreferenceString", this.preferenceTextGroup1)
+
+    let letters: Array<string> = [];
+    let numbers: Array<string> = [];
+
+    let preferenceTextGroup1Copy = Object.assign([], this.preferenceTextGroup1)
+    let preferenceTextGroup2Copy = Object.assign([], this.preferenceTextGroup2)
+
+    this.preferenceTextGroup1 = []
+    this.preferenceTextGroup2 = []
+
+    this.missingPreferencesGroup1 = [];
+    this.missingPreferencesGroup2 = [];
+
+
+    for (let i = 1; i <= this.numberOfGroup2Agents.value; i++) {
+      letters.push(String.fromCharCode(i + 64));
+    }
+
+    for (let i = 1; i <= this.numberOfGroup1Agents.value; i++) {
+      numbers.push(String(i));
+    }
+
+    // FIX GROUP 1
+    // Add Missing
+    for (let ranking of preferenceTextGroup1Copy.values()) {
+      for (let char of letters) {
+        if (!ranking.includes(char)){
+          // letter in ranking that is not supposed to be 
+          ranking.push(char)
+        }
+      }
+    }
+    // remove Extra
+    for (let ranking of preferenceTextGroup1Copy.values()) {
+      for (let char of ranking) {
+        if (!letters.includes(char)) {
+          // remove from ranking
+          let index = ranking.indexOf(char)
+          ranking.splice(index, 1)
+        }
+      }
+    }
+
+   
+    // GROUP 1 //
+    let counter = 0;
+    // for each ranking 
+    for (let agent of preferenceTextGroup1Copy) {
+      // stop adding rankings if the number added is equal to the number needed 
+      if (counter >= this.numberOfGroup1Agents.value) {
+        break;
+      }
+      // build new ranking
+      let newRanking = []
+      for (let char of agent) {
+        newRanking.push(char)
+      }
+      // add new rankings 
+      this.preferenceTextGroup1.push(newRanking)
+      counter++
+      }
+
+
+  }
  
 
 
